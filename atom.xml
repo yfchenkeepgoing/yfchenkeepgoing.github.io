@@ -47,28 +47,6 @@
   </entry>
   
   <entry>
-    <title>Typora_usage</title>
-    <link href="http://example.com/2024/01/20/Typora/"/>
-    <id>http://example.com/2024/01/20/Typora/</id>
-    <published>2024-01-20T02:07:51.000Z</published>
-    <updated>2024-01-20T02:11:32.658Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="（1）标题"><a href="#（1）标题" class="headerlink" title="（1）标题"></a>（1）标题</h2><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h2 id="（2）快捷键"><a href="#（2）快捷键" class="headerlink" title="（2）快捷键"></a>（2）快捷键</h2><p>普通模式和源代码模式：ctrl+/<br>md语法正确显示需要在有文字的一行后面再空一行，把鼠标放在有文字的最后一行的后两行的位置</p><p>标题：按下ctrl和+，则当前行变成第六级的标题，每按一次ctrl和+则当前标题的等级提升一级。按下ctrl和-则是按下ctrl和+的逆向操作。</p><h2 id="（3）字体"><a href="#（3）字体" class="headerlink" title="（3）字体"></a>（3）字体</h2><p><strong>加粗</strong><br><em>倾斜</em><br><strong><em>斜体加粗</em></strong><br><del>删除线</del> （~<em>2删除线~</em>2）<br>==高亮==<br>我是^上标^<br>我是~下标~       （注意用英文的~）</p><h2 id="（4）列表"><a href="#（4）列表" class="headerlink" title="（4）列表"></a>（4）列表</h2><p>无序列表：<br>下一级是加号前面空两格<br>第一级是实心的圆，第二级是空心的圆，第三级开始都是实心的小方框</p><ul><li>一二三四五<ul><li>上山打老虎<ul><li>老虎没打到<ul><li>打到小松鼠</li></ul></li></ul></li></ul></li></ul><p>有序列表：</p><ol><li>一二三四五</li><li>上山打老虎</li><li>老虎没达到</li><li>打到小松鼠</li></ol><h2 id="（5）表格"><a href="#（5）表格" class="headerlink" title="（5）表格"></a>（5）表格</h2><div class="table-container"><table><thead><tr><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th></tr></thead><tbody><tr><td>上山</td><td>上山</td><td>上山</td><td>上山</td><td>上山</td></tr><tr><td>打老虎</td><td>打老虎</td><td>打老虎</td><td>打老虎</td><td>打老虎</td></tr></tbody></table></div><p>在普通模式下，输入：|MON|TUE|WED|THU|FRI|，再输入回车，即可出现表格，可以增加表格的行和列，以及左右居中等等</p><h2 id="（6）引用"><a href="#（6）引用" class="headerlink" title="（6）引用"></a>（6）引用</h2><p>下一级别：加一个&gt;</p><blockquote><p>一二三四五</p><blockquote><p>上山打老虎</p><blockquote><p>老虎没达到</p><blockquote><p>打到小松鼠</p></blockquote></blockquote></blockquote></blockquote><h2 id="（7）分割线"><a href="#（7）分割线" class="headerlink" title="（7）分割线"></a>（7）分割线</h2><p>疯狂打——-即可</p><hr><h2 id="（7）代码"><a href="#（7）代码" class="headerlink" title="==（7）代码=="></a>==（7）代码==</h2><p><code>我是代码</code></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="（8）字数和侧边栏"><a href="#（8）字数和侧边栏" class="headerlink" title="（8）字数和侧边栏"></a>（8）字数和侧边栏</h2><p>字数在右下角<br>侧边栏在左侧，可以通过在普通模式中点击左下角的小圆圈呼出<br>大纲也在侧边栏中</p><h2 id="（9）插入图片"><a href="#（9）插入图片" class="headerlink" title="（9）插入图片"></a>（9）插入图片</h2><p>将图片放入到图片文件夹中，然后复制图片将其直接粘贴进来即可</p><p><img src="D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-15-35.png" alt="Snipaste_2023-12-27_04-15-35"></p><p><img src="D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-12-14.png" alt="Snipaste_2023-12-27_04-12-14"></p><h2 id="（10）改变字体颜色"><a href="#（10）改变字体颜色" class="headerlink" title="（10）改变字体颜色"></a>（10）改变字体颜色</h2><p>将字体改变为红色：<code>&lt;font color=red&gt;</code>文字<code>&lt;/font&gt;</code></p><p>==平常用高亮即可，不要用红色==</p><h2 id="11-diff代码块"><a href="#11-diff代码块" class="headerlink" title="(11) diff代码块"></a>(11) diff代码块</h2><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- 这行被删除了</span></span><br><span class="line"><span class="addition">+ 这行被添加了</span></span><br><span class="line">  这行没有改变</span><br></pre></td></tr></table></figure><h2 id="12-enter和shift-enter的区别"><a href="#12-enter和shift-enter的区别" class="headerlink" title="(12) enter和shift enter的区别"></a>(12) enter和shift enter的区别</h2><p>enter: 新起一段（空一行）<br>shift enter: 新起一行</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;（1）标题&quot;&gt;&lt;a href=&quot;#（1）标题&quot; class=&quot;headerlink&quot; title=&quot;（1）标题&quot;&gt;&lt;/a&gt;（1）标题&lt;/h2&gt;&lt;h1 id=&quot;一级标题&quot;&gt;&lt;a href=&quot;#一级标题&quot; class=&quot;headerlink&quot; title=&quot;一级标题&quot;</summary>
-      
-    
-    
-    
-    
-    <category term="Typora" scheme="http://example.com/tags/Typora/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Hello World</title>
     <link href="http://example.com/2024/01/20/hello-world/"/>
     <id>http://example.com/2024/01/20/hello-world/</id>
