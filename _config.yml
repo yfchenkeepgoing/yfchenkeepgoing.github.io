@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+title: YifanChen's Blog
+subtitle: 一个专注技术的新手程序员
+description: 主要记录算法和web开发方面的心得体会
+keywords: "C++, Python, Java, Django, Springboot, 算法, web开发"
+author: Yifan Chen
+language: zh-CN
 timezone: ''
 
 # URL
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -104,3 +104,9 @@ deploy:
   type: git
   repo: git@github.com:yfchenkeepgoing/yfchenkeepgoing.github.io.git
   branch: master 
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
