@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-01-21 21:23:39 / 修改时间：21:28:43" itemprop="dateCreated datePublished" datetime="2024-01-21T21:23:39+00:00">2024-01-21</time>
+              <time title="创建时间：2024-01-21 21:23:39 / 修改时间：21:35:36" itemprop="dateCreated datePublished" datetime="2024-01-21T21:23:39+00:00">2024-01-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,6 +273,7 @@
 <li>urls目录：管理路由，即链接与函数的对应关系，即每个链接交给哪个函数处理的信息，存储在urls文件夹中。</li>
 <li>views目录：视图，管理http函数（函数实现在views目录中）</li>
 <li>models目录：管理数据库数据。</li>
+<li>consumers目录：管理websocket函数（views管理http函数，即负责单向连接的函数；consumers管理双向连接的函数，比如联机对战和聊天的逻辑）</li>
 <li>static目录：管理静态文件，比如：</li>
 </ol>
 <ul>
@@ -281,9 +282,6 @@
 <li>image：图片</li>
 <li>audio：声音</li>
 </ul>
-<ol>
-<li>consumers目录：管理websocket函数（views管理http函数，即负责单向连接的函数；consumers管理双向连接的函数，比如联机对战和聊天的逻辑）</li>
-</ol>
 <p>urls文件夹、views文件夹、models文件夹和consumers文件夹都由python文件组成，如果想通过import将文件导入，则需要在文件夹下创建 <code>__init__.py</code>文件（即索引文件，内容为空即可）。在所有python文件夹中都需要创建这样的函数，否则在import时就无法进去，会报错。</p>
 <h2 id="项目核心逻辑"><a href="#项目核心逻辑" class="headerlink" title="项目核心逻辑"></a>项目核心逻辑</h2><p>本项目由于是一个小游戏，因此前端的js代码占比较大。游戏单人模式的实现纯粹由前端完成，我用js代码实现了一个简易的游戏引擎。游戏的单人模式不需要前后端交互。</p>
 <p>需要前后端交互的部分有：</p>
@@ -308,11 +306,8 @@
 <li>学习并尝试使用Springboot框架和Go语言的后端框架。</li>
 <li>使用k8s来自动化部署、扩展和管理容器化应用程序。</li>
 </ol>
-<h2 id="漫谈"><a href="#漫谈" class="headerlink" title="漫谈"></a>漫谈</h2><ol>
-<li>后端的主要分类：算法与推荐系统、开发各种服务、数据库</li>
-<li>对于实现客户端与服务器之间的通信功能的技术的选择：</li>
-</ol>
-<p>除了AJAX，现代Web开发中还有几种其他技术可以实现类似的客户端与服务器之间的通信功能。一些技术在特定场景下比AJAX更高效。以下是一些常用的技术：</p>
+<h2 id="漫谈"><a href="#漫谈" class="headerlink" title="漫谈"></a>漫谈</h2><h3 id="后端的主要分类"><a href="#后端的主要分类" class="headerlink" title="后端的主要分类"></a>后端的主要分类</h3><p>算法与推荐系统、开发各种服务、数据库</p>
+<h3 id="对于实现客户端与服务器之间的通信功能的技术的选择"><a href="#对于实现客户端与服务器之间的通信功能的技术的选择" class="headerlink" title="对于实现客户端与服务器之间的通信功能的技术的选择"></a>对于实现客户端与服务器之间的通信功能的技术的选择</h3><p>除了AJAX，现代Web开发中还有几种其他技术可以实现类似的客户端与服务器之间的通信功能。一些技术在特定场景下比AJAX更高效。以下是一些常用的技术：</p>
 <ol>
 <li><strong>Fetch API</strong>： Fetch API提供了一种更简洁和强大的方式来发起网络请求。它基于Promise，使得写异步代码更加简洁和直观。Fetch API是AJAX的现代替代方案，被广泛支持和使用。</li>
 <li><strong>WebSocket</strong>： WebSocket提供了全双工通信渠道，使得客户端和服务器可以实时、双向地通信。它非常适用于需要频繁和即时数据更新的应用，如在线游戏、聊天应用和实时数据流。</li>
@@ -328,10 +323,7 @@
 <li>对于需要更灵活数据交互的场景，GraphQL提供了更好的解决方案。</li>
 </ul>
 <p>在性能方面，WebSocket和WebRTC通常在需要频繁和快速通信的场景下比AJAX更高效，因为它们建立了持久的连接，而不是像AJAX那样为每个请求创建新的连接。</p>
-<ol>
-<li>如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</li>
-</ol>
-<ul>
+<h3 id="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"><a href="#如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）" class="headerlink" title="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"></a>如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</h3><ul>
 <li>租一台数据库服务器</li>
 <li>在框架中负责数据库的部分配置数据库服务器的连接/登录</li>
 <li>下载该框架下使用该种数据库的包</li>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="Django项目总结项目介绍Game based on Django framework, developed by yifanChen Websitehttps:&#x2F;&#x2F;app5894.acapp.acwing.com.cn&#x2F; Repositoryhttps:&#x2F;&#x2F;github.com&#x2F;yfchenkeepgoing&#x2F;Django_app Gameplay Right-click to move Le">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-21T21:23:39.000Z">
-<meta property="article:modified_time" content="2024-01-21T21:28:43.410Z">
+<meta property="article:modified_time" content="2024-01-21T21:35:36.999Z">
 <meta property="article:author" content="Yifan Chen">
 <meta property="article:tag" content="Backend">
 <meta property="article:tag" content="Django">
@@ -225,7 +225,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-01-21 21:23:39 / 修改时间：21:28:43" itemprop="dateCreated datePublished" datetime="2024-01-21T21:23:39+00:00">2024-01-21</time>
+              <time title="创建时间：2024-01-21 21:23:39 / 修改时间：21:35:36" itemprop="dateCreated datePublished" datetime="2024-01-21T21:23:39+00:00">2024-01-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,6 +282,7 @@
 <li>urls目录：管理路由，即链接与函数的对应关系，即每个链接交给哪个函数处理的信息，存储在urls文件夹中。</li>
 <li>views目录：视图，管理http函数（函数实现在views目录中）</li>
 <li>models目录：管理数据库数据。</li>
+<li>consumers目录：管理websocket函数（views管理http函数，即负责单向连接的函数；consumers管理双向连接的函数，比如联机对战和聊天的逻辑）</li>
 <li>static目录：管理静态文件，比如：</li>
 </ol>
 <ul>
@@ -290,9 +291,6 @@
 <li>image：图片</li>
 <li>audio：声音</li>
 </ul>
-<ol>
-<li>consumers目录：管理websocket函数（views管理http函数，即负责单向连接的函数；consumers管理双向连接的函数，比如联机对战和聊天的逻辑）</li>
-</ol>
 <p>urls文件夹、views文件夹、models文件夹和consumers文件夹都由python文件组成，如果想通过import将文件导入，则需要在文件夹下创建 <code>__init__.py</code>文件（即索引文件，内容为空即可）。在所有python文件夹中都需要创建这样的函数，否则在import时就无法进去，会报错。</p>
 <h2 id="项目核心逻辑"><a href="#项目核心逻辑" class="headerlink" title="项目核心逻辑"></a>项目核心逻辑</h2><p>本项目由于是一个小游戏，因此前端的js代码占比较大。游戏单人模式的实现纯粹由前端完成，我用js代码实现了一个简易的游戏引擎。游戏的单人模式不需要前后端交互。</p>
 <p>需要前后端交互的部分有：</p>
@@ -317,11 +315,8 @@
 <li>学习并尝试使用Springboot框架和Go语言的后端框架。</li>
 <li>使用k8s来自动化部署、扩展和管理容器化应用程序。</li>
 </ol>
-<h2 id="漫谈"><a href="#漫谈" class="headerlink" title="漫谈"></a>漫谈</h2><ol>
-<li>后端的主要分类：算法与推荐系统、开发各种服务、数据库</li>
-<li>对于实现客户端与服务器之间的通信功能的技术的选择：</li>
-</ol>
-<p>除了AJAX，现代Web开发中还有几种其他技术可以实现类似的客户端与服务器之间的通信功能。一些技术在特定场景下比AJAX更高效。以下是一些常用的技术：</p>
+<h2 id="漫谈"><a href="#漫谈" class="headerlink" title="漫谈"></a>漫谈</h2><h3 id="后端的主要分类"><a href="#后端的主要分类" class="headerlink" title="后端的主要分类"></a>后端的主要分类</h3><p>算法与推荐系统、开发各种服务、数据库</p>
+<h3 id="对于实现客户端与服务器之间的通信功能的技术的选择"><a href="#对于实现客户端与服务器之间的通信功能的技术的选择" class="headerlink" title="对于实现客户端与服务器之间的通信功能的技术的选择"></a>对于实现客户端与服务器之间的通信功能的技术的选择</h3><p>除了AJAX，现代Web开发中还有几种其他技术可以实现类似的客户端与服务器之间的通信功能。一些技术在特定场景下比AJAX更高效。以下是一些常用的技术：</p>
 <ol>
 <li><strong>Fetch API</strong>： Fetch API提供了一种更简洁和强大的方式来发起网络请求。它基于Promise，使得写异步代码更加简洁和直观。Fetch API是AJAX的现代替代方案，被广泛支持和使用。</li>
 <li><strong>WebSocket</strong>： WebSocket提供了全双工通信渠道，使得客户端和服务器可以实时、双向地通信。它非常适用于需要频繁和即时数据更新的应用，如在线游戏、聊天应用和实时数据流。</li>
@@ -337,10 +332,7 @@
 <li>对于需要更灵活数据交互的场景，GraphQL提供了更好的解决方案。</li>
 </ul>
 <p>在性能方面，WebSocket和WebRTC通常在需要频繁和快速通信的场景下比AJAX更高效，因为它们建立了持久的连接，而不是像AJAX那样为每个请求创建新的连接。</p>
-<ol>
-<li>如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</li>
-</ol>
-<ul>
+<h3 id="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"><a href="#如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）" class="headerlink" title="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"></a>如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</h3><ul>
 <li>租一台数据库服务器</li>
 <li>在框架中负责数据库的部分配置数据库服务器的连接/登录</li>
 <li>下载该框架下使用该种数据库的包</li>
@@ -434,7 +426,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Django%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">Django项目总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Website"><span class="nav-number">1.1.1.</span> <span class="nav-text">Website</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository"><span class="nav-number">1.1.2.</span> <span class="nav-text">Repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gameplay"><span class="nav-number">1.1.3.</span> <span class="nav-text">Gameplay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Technology-Stack"><span class="nav-number">1.1.4.</span> <span class="nav-text">Technology Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features"><span class="nav-number">1.1.5.</span> <span class="nav-text">Features</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%A1%86%E6%9E%B6"><span class="nav-number">1.2.</span> <span class="nav-text">Django项目的框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91"><span class="nav-number">1.3.</span> <span class="nav-text">项目核心逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.4.</span> <span class="nav-text">改进项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%AB%E8%B0%88"><span class="nav-number">1.5.</span> <span class="nav-text">漫谈</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Django%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">Django项目总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Website"><span class="nav-number">1.1.1.</span> <span class="nav-text">Website</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository"><span class="nav-number">1.1.2.</span> <span class="nav-text">Repository</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gameplay"><span class="nav-number">1.1.3.</span> <span class="nav-text">Gameplay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Technology-Stack"><span class="nav-number">1.1.4.</span> <span class="nav-text">Technology Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features"><span class="nav-number">1.1.5.</span> <span class="nav-text">Features</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Django%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%A1%86%E6%9E%B6"><span class="nav-number">1.2.</span> <span class="nav-text">Django项目的框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91"><span class="nav-number">1.3.</span> <span class="nav-text">项目核心逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.4.</span> <span class="nav-text">改进项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%AB%E8%B0%88"><span class="nav-number">1.5.</span> <span class="nav-text">漫谈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E7%AB%AF%E7%9A%84%E4%B8%BB%E8%A6%81%E5%88%86%E7%B1%BB"><span class="nav-number">1.5.1.</span> <span class="nav-text">后端的主要分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E5%8A%9F%E8%83%BD%E7%9A%84%E6%8A%80%E6%9C%AF%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">1.5.2.</span> <span class="nav-text">对于实现客户端与服务器之间的通信功能的技术的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MySQL%EF%BC%8CMongoDB%EF%BC%8C%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E7%AD%89%E5%A4%96%E7%BD%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E5%AE%83%E4%BB%AC%E4%B8%8D%E5%83%8Fsqlite%EF%BC%8C%E4%B8%8D%E9%9B%86%E6%88%90%E4%BA%8E%E5%90%8E%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%86%85%EF%BC%89"><span class="nav-number">1.5.3.</span> <span class="nav-text">如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
