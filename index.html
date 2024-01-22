@@ -214,10 +214,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-01-21 21:23:39 / 修改时间：21:35:36" itemprop="dateCreated datePublished" datetime="2024-01-21T21:23:39+00:00">2024-01-21</time>
+              <time title="创建时间：2024-01-21 21:23:39" itemprop="dateCreated datePublished" datetime="2024-01-21T21:23:39+00:00">2024-01-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-22 02:28:59" itemprop="dateModified" datetime="2024-01-22T02:28:59+00:00">2024-01-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -329,6 +335,14 @@
 <li>下载该框架下使用该种数据库的包</li>
 <li>在框架中负责数据库的部分调用包中的api完成对数据库的各种操作，比如读、写、删除等。</li>
 </ul>
+<h3 id="JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点"><a href="#JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点" class="headerlink" title="JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点"></a>JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点</h3><p>Cookie：<br>优点：自动由浏览器管理，并且可以设置为HttpOnly（无法通过JavaScript访问，增加安全性），支持跨域访问控制（SameSite属性）。<br>缺点：容易受到CSRF（跨站请求伪造）攻击，尽管可以通过适当的防范措施（如使用CSRF Token）来缓解。</p>
+<p>LocalStorage：<br>优点：易于使用，可以在浏览器会话间持久存储。<br>缺点：容易受到XSS（跨站脚本攻击）攻击，因为恶意脚本可以访问LocalStorage并窃取令牌。</p>
+<p>内存（JavaScript变量）：<br>优点：在浏览器关闭时自动清除，不容易受到XSS攻击（只要不将令牌暴露给恶意脚本）。<br>缺点：不持久，用户刷新页面或关闭浏览器时会丢失，可能需要重新认证。</p>
+<p>最佳实践：<br>安全性考虑：通常推荐将JWT存储在HttpOnly的Cookie中，因为这样可以防止JavaScript访问令牌，从而减少XSS攻击的风险。</p>
+<p>CSRF防范：如果使用Cookie，应结合CSRF保护机制。</p>
+<p>易用性：如果需要在会话间持久保存用户的登录状态，LocalStorage可能更为方便。但是，务必注意XSS攻击的风险，并采取适当的安全措施。</p>
+<p>短期使用：对于需要高安全性且可接受在会话结束后用户需要重新登录的场景，可以考虑仅将JWT存储在内存中。</p>
+<p>在实践中，选择哪种方式取决于应用的安全需求、用户体验需求以及开发者对相关安全风险的管理能力。在处理任何形式的认证信息时，安全总是首要考虑的因素。<strong>在本项目中，出于安全性和短期使用的考量，我将JWT存储在了内存，即js变量中</strong>。</p>
 
       
     </div>
