@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-22 02:28:59" itemprop="dateModified" datetime="2024-01-22T02:28:59+00:00">2024-01-22</time>
+                <time title="修改时间：2024-01-22 02:30:55" itemprop="dateModified" datetime="2024-01-22T02:30:55+00:00">2024-01-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -342,7 +342,7 @@
 <p>CSRF防范：如果使用Cookie，应结合CSRF保护机制。</p>
 <p>易用性：如果需要在会话间持久保存用户的登录状态，LocalStorage可能更为方便。但是，务必注意XSS攻击的风险，并采取适当的安全措施。</p>
 <p>短期使用：对于需要高安全性且可接受在会话结束后用户需要重新登录的场景，可以考虑仅将JWT存储在内存中。</p>
-<p>在实践中，选择哪种方式取决于应用的安全需求、用户体验需求以及开发者对相关安全风险的管理能力。在处理任何形式的认证信息时，安全总是首要考虑的因素。<strong>在本项目中，出于安全性和短期使用的考量，我将JWT存储在了内存，即js变量中</strong>。</p>
+<p>在实践中，选择哪种方式取决于应用的安全需求、用户体验需求以及开发者对相关安全风险的管理能力。在处理任何形式的认证信息时，安全总是首要考虑的因素。<strong>在本项目中，出于安全性和短期使用的考量，我将JWT存储在了内存，即js变量中</strong>。如果没有明确地将JWT存储在Local Storage或Cookie中，那么它们就是存储在内存中。这意味着令牌只在当前页面会话中有效，一旦页面被关闭或刷新，令牌就会丢失。</p>
 
       
     </div>
