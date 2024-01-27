@@ -214,8 +214,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-01-27 07:55:54" itemprop="dateCreated datePublished" datetime="2024-01-27T07:55:54+00:00">2024-01-27</time>
+              <time title="创建时间：2024-01-27 07:55:54 / 修改时间：17:59:43" itemprop="dateCreated datePublished" datetime="2024-01-27T07:55:54+00:00">2024-01-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%EF%BC%88%E9%93%BE%E8%A1%A8%EF%BC%89/" itemprop="url" rel="index"><span itemprop="name">算法（链表）</span></a>
+                </span>
             </span>
 
           
@@ -229,7 +239,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0024.%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9.html">24. 两两交换链表中的节点</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0019.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9.html">19.删除链表的倒数第N个节点</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/%E9%9D%A2%E8%AF%95%E9%A2%9802.07.%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4.html">面试题 02.07. 链表相交</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html">142.环形链表II</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><h3 id="19-删除链表的倒数第N个节点"><a href="#19-删除链表的倒数第N个节点" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h3><h3 id="面试题-02-07-链表相交"><a href="#面试题-02-07-链表相交" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><h3 id="142-环形链表II"><a href="#142-环形链表II" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="24-两两交换链表中的节点-1"><a href="#24-两两交换链表中的节点-1" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><p>应该和交换数组中的两个元素相同。需要创建一个额外的节点tmp，然后若要交换a节点和b节点，则进行：<code>tmp = b, a = b, b = tmp</code>即可。</p>
+<h3 id="19-删除链表的倒数第N个节点-1"><a href="#19-删除链表的倒数第N个节点-1" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h3><h3 id="面试题-02-07-链表相交-1"><a href="#面试题-02-07-链表相交-1" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><h3 id="142-环形链表II-1"><a href="#142-环形链表II-1" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="24-两两交换链表中的节点-2"><a href="#24-两两交换链表中的节点-2" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><p>注意：是交换链表中的节点，而不仅仅交换节点的数值。偶数个节点则正好两两交换，奇数个节点则最后一个点不参与交换。一定需要dummyHead，因为要交换节点1、2，就一定要用到它们之前的那个节点，即dummyHead（dummyHead-&gt;2-&gt;1-&gt;3-&gt;…）。同理，要交换节点3、4，就一定要用到它们之前的那个节点，即节点2。<strong>因此当前指针一定要指向要反转的两个节点中的前一个节点，且当前指针每次移动两位</strong>。</p>
+<p>若链表中的节点个数为奇数，则cur-&gt;next-&gt;next == NULL时循环结束，若链表中的节点个数为偶数，则cur -&gt; next == NULL时循环结束。如下图所示。故遍历结束的条件为<code>while (cur-&gt;next != NULL &amp;&amp; cur-&gt;next-&gt;next != NULL)</code>。两个条件不可以反过来写，否则当出现空链表时，cur-&gt;next-&gt;next没有被定义，会出现空指针异常。<br><img src="https://github.com/yfchenkeepgoing/image/blob/main/%E7%BB%98%E5%9B%BE1.png?raw=true" alt="绘图1.png"></p>
+<p>接下来是两两交换节点的逻辑。改变后的链表为dummyHead-&gt;2-&gt;1-&gt;3，由于dummyHead-&gt;1改变为dummyHead-&gt;2后，原本的节点1已经不能被访问到了，因此需要先用tmp存下节点1。同理，由于要将2-&gt;3改为2-&gt;1，因此需要先用tmp1存下节点3。交换完节点的链表为：dummyHead-&gt;2-&gt;1-&gt;4-&gt;3…..。对于两两交换节点的逻辑，可以参考代码随想录教程中的三幅图片。</p>
+<p><img src="https://code-thinking.cdn.bcebos.com/pics/24.%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B93.png" alt="24.两两交换链表中的节点3"></p>
+<p>交换3和4节点的步骤时：cur目前为1，我们让1指向4，4再指向3，3再指向5（如果有5的话）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">swapPairs</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 交换两个节点需要用到这两个节点前的那个节点</span></span><br><span class="line">        <span class="comment">// 因此定义虚拟头节点，用于交换节点1和节点2</span></span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line"></span><br><span class="line">        ListNode* cur = dummyHead;</span><br><span class="line">        <span class="comment">// 搞清楚遍历的终止条件，参见笔记的图示</span></span><br><span class="line">        <span class="comment">// 以下两个终止条件分别针对节点数目为偶数和奇数的情况</span></span><br><span class="line">        <span class="keyword">while</span> (cur-&gt;next != <span class="literal">NULL</span> &amp;&amp; cur-&gt;next-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// dummyHead-&gt;2时，dummyHead-&gt;1不再存在，无法访问到1，因此需要事先存储节点1</span></span><br><span class="line">            ListNode* tmp = cur-&gt;next;</span><br><span class="line">            <span class="comment">// 同理，2-&gt;1时，2-&gt;3不再存在，无法访问到3，因此需要事先存储节点3</span></span><br><span class="line">            ListNode* tmp1 = cur-&gt;next-&gt;next-&gt;next;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// dummyHead-&gt;2-&gt;1-&gt;3</span></span><br><span class="line">            cur-&gt;next = cur-&gt;next-&gt;next; <span class="comment">// dummyHead-&gt;1变为dummyHead-&gt;2</span></span><br><span class="line">            cur-&gt;next-&gt;next = tmp; <span class="comment">// dummyHead-&gt;2-&gt;3变成dummyHead-&gt;2-&gt;1</span></span><br><span class="line">            tmp-&gt;next = tmp1; <span class="comment">//dummyHead-&gt;2-&gt;1再在末尾接上3</span></span><br><span class="line"></span><br><span class="line">            cur = cur-&gt;next-&gt;next; <span class="comment">// cur指针后移两位</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="19-删除链表的倒数第N个节点-2"><a href="#19-删除链表的倒数第N个节点-2" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h3><h3 id="面试题-02-07-链表相交-2"><a href="#面试题-02-07-链表相交-2" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><h3 id="142-环形链表II-2"><a href="#142-环形链表II-2" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="24-两两交换链表中的节点-3"><a href="#24-两两交换链表中的节点-3" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><ol>
+<li>注意cur应该指向哪里。</li>
+<li>注意遍历的终止条件（奇数/偶数个节点）</li>
+<li>若原先的两节点之间的连接被断开，则需要在断开前保存两节点中后面那个节点，否则后面的那个节点无法被访问到</li>
+</ol>
+<h3 id="19-删除链表的倒数第N个节点-3"><a href="#19-删除链表的倒数第N个节点-3" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h3><h3 id="面试题-02-07-链表相交-3"><a href="#面试题-02-07-链表相交-3" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><h3 id="142-环形链表II-3"><a href="#142-环形链表II-3" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><h2 id="总结：链表"><a href="#总结：链表" class="headerlink" title="总结：链表"></a>总结：链表</h2>
       
     </div>
 
@@ -279,7 +302,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-27 10:39:12" itemprop="dateModified" datetime="2024-01-27T10:39:12+00:00">2024-01-27</time>
+                <time title="修改时间：2024-01-27 10:50:49" itemprop="dateModified" datetime="2024-01-27T10:50:49+00:00">2024-01-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1457,7 +1480,7 @@ shift enter: 新起一行
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
