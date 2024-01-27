@@ -119,9 +119,9 @@
     
     <category term="C++" scheme="http://example.com/tags/C/"/>
     
-    <category term="整数二分" scheme="http://example.com/tags/%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86/"/>
-    
     <category term="双指针" scheme="http://example.com/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+    <category term="整数二分" scheme="http://example.com/tags/%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86/"/>
     
   </entry>
   
