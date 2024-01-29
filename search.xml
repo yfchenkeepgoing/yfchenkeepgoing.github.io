@@ -1,55 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>How to Build and Maintain a Personal Blog</title>
-    <url>/2024/01/20/Blog/</url>
-    <content><![CDATA[<h1 id="如何搭建和维护个人博客"><a href="#如何搭建和维护个人博客" class="headerlink" title="如何搭建和维护个人博客"></a>如何搭建和维护个人博客</h1><h2 id="个人博客的实现方式"><a href="#个人博客的实现方式" class="headerlink" title="个人博客的实现方式"></a>个人博客的实现方式</h2><p>使用GitHub Pages和Hexo框架搭建和维护个人博客</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="注意1"><a href="#注意1" class="headerlink" title="注意1"></a>注意1</h3><p>尽量避免在一点不止一行的情况下使用：</p>
-<p>的结构，因为这会导致网页上的博客渲染异常。在这种情况下，建议每一点使用一个小标题</p>
-<h3 id="注意2"><a href="#注意2" class="headerlink" title="注意2"></a>注意2</h3><p>在线博客的刷新需要几分钟时间，请在更新博客后稍安勿躁。在线博客各部分的更新速度不同，比如博客内容先更新了，但日志还没有更新，这是正常现象，稍稍等待即可</p>
-<h3 id="注意3"><a href="#注意3" class="headerlink" title="注意3"></a>注意3</h3><p>由于托管博客的仓库有两个分支，其中的master分支总会在我部署博客时实时更新，因此source分支在发布新博客时更新即可，不需要实时更新</p>
-<h3 id="注意4"><a href="#注意4" class="headerlink" title="注意4"></a>注意4</h3><p>使用VSCode在本地编辑博客即可，博客的内容可以复制自Typora，在VSCode中点击md文件左上角的铅笔符号（Edit in VSCode）即可在VSCode中编辑博客内容，每次编辑完后记得运行部署脚本将博客更新部署到网站上</p>
-<h2 id="博客结构"><a href="#博客结构" class="headerlink" title="博客结构"></a>博客结构</h2><p>本博客计划同时按照标签页（tags）和分类页（categories）进行分类。分类是更大的范畴，主要分为算法、web开发、工具使用、个人随笔和找工记录五大类。标签页是更小的范畴，有Python, C++, Java, Django, Springboot, Typora, GitHub Pages, Hexo, VsCode, 简历等等。一般一篇文章只隶属于一个category，但可以同时拥有多个标签。</p>
-<p>本博客可以通过网址：<br><a href="https://yfchenkeepgoing.github.io/">https://yfchenkeepgoing.github.io/</a><br>访问，注意由于GitHub Pages是静态网页，因此出现延迟请稍安勿躁。另外，本博客所在的仓库地址为：<a href="https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io">https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io</a><br>其中有两个分支，分别为master和source。master托管了正在运行的博客，其中的内容在每次运行部署脚本后就会被更新。source托管了博客文件夹的所有源文件，需要通过git命令进行更新。博客网页与master分支中的内容进行了绑定。</p>
-<h2 id="个人博客的特点和功能"><a href="#个人博客的特点和功能" class="headerlink" title="个人博客的特点和功能"></a>个人博客的特点和功能</h2><ol>
-<li>配置站点信息</li>
-<li>修改为next主题</li>
-<li>进行了next主题的配置，包括样式、favicon、avatar、rss、code、top、reading_process、bookmark、github_banner、pangu、math、pjax</li>
-<li>采用gitalk存储并显示评论，需要评论者使用GitHub登录</li>
-<li>使用了标签页和分类页</li>
-<li>拥有搜索页</li>
-</ol>
-<h2 id="如何搭建个人博客"><a href="#如何搭建个人博客" class="headerlink" title="如何搭建个人博客"></a>如何搭建个人博客</h2><p>参见知乎链接：<br><a href="https://zhuanlan.zhihu.com/p/371995929">https://zhuanlan.zhihu.com/p/371995929</a></p>
-<p>其中指导非常详细，但过程较为繁琐，本文不再赘述。本文的重点在于如何维护搭建好的个人博客。</p>
-<h2 id="如何维护个人博客"><a href="#如何维护个人博客" class="headerlink" title="如何维护个人博客"></a>如何维护个人博客</h2><h3 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h3><p>进入博客的根目录下，然后调用 Hexo 的 generate 命令，将 Hexo 编译生成 HTML 代码，命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
-<p>然后我们利用 Hexo 提供的 serve 命令把博客在本地运行起来，命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo serve</span><br></pre></td></tr></table></figure>
-<p>然后通过链接：<a href="http://localhost:4000/即可访问到渲染出的博客页面。注意：在这种情况下，博客页面只对自己可见，因此上述命令只能用于调试。">http://localhost:4000/即可访问到渲染出的博客页面。注意：在这种情况下，博客页面只对自己可见，因此上述命令只能用于调试。</a></p>
-<h3 id="维护在线博客"><a href="#维护在线博客" class="headerlink" title="维护在线博客"></a>维护在线博客</h3><h4 id="增加新的文章并将其分类到特定的tags和categories中"><a href="#增加新的文章并将其分类到特定的tags和categories中" class="headerlink" title="增加新的文章并将其分类到特定的tags和categories中"></a>增加新的文章并将其分类到特定的tags和categories中</h4><p>新建一篇名为HelloWorld的文章，在本地博客的根目录下执行命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new hello-world</span><br></pre></td></tr></table></figure>
-<p>创建的文章会出现在 source/_posts 文件夹下，是 MarkDown 格式。<br>在文章开头通过如下格式添加必要信息：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: hello-world # 自动创建，如hello<span class="emphasis">_world</span></span><br><span class="line"><span class="emphasis">date: 日期 # 自动创建，如2024-01-20 02:07:51</span></span><br><span class="line"><span class="emphasis">tags: </span></span><br><span class="line"><span class="emphasis">- 标签1</span></span><br><span class="line"><span class="emphasis">- 标签2</span></span><br><span class="line"><span class="emphasis">- 标签3</span></span><br><span class="line"><span class="emphasis">categories:</span></span><br><span class="line"><span class="emphasis">- 分类1</span></span><br><span class="line"><span class="emphasis">- 分类2</span></span><br><span class="line"><span class="emphasis">- 分类3</span></span><br><span class="line"><span class="emphasis">---</span></span><br></pre></td></tr></table></figure>
-<p>开头下方撰写正文，MarkDown 格式书写即可。这样在下次编译的时候就会自动识别标题、时间、类别等等，另外还有其他的一些参数设置，可以参考文档：<a href="https://hexo.io/zh-cn/docs/writing.html">https://hexo.io/zh-cn/docs/writing.html</a></p>
-<h4 id="标签和分类的区别"><a href="#标签和分类的区别" class="headerlink" title="标签和分类的区别"></a>标签和分类的区别</h4><p><strong>Tags（标签）</strong>：<br>标签是用来描述博客文章中的具体细节的关键词。<br>它们是扁平的，不形成层次结构。<br>标签可以非常具体，也可以非常多，用于描述文章的具体内容，如“Python”、“Web开发”、“机器学习”等。<br><strong>一个文章可以有多个标签，标签的数量通常比分类多</strong>。</p>
-<p><strong>Categories（分类）</strong>：<br>分类通常用来表示博客文章的主要主题或大的分组。<br>它们是层次性的，可以有子分类，形成一个结构化的树状层次，例如：“技术”可以有子分类如“编程”、“网页设计”等。<br>分类通常较少，更宽泛，用于将文章分配到几个广泛的、互相排斥的主题中。<br><strong>一个博客文章通常只属于一个或少数几个分类</strong>。</p>
-<p>使用示例：<br>假设您写了一篇关于Python网络编程的博客文章。您可以将这篇文章归类到“编程”分类下，并给它加上“Python”、“网络编程”、“套接字编程”等标签。</p>
-<p><strong>总结：<br>分类用于表示文章的主要主题，是更广泛的分组工具。<br>标签用于详细描述文章的内容和细节，是更具体的关键词。</strong></p>
-<h4 id="通过部署脚本部署在线博客"><a href="#通过部署脚本部署在线博客" class="headerlink" title="通过部署脚本部署在线博客"></a>通过部署脚本部署在线博客</h4><p>在根目录下新建一个 deploy.sh 的脚本文件，内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo generate</span><br><span class="line"></span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<p>在部署发布的时候只需要执行：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh deploy.sh</span><br></pre></td></tr></table></figure>
-<p>就可以完成博客的更新了，非常方便。</p>
-<p>注意，在发布博客时只能执行上述命令，不能执行 <code>./deploy.sh</code>，否则博客无法正常发布。</p>
+    <title>Day 1 | Leetcode 704, 27</title>
+    <url>/2024/01/24/Day-1-Leetcode-704-27/</url>
+    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><p><a href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html</a></p>
+<p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE</a></p>
+<p><a href="https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%81.html#%E7%A9%B6%E7%AB%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6">https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%81.html#%E7%A9%B6%E7%AB%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6</a></p>
+<p><a href="https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E7%96%91%E9%97%AE%EF%BC%9F.html">https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E7%96%91%E9%97%AE%EF%BC%9F.html</a></p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a href="https://leetcode.com/problems/binary-search/">https://leetcode.com/problems/binary-search/</a></p>
+<p><a href="https://leetcode.com/problems/remove-element/">https://leetcode.com/problems/remove-element/</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="数组理论基础"><a href="#数组理论基础" class="headerlink" title="数组理论基础"></a>数组理论基础</h3><p>数组是存放在<strong>连续内存空间</strong>上的<strong>相同类型数据</strong>的集合。</p>
+<p>注意：</p>
+<ul>
+<li><p>数组下标都是从0开始的</p>
+</li>
+<li><p>数组内存空间的地址是连续的</p>
+</li>
+<li><p>正是因为数组的在内存空间的地址是连续的，所以我们在<strong>删除或者增添元素的时候，就难免要移动其他元素的地址</strong></p>
+</li>
+<li><p>C++中，要注意vector和array的区别，vector的底层实现是array，严格来讲vector是容器，不是数组</p>
+</li>
+<li><p>数组的元素是不能删的，只能覆盖</p>
+</li>
+<li><p>C++中二维数组在地址空间上是连续的（在现代系统上，二维数组中的每个int占用4个字节）</p>
+</li>
+<li><p>Java是没有指针的，同时也不对程序员暴露其元素的地址，寻址操作完全交给虚拟机。输出的值不是真正的地址，而是经过处理的数值</p>
+</li>
+</ul>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>时间复杂度是一个函数，它定性描述该算法的运行时间。</p>
+<p>大O用来表示上界的，当用它作为算法的最坏情况运行时间的上界，就是对任意数据输入的运行时间的上界。有时业界也默认O代表的就是一般情况，而不是严格的上界。面试中说道算法的时间复杂度是多少指的都是一般情况。</p>
+<p>数据用例的不一样，时间复杂度也是不同的。</p>
+<p>我们说的时间复杂度都是省略常数项系数的，是因为一般情况下都是默认数据规模足够的大。</p>
+<p>我们统一说 logn，也就是忽略底数的描述。</p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>是对一个算法在运行过程中占用内存空间大小的量度。</p>
+<p>来看一下例子，什么时候的空间复杂度是$O(1)$呢，C++代码如下：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第一段代码可以看出，随着n的变化，所需开辟的内存空间并不会随着n的变化而变化。即此算法空间复杂度为一个常量，所以表示为大O(1)。</p>
+<p>当消耗空间和输入参数n保持线性增长，这样的空间复杂度为O(n)，来看一下这段C++代码<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* a = <span class="keyword">new</span> <span class="built_in">int</span>(n);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    a[i] = i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>随着n的增大，开辟的内存大小呈线性增长，即 O(n)。</p>
+<p>递归的时候，会出现空间复杂度为logn的情况。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="第一想法"><a href="#第一想法" class="headerlink" title="第一想法"></a>第一想法</h3><h4 id="Leetcode-704-二分查找"><a href="#Leetcode-704-二分查找" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h4><p>这题应该是整数二分，虽然我在yxc的算法基础课里学过这题，但时隔几个月我已经彻底忘了（不管是原理还是实现），从头开始吧。</p>
+<h4 id="Leetcode-27-移除元素"><a href="#Leetcode-27-移除元素" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h4><p>试试暴力做法吧，双指针做法想不出来。根据yxc的经验，暴力做法成功后再想办法去优化。</p>
+<h3 id="看完代码随想录后的想法"><a href="#看完代码随想录后的想法" class="headerlink" title="看完代码随想录后的想法"></a>看完代码随想录后的想法</h3><h4 id="Leetcode-704-二分查找-1"><a href="#Leetcode-704-二分查找-1" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h4><p>二分法的使用前提：数组为有序数组，且数组中无重复元素。满足这两个性质的题目可尝试二分法。</p>
+<p>二分法中区间的定义有两种：左闭右闭和左闭右开。<strong>每一次边界的处理都要坚持根据区间的定义来操作</strong>。</p>
+<h4 id="Leetcode-27-移除元素-1"><a href="#Leetcode-27-移除元素-1" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h4><p>暴力做法：遍历数组-&gt;找到需要移除的元素-&gt;将该元素后面的所有元素都前移一位-&gt;索引前移一位，数组长度减1</p>
+<p>双指针法（快慢指针法）： 通过一个快指针和慢指针在一个for循环下完成两个for循环的工作。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="Leetcode-704-二分查找-2"><a href="#Leetcode-704-二分查找-2" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h3><p>cpp中的vector中求数组的长度没有len函数，应该用size函数。</p>
+<p>cpp中两个整数的做除法如果得到的结果变量类型为整数，则是向下取整的。</p>
+<p>cpp中的vector是动态数组，要先向用push_back向其中添加元素，然后才能通过索引来访问元素。</p>
+<p>左闭右闭和左闭右开的写法中，需要注意right初始值的选取的不同（由于一种写法的右边界可以取到，另一种写法的右边界取不到）。还需要注意分成三类讨论，即target &gt; nums[mid], target &lt; nums[mid]和target == nums[mid]。这样就可以避免处理大于等于和小于等于的情况。</p>
+<p>返回总是返回mid，不要尝试返回l或者r，可能会遇到边界问题。</p>
+<p>用(l + r) &gt;&gt; 1比(l + r) / 2要更快一点。</p>
+<p>建议采用l + (r - l) / 2代替(r + l) / 2，前者可以防止(r + l)溢出整数的范围。</p>
+<p>时间复杂度：O(log n)<br>空间复杂度：O(1)</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 左闭右闭写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 左闭右闭，因此要求左右边界均可取到，因此r的值要与右边界的索引相同</span></span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>; <span class="comment">// (l + r) &gt;&gt; 1速度更快</span></span><br><span class="line">            <span class="comment">// 分三类情况讨论</span></span><br><span class="line">            <span class="comment">// 因为区间是右闭的，所以r不可能取为mid，最大为mid - 1</span></span><br><span class="line">            <span class="keyword">if</span> (target &lt; nums[mid]) r = mid - <span class="number">1</span>; </span><br><span class="line">            <span class="comment">// 因为区间是左闭的，所以l不可能取为mid，最小为mid + 1</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; nums[mid]) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// return l/r都是错误的，可以通过模拟一个输入知道错误原因</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> mid; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 左闭右开写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 左闭右开，因此target不能取为右边界的值，要保证区间完全覆盖住target，因此r的值要比右边界的索引大1</span></span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 右边界取不到，因此是l &lt; r</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">            <span class="comment">// 因为区间是左闭的，所以l不可能取为mid，最小为mid + 1</span></span><br><span class="line">            <span class="keyword">if</span> (target &gt; nums[mid]) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// 因为区间是右开的，所以r可以取为mid</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &lt; nums[mid]) r = mid;</span><br><span class="line">            <span class="comment">// return l是错误的，可以通过模拟一个输入知道错误原因</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Leetcode-27-移除元素-2"><a href="#Leetcode-27-移除元素-2" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h3><h4 id="暴力做法"><a href="#暴力做法" class="headerlink" title="暴力做法"></a>暴力做法</h4><p>若不前移i，则若数组中出现连续的两个val时，结果会发生错误，不能完全移除数组中所有的val。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> size = nums.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 遍历数组，找到需要移除的元素</span></span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 将该元素后面的所有元素都前移一位，覆盖掉需要移除的元素</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; size; j ++ )</span><br><span class="line">                    nums[j - <span class="number">1</span>] = nums[j];</span><br><span class="line">                <span class="comment">// 索引前移一位，数组长度减1</span></span><br><span class="line">                i -- ;</span><br><span class="line">                size -- ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(n^2)<br>空间复杂度：O(1)</p>
+<h4 id="快慢双指针做法"><a href="#快慢双指针做法" class="headerlink" title="快慢双指针做法"></a>快慢双指针做法</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 快指针用于遍历所有元素、慢指针用于记录更新后数组的下标</span></span><br><span class="line">        <span class="type">int</span> slow = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> fast = <span class="number">0</span>; fast &lt; nums.<span class="built_in">size</span>(); fast ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fast] != val)</span><br><span class="line">                nums[slow ++ ] = nums[fast];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
+<h4 id="相向双指针做法"><a href="#相向双指针做法" class="headerlink" title="相向双指针做法"></a>相向双指针做法</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 相向双指针方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 跳过所有不需要移除的元素，剩下需要移除的元素</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt;= r &amp;&amp; nums[l] != val) l ++ ;</span><br><span class="line">            <span class="comment">// 跳过所有需要移除的元素，剩下不需要移除的元素</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt;= r &amp;&amp; nums[r] == val) r -- ;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将右边不需要移除的元素覆盖掉左边需要移除的元素(交换左右两边的元素)</span></span><br><span class="line">            <span class="keyword">if</span> (l &lt; r) nums[l ++ ] = nums[r -- ];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 返回左边的最后一个值的索引</span></span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
+<p>注意：while (l &lt;= r &amp;&amp; nums[l] != val)和while (l &lt;= r &amp;&amp; nums[r] == val)中的两个判断条件不可以写反，否则会出现Runtime Error。这是因为短路原则，最好先进行边界检查，再访问数组。</p>
+<p>逻辑：数组的左边放等于val的元素，因此需要跳过所有不等于val的元素；数组的右边放不等于val的元素，因此需要跳过所有等于val的元素。交换数组的左右两边，让数组的左边放不等于val的元素，数组的右边放等于val的元素，然后输出数组左边的最后一个值的索引。</p>
+<p>相向双指针方法的基本过程我大致理解了，但还不理解其的细节和应用。</p>
+<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="Leetcode-704-二分查找-3"><a href="#Leetcode-704-二分查找-3" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h3><p>我认为代码随想录的做法比yxc的讲解更加清晰。清楚地归纳总结出了左闭右闭和左闭右开的写法，并根据选择区间的开闭性质清晰地写出了代码。同时，分成三类讨论，避免了处理大于等于和小于等于的情况。</p>
+<p>还没有做35和34，等到二刷来做。</p>
+<h3 id="Leetcode-27-移除元素-3"><a href="#Leetcode-27-移除元素-3" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h3><p>相向双指针方法的理解有待加深。</p>
 ]]></content>
       <categories>
-        <category>工具使用</category>
+        <category>算法（数组）</category>
       </categories>
       <tags>
-        <tag>GitHub Pages</tag>
-        <tag>Hexo</tag>
-        <tag>next主题</tag>
-        <tag>gitalk</tag>
+        <tag>Algorithm</tag>
+        <tag>Leetcode</tag>
+        <tag>C++</tag>
+        <tag>整数二分</tag>
+        <tag>双指针</tag>
       </tags>
   </entry>
   <entry>
@@ -131,87 +157,9 @@
       </tags>
   </entry>
   <entry>
-    <title>Day 1 | Leetcode 704, 27</title>
-    <url>/2024/01/24/Day-1-Leetcode-704-27/</url>
-    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><p><a href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html</a></p>
-<p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE</a></p>
-<p><a href="https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%81.html#%E7%A9%B6%E7%AB%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6">https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%81.html#%E7%A9%B6%E7%AB%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6</a></p>
-<p><a href="https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E7%96%91%E9%97%AE%EF%BC%9F.html">https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E7%96%91%E9%97%AE%EF%BC%9F.html</a></p>
-<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a href="https://leetcode.com/problems/binary-search/">https://leetcode.com/problems/binary-search/</a></p>
-<p><a href="https://leetcode.com/problems/remove-element/">https://leetcode.com/problems/remove-element/</a></p>
-<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="数组理论基础"><a href="#数组理论基础" class="headerlink" title="数组理论基础"></a>数组理论基础</h3><p>数组是存放在<strong>连续内存空间</strong>上的<strong>相同类型数据</strong>的集合。</p>
-<p>注意：</p>
-<ul>
-<li><p>数组下标都是从0开始的</p>
-</li>
-<li><p>数组内存空间的地址是连续的</p>
-</li>
-<li><p>正是因为数组的在内存空间的地址是连续的，所以我们在<strong>删除或者增添元素的时候，就难免要移动其他元素的地址</strong></p>
-</li>
-<li><p>C++中，要注意vector和array的区别，vector的底层实现是array，严格来讲vector是容器，不是数组</p>
-</li>
-<li><p>数组的元素是不能删的，只能覆盖</p>
-</li>
-<li><p>C++中二维数组在地址空间上是连续的（在现代系统上，二维数组中的每个int占用4个字节）</p>
-</li>
-<li><p>Java是没有指针的，同时也不对程序员暴露其元素的地址，寻址操作完全交给虚拟机。输出的值不是真正的地址，而是经过处理的数值</p>
-</li>
-</ul>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>时间复杂度是一个函数，它定性描述该算法的运行时间。</p>
-<p>大O用来表示上界的，当用它作为算法的最坏情况运行时间的上界，就是对任意数据输入的运行时间的上界。有时业界也默认O代表的就是一般情况，而不是严格的上界。面试中说道算法的时间复杂度是多少指的都是一般情况。</p>
-<p>数据用例的不一样，时间复杂度也是不同的。</p>
-<p>我们说的时间复杂度都是省略常数项系数的，是因为一般情况下都是默认数据规模足够的大。</p>
-<p>我们统一说 logn，也就是忽略底数的描述。</p>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>是对一个算法在运行过程中占用内存空间大小的量度。</p>
-<p>来看一下例子，什么时候的空间复杂度是$O(1)$呢，C++代码如下：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>第一段代码可以看出，随着n的变化，所需开辟的内存空间并不会随着n的变化而变化。即此算法空间复杂度为一个常量，所以表示为大O(1)。</p>
-<p>当消耗空间和输入参数n保持线性增长，这样的空间复杂度为O(n)，来看一下这段C++代码<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* a = <span class="keyword">new</span> <span class="built_in">int</span>(n);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    a[i] = i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>随着n的增大，开辟的内存大小呈线性增长，即 O(n)。</p>
-<p>递归的时候，会出现空间复杂度为logn的情况。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="第一想法"><a href="#第一想法" class="headerlink" title="第一想法"></a>第一想法</h3><h4 id="Leetcode-704-二分查找"><a href="#Leetcode-704-二分查找" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h4><p>这题应该是整数二分，虽然我在yxc的算法基础课里学过这题，但时隔几个月我已经彻底忘了（不管是原理还是实现），从头开始吧。</p>
-<h4 id="Leetcode-27-移除元素"><a href="#Leetcode-27-移除元素" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h4><p>试试暴力做法吧，双指针做法想不出来。根据yxc的经验，暴力做法成功后再想办法去优化。</p>
-<h3 id="看完代码随想录后的想法"><a href="#看完代码随想录后的想法" class="headerlink" title="看完代码随想录后的想法"></a>看完代码随想录后的想法</h3><h4 id="Leetcode-704-二分查找-1"><a href="#Leetcode-704-二分查找-1" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h4><p>二分法的使用前提：数组为有序数组，且数组中无重复元素。满足这两个性质的题目可尝试二分法。</p>
-<p>二分法中区间的定义有两种：左闭右闭和左闭右开。<strong>每一次边界的处理都要坚持根据区间的定义来操作</strong>。</p>
-<h4 id="Leetcode-27-移除元素-1"><a href="#Leetcode-27-移除元素-1" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h4><p>暴力做法：遍历数组-&gt;找到需要移除的元素-&gt;将该元素后面的所有元素都前移一位-&gt;索引前移一位，数组长度减1</p>
-<p>双指针法（快慢指针法）： 通过一个快指针和慢指针在一个for循环下完成两个for循环的工作。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="Leetcode-704-二分查找-2"><a href="#Leetcode-704-二分查找-2" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h3><p>cpp中的vector中求数组的长度没有len函数，应该用size函数。</p>
-<p>cpp中两个整数的做除法如果得到的结果变量类型为整数，则是向下取整的。</p>
-<p>cpp中的vector是动态数组，要先向用push_back向其中添加元素，然后才能通过索引来访问元素。</p>
-<p>左闭右闭和左闭右开的写法中，需要注意right初始值的选取的不同（由于一种写法的右边界可以取到，另一种写法的右边界取不到）。还需要注意分成三类讨论，即target &gt; nums[mid], target &lt; nums[mid]和target == nums[mid]。这样就可以避免处理大于等于和小于等于的情况。</p>
-<p>返回总是返回mid，不要尝试返回l或者r，可能会遇到边界问题。</p>
-<p>用(l + r) &gt;&gt; 1比(l + r) / 2要更快一点。</p>
-<p>建议采用l + (r - l) / 2代替(r + l) / 2，前者可以防止(r + l)溢出整数的范围。</p>
-<p>时间复杂度：O(log n)<br>空间复杂度：O(1)</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 左闭右闭写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 左闭右闭，因此要求左右边界均可取到，因此r的值要与右边界的索引相同</span></span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>; <span class="comment">// (l + r) &gt;&gt; 1速度更快</span></span><br><span class="line">            <span class="comment">// 分三类情况讨论</span></span><br><span class="line">            <span class="comment">// 因为区间是右闭的，所以r不可能取为mid，最大为mid - 1</span></span><br><span class="line">            <span class="keyword">if</span> (target &lt; nums[mid]) r = mid - <span class="number">1</span>; </span><br><span class="line">            <span class="comment">// 因为区间是左闭的，所以l不可能取为mid，最小为mid + 1</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; nums[mid]) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// return l/r都是错误的，可以通过模拟一个输入知道错误原因</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> mid; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 左闭右开写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 左闭右开，因此target不能取为右边界的值，要保证区间完全覆盖住target，因此r的值要比右边界的索引大1</span></span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 右边界取不到，因此是l &lt; r</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">            <span class="comment">// 因为区间是左闭的，所以l不可能取为mid，最小为mid + 1</span></span><br><span class="line">            <span class="keyword">if</span> (target &gt; nums[mid]) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// 因为区间是右开的，所以r可以取为mid</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &lt; nums[mid]) r = mid;</span><br><span class="line">            <span class="comment">// return l是错误的，可以通过模拟一个输入知道错误原因</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="Leetcode-27-移除元素-2"><a href="#Leetcode-27-移除元素-2" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h3><h4 id="暴力做法"><a href="#暴力做法" class="headerlink" title="暴力做法"></a>暴力做法</h4><p>若不前移i，则若数组中出现连续的两个val时，结果会发生错误，不能完全移除数组中所有的val。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> size = nums.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 遍历数组，找到需要移除的元素</span></span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 将该元素后面的所有元素都前移一位，覆盖掉需要移除的元素</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; size; j ++ )</span><br><span class="line">                    nums[j - <span class="number">1</span>] = nums[j];</span><br><span class="line">                <span class="comment">// 索引前移一位，数组长度减1</span></span><br><span class="line">                i -- ;</span><br><span class="line">                size -- ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：O(n^2)<br>空间复杂度：O(1)</p>
-<h4 id="快慢双指针做法"><a href="#快慢双指针做法" class="headerlink" title="快慢双指针做法"></a>快慢双指针做法</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 快指针用于遍历所有元素、慢指针用于记录更新后数组的下标</span></span><br><span class="line">        <span class="type">int</span> slow = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> fast = <span class="number">0</span>; fast &lt; nums.<span class="built_in">size</span>(); fast ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fast] != val)</span><br><span class="line">                nums[slow ++ ] = nums[fast];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
-<h4 id="相向双指针做法"><a href="#相向双指针做法" class="headerlink" title="相向双指针做法"></a>相向双指针做法</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 相向双指针方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 跳过所有不需要移除的元素，剩下需要移除的元素</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt;= r &amp;&amp; nums[l] != val) l ++ ;</span><br><span class="line">            <span class="comment">// 跳过所有需要移除的元素，剩下不需要移除的元素</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt;= r &amp;&amp; nums[r] == val) r -- ;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将右边不需要移除的元素覆盖掉左边需要移除的元素(交换左右两边的元素)</span></span><br><span class="line">            <span class="keyword">if</span> (l &lt; r) nums[l ++ ] = nums[r -- ];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 返回左边的最后一个值的索引</span></span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
-<p>注意：while (l &lt;= r &amp;&amp; nums[l] != val)和while (l &lt;= r &amp;&amp; nums[r] == val)中的两个判断条件不可以写反，否则会出现Runtime Error。这是因为短路原则，最好先进行边界检查，再访问数组。</p>
-<p>逻辑：数组的左边放等于val的元素，因此需要跳过所有不等于val的元素；数组的右边放不等于val的元素，因此需要跳过所有等于val的元素。交换数组的左右两边，让数组的左边放不等于val的元素，数组的右边放等于val的元素，然后输出数组左边的最后一个值的索引。</p>
-<p>相向双指针方法的基本过程我大致理解了，但还不理解其的细节和应用。</p>
-<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="Leetcode-704-二分查找-3"><a href="#Leetcode-704-二分查找-3" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h3><p>我认为代码随想录的做法比yxc的讲解更加清晰。清楚地归纳总结出了左闭右闭和左闭右开的写法，并根据选择区间的开闭性质清晰地写出了代码。同时，分成三类讨论，避免了处理大于等于和小于等于的情况。</p>
-<p>还没有做35和34，等到二刷来做。</p>
-<h3 id="Leetcode-27-移除元素-3"><a href="#Leetcode-27-移除元素-3" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h3><p>相向双指针方法的理解有待加深。</p>
-]]></content>
-      <categories>
-        <category>算法（数组）</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>Leetcode</tag>
-        <tag>C++</tag>
-        <tag>双指针</tag>
-        <tag>整数二分</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Day 3 | Leetcode 203, 707, 206</title>
     <url>/2024/01/26/Day-3-Leetcode-203-707-206/</url>
-    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/%E9%93%BE%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">链表理论基础</a><br><a href="https://programmercarl.com/0203.%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0.html">203.移除链表元素</a><br><a href="https://programmercarl.com/0707.%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8.html">707.设计链表</a><br><a href="https://programmercarl.com/0206.%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8.html">206.反转链表</a></p>
+    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/%E9%93%BE%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">链表理论基础</a><br><a href="https://programmercarl.com/0203.%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0.html">203.移除链表元素</a><br><a href="https://programmercarl.com/0707.%E8%AE%BE%E8%AE%A1%E9%93%BE%E8%A1%A8.html">707.设计链表</a><br><a href="https://programmercarl.com/0206.%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8.html">206.反转链表</a><br><a href="https://programmercarl.com/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93%E7%AF%87.html">链表总结篇</a></p>
 <h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="链表理论基础"><a href="#链表理论基础" class="headerlink" title="链表理论基础"></a>链表理论基础</h3><p>链表是一种通过指针串联在一起的线性结构。每个节点等于数据域+指针域（存放指向下一个节点的指针）。最后一个节点的指针域指向null。头节点head。</p>
 <p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20200806194529815.png" alt="img"></p>
 <p>单链表、双链表：既可以向前查询也可以向后查询。<br>循环链表：链表首尾相连（解决约瑟夫环问题）</p>
@@ -507,6 +455,66 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2024/01/20/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>How to Migrate and Restart a Cloud Server</title>
+    <url>/2024/01/21/How-to-Migrate-and-Restart-a-Cloud-Server/</url>
+    <content><![CDATA[<h1 id="迁移云服务器"><a href="#迁移云服务器" class="headerlink" title="迁移云服务器"></a>迁移云服务器</h1><h2 id="1、租云服务器，配置其免密登录"><a href="#1、租云服务器，配置其免密登录" class="headerlink" title="1、租云服务器，配置其免密登录"></a>1、租云服务器，配置其免密登录</h2><p>将本地的公钥复制到云服务器的~/.ssh/authorized_keys中，或者使用云服务器平台提供的密钥，在本地的.ssh文件夹中添加密钥在本地的位置<br>第一次登录云服务器（未配置免密登录）的具体流程可以参照以下步骤：</p>
+<p>IR_Group_7_project Demo Instruction</p>
+<ol>
+<li>Login our VM instance<br>Move key to secure location (eg. ~/.ssh in linux), then</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 path/to/shaoxi_key.pem</span><br><span class="line">ssh -i path/to/shaoxi_key.pem shaoxi@52.174.147.101</span><br></pre></td></tr></table></figure>
+<h2 id="2、在云服务器中安装docker"><a href="#2、在云服务器中安装docker" class="headerlink" title="2、在云服务器中安装docker"></a>2、在云服务器中安装docker</h2><p>安装步骤参见官网：<a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a><br>一般安装的版本为20.10.9，使用命令：<code>VERSION_STRING=5:20.10.9~3-0~ubuntu-focal</code><br>查看docker是否安装成功：<code>docker --version</code></p>
+<h2 id="3、在云服务器平台开放以下端口"><a href="#3、在云服务器平台开放以下端口" class="headerlink" title="3、在云服务器平台开放以下端口"></a>3、在云服务器平台开放以下端口</h2><p>22， 8000， 443， 80， 20000，协议均为TCP，源和目的地都为任何（0.0.0.0）</p>
+<h2 id="4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里"><a href="#4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里" class="headerlink" title="4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里"></a>4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里</h2><p>在powershell中执行的具体的命令为：<br><code>scp .\django_lesson_1.tar azureuser@20.123.135.13:~/</code></p>
+<h2 id="5、将镜像xxxx从本地文件xxxx-tar中加载出来"><a href="#5、将镜像xxxx从本地文件xxxx-tar中加载出来" class="headerlink" title="5、将镜像xxxx从本地文件xxxx.tar中加载出来"></a>5、将镜像xxxx从本地文件xxxx.tar中加载出来</h2><p><code>sudo docker load -i xxxx.tar</code></p>
+<h2 id="6、查看镜像是否成功加载出来"><a href="#6、查看镜像是否成功加载出来" class="headerlink" title="6、查看镜像是否成功加载出来"></a>6、查看镜像是否成功加载出来</h2><p>查看所有镜像的命令: <code>sudo docker images</code></p>
+<h2 id="7、使用镜像重新创建并运行容器"><a href="#7、使用镜像重新创建并运行容器" class="headerlink" title="7、使用镜像重新创建并运行容器"></a>7、使用镜像重新创建并运行容器</h2><p><code>docker run -p 20000:22 -p 8000:8000 -p 80:80 -p 443:443 --name django_server -itd django_lesson:1.1</code></p>
+<h2 id="8、登录到容器中"><a href="#8、登录到容器中" class="headerlink" title="8、登录到容器中"></a>8、登录到容器中</h2><p><code>sudo docker attach django_server</code><br>登录为root用户</p>
+<h2 id="9、创建非root用户"><a href="#9、创建非root用户" class="headerlink" title="9、创建非root用户"></a>9、创建非root用户</h2><p><code>adduser acs</code><br>赋予其sudo权限：<code>usermod -aG sudo acs</code><br>设置密码</p>
+<h2 id="10、配置容器的免密登录"><a href="#10、配置容器的免密登录" class="headerlink" title="10、配置容器的免密登录"></a>10、配置容器的免密登录</h2><p>配置免密登录的过程是：在容器的.ssh/authorized_keys中写入本地的.ssh文件夹（C:\Users\chen yi fan.ssh）中的公钥的内容<br>然后修改本地的.ssh/config文件，添加容器的信息，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host django_azure</span><br><span class="line">    HostName 20.123.135.13</span><br><span class="line">    User acs</span><br><span class="line">    Port 20000</span><br></pre></td></tr></table></figure>
+<h2 id="11、从本地-其他云服务器上登录到容器的命令"><a href="#11、从本地-其他云服务器上登录到容器的命令" class="headerlink" title="11、从本地/其他云服务器上登录到容器的命令"></a>11、从本地/其他云服务器上登录到容器的命令</h2><p><code>ssh acs@ip -p 20000</code><br>退出容器时注意不要关闭容器，而是挂起容器：ctrl+p ctrl+q</p>
+<h2 id="12、完成容器的一些配置："><a href="#12、完成容器的一些配置：" class="headerlink" title="12、完成容器的一些配置："></a>12、完成容器的一些配置：</h2><p>nginx配置：<br>（1）修改yxc的acapp中的服务器IP<br>（2）将服务器的IP添加到项目的settings.py的ALLOWED_HOSTS中<br>（3）将yxc提供的nginx.conf写入容器的/etc/nginx/nginx.conf文件中<br>（4）将yxc提供的acapp.key写入容器的/etc/nginx/cert/acapp.key文件中<br>（5）将yxc提供的acapp.pem写入容器的/etc/nginx/cert/acapp.pem文件中<br>（6）启动nginx服务：<code>sudo /etc/init.d/nginx start</code><br>（7）启动uwsgi服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>redis配置：<br>（1）安装redis：<code>pip install django_redis</code><br>（2）启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code><br>（3）用<code>top</code>命令看有没有进程叫redis-server</p>
+<p>django channels配置：<br>（1）安装channels_redis：<code>pip install channels_redis</code><br>（2）启动django_channels：<br>  在~/acapp目录下执行：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<p>同时启动https（uwsgi）和wss（daphne）协议的服务后，项目就应该可以正常运行</p>
+<h2 id="13、启动https和wss服务"><a href="#13、启动https和wss服务" class="headerlink" title="13、启动https和wss服务"></a>13、启动https和wss服务</h2><p>启动https服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<hr>
+<h1 id="重启云服务器"><a href="#重启云服务器" class="headerlink" title="重启云服务器"></a>重启云服务器</h1><p>在云平台暂停云服务器后重新启动服务器并进入容器</p>
+<h2 id="1-在云平台启动云服务器"><a href="#1-在云平台启动云服务器" class="headerlink" title="1. 在云平台启动云服务器"></a>1. 在云平台启动云服务器</h2><p>需要等待5-10分钟才能完成重启的过程</p>
+<h2 id="2-查看云服务器中已有的容器"><a href="#2-查看云服务器中已有的容器" class="headerlink" title="2. 查看云服务器中已有的容器"></a>2. 查看云服务器中已有的容器</h2><p>运行命令：<code>sudo docker ps -a</code></p>
+<h2 id="3-启动被暂停-退出的容器"><a href="#3-启动被暂停-退出的容器" class="headerlink" title="3. 启动被暂停/退出的容器"></a>3. 启动被暂停/退出的容器</h2><p>运行命令：<code>sudo docker start django_server</code></p>
+<h2 id="4-进入容器"><a href="#4-进入容器" class="headerlink" title="4. 进入容器"></a>4. 进入容器</h2><p>在vscode上选择django_azure，点击进入即可</p>
+<h2 id="5-启动容器中的服务"><a href="#5-启动容器中的服务" class="headerlink" title="5. 启动容器中的服务"></a>5. 启动容器中的服务</h2><p>主要需要启动以下五个服务：</p>
+<p>启动nginx服务：<code>sudo /etc/init.d/nginx start</code></p>
+<p>启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code></p>
+<p>启动uwsgi（https）服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<p>启动match system服务：<code>./main.py</code></p>
+]]></content>
+      <categories>
+        <category>工具使用</category>
+      </categories>
+      <tags>
+        <tag>Cloud Server</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>How to use Typora</title>
     <url>/2024/01/20/Typora/</url>
     <content><![CDATA[<h2 id="（1）标题"><a href="#（1）标题" class="headerlink" title="（1）标题"></a>（1）标题</h2><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h2 id="（2）快捷键"><a href="#（2）快捷键" class="headerlink" title="（2）快捷键"></a>（2）快捷键</h2><p>普通模式和源代码模式：ctrl+/<br>md语法正确显示需要在有文字的一行后面再空一行，把鼠标放在有文字的最后一行的后两行的位置</p>
@@ -712,63 +720,55 @@ shift enter: 新起一行
       </tags>
   </entry>
   <entry>
-    <title>How to Migrate and Restart a Cloud Server</title>
-    <url>/2024/01/21/How-to-Migrate-and-Restart-a-Cloud-Server/</url>
-    <content><![CDATA[<h1 id="迁移云服务器"><a href="#迁移云服务器" class="headerlink" title="迁移云服务器"></a>迁移云服务器</h1><h2 id="1、租云服务器，配置其免密登录"><a href="#1、租云服务器，配置其免密登录" class="headerlink" title="1、租云服务器，配置其免密登录"></a>1、租云服务器，配置其免密登录</h2><p>将本地的公钥复制到云服务器的~/.ssh/authorized_keys中，或者使用云服务器平台提供的密钥，在本地的.ssh文件夹中添加密钥在本地的位置<br>第一次登录云服务器（未配置免密登录）的具体流程可以参照以下步骤：</p>
-<p>IR_Group_7_project Demo Instruction</p>
-<ol>
-<li>Login our VM instance<br>Move key to secure location (eg. ~/.ssh in linux), then</li>
+    <title>How to Build and Maintain a Personal Blog</title>
+    <url>/2024/01/20/Blog/</url>
+    <content><![CDATA[<h1 id="如何搭建和维护个人博客"><a href="#如何搭建和维护个人博客" class="headerlink" title="如何搭建和维护个人博客"></a>如何搭建和维护个人博客</h1><h2 id="个人博客的实现方式"><a href="#个人博客的实现方式" class="headerlink" title="个人博客的实现方式"></a>个人博客的实现方式</h2><p>使用GitHub Pages和Hexo框架搭建和维护个人博客</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="注意1"><a href="#注意1" class="headerlink" title="注意1"></a>注意1</h3><p>尽量避免在一点不止一行的情况下使用：</p>
+<p>的结构，因为这会导致网页上的博客渲染异常。在这种情况下，建议每一点使用一个小标题</p>
+<h3 id="注意2"><a href="#注意2" class="headerlink" title="注意2"></a>注意2</h3><p>在线博客的刷新需要几分钟时间，请在更新博客后稍安勿躁。在线博客各部分的更新速度不同，比如博客内容先更新了，但日志还没有更新，这是正常现象，稍稍等待即可</p>
+<h3 id="注意3"><a href="#注意3" class="headerlink" title="注意3"></a>注意3</h3><p>由于托管博客的仓库有两个分支，其中的master分支总会在我部署博客时实时更新，因此source分支在发布新博客时更新即可，不需要实时更新</p>
+<h3 id="注意4"><a href="#注意4" class="headerlink" title="注意4"></a>注意4</h3><p>使用VSCode在本地编辑博客即可，博客的内容可以复制自Typora，在VSCode中点击md文件左上角的铅笔符号（Edit in VSCode）即可在VSCode中编辑博客内容，每次编辑完后记得运行部署脚本将博客更新部署到网站上</p>
+<h2 id="博客结构"><a href="#博客结构" class="headerlink" title="博客结构"></a>博客结构</h2><p>本博客计划同时按照标签页（tags）和分类页（categories）进行分类。分类是更大的范畴，主要分为算法、web开发、工具使用、个人随笔和找工记录五大类。标签页是更小的范畴，有Python, C++, Java, Django, Springboot, Typora, GitHub Pages, Hexo, VsCode, 简历等等。一般一篇文章只隶属于一个category，但可以同时拥有多个标签。</p>
+<p>本博客可以通过网址：<br><a href="https://yfchenkeepgoing.github.io/">https://yfchenkeepgoing.github.io/</a><br>访问，注意由于GitHub Pages是静态网页，因此出现延迟请稍安勿躁。另外，本博客所在的仓库地址为：<a href="https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io">https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io</a><br>其中有两个分支，分别为master和source。master托管了正在运行的博客，其中的内容在每次运行部署脚本后就会被更新。source托管了博客文件夹的所有源文件，需要通过git命令进行更新。博客网页与master分支中的内容进行了绑定。</p>
+<h2 id="个人博客的特点和功能"><a href="#个人博客的特点和功能" class="headerlink" title="个人博客的特点和功能"></a>个人博客的特点和功能</h2><ol>
+<li>配置站点信息</li>
+<li>修改为next主题</li>
+<li>进行了next主题的配置，包括样式、favicon、avatar、rss、code、top、reading_process、bookmark、github_banner、pangu、math、pjax</li>
+<li>采用gitalk存储并显示评论，需要评论者使用GitHub登录</li>
+<li>使用了标签页和分类页</li>
+<li>拥有搜索页</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 path/to/shaoxi_key.pem</span><br><span class="line">ssh -i path/to/shaoxi_key.pem shaoxi@52.174.147.101</span><br></pre></td></tr></table></figure>
-<h2 id="2、在云服务器中安装docker"><a href="#2、在云服务器中安装docker" class="headerlink" title="2、在云服务器中安装docker"></a>2、在云服务器中安装docker</h2><p>安装步骤参见官网：<a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a><br>一般安装的版本为20.10.9，使用命令：<code>VERSION_STRING=5:20.10.9~3-0~ubuntu-focal</code><br>查看docker是否安装成功：<code>docker --version</code></p>
-<h2 id="3、在云服务器平台开放以下端口"><a href="#3、在云服务器平台开放以下端口" class="headerlink" title="3、在云服务器平台开放以下端口"></a>3、在云服务器平台开放以下端口</h2><p>22， 8000， 443， 80， 20000，协议均为TCP，源和目的地都为任何（0.0.0.0）</p>
-<h2 id="4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里"><a href="#4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里" class="headerlink" title="4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里"></a>4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里</h2><p>在powershell中执行的具体的命令为：<br><code>scp .\django_lesson_1.tar azureuser@20.123.135.13:~/</code></p>
-<h2 id="5、将镜像xxxx从本地文件xxxx-tar中加载出来"><a href="#5、将镜像xxxx从本地文件xxxx-tar中加载出来" class="headerlink" title="5、将镜像xxxx从本地文件xxxx.tar中加载出来"></a>5、将镜像xxxx从本地文件xxxx.tar中加载出来</h2><p><code>sudo docker load -i xxxx.tar</code></p>
-<h2 id="6、查看镜像是否成功加载出来"><a href="#6、查看镜像是否成功加载出来" class="headerlink" title="6、查看镜像是否成功加载出来"></a>6、查看镜像是否成功加载出来</h2><p>查看所有镜像的命令: <code>sudo docker images</code></p>
-<h2 id="7、使用镜像重新创建并运行容器"><a href="#7、使用镜像重新创建并运行容器" class="headerlink" title="7、使用镜像重新创建并运行容器"></a>7、使用镜像重新创建并运行容器</h2><p><code>docker run -p 20000:22 -p 8000:8000 -p 80:80 -p 443:443 --name django_server -itd django_lesson:1.1</code></p>
-<h2 id="8、登录到容器中"><a href="#8、登录到容器中" class="headerlink" title="8、登录到容器中"></a>8、登录到容器中</h2><p><code>sudo docker attach django_server</code><br>登录为root用户</p>
-<h2 id="9、创建非root用户"><a href="#9、创建非root用户" class="headerlink" title="9、创建非root用户"></a>9、创建非root用户</h2><p><code>adduser acs</code><br>赋予其sudo权限：<code>usermod -aG sudo acs</code><br>设置密码</p>
-<h2 id="10、配置容器的免密登录"><a href="#10、配置容器的免密登录" class="headerlink" title="10、配置容器的免密登录"></a>10、配置容器的免密登录</h2><p>配置免密登录的过程是：在容器的.ssh/authorized_keys中写入本地的.ssh文件夹（C:\Users\chen yi fan.ssh）中的公钥的内容<br>然后修改本地的.ssh/config文件，添加容器的信息，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host django_azure</span><br><span class="line">    HostName 20.123.135.13</span><br><span class="line">    User acs</span><br><span class="line">    Port 20000</span><br></pre></td></tr></table></figure>
-<h2 id="11、从本地-其他云服务器上登录到容器的命令"><a href="#11、从本地-其他云服务器上登录到容器的命令" class="headerlink" title="11、从本地/其他云服务器上登录到容器的命令"></a>11、从本地/其他云服务器上登录到容器的命令</h2><p><code>ssh acs@ip -p 20000</code><br>退出容器时注意不要关闭容器，而是挂起容器：ctrl+p ctrl+q</p>
-<h2 id="12、完成容器的一些配置："><a href="#12、完成容器的一些配置：" class="headerlink" title="12、完成容器的一些配置："></a>12、完成容器的一些配置：</h2><p>nginx配置：<br>（1）修改yxc的acapp中的服务器IP<br>（2）将服务器的IP添加到项目的settings.py的ALLOWED_HOSTS中<br>（3）将yxc提供的nginx.conf写入容器的/etc/nginx/nginx.conf文件中<br>（4）将yxc提供的acapp.key写入容器的/etc/nginx/cert/acapp.key文件中<br>（5）将yxc提供的acapp.pem写入容器的/etc/nginx/cert/acapp.pem文件中<br>（6）启动nginx服务：<code>sudo /etc/init.d/nginx start</code><br>（7）启动uwsgi服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>redis配置：<br>（1）安装redis：<code>pip install django_redis</code><br>（2）启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code><br>（3）用<code>top</code>命令看有没有进程叫redis-server</p>
-<p>django channels配置：<br>（1）安装channels_redis：<code>pip install channels_redis</code><br>（2）启动django_channels：<br>  在~/acapp目录下执行：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<p>同时启动https（uwsgi）和wss（daphne）协议的服务后，项目就应该可以正常运行</p>
-<h2 id="13、启动https和wss服务"><a href="#13、启动https和wss服务" class="headerlink" title="13、启动https和wss服务"></a>13、启动https和wss服务</h2><p>启动https服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<hr>
-<h1 id="重启云服务器"><a href="#重启云服务器" class="headerlink" title="重启云服务器"></a>重启云服务器</h1><p>在云平台暂停云服务器后重新启动服务器并进入容器</p>
-<h2 id="1-在云平台启动云服务器"><a href="#1-在云平台启动云服务器" class="headerlink" title="1. 在云平台启动云服务器"></a>1. 在云平台启动云服务器</h2><p>需要等待5-10分钟才能完成重启的过程</p>
-<h2 id="2-查看云服务器中已有的容器"><a href="#2-查看云服务器中已有的容器" class="headerlink" title="2. 查看云服务器中已有的容器"></a>2. 查看云服务器中已有的容器</h2><p>运行命令：<code>sudo docker ps -a</code></p>
-<h2 id="3-启动被暂停-退出的容器"><a href="#3-启动被暂停-退出的容器" class="headerlink" title="3. 启动被暂停/退出的容器"></a>3. 启动被暂停/退出的容器</h2><p>运行命令：<code>sudo docker start django_server</code></p>
-<h2 id="4-进入容器"><a href="#4-进入容器" class="headerlink" title="4. 进入容器"></a>4. 进入容器</h2><p>在vscode上选择django_azure，点击进入即可</p>
-<h2 id="5-启动容器中的服务"><a href="#5-启动容器中的服务" class="headerlink" title="5. 启动容器中的服务"></a>5. 启动容器中的服务</h2><p>主要需要启动以下五个服务：</p>
-<p>启动nginx服务：<code>sudo /etc/init.d/nginx start</code></p>
-<p>启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code></p>
-<p>启动uwsgi（https）服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<p>启动match system服务：<code>./main.py</code></p>
+<h2 id="如何搭建个人博客"><a href="#如何搭建个人博客" class="headerlink" title="如何搭建个人博客"></a>如何搭建个人博客</h2><p>参见知乎链接：<br><a href="https://zhuanlan.zhihu.com/p/371995929">https://zhuanlan.zhihu.com/p/371995929</a></p>
+<p>其中指导非常详细，但过程较为繁琐，本文不再赘述。本文的重点在于如何维护搭建好的个人博客。</p>
+<h2 id="如何维护个人博客"><a href="#如何维护个人博客" class="headerlink" title="如何维护个人博客"></a>如何维护个人博客</h2><h3 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h3><p>进入博客的根目录下，然后调用 Hexo 的 generate 命令，将 Hexo 编译生成 HTML 代码，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+<p>然后我们利用 Hexo 提供的 serve 命令把博客在本地运行起来，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo serve</span><br></pre></td></tr></table></figure>
+<p>然后通过链接：<a href="http://localhost:4000/即可访问到渲染出的博客页面。注意：在这种情况下，博客页面只对自己可见，因此上述命令只能用于调试。">http://localhost:4000/即可访问到渲染出的博客页面。注意：在这种情况下，博客页面只对自己可见，因此上述命令只能用于调试。</a></p>
+<h3 id="维护在线博客"><a href="#维护在线博客" class="headerlink" title="维护在线博客"></a>维护在线博客</h3><h4 id="增加新的文章并将其分类到特定的tags和categories中"><a href="#增加新的文章并将其分类到特定的tags和categories中" class="headerlink" title="增加新的文章并将其分类到特定的tags和categories中"></a>增加新的文章并将其分类到特定的tags和categories中</h4><p>新建一篇名为HelloWorld的文章，在本地博客的根目录下执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new hello-world</span><br></pre></td></tr></table></figure>
+<p>创建的文章会出现在 source/_posts 文件夹下，是 MarkDown 格式。<br>在文章开头通过如下格式添加必要信息：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: hello-world # 自动创建，如hello<span class="emphasis">_world</span></span><br><span class="line"><span class="emphasis">date: 日期 # 自动创建，如2024-01-20 02:07:51</span></span><br><span class="line"><span class="emphasis">tags: </span></span><br><span class="line"><span class="emphasis">- 标签1</span></span><br><span class="line"><span class="emphasis">- 标签2</span></span><br><span class="line"><span class="emphasis">- 标签3</span></span><br><span class="line"><span class="emphasis">categories:</span></span><br><span class="line"><span class="emphasis">- 分类1</span></span><br><span class="line"><span class="emphasis">- 分类2</span></span><br><span class="line"><span class="emphasis">- 分类3</span></span><br><span class="line"><span class="emphasis">---</span></span><br></pre></td></tr></table></figure>
+<p>开头下方撰写正文，MarkDown 格式书写即可。这样在下次编译的时候就会自动识别标题、时间、类别等等，另外还有其他的一些参数设置，可以参考文档：<a href="https://hexo.io/zh-cn/docs/writing.html">https://hexo.io/zh-cn/docs/writing.html</a></p>
+<h4 id="标签和分类的区别"><a href="#标签和分类的区别" class="headerlink" title="标签和分类的区别"></a>标签和分类的区别</h4><p><strong>Tags（标签）</strong>：<br>标签是用来描述博客文章中的具体细节的关键词。<br>它们是扁平的，不形成层次结构。<br>标签可以非常具体，也可以非常多，用于描述文章的具体内容，如“Python”、“Web开发”、“机器学习”等。<br><strong>一个文章可以有多个标签，标签的数量通常比分类多</strong>。</p>
+<p><strong>Categories（分类）</strong>：<br>分类通常用来表示博客文章的主要主题或大的分组。<br>它们是层次性的，可以有子分类，形成一个结构化的树状层次，例如：“技术”可以有子分类如“编程”、“网页设计”等。<br>分类通常较少，更宽泛，用于将文章分配到几个广泛的、互相排斥的主题中。<br><strong>一个博客文章通常只属于一个或少数几个分类</strong>。</p>
+<p>使用示例：<br>假设您写了一篇关于Python网络编程的博客文章。您可以将这篇文章归类到“编程”分类下，并给它加上“Python”、“网络编程”、“套接字编程”等标签。</p>
+<p><strong>总结：<br>分类用于表示文章的主要主题，是更广泛的分组工具。<br>标签用于详细描述文章的内容和细节，是更具体的关键词。</strong></p>
+<h4 id="通过部署脚本部署在线博客"><a href="#通过部署脚本部署在线博客" class="headerlink" title="通过部署脚本部署在线博客"></a>通过部署脚本部署在线博客</h4><p>在根目录下新建一个 deploy.sh 的脚本文件，内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo generate</span><br><span class="line"></span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>在部署发布的时候只需要执行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh deploy.sh</span><br></pre></td></tr></table></figure>
+<p>就可以完成博客的更新了，非常方便。</p>
+<p>注意，在发布博客时只能执行上述命令，不能执行 <code>./deploy.sh</code>，否则博客无法正常发布。</p>
 ]]></content>
       <categories>
         <category>工具使用</category>
       </categories>
       <tags>
-        <tag>Cloud Server</tag>
+        <tag>GitHub Pages</tag>
+        <tag>Hexo</tag>
+        <tag>next主题</tag>
+        <tag>gitalk</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/01/20/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
