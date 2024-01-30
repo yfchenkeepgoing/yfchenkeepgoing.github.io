@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-30 11:06:52" itemprop="dateModified" datetime="2024-01-30T11:06:52+00:00">2024-01-30</time>
+                <time title="修改时间：2024-01-30 11:13:39" itemprop="dateModified" datetime="2024-01-30T11:13:39+00:00">2024-01-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,21 +270,21 @@
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>总结一下，==当我们遇到了<strong>要快速判断一个元素是否出现集合里</strong>的时候，就要考虑哈希法==。哈希法的查询速度很快：O(1)。</p>
 <p>但是哈希法也是<strong>牺牲了空间换取了时间</strong>，因为我们要使用额外的数组，set或者是map来存放数据，才能实现快速的查找。</p>
 <p>如果在做面试题目的时候遇到需要判断一个元素是否出现过的场景也应该第一时间想到哈希法！</p>
-<h3 id="242-有效的字母异位词"><a href="#242-有效的字母异位词" class="headerlink" title="242.有效的字母异位词"></a>242.有效的字母异位词</h3><ol>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><h4 id="242-有效的字母异位词"><a href="#242-有效的字母异位词" class="headerlink" title="242.有效的字母异位词"></a>242.有效的字母异位词</h4><ol>
 <li>将一个数组中的元素全部置为0：<code>int hash[26] = &#123;0&#125;;</code>。实际上，直接写<code>int hash[26]</code>也可以，不给数组中的值赋值，数组中的值默认为0。</li>
 <li>求字符串<code>string s</code>的长度，可以用<code>s.size()</code>，也可以用<code>s.length()</code>。</li>
 <li><code>s[i] - &#39;a&#39;</code>：编译器会自动用ascii码进行计算，不需要手动将变量类型转换为整数。</li>
 <li>一个有返回值的函数，如果执行了return语句，函数直接结束，不需要再break。</li>
 <li>定义一个常量大小的数组，空间复杂度是O(1)。</li>
 </ol>
-<h3 id="349-两个数组的交集"><a href="#349-两个数组的交集" class="headerlink" title="349. 两个数组的交集"></a>349. 两个数组的交集</h3><ol>
+<h4 id="349-两个数组的交集"><a href="#349-两个数组的交集" class="headerlink" title="349. 两个数组的交集"></a>349. 两个数组的交集</h4><ol>
 <li>set, multiset, unordered_set。前两者底层实现是红黑树，最后一个的底层实现是哈希值直接映射。unordered_set就是一个可以无限存装的数组。本题用unordered_set，因为其做映射和取值时效率最高，前两者的底层实现是树，因此取值是还要有查找的过程。unordered_set中的元素不可重复，相当于自动帮我们做去重；而multiset中的元素可以重复。</li>
 <li>可以直接将set类型的数据转换为vector类型：<code>return vector&lt;int&gt;(set.begin(), set.end())</code>。</li>
 <li>cpp中的vector中既有insert方法，又有push_back方法，前者需要指定插入元素的具体位置，后者直接将元素插入到vector的末尾。cpp的set（包括set, multiset, unordered_set）中只有insert方法，传入的参数为要插入的值，不需要指定插入元素的具体位置。</li>
 <li>将vector转换为unordered_set: <code>unordered_set&lt;int&gt; nums1_set(nums1.begin(), nums1.end())</code>。</li>
 <li>在unordered_set中查找元素：<code>nums1_set.find(nums2[i])</code>，返回的结果是一个迭代器（指针）。如果找到该值，<code>find</code>返回一个指向该元素的迭代器；如果未找到，则返回一个指向<code>unordered_set</code>末尾的迭代器，即<code>end()</code>迭代器。</li>
 </ol>
-<h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h3><ol>
+<h4 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h4><ol>
 <li>返回一个vector可以直接将vector的内容写入大括号中，然后返回，比如<code>return &#123;a[i], b[i]&#125;</code>，返回一个空数组可以直接写成<code>return &#123;&#125;</code>，而不用定义一个vector再利用push_back方法向其中插入数，然后再返回这个vector。</li>
 <li>定义的<code>vector&lt;int&gt; a</code>，若不给其赋值，则该vector长度为0。可见vector是动态地被分配内存，如果不给其赋值，则其长度为0，不占用内存，这与普通数组需要在定义时声明长度有所不同。</li>
 <li>定义unordered_map的方式：<code>unordered_map&lt;int, int&gt; map</code>；unordered_map中有insert函数和find函数，用法同unordered_set；遍历这些STL容器都要用迭代器，相当于是一种加强版的指针；访问unordered_map的key和value：<code>map-&gt;first</code>和<code>map-&gt;second</code>。</li>
