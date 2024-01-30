@@ -53,6 +53,84 @@
       </tags>
   </entry>
   <entry>
+    <title>Day 1 | Leetcode 704, 27</title>
+    <url>/2024/01/24/Day-1-Leetcode-704-27/</url>
+    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><p><a href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html</a></p>
+<p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE</a></p>
+<p><a href="https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%81.html#%E7%A9%B6%E7%AB%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6">https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%81.html#%E7%A9%B6%E7%AB%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6</a></p>
+<p><a href="https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E7%96%91%E9%97%AE%EF%BC%9F.html">https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E7%96%91%E9%97%AE%EF%BC%9F.html</a></p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a href="https://leetcode.com/problems/binary-search/">https://leetcode.com/problems/binary-search/</a></p>
+<p><a href="https://leetcode.com/problems/remove-element/">https://leetcode.com/problems/remove-element/</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="数组理论基础"><a href="#数组理论基础" class="headerlink" title="数组理论基础"></a>数组理论基础</h3><p>数组是存放在<strong>连续内存空间</strong>上的<strong>相同类型数据</strong>的集合。</p>
+<p>注意：</p>
+<ul>
+<li><p>数组下标都是从0开始的</p>
+</li>
+<li><p>数组内存空间的地址是连续的</p>
+</li>
+<li><p>正是因为数组的在内存空间的地址是连续的，所以我们在<strong>删除或者增添元素的时候，就难免要移动其他元素的地址</strong></p>
+</li>
+<li><p>C++中，要注意vector和array的区别，vector的底层实现是array，严格来讲vector是容器，不是数组</p>
+</li>
+<li><p>数组的元素是不能删的，只能覆盖</p>
+</li>
+<li><p>C++中二维数组在地址空间上是连续的（在现代系统上，二维数组中的每个int占用4个字节）</p>
+</li>
+<li><p>Java是没有指针的，同时也不对程序员暴露其元素的地址，寻址操作完全交给虚拟机。输出的值不是真正的地址，而是经过处理的数值</p>
+</li>
+</ul>
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>时间复杂度是一个函数，它定性描述该算法的运行时间。</p>
+<p>大O用来表示上界的，当用它作为算法的最坏情况运行时间的上界，就是对任意数据输入的运行时间的上界。有时业界也默认O代表的就是一般情况，而不是严格的上界。面试中说道算法的时间复杂度是多少指的都是一般情况。</p>
+<p>数据用例的不一样，时间复杂度也是不同的。</p>
+<p>我们说的时间复杂度都是省略常数项系数的，是因为一般情况下都是默认数据规模足够的大。</p>
+<p>我们统一说 logn，也就是忽略底数的描述。</p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>是对一个算法在运行过程中占用内存空间大小的量度。</p>
+<p>来看一下例子，什么时候的空间复杂度是$O(1)$呢，C++代码如下：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第一段代码可以看出，随着n的变化，所需开辟的内存空间并不会随着n的变化而变化。即此算法空间复杂度为一个常量，所以表示为大O(1)。</p>
+<p>当消耗空间和输入参数n保持线性增长，这样的空间复杂度为O(n)，来看一下这段C++代码<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* a = <span class="keyword">new</span> <span class="built_in">int</span>(n);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    a[i] = i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>随着n的增大，开辟的内存大小呈线性增长，即 O(n)。</p>
+<p>递归的时候，会出现空间复杂度为logn的情况。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="第一想法"><a href="#第一想法" class="headerlink" title="第一想法"></a>第一想法</h3><h4 id="Leetcode-704-二分查找"><a href="#Leetcode-704-二分查找" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h4><p>这题应该是整数二分，虽然我在yxc的算法基础课里学过这题，但时隔几个月我已经彻底忘了（不管是原理还是实现），从头开始吧。</p>
+<h4 id="Leetcode-27-移除元素"><a href="#Leetcode-27-移除元素" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h4><p>试试暴力做法吧，双指针做法想不出来。根据yxc的经验，暴力做法成功后再想办法去优化。</p>
+<h3 id="看完代码随想录后的想法"><a href="#看完代码随想录后的想法" class="headerlink" title="看完代码随想录后的想法"></a>看完代码随想录后的想法</h3><h4 id="Leetcode-704-二分查找-1"><a href="#Leetcode-704-二分查找-1" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h4><p>二分法的使用前提：数组为有序数组，且数组中无重复元素。满足这两个性质的题目可尝试二分法。</p>
+<p>二分法中区间的定义有两种：左闭右闭和左闭右开。<strong>每一次边界的处理都要坚持根据区间的定义来操作</strong>。</p>
+<h4 id="Leetcode-27-移除元素-1"><a href="#Leetcode-27-移除元素-1" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h4><p>暴力做法：遍历数组-&gt;找到需要移除的元素-&gt;将该元素后面的所有元素都前移一位-&gt;索引前移一位，数组长度减1</p>
+<p>双指针法（快慢指针法）： 通过一个快指针和慢指针在一个for循环下完成两个for循环的工作。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="Leetcode-704-二分查找-2"><a href="#Leetcode-704-二分查找-2" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h3><p>cpp中的vector中求数组的长度没有len函数，应该用size函数。</p>
+<p>cpp中两个整数的做除法如果得到的结果变量类型为整数，则是向下取整的。</p>
+<p>cpp中的vector是动态数组，要先向用push_back向其中添加元素，然后才能通过索引来访问元素。</p>
+<p>左闭右闭和左闭右开的写法中，需要注意right初始值的选取的不同（由于一种写法的右边界可以取到，另一种写法的右边界取不到）。还需要注意分成三类讨论，即target &gt; nums[mid], target &lt; nums[mid]和target == nums[mid]。这样就可以避免处理大于等于和小于等于的情况。</p>
+<p>返回总是返回mid，不要尝试返回l或者r，可能会遇到边界问题。</p>
+<p>用(l + r) &gt;&gt; 1比(l + r) / 2要更快一点。</p>
+<p>建议采用l + (r - l) / 2代替(r + l) / 2，前者可以防止(r + l)溢出整数的范围。</p>
+<p>时间复杂度：O(log n)<br>空间复杂度：O(1)</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 左闭右闭写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 左闭右闭，因此要求左右边界均可取到，因此r的值要与右边界的索引相同</span></span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>; <span class="comment">// (l + r) &gt;&gt; 1速度更快</span></span><br><span class="line">            <span class="comment">// 分三类情况讨论</span></span><br><span class="line">            <span class="comment">// 因为区间是右闭的，所以r不可能取为mid，最大为mid - 1</span></span><br><span class="line">            <span class="keyword">if</span> (target &lt; nums[mid]) r = mid - <span class="number">1</span>; </span><br><span class="line">            <span class="comment">// 因为区间是左闭的，所以l不可能取为mid，最小为mid + 1</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; nums[mid]) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// return l/r都是错误的，可以通过模拟一个输入知道错误原因</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> mid; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 左闭右开写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 左闭右开，因此target不能取为右边界的值，要保证区间完全覆盖住target，因此r的值要比右边界的索引大1</span></span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 右边界取不到，因此是l &lt; r</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">            <span class="comment">// 因为区间是左闭的，所以l不可能取为mid，最小为mid + 1</span></span><br><span class="line">            <span class="keyword">if</span> (target &gt; nums[mid]) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// 因为区间是右开的，所以r可以取为mid</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &lt; nums[mid]) r = mid;</span><br><span class="line">            <span class="comment">// return l是错误的，可以通过模拟一个输入知道错误原因</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Leetcode-27-移除元素-2"><a href="#Leetcode-27-移除元素-2" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h3><h4 id="暴力做法"><a href="#暴力做法" class="headerlink" title="暴力做法"></a>暴力做法</h4><p>若不前移i，则若数组中出现连续的两个val时，结果会发生错误，不能完全移除数组中所有的val。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> size = nums.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 遍历数组，找到需要移除的元素</span></span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 将该元素后面的所有元素都前移一位，覆盖掉需要移除的元素</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; size; j ++ )</span><br><span class="line">                    nums[j - <span class="number">1</span>] = nums[j];</span><br><span class="line">                <span class="comment">// 索引前移一位，数组长度减1</span></span><br><span class="line">                i -- ;</span><br><span class="line">                size -- ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(n^2)<br>空间复杂度：O(1)</p>
+<h4 id="快慢双指针做法"><a href="#快慢双指针做法" class="headerlink" title="快慢双指针做法"></a>快慢双指针做法</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 快指针用于遍历所有元素、慢指针用于记录更新后数组的下标</span></span><br><span class="line">        <span class="type">int</span> slow = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> fast = <span class="number">0</span>; fast &lt; nums.<span class="built_in">size</span>(); fast ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fast] != val)</span><br><span class="line">                nums[slow ++ ] = nums[fast];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
+<h4 id="相向双指针做法"><a href="#相向双指针做法" class="headerlink" title="相向双指针做法"></a>相向双指针做法</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 相向双指针方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 跳过所有不需要移除的元素，剩下需要移除的元素</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt;= r &amp;&amp; nums[l] != val) l ++ ;</span><br><span class="line">            <span class="comment">// 跳过所有需要移除的元素，剩下不需要移除的元素</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt;= r &amp;&amp; nums[r] == val) r -- ;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将右边不需要移除的元素覆盖掉左边需要移除的元素(交换左右两边的元素)</span></span><br><span class="line">            <span class="keyword">if</span> (l &lt; r) nums[l ++ ] = nums[r -- ];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 返回左边的最后一个值的索引</span></span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
+<p>注意：while (l &lt;= r &amp;&amp; nums[l] != val)和while (l &lt;= r &amp;&amp; nums[r] == val)中的两个判断条件不可以写反，否则会出现Runtime Error。这是因为短路原则，最好先进行边界检查，再访问数组。</p>
+<p>逻辑：数组的左边放等于val的元素，因此需要跳过所有不等于val的元素；数组的右边放不等于val的元素，因此需要跳过所有等于val的元素。交换数组的左右两边，让数组的左边放不等于val的元素，数组的右边放等于val的元素，然后输出数组左边的最后一个值的索引。</p>
+<p>相向双指针方法的基本过程我大致理解了，但还不理解其的细节和应用。</p>
+<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="Leetcode-704-二分查找-3"><a href="#Leetcode-704-二分查找-3" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h3><p>我认为代码随想录的做法比yxc的讲解更加清晰。清楚地归纳总结出了左闭右闭和左闭右开的写法，并根据选择区间的开闭性质清晰地写出了代码。同时，分成三类讨论，避免了处理大于等于和小于等于的情况。</p>
+<p>还没有做35和34，等到二刷来做。</p>
+<h3 id="Leetcode-27-移除元素-3"><a href="#Leetcode-27-移除元素-3" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h3><p>相向双指针方法的理解有待加深。</p>
+]]></content>
+      <categories>
+        <category>算法（数组）</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Leetcode</tag>
+        <tag>C++</tag>
+        <tag>整数二分</tag>
+        <tag>双指针算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Day 2 | Leetcode 977, 209, 59</title>
     <url>/2024/01/25/Day-2-Leetcode-977-209-59/</url>
     <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><p><a href="https://www.bilibili.com/video/BV1QB4y1D7ep">https://www.bilibili.com/video/BV1QB4y1D7ep</a></p>
@@ -129,89 +207,6 @@
         <tag>滑动窗口</tag>
         <tag>螺旋矩阵</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Day 1 | Leetcode 704, 27</title>
-    <url>/2024/01/24/Day-1-Leetcode-704-27/</url>
-    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><p><a href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html</a></p>
-<p><a href="https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">https://programmercarl.com/0704.%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE</a></p>
-<p><a href="https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%81.html#%E7%A9%B6%E7%AB%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6">https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%81.html#%E7%A9%B6%E7%AB%9F%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6</a></p>
-<p><a href="https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E7%96%91%E9%97%AE%EF%BC%9F.html">https://programmercarl.com/%E5%89%8D%E5%BA%8F/%E5%85%B3%E4%BA%8E%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%9C%89%E5%87%A0%E4%B8%AA%E7%96%91%E9%97%AE%EF%BC%9F.html</a></p>
-<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a href="https://leetcode.com/problems/binary-search/">https://leetcode.com/problems/binary-search/</a></p>
-<p><a href="https://leetcode.com/problems/remove-element/">https://leetcode.com/problems/remove-element/</a></p>
-<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="数组理论基础"><a href="#数组理论基础" class="headerlink" title="数组理论基础"></a>数组理论基础</h3><p>数组是存放在<strong>连续内存空间</strong>上的<strong>相同类型数据</strong>的集合。</p>
-<p>注意：</p>
-<ul>
-<li><p>数组下标都是从0开始的</p>
-</li>
-<li><p>数组内存空间的地址是连续的</p>
-</li>
-<li><p>正是因为数组的在内存空间的地址是连续的，所以我们在<strong>删除或者增添元素的时候，就难免要移动其他元素的地址</strong></p>
-</li>
-<li><p>C++中，要注意vector和array的区别，vector的底层实现是array，严格来讲vector是容器，不是数组</p>
-</li>
-<li><p>数组的元素是不能删的，只能覆盖</p>
-</li>
-<li><p>C++中二维数组在地址空间上是连续的（在现代系统上，二维数组中的每个int占用4个字节）</p>
-</li>
-<li><p>Java是没有指针的，同时也不对程序员暴露其元素的地址，寻址操作完全交给虚拟机。输出的值不是真正的地址，而是经过处理的数值</p>
-</li>
-</ul>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>时间复杂度是一个函数，它定性描述该算法的运行时间。</p>
-<p>大O用来表示上界的，当用它作为算法的最坏情况运行时间的上界，就是对任意数据输入的运行时间的上界。有时业界也默认O代表的就是一般情况，而不是严格的上界。面试中说道算法的时间复杂度是多少指的都是一般情况。</p>
-<p>数据用例的不一样，时间复杂度也是不同的。</p>
-<p>我们说的时间复杂度都是省略常数项系数的，是因为一般情况下都是默认数据规模足够的大。</p>
-<p>我们统一说 logn，也就是忽略底数的描述。</p>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>是对一个算法在运行过程中占用内存空间大小的量度。</p>
-<p>来看一下例子，什么时候的空间复杂度是$O(1)$呢，C++代码如下：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>第一段代码可以看出，随着n的变化，所需开辟的内存空间并不会随着n的变化而变化。即此算法空间复杂度为一个常量，所以表示为大O(1)。</p>
-<p>当消耗空间和输入参数n保持线性增长，这样的空间复杂度为O(n)，来看一下这段C++代码<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>* a = <span class="keyword">new</span> <span class="built_in">int</span>(n);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    a[i] = i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>随着n的增大，开辟的内存大小呈线性增长，即 O(n)。</p>
-<p>递归的时候，会出现空间复杂度为logn的情况。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="第一想法"><a href="#第一想法" class="headerlink" title="第一想法"></a>第一想法</h3><h4 id="Leetcode-704-二分查找"><a href="#Leetcode-704-二分查找" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h4><p>这题应该是整数二分，虽然我在yxc的算法基础课里学过这题，但时隔几个月我已经彻底忘了（不管是原理还是实现），从头开始吧。</p>
-<h4 id="Leetcode-27-移除元素"><a href="#Leetcode-27-移除元素" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h4><p>试试暴力做法吧，双指针做法想不出来。根据yxc的经验，暴力做法成功后再想办法去优化。</p>
-<h3 id="看完代码随想录后的想法"><a href="#看完代码随想录后的想法" class="headerlink" title="看完代码随想录后的想法"></a>看完代码随想录后的想法</h3><h4 id="Leetcode-704-二分查找-1"><a href="#Leetcode-704-二分查找-1" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h4><p>二分法的使用前提：数组为有序数组，且数组中无重复元素。满足这两个性质的题目可尝试二分法。</p>
-<p>二分法中区间的定义有两种：左闭右闭和左闭右开。<strong>每一次边界的处理都要坚持根据区间的定义来操作</strong>。</p>
-<h4 id="Leetcode-27-移除元素-1"><a href="#Leetcode-27-移除元素-1" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h4><p>暴力做法：遍历数组-&gt;找到需要移除的元素-&gt;将该元素后面的所有元素都前移一位-&gt;索引前移一位，数组长度减1</p>
-<p>双指针法（快慢指针法）： 通过一个快指针和慢指针在一个for循环下完成两个for循环的工作。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="Leetcode-704-二分查找-2"><a href="#Leetcode-704-二分查找-2" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h3><p>cpp中的vector中求数组的长度没有len函数，应该用size函数。</p>
-<p>cpp中两个整数的做除法如果得到的结果变量类型为整数，则是向下取整的。</p>
-<p>cpp中的vector是动态数组，要先向用push_back向其中添加元素，然后才能通过索引来访问元素。</p>
-<p>左闭右闭和左闭右开的写法中，需要注意right初始值的选取的不同（由于一种写法的右边界可以取到，另一种写法的右边界取不到）。还需要注意分成三类讨论，即target &gt; nums[mid], target &lt; nums[mid]和target == nums[mid]。这样就可以避免处理大于等于和小于等于的情况。</p>
-<p>返回总是返回mid，不要尝试返回l或者r，可能会遇到边界问题。</p>
-<p>用(l + r) &gt;&gt; 1比(l + r) / 2要更快一点。</p>
-<p>建议采用l + (r - l) / 2代替(r + l) / 2，前者可以防止(r + l)溢出整数的范围。</p>
-<p>时间复杂度：O(log n)<br>空间复杂度：O(1)</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 左闭右闭写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 左闭右闭，因此要求左右边界均可取到，因此r的值要与右边界的索引相同</span></span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 当left==right，区间[left, right]依然有效，所以用 &lt;=</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>; <span class="comment">// (l + r) &gt;&gt; 1速度更快</span></span><br><span class="line">            <span class="comment">// 分三类情况讨论</span></span><br><span class="line">            <span class="comment">// 因为区间是右闭的，所以r不可能取为mid，最大为mid - 1</span></span><br><span class="line">            <span class="keyword">if</span> (target &lt; nums[mid]) r = mid - <span class="number">1</span>; </span><br><span class="line">            <span class="comment">// 因为区间是左闭的，所以l不可能取为mid，最小为mid + 1</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &gt; nums[mid]) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// return l/r都是错误的，可以通过模拟一个输入知道错误原因</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> mid; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 左闭右开写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 左闭右开，因此target不能取为右边界的值，要保证区间完全覆盖住target，因此r的值要比右边界的索引大1</span></span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 右边界取不到，因此是l &lt; r</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">            <span class="comment">// 因为区间是左闭的，所以l不可能取为mid，最小为mid + 1</span></span><br><span class="line">            <span class="keyword">if</span> (target &gt; nums[mid]) l = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// 因为区间是右开的，所以r可以取为mid</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (target &lt; nums[mid]) r = mid;</span><br><span class="line">            <span class="comment">// return l是错误的，可以通过模拟一个输入知道错误原因</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="Leetcode-27-移除元素-2"><a href="#Leetcode-27-移除元素-2" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h3><h4 id="暴力做法"><a href="#暴力做法" class="headerlink" title="暴力做法"></a>暴力做法</h4><p>若不前移i，则若数组中出现连续的两个val时，结果会发生错误，不能完全移除数组中所有的val。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> size = nums.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 遍历数组，找到需要移除的元素</span></span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 将该元素后面的所有元素都前移一位，覆盖掉需要移除的元素</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; size; j ++ )</span><br><span class="line">                    nums[j - <span class="number">1</span>] = nums[j];</span><br><span class="line">                <span class="comment">// 索引前移一位，数组长度减1</span></span><br><span class="line">                i -- ;</span><br><span class="line">                size -- ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：O(n^2)<br>空间复杂度：O(1)</p>
-<h4 id="快慢双指针做法"><a href="#快慢双指针做法" class="headerlink" title="快慢双指针做法"></a>快慢双指针做法</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 快指针用于遍历所有元素、慢指针用于记录更新后数组的下标</span></span><br><span class="line">        <span class="type">int</span> slow = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> fast = <span class="number">0</span>; fast &lt; nums.<span class="built_in">size</span>(); fast ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fast] != val)</span><br><span class="line">                nums[slow ++ ] = nums[fast];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
-<h4 id="相向双指针做法"><a href="#相向双指针做法" class="headerlink" title="相向双指针做法"></a>相向双指针做法</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 相向双指针方法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">removeElement</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>, r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 跳过所有不需要移除的元素，剩下需要移除的元素</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt;= r &amp;&amp; nums[l] != val) l ++ ;</span><br><span class="line">            <span class="comment">// 跳过所有需要移除的元素，剩下不需要移除的元素</span></span><br><span class="line">            <span class="keyword">while</span> (l &lt;= r &amp;&amp; nums[r] == val) r -- ;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将右边不需要移除的元素覆盖掉左边需要移除的元素(交换左右两边的元素)</span></span><br><span class="line">            <span class="keyword">if</span> (l &lt; r) nums[l ++ ] = nums[r -- ];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 返回左边的最后一个值的索引</span></span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：O(n)<br>空间复杂度：O(1)</p>
-<p>注意：while (l &lt;= r &amp;&amp; nums[l] != val)和while (l &lt;= r &amp;&amp; nums[r] == val)中的两个判断条件不可以写反，否则会出现Runtime Error。这是因为短路原则，最好先进行边界检查，再访问数组。</p>
-<p>逻辑：数组的左边放等于val的元素，因此需要跳过所有不等于val的元素；数组的右边放不等于val的元素，因此需要跳过所有等于val的元素。交换数组的左右两边，让数组的左边放不等于val的元素，数组的右边放等于val的元素，然后输出数组左边的最后一个值的索引。</p>
-<p>相向双指针方法的基本过程我大致理解了，但还不理解其的细节和应用。</p>
-<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="Leetcode-704-二分查找-3"><a href="#Leetcode-704-二分查找-3" class="headerlink" title="Leetcode 704 二分查找"></a>Leetcode 704 二分查找</h3><p>我认为代码随想录的做法比yxc的讲解更加清晰。清楚地归纳总结出了左闭右闭和左闭右开的写法，并根据选择区间的开闭性质清晰地写出了代码。同时，分成三类讨论，避免了处理大于等于和小于等于的情况。</p>
-<p>还没有做35和34，等到二刷来做。</p>
-<h3 id="Leetcode-27-移除元素-3"><a href="#Leetcode-27-移除元素-3" class="headerlink" title="Leetcode 27 移除元素"></a>Leetcode 27 移除元素</h3><p>相向双指针方法的理解有待加深。</p>
-]]></content>
-      <categories>
-        <category>算法（数组）</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>Leetcode</tag>
-        <tag>C++</tag>
-        <tag>双指针算法</tag>
-        <tag>整数二分</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Day 5 | Leetcode 242, 349, 202, 1</title>
-    <url>/2024/01/29/Day-5-Leetcode-242-349-202-1/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>Day 3 | Leetcode 203, 707, 206</title>
@@ -293,6 +288,88 @@
         <tag>双指针算法</tag>
         <tag>链表</tag>
         <tag>递归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Day 5 | Leetcode 242, 349, 202, 1</title>
+    <url>/2024/01/29/Day-5-Leetcode-242-349-202-1/</url>
+    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">哈希表理论基础</a><br><a href="https://programmercarl.com/0242.%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D.html">242.有效的字母异位词</a><br><a href="https://programmercarl.com/0349.%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86.html">349. 两个数组的交集</a><br><a href="https://programmercarl.com/0202.%E5%BF%AB%E4%B9%90%E6%95%B0.html">202. 快乐数</a><br><a href="https://programmercarl.com/0001.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html">1. 两数之和</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="哈希表理论基础"><a href="#哈希表理论基础" class="headerlink" title="哈希表理论基础"></a>哈希表理论基础</h3><p>哈希表-&gt;哈希函数-&gt;哈希碰撞-&gt;拉链法/线性探测法-&gt;常见的三种哈希结构-&gt;set &amp; map及如何选取-&gt;总结</p>
+<h4 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h4><p>哈希表是根据关键码的值而直接进行访问的数据结构。举例：其实数组就是一张哈希表。哈希表中关键码就是数组的索引下标，然后通过下标直接访问数组中的元素。</p>
+<p>哈希表能解决什么问题呢，一般哈希表都是用来快速判断一个元素是否出现集合里。</p>
+<h4 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h4><p>哈希函数：哈希函数，把学生的姓名直接映射为哈希表上的索引，然后就可以通过查询索引下标快速知道这位同学是否在这所学校里了。通过hashCode把名字转化为数值，一般hashcode是通过特定编码方式，可以将其他数据格式转化为不同的数值，这样就把学生名字映射为哈希表上的索引数字了。如果hashCode得到的数值大于哈希表的大小了，也就是大于tableSize了，此时为了保证映射出来的索引数值都落在哈希表上，我们会在再次对数值做一个取模的操作，这样我们就保证了学生姓名一定可以映射到哈希表上了。</p>
+<p>如果学生的数量大于哈希表的大小怎么办，此时就算哈希函数计算的再均匀，也避免不了会有几位学生的名字同时映射到哈希表 同一个索引下标的位置。接下来<strong>哈希碰撞</strong>登场。</p>
+<h4 id="哈希碰撞"><a href="#哈希碰撞" class="headerlink" title="哈希碰撞"></a>哈希碰撞</h4><p>小李和小王都映射到了索引下标 1 的位置，<strong>这一现象叫做哈希碰撞</strong>。一般哈希碰撞有两种解决方法， 拉链法和线性探测法。</p>
+<h4 id="拉链法-线性探测法"><a href="#拉链法-线性探测法" class="headerlink" title="拉链法/线性探测法"></a>拉链法/线性探测法</h4><p>其实拉链法就是要选择适当的哈希表的大小，这样既不会因为数组空值而浪费大量内存，也不会因为链表太长而在查找上浪费太多时间。使用线性探测法，一定要保证tableSize大于dataSize。 我们需要依靠哈希表中的空位来解决碰撞问题。例如冲突的位置，放了小李，那么就向下找一个空位放置小王的信息。所以要求tableSize一定要大于dataSize ，要不然哈希表上就没有空置的位置来存放冲突的数据了。</p>
+<h4 id="常见的三种哈希结构"><a href="#常见的三种哈希结构" class="headerlink" title="常见的三种哈希结构"></a>常见的三种哈希结构</h4><p>当我们想使用哈希法来解决问题的时候，我们一般会选择如下三种数据结构。</p>
+<ul>
+<li>数组</li>
+<li>set （集合）</li>
+<li>map(映射)</li>
+</ul>
+<h4 id="set-amp-map及如何选取"><a href="#set-amp-map及如何选取" class="headerlink" title="set &amp; map及如何选取"></a>set &amp; map及如何选取</h4><p><img src="https://github.com/yfchenkeepgoing/image/blob/main/Snipaste_2024-01-29_09-29-58.png?raw=true" alt="Snipaste_2024-01-29_09-29-58.png"></p>
+<p>std::unordered_set底层实现为哈希表，std::set 和std::multiset 的底层实现是红黑树，红黑树是一种平衡二叉搜索树，所以key值是有序的，但key不可以修改，改动key值会导致整棵树的错乱，所以只能删除和增加。</p>
+<p><img src="https://raw.githubusercontent.com/yfchenkeepgoing/image/main/image.png" alt="img"></p>
+<p>std::unordered_map 底层实现为哈希表，std::map 和std::multimap 的底层实现是红黑树。同理，std::map 和std::multimap 的key也是有序的（这个问题也经常作为面试题，考察对语言容器底层的理解）。</p>
+<p>两个unordered都是哈希表实现的,其他四个都是红黑树实现的。三类set和三类map性质上是类似的。</p>
+<p>当我们要使用集合来解决哈希问题的时候，优先使用unordered_set，因为它的查询和增删效率是最优的，如果需要集合是有序的，那么就用set，如果要求不仅有序还要有重复数据的话，那么就用multiset。</p>
+<p>那么再来看一下map ，在map 是一个key-value 的数据结构，map中，对key是有限制，因为key的存储方式使用红黑树实现的，对value没有限制。</p>
+<p>虽然std::set、std::multiset 的底层实现是红黑树，不是哈希表，std::set、std::multiset 使用红黑树来索引和存储，不过给我们的使用方式，还是哈希法的使用方式，即key和value。所以使用这些数据结构来解决映射问题的方法，我们依然称之为哈希法。 map也是一样的道理。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>总结一下，==当我们遇到了<strong>要快速判断一个元素是否出现集合里</strong>的时候，就要考虑哈希法==。哈希法的查询速度很快：O(1)。</p>
+<p>但是哈希法也是<strong>牺牲了空间换取了时间</strong>，因为我们要使用额外的数组，set或者是map来存放数据，才能实现快速的查找。</p>
+<p>如果在做面试题目的时候遇到需要判断一个元素是否出现过的场景也应该第一时间想到哈希法！</p>
+<h3 id="242-有效的字母异位词"><a href="#242-有效的字母异位词" class="headerlink" title="242.有效的字母异位词"></a>242.有效的字母异位词</h3><ol>
+<li>将一个数组中的元素全部置为0：<code>int hash[26] = &#123;0&#125;;</code>。实际上，直接写<code>int hash[26]</code>也可以，不给数组中的值赋值，数组中的值默认为0。</li>
+<li>求字符串<code>string s</code>的长度，可以用<code>s.size()</code>，也可以用<code>s.length()</code>。</li>
+<li><code>s[i] - &#39;a&#39;</code>：编译器会自动用ascii码进行计算，不需要手动将变量类型转换为整数。</li>
+<li>一个有返回值的函数，如果执行了return语句，函数直接结束，不需要再break。</li>
+<li>定义一个常量大小的数组，空间复杂度是O(1)。</li>
+</ol>
+<h3 id="349-两个数组的交集"><a href="#349-两个数组的交集" class="headerlink" title="349. 两个数组的交集"></a>349. 两个数组的交集</h3><ol>
+<li>set, multiset, unordered_set。前两者底层实现是红黑树，最后一个的底层实现是哈希值直接映射。unordered_set就是一个可以无限存装的数组。本题用unordered_set，因为其做映射和取值时效率最高，前两者的底层实现是树，因此取值是还要有查找的过程。unordered_set中的元素不可重复，相当于自动帮我们做去重；而multiset中的元素可以重复。</li>
+<li>可以直接将set类型的数据转换为vector类型：<code>return vector&lt;int&gt;(set.begin(), set.end())</code>。</li>
+<li>cpp中的vector中既有insert方法，又有push_back方法，前者需要指定插入元素的具体位置，后者直接将元素插入到vector的末尾。cpp的set（包括set, multiset, unordered_set）中只有insert方法，传入的参数为要插入的值，不需要指定插入元素的具体位置。</li>
+<li>将vector转换为unordered_set: <code>unordered_set&lt;int&gt; nums1_set(nums1.begin(), nums1.end())</code>。</li>
+<li>在unordered_set中查找元素：<code>nums1_set.find(nums2[i])</code>，返回的结果是一个迭代器（指针）。如果找到该值，<code>find</code>返回一个指向该元素的迭代器；如果未找到，则返回一个指向<code>unordered_set</code>末尾的迭代器，即<code>end()</code>迭代器。</li>
+</ol>
+<h3 id="202-快乐数"><a href="#202-快乐数" class="headerlink" title="202. 快乐数"></a>202. 快乐数</h3><h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h3><h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="242-有效的字母异位词-1"><a href="#242-有效的字母异位词-1" class="headerlink" title="242.有效的字母异位词"></a>242.有效的字母异位词</h3><p>想到一个办法，用两个数组分别统计两个字符串中出现的字母和字母出现的频次，然后判断两个数组是否完全相同。代码如下所示，可以成功运行：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isAnagram</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> hash1[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="type">int</span> hash2[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">            hash1[s[i] - <span class="string">&#x27;a&#x27;</span>] ++ ;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; t.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">            hash2[t[i] - <span class="string">&#x27;a&#x27;</span>] ++ ;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i ++ )</span><br><span class="line">            <span class="keyword">if</span> (hash1[i] != hash2[i])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>稍微麻烦了点，实际上用一个数组就够了。</p>
+<h3 id="349-两个数组的交集-1"><a href="#349-两个数组的交集-1" class="headerlink" title="349. 两个数组的交集"></a>349. 两个数组的交集</h3><p>暂时还不会用set做哈希，因此先尝试用数组做哈希。我写下了如下的代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">intersection</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> hash1[<span class="number">1000</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="type">int</span> hash2[<span class="number">1000</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 统计两个数组nums1和nums2中每个数值出现的频次</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums1.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">            hash1[nums1[i]] ++ ;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums2.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">            hash2[nums2[i]] ++ ;</span><br><span class="line"></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 若一个数同时在nums1和nums2数组中出现的频次&gt;=1，则该数是两数组的重叠，放入结果数组res中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (hash1[i] &amp;&amp; hash2[i])</span><br><span class="line">                res.<span class="built_in">push_back</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>本题其实是使用set的好题，但是后来力扣改了题目描述和测试用例，添加了 0 &lt;= nums1[i], nums2[i] &lt;= 1000 条件，所以使用数组也可以了，不过建议大家忽略这个条件。 尝试去使用set。</p>
+<h3 id="202-快乐数-1"><a href="#202-快乐数-1" class="headerlink" title="202. 快乐数"></a>202. 快乐数</h3><h3 id="1-两数之和-1"><a href="#1-两数之和-1" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h3><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="242-有效的字母异位词-2"><a href="#242-有效的字母异位词-2" class="headerlink" title="242.有效的字母异位词"></a>242.有效的字母异位词</h3><p><strong>判断两个字符串是否由相同的字母组成</strong>，但字母的位置可以不同。两个完全一样的字符串也是有效异位词。由于字符串中都是小写字母，因此a可以对应数组中索引为0的位置，z可以对应数组中索引为25的位置。用数组hash[26]统计第一个数组中每个字母出现的频率，然后第二个字符串中每个字母出现的频率再在hash数组中做对应的减法，若最后数组中所有元素均为0，则说明两个字符串互为有效的字母异位词。</p>
+<p><strong>什么时候用数组/set/map：当哈希值较小，且范围也较小且可控；若哈希值很大，则用set；若是key-value对，则用map</strong>。</p>
+<p>根据上述思路，我独立写出了代码，如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isAnagram</span><span class="params">(string s, string t)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> hash[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// 数组中的元素全部初始化为0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">            hash[s[i] - <span class="string">&#x27;a&#x27;</span>] ++ ;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; t.<span class="built_in">size</span>(); j ++ )</span><br><span class="line">            hash[t[j] - <span class="string">&#x27;a&#x27;</span>] -- ;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i ++ )</span><br><span class="line">            <span class="keyword">if</span> (hash[i])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="349-两个数组的交集-2"><a href="#349-两个数组的交集-2" class="headerlink" title="349. 两个数组的交集"></a>349. 两个数组的交集</h3><p>返回两个数组的交集。注意要去重。虽然可以用数组哈希，但还是建议用set。若保持之前的题目描述，让两个数组中的数值可能非常大，比如上亿，此时就必须要用set了，因为数组下标放不下那么大的数，同时会浪费很多存储空间。</p>
+<p>哈希表善于解决判断一个元素是否在一个集合中出现过的题目。<strong>集合中的数值很大时，或者集合中的元素数量很少但数值很分散时，用数组不合适，要用set</strong>。先将数组nums1中的所有数值放到哈希表中，再遍历num2，查看其中的元素的数值是否在哈希表中出现过，出现过则放入res集合中。</p>
+<p>因为要<strong>去重</strong>，所以定义unordered_set来存储result。哈希表也用unordered_set。直接将nums1转化为unordered_set的存储结构。接着遍历nums2，看哈希表中是否出现了nums2中的元素，出现了则将其放入result中。</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20220707173513.png" alt="set哈希法"></p>
+<p>代码如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">intersection</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 存储答案的unordered_set，因为是unordered_set所以自动去重</span></span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; res; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将nums1从vector转换为unordered_set</span></span><br><span class="line">        <span class="function">unordered_set&lt;<span class="type">int</span>&gt; <span class="title">nums1_set</span><span class="params">(nums1.begin(), nums1.end())</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在nums1_set中查找nums2中的数据，如果出现过，则将其插入res中</span></span><br><span class="line">        <span class="comment">// 也可以用范围遍历for (int num: nums2)</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums2.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1_set.<span class="built_in">find</span>(nums2[i]) != nums1_set.<span class="built_in">end</span>())</span><br><span class="line">                res.<span class="built_in">insert</span>(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将res从unordered_set类型转换回vector类型</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<br>构建<code>nums_set</code>：O(n)<br>遍历<code>nums2</code>并检查元素是否在<code>nums_set</code>中：O(m)<br>构建结果向量：O(k)，其中k是结果集中元素的数量<br>综上所述，总的时间复杂度是O(n + m + k)。但是由于k（结果集的大小）是由n和m决定的，并且在大多数情况下k会小于n和m，所以可以近似地认为时间复杂度主要由n和m决定，即O(n + m)。</p>
+<p>如果用数组做哈希的话，除了我在初次尝试中写的那种方式，其实还有另一种方式。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">intersection</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums1, vector&lt;<span class="type">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        unordered_set&lt;<span class="type">int</span>&gt; res; <span class="comment">// 存储结果，去重</span></span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> hash[<span class="number">1000</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// nums1中出现过的数，则将其在哈希数组中的值标记为1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num: nums1)</span><br><span class="line">            hash[num] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 若nums2中的数在nums1中出现过，则将其插入res中  </span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num: nums2)</span><br><span class="line">            <span class="keyword">if</span> (hash[num] == <span class="number">1</span>)</span><br><span class="line">                res.<span class="built_in">insert</span>(num);</span><br><span class="line">                </span><br><span class="line">        <span class="comment">// unordered_set-&gt;vector</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(res.<span class="built_in">begin</span>(), res.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="202-快乐数-2"><a href="#202-快乐数-2" class="headerlink" title="202. 快乐数"></a>202. 快乐数</h3><h3 id="1-两数之和-2"><a href="#1-两数之和-2" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h3><h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="242-有效的字母异位词-3"><a href="#242-有效的字母异位词-3" class="headerlink" title="242.有效的字母异位词"></a>242.有效的字母异位词</h3><ol>
+<li>本题的本质是判断两个字符串是否由相同的字母组成。</li>
+<li>本题用数组实现哈希。</li>
+<li>遇到哈希问题时，首先想想能不能用数组做哈希。用数组做哈希最直接，运行速度也最快，用set做哈希速度更慢，但遇到大规模的索引，数组放不下时，只能用set。</li>
+</ol>
+<h3 id="349-两个数组的交集-3"><a href="#349-两个数组的交集-3" class="headerlink" title="349. 两个数组的交集"></a>349. 两个数组的交集</h3><ol>
+<li>本题本来不改测试数据，数组中的数值可能很大时，只能用set做哈希。现在对数组中的数值做了限制，最大不超过1000，则可以用数组做哈希。</li>
+<li>用数组做哈希比用set做哈希效率更高，因为用set的话每次往里Insert一个值，都需要对这个值做一次哈希运算，同时还要开辟一个新的空间。用数组的下标做哈希映射永远是最快的。</li>
+<li>本题适合用来衔接用数组做哈希和用set做哈希。</li>
+<li>本题用set做哈希时，要记住set的各种用法：vector和unordered_set互相转化，在unordered_set中查找元素。这些用法归纳在知识中。</li>
+<li>本题有三种解法：一种是用set哈希，另外两种是用数组做哈希。用数组做哈希建议采用我在初次尝试中的做法，只需要用到数组，不需要用到unordered_set去重。</li>
+<li>采用范围遍历的写法可以简化代码。</li>
+</ol>
+<h3 id="202-快乐数-3"><a href="#202-快乐数-3" class="headerlink" title="202. 快乐数"></a>202. 快乐数</h3><h3 id="1-两数之和-3"><a href="#1-两数之和-3" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h3>]]></content>
+      <categories>
+        <category>算法（哈希表）</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Leetcode</tag>
+        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -384,194 +461,6 @@
         <tag>双指针算法</tag>
         <tag>环形链表</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Django Project Summary</title>
-    <url>/2024/01/21/Django-Project-Summary/</url>
-    <content><![CDATA[<h1 id="Django项目总结"><a href="#Django项目总结" class="headerlink" title="Django项目总结"></a>Django项目总结</h1><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>Game based on Django framework, developed by yifanChen</p>
-<h3 id="Website"><a href="#Website" class="headerlink" title="Website"></a>Website</h3><p><a href="https://app5894.acapp.acwing.com.cn/">https://app5894.acapp.acwing.com.cn/</a></p>
-<h3 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h3><p><a href="https://github.com/yfchenkeepgoing/Django_app">https://github.com/yfchenkeepgoing/Django_app</a></p>
-<h3 id="Gameplay"><a href="#Gameplay" class="headerlink" title="Gameplay"></a>Gameplay</h3><ol>
-<li>Right-click to move</li>
-<li>Left-click plus ‘Q’ for the skill: Fireball, with a cooldown of 3 seconds</li>
-<li>Left-click plus ‘F’ for the skill: Flash, with a cooldown of 5 seconds</li>
-<li>In multiplayer mode, the winning player gains 10 points, and the losing player loses 5 points</li>
-</ol>
-<h3 id="Technology-Stack"><a href="#Technology-Stack" class="headerlink" title="Technology Stack"></a>Technology Stack</h3><ol>
-<li>Frontend: JQuery</li>
-<li>Backend: Django</li>
-<li>Database: SQLite, Redis</li>
-<li>Network Protocols: HTTPS, WSS</li>
-<li>RPC: Thrift</li>
-<li>Authorization Protocol: OAuth</li>
-<li>Authentication: JWT</li>
-</ol>
-<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ol>
-<li>Complete menu interface and game interface</li>
-<li>Frontend and backend separation, with AcApp and Web versions on the frontend</li>
-<li>Deployed with Nginx to interface with the AcApp</li>
-<li>Comprehensive account system, username and password login, and one-click login with AcWing &amp; GitHub OAuth</li>
-<li>Online multiplayer and chat system implemented via WSS protocol</li>
-<li>Matchmaking system implemented through Thrift service</li>
-<li>Cross-origin issues resolved through Rest Framework and JWT authentication, achieving complete frontend-backend separation</li>
-<li>The ranking board displays the top ten players ranked by score</li>
-</ol>
-<h2 id="Django项目的框架"><a href="#Django项目的框架" class="headerlink" title="Django项目的框架"></a>Django项目的框架</h2><p>一个Django项目，大致由以下六部分组成：</p>
-<ol>
-<li>templates目录：管理html文件</li>
-<li>urls目录：管理路由，即链接与函数的对应关系，即每个链接交给哪个函数处理的信息，存储在urls文件夹中。</li>
-<li>views目录：视图，管理http函数（函数实现在views目录中）</li>
-<li>models目录：管理数据库数据。</li>
-<li>consumers目录：管理websocket函数（views管理http函数，即负责单向连接的函数；consumers管理双向连接的函数，比如联机对战和聊天的逻辑）</li>
-<li>static目录：管理静态文件，比如：</li>
-</ol>
-<ul>
-<li>css文件：对象的格式（网页每部分的格式），比如位置、长宽、颜色、背景、字体大小等</li>
-<li>js：对象的逻辑（项目的核心），比如对象的创建与销毁、事件函数、移动、变色等，渲染html也会在js部分（前端）</li>
-<li>image：图片</li>
-<li>audio：声音</li>
-</ul>
-<p>urls文件夹、views文件夹、models文件夹和consumers文件夹都由python文件组成，如果想通过import将文件导入，则需要在文件夹下创建 <code>__init__.py</code>文件（即索引文件，内容为空即可）。在所有python文件夹中都需要创建这样的函数，否则在import时就无法进去，会报错。</p>
-<h2 id="项目核心逻辑"><a href="#项目核心逻辑" class="headerlink" title="项目核心逻辑"></a>项目核心逻辑</h2><p>本项目由于是一个小游戏，因此前端的js代码占比较大。游戏单人模式的实现纯粹由前端完成，我用js代码实现了一个简易的游戏引擎。游戏的单人模式不需要前后端交互。</p>
-<p>需要前后端交互的部分有：</p>
-<ol>
-<li>注册与登录：涉及到写入、读取、查询数据库</li>
-<li>acwing和GitHub一键登录：即OAuth授权登录</li>
-<li>实现联机对战和聊天系统：涉及到在多名玩家之间同步五个事件（函数）：create_player, move_to, shoot_fireball, attack, message。前四个用于实现联机对战，最后一个用于实现聊天系统。</li>
-<li>Rest Framework与JWT身份验证：是对第一点和第二点的补充。</li>
-</ol>
-<ul>
-<li>JWT（json web token）相比于django自带的登录验证方式（通过session_id）安全性更高。</li>
-<li>方便实现真正意义上的前后端分离，即后端只需要提供实现好的api给前端调用，而Rest Framework为这些api的调试提供了可视化界面。</li>
-<li>JWT可以解决跨域产生的问题。</li>
-<li>可以使用http的四大类请求方法：get, post, delete, put，而不像之前仅仅使用get方法，这又提高了令牌的安全性。</li>
-</ul>
-<p>纯后端的部分只有匹配系统的实现。匹配系统的实现涉及到两个后端（即django web server和match system）之间的通信，匹配系统本身涉及到多线程和锁等方面的知识。</p>
-<p>我认为本项目的重点主要在于前后端交互的部分，前后端交互其实有一套统一的范式：先在views中实现后端的函数；然后在urls中为后端的函数定义url链接；再在前端代码中利用ajax技术通过url获得后端传来的数据（前后端一般以json的格式传递数据）；最后通过前端使用或展示数据。如果给用户设计了一套通过点击鼠标或者使用键盘向后端请求数据的模式，那么还需要在前端进行按键索引和绑定监听函数等操作。</p>
-<h2 id="改进项目"><a href="#改进项目" class="headerlink" title="改进项目"></a>改进项目</h2><ol>
-<li>使用功能更强大的前端框架，比如Vue或者React，取代简单的JQuey。</li>
-<li>使用更多种类型的数据库，比如关系型数据库MySQL，文档数据库MongoDB，对象存储服务等等。</li>
-<li>使用另外几种实现前后端通信的技术取代ajax，比如Fetch API，Server-Sent Events (SSE)，GraphQL和WebRTC，以提高系统的性能。</li>
-<li>学习并尝试使用Springboot框架和Go语言的后端框架。</li>
-<li>使用k8s来自动化部署、扩展和管理容器化应用程序。</li>
-</ol>
-<h2 id="漫谈"><a href="#漫谈" class="headerlink" title="漫谈"></a>漫谈</h2><h3 id="后端的主要分类"><a href="#后端的主要分类" class="headerlink" title="后端的主要分类"></a>后端的主要分类</h3><p>算法与推荐系统、开发各种服务、数据库</p>
-<h3 id="对于实现客户端与服务器之间的通信功能的技术的选择"><a href="#对于实现客户端与服务器之间的通信功能的技术的选择" class="headerlink" title="对于实现客户端与服务器之间的通信功能的技术的选择"></a>对于实现客户端与服务器之间的通信功能的技术的选择</h3><p>除了AJAX，现代Web开发中还有几种其他技术可以实现类似的客户端与服务器之间的通信功能。一些技术在特定场景下比AJAX更高效。以下是一些常用的技术：</p>
-<ol>
-<li><strong>Fetch API</strong>： Fetch API提供了一种更简洁和强大的方式来发起网络请求。它基于Promise，使得写异步代码更加简洁和直观。Fetch API是AJAX的现代替代方案，被广泛支持和使用。</li>
-<li><strong>WebSocket</strong>： WebSocket提供了全双工通信渠道，使得客户端和服务器可以实时、双向地通信。它非常适用于需要频繁和即时数据更新的应用，如在线游戏、聊天应用和实时数据流。</li>
-<li><strong>Server-Sent Events (SSE)</strong>： SSE允许服务器主动向客户端发送新数据。它是单向的，只有服务器可以发送消息给客户端。SSE适合实现如股票行情、新闻订阅等场景，其中服务器定期推送更新。</li>
-<li><strong>GraphQL</strong>： GraphQL是一种数据查询和操作语言，它允许客户端以更灵活的方式请求数据。与REST相比，GraphQL可以减少数据传输量，因为它允许客户端精确指定所需的数据。</li>
-<li><strong>WebRTC</strong>： WebRTC（Web Real-Time Communication）允许在不需要安装插件的情况下在Web应用中实现实时通信功能，常用于视频聊天和点对点数据共享。</li>
-</ol>
-<p>每种技术都有其特定的应用场景和优势。选择哪一种技术取决于应用的具体需求：</p>
-<ul>
-<li>对于简单的异步数据请求，AJAX和Fetch API都是不错的选择。</li>
-<li>对于需要高实时性的应用，WebSocket或WebRTC可能更合适。</li>
-<li>对于服务器主动推送数据的场景，SSE是一个好的选择。</li>
-<li>对于需要更灵活数据交互的场景，GraphQL提供了更好的解决方案。</li>
-</ul>
-<p>在性能方面，WebSocket和WebRTC通常在需要频繁和快速通信的场景下比AJAX更高效，因为它们建立了持久的连接，而不是像AJAX那样为每个请求创建新的连接。</p>
-<h3 id="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"><a href="#如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）" class="headerlink" title="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"></a>如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</h3><ul>
-<li>租一台数据库服务器</li>
-<li>在框架中负责数据库的部分配置数据库服务器的连接/登录</li>
-<li>下载该框架下使用该种数据库的包</li>
-<li>在框架中负责数据库的部分调用包中的api完成对数据库的各种操作，比如读、写、删除等。</li>
-</ul>
-<p>在 Django 中，通常不需要直接使用 SQL 语句来操作 MySQL 数据库，因为 Django 提供了一个强大的 ORM（对象关系映射）系统，允许你通过 Python 代码来操作数据库。这意味着你可以使用 Django 的模型和查询 API 来查询和操作数据，而无需直接编写 SQL 语句。</p>
-<p>Django 本身不直接支持 MongoDB，因为它是一个 NoSQL 数据库，与 Django 的 ORM 系统设计理念不同。如果你想在 Django 项目中使用 MongoDB，可以采取以下方法：</p>
-<ul>
-<li>使用 Djongo： Djongo 是一个将 Django ORM 映射到 MongoDB 的工具。通过 Djongo，你可以在一定程度上使用 Django ORM 的风格来操作 MongoDB。</li>
-<li>使用 PyMongo： PyMongo 是 MongoDB 的官方 Python 驱动程序。使用 PyMongo，你可以直接以 Python 代码与 MongoDB 交互，但这意味着你需要手动编写数据库操作逻辑，而不是使用 Django ORM。</li>
-</ul>
-<p>对于对象存储服务（如 Amazon S3），通常使用的是 RESTful API 而非传统的数据库查询语言。在 Django 项目中使用对象存储通常涉及以下步骤：</p>
-<ul>
-<li>选择合适的库： 例如，对于 Amazon S3，你可以使用 boto3，这是 AWS 的官方 Python SDK。</li>
-<li>进行配置和认证： 通常需要设置认证凭据和相关配置。</li>
-<li>使用 SDK 提供的 API： 使用 SDK 提供的方法来上传、下载、列出文件等。</li>
-</ul>
-<h3 id="JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点"><a href="#JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点" class="headerlink" title="JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点"></a>JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点</h3><p>Cookie：<br>优点：自动由浏览器管理，并且可以设置为HttpOnly（无法通过JavaScript访问，增加安全性），支持跨域访问控制（SameSite属性）。<br>缺点：容易受到CSRF（跨站请求伪造）攻击，尽管可以通过适当的防范措施（如使用CSRF Token）来缓解。</p>
-<p>LocalStorage：<br>优点：易于使用，可以在浏览器会话间持久存储。<br>缺点：容易受到XSS（跨站脚本攻击）攻击，因为恶意脚本可以访问LocalStorage并窃取令牌。</p>
-<p>内存（JavaScript变量）：<br>优点：在浏览器关闭时自动清除，不容易受到XSS攻击（只要不将令牌暴露给恶意脚本）。<br>缺点：不持久，用户刷新页面或关闭浏览器时会丢失，可能需要重新认证。</p>
-<p>最佳实践：<br>安全性考虑：通常推荐将JWT存储在HttpOnly的Cookie中，因为这样可以防止JavaScript访问令牌，从而减少XSS攻击的风险。</p>
-<p>CSRF防范：如果使用Cookie，应结合CSRF保护机制。</p>
-<p>易用性：如果需要在会话间持久保存用户的登录状态，LocalStorage可能更为方便。但是，务必注意XSS攻击的风险，并采取适当的安全措施。</p>
-<p>短期使用：对于需要高安全性且可接受在会话结束后用户需要重新登录的场景，可以考虑仅将JWT存储在内存中。</p>
-<p>在实践中，选择哪种方式取决于应用的安全需求、用户体验需求以及开发者对相关安全风险的管理能力。在处理任何形式的认证信息时，安全总是首要考虑的因素。<strong>在本项目中，出于安全性和短期使用的考量，我将JWT存储在了内存，即js变量中</strong>。如果没有明确地将JWT存储在Local Storage或Cookie中，那么它们就是存储在内存中。这意味着令牌只在当前页面会话中有效，一旦页面被关闭或刷新，令牌就会丢失。</p>
-]]></content>
-      <categories>
-        <category>web开发</category>
-      </categories>
-      <tags>
-        <tag>Backend</tag>
-        <tag>Django</tag>
-        <tag>Frontend</tag>
-        <tag>JQuery</tag>
-        <tag>Ajax</tag>
-        <tag>Database</tag>
-        <tag>SQLite</tag>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>How to Migrate and Restart a Cloud Server</title>
-    <url>/2024/01/21/How-to-Migrate-and-Restart-a-Cloud-Server/</url>
-    <content><![CDATA[<h1 id="迁移云服务器"><a href="#迁移云服务器" class="headerlink" title="迁移云服务器"></a>迁移云服务器</h1><h2 id="1、租云服务器，配置其免密登录"><a href="#1、租云服务器，配置其免密登录" class="headerlink" title="1、租云服务器，配置其免密登录"></a>1、租云服务器，配置其免密登录</h2><p>将本地的公钥复制到云服务器的~/.ssh/authorized_keys中，或者使用云服务器平台提供的密钥，在本地的.ssh文件夹中添加密钥在本地的位置<br>第一次登录云服务器（未配置免密登录）的具体流程可以参照以下步骤：</p>
-<p>IR_Group_7_project Demo Instruction</p>
-<ol>
-<li>Login our VM instance<br>Move key to secure location (eg. ~/.ssh in linux), then</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 path/to/shaoxi_key.pem</span><br><span class="line">ssh -i path/to/shaoxi_key.pem shaoxi@52.174.147.101</span><br></pre></td></tr></table></figure>
-<h2 id="2、在云服务器中安装docker"><a href="#2、在云服务器中安装docker" class="headerlink" title="2、在云服务器中安装docker"></a>2、在云服务器中安装docker</h2><p>安装步骤参见官网：<a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a><br>一般安装的版本为20.10.9，使用命令：<code>VERSION_STRING=5:20.10.9~3-0~ubuntu-focal</code><br>查看docker是否安装成功：<code>docker --version</code></p>
-<h2 id="3、在云服务器平台开放以下端口"><a href="#3、在云服务器平台开放以下端口" class="headerlink" title="3、在云服务器平台开放以下端口"></a>3、在云服务器平台开放以下端口</h2><p>22， 8000， 443， 80， 20000，协议均为TCP，源和目的地都为任何（0.0.0.0）</p>
-<h2 id="4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里"><a href="#4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里" class="headerlink" title="4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里"></a>4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里</h2><p>在powershell中执行的具体的命令为：<br><code>scp .\django_lesson_1.tar azureuser@20.123.135.13:~/</code></p>
-<h2 id="5、将镜像xxxx从本地文件xxxx-tar中加载出来"><a href="#5、将镜像xxxx从本地文件xxxx-tar中加载出来" class="headerlink" title="5、将镜像xxxx从本地文件xxxx.tar中加载出来"></a>5、将镜像xxxx从本地文件xxxx.tar中加载出来</h2><p><code>sudo docker load -i xxxx.tar</code></p>
-<h2 id="6、查看镜像是否成功加载出来"><a href="#6、查看镜像是否成功加载出来" class="headerlink" title="6、查看镜像是否成功加载出来"></a>6、查看镜像是否成功加载出来</h2><p>查看所有镜像的命令: <code>sudo docker images</code></p>
-<h2 id="7、使用镜像重新创建并运行容器"><a href="#7、使用镜像重新创建并运行容器" class="headerlink" title="7、使用镜像重新创建并运行容器"></a>7、使用镜像重新创建并运行容器</h2><p><code>docker run -p 20000:22 -p 8000:8000 -p 80:80 -p 443:443 --name django_server -itd django_lesson:1.1</code></p>
-<h2 id="8、登录到容器中"><a href="#8、登录到容器中" class="headerlink" title="8、登录到容器中"></a>8、登录到容器中</h2><p><code>sudo docker attach django_server</code><br>登录为root用户</p>
-<h2 id="9、创建非root用户"><a href="#9、创建非root用户" class="headerlink" title="9、创建非root用户"></a>9、创建非root用户</h2><p><code>adduser acs</code><br>赋予其sudo权限：<code>usermod -aG sudo acs</code><br>设置密码</p>
-<h2 id="10、配置容器的免密登录"><a href="#10、配置容器的免密登录" class="headerlink" title="10、配置容器的免密登录"></a>10、配置容器的免密登录</h2><p>配置免密登录的过程是：在容器的.ssh/authorized_keys中写入本地的.ssh文件夹（C:\Users\chen yi fan.ssh）中的公钥的内容<br>然后修改本地的.ssh/config文件，添加容器的信息，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host django_azure</span><br><span class="line">    HostName 20.123.135.13</span><br><span class="line">    User acs</span><br><span class="line">    Port 20000</span><br></pre></td></tr></table></figure>
-<h2 id="11、从本地-其他云服务器上登录到容器的命令"><a href="#11、从本地-其他云服务器上登录到容器的命令" class="headerlink" title="11、从本地/其他云服务器上登录到容器的命令"></a>11、从本地/其他云服务器上登录到容器的命令</h2><p><code>ssh acs@ip -p 20000</code><br>退出容器时注意不要关闭容器，而是挂起容器：ctrl+p ctrl+q</p>
-<h2 id="12、完成容器的一些配置："><a href="#12、完成容器的一些配置：" class="headerlink" title="12、完成容器的一些配置："></a>12、完成容器的一些配置：</h2><p>nginx配置：<br>（1）修改yxc的acapp中的服务器IP<br>（2）将服务器的IP添加到项目的settings.py的ALLOWED_HOSTS中<br>（3）将yxc提供的nginx.conf写入容器的/etc/nginx/nginx.conf文件中<br>（4）将yxc提供的acapp.key写入容器的/etc/nginx/cert/acapp.key文件中<br>（5）将yxc提供的acapp.pem写入容器的/etc/nginx/cert/acapp.pem文件中<br>（6）启动nginx服务：<code>sudo /etc/init.d/nginx start</code><br>（7）启动uwsgi服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>redis配置：<br>（1）安装redis：<code>pip install django_redis</code><br>（2）启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code><br>（3）用<code>top</code>命令看有没有进程叫redis-server</p>
-<p>django channels配置：<br>（1）安装channels_redis：<code>pip install channels_redis</code><br>（2）启动django_channels：<br>  在~/acapp目录下执行：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<p>同时启动https（uwsgi）和wss（daphne）协议的服务后，项目就应该可以正常运行</p>
-<h2 id="13、启动https和wss服务"><a href="#13、启动https和wss服务" class="headerlink" title="13、启动https和wss服务"></a>13、启动https和wss服务</h2><p>启动https服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<hr>
-<h1 id="重启云服务器"><a href="#重启云服务器" class="headerlink" title="重启云服务器"></a>重启云服务器</h1><p>在云平台暂停云服务器后重新启动服务器并进入容器</p>
-<h2 id="1-在云平台启动云服务器"><a href="#1-在云平台启动云服务器" class="headerlink" title="1. 在云平台启动云服务器"></a>1. 在云平台启动云服务器</h2><p>需要等待5-10分钟才能完成重启的过程</p>
-<h2 id="2-查看云服务器中已有的容器"><a href="#2-查看云服务器中已有的容器" class="headerlink" title="2. 查看云服务器中已有的容器"></a>2. 查看云服务器中已有的容器</h2><p>运行命令：<code>sudo docker ps -a</code></p>
-<h2 id="3-启动被暂停-退出的容器"><a href="#3-启动被暂停-退出的容器" class="headerlink" title="3. 启动被暂停/退出的容器"></a>3. 启动被暂停/退出的容器</h2><p>运行命令：<code>sudo docker start django_server</code></p>
-<h2 id="4-进入容器"><a href="#4-进入容器" class="headerlink" title="4. 进入容器"></a>4. 进入容器</h2><p>在vscode上选择django_azure，点击进入即可</p>
-<h2 id="5-启动容器中的服务"><a href="#5-启动容器中的服务" class="headerlink" title="5. 启动容器中的服务"></a>5. 启动容器中的服务</h2><p>主要需要启动以下五个服务：</p>
-<p>启动nginx服务：<code>sudo /etc/init.d/nginx start</code></p>
-<p>启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code></p>
-<p>启动uwsgi（https）服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<p>启动match system服务：<code>./main.py</code></p>
-]]></content>
-      <categories>
-        <category>工具使用</category>
-      </categories>
-      <tags>
-        <tag>Cloud Server</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/01/20/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>How to use Typora</title>
@@ -777,5 +666,193 @@ shift enter: 新起一行
         <tag>Typora</tag>
         <tag>Mardown</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>How to Migrate and Restart a Cloud Server</title>
+    <url>/2024/01/21/How-to-Migrate-and-Restart-a-Cloud-Server/</url>
+    <content><![CDATA[<h1 id="迁移云服务器"><a href="#迁移云服务器" class="headerlink" title="迁移云服务器"></a>迁移云服务器</h1><h2 id="1、租云服务器，配置其免密登录"><a href="#1、租云服务器，配置其免密登录" class="headerlink" title="1、租云服务器，配置其免密登录"></a>1、租云服务器，配置其免密登录</h2><p>将本地的公钥复制到云服务器的~/.ssh/authorized_keys中，或者使用云服务器平台提供的密钥，在本地的.ssh文件夹中添加密钥在本地的位置<br>第一次登录云服务器（未配置免密登录）的具体流程可以参照以下步骤：</p>
+<p>IR_Group_7_project Demo Instruction</p>
+<ol>
+<li>Login our VM instance<br>Move key to secure location (eg. ~/.ssh in linux), then</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 path/to/shaoxi_key.pem</span><br><span class="line">ssh -i path/to/shaoxi_key.pem shaoxi@52.174.147.101</span><br></pre></td></tr></table></figure>
+<h2 id="2、在云服务器中安装docker"><a href="#2、在云服务器中安装docker" class="headerlink" title="2、在云服务器中安装docker"></a>2、在云服务器中安装docker</h2><p>安装步骤参见官网：<a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a><br>一般安装的版本为20.10.9，使用命令：<code>VERSION_STRING=5:20.10.9~3-0~ubuntu-focal</code><br>查看docker是否安装成功：<code>docker --version</code></p>
+<h2 id="3、在云服务器平台开放以下端口"><a href="#3、在云服务器平台开放以下端口" class="headerlink" title="3、在云服务器平台开放以下端口"></a>3、在云服务器平台开放以下端口</h2><p>22， 8000， 443， 80， 20000，协议均为TCP，源和目的地都为任何（0.0.0.0）</p>
+<h2 id="4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里"><a href="#4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里" class="headerlink" title="4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里"></a>4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里</h2><p>在powershell中执行的具体的命令为：<br><code>scp .\django_lesson_1.tar azureuser@20.123.135.13:~/</code></p>
+<h2 id="5、将镜像xxxx从本地文件xxxx-tar中加载出来"><a href="#5、将镜像xxxx从本地文件xxxx-tar中加载出来" class="headerlink" title="5、将镜像xxxx从本地文件xxxx.tar中加载出来"></a>5、将镜像xxxx从本地文件xxxx.tar中加载出来</h2><p><code>sudo docker load -i xxxx.tar</code></p>
+<h2 id="6、查看镜像是否成功加载出来"><a href="#6、查看镜像是否成功加载出来" class="headerlink" title="6、查看镜像是否成功加载出来"></a>6、查看镜像是否成功加载出来</h2><p>查看所有镜像的命令: <code>sudo docker images</code></p>
+<h2 id="7、使用镜像重新创建并运行容器"><a href="#7、使用镜像重新创建并运行容器" class="headerlink" title="7、使用镜像重新创建并运行容器"></a>7、使用镜像重新创建并运行容器</h2><p><code>docker run -p 20000:22 -p 8000:8000 -p 80:80 -p 443:443 --name django_server -itd django_lesson:1.1</code></p>
+<h2 id="8、登录到容器中"><a href="#8、登录到容器中" class="headerlink" title="8、登录到容器中"></a>8、登录到容器中</h2><p><code>sudo docker attach django_server</code><br>登录为root用户</p>
+<h2 id="9、创建非root用户"><a href="#9、创建非root用户" class="headerlink" title="9、创建非root用户"></a>9、创建非root用户</h2><p><code>adduser acs</code><br>赋予其sudo权限：<code>usermod -aG sudo acs</code><br>设置密码</p>
+<h2 id="10、配置容器的免密登录"><a href="#10、配置容器的免密登录" class="headerlink" title="10、配置容器的免密登录"></a>10、配置容器的免密登录</h2><p>配置免密登录的过程是：在容器的.ssh/authorized_keys中写入本地的.ssh文件夹（C:\Users\chen yi fan.ssh）中的公钥的内容<br>然后修改本地的.ssh/config文件，添加容器的信息，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host django_azure</span><br><span class="line">    HostName 20.123.135.13</span><br><span class="line">    User acs</span><br><span class="line">    Port 20000</span><br></pre></td></tr></table></figure>
+<h2 id="11、从本地-其他云服务器上登录到容器的命令"><a href="#11、从本地-其他云服务器上登录到容器的命令" class="headerlink" title="11、从本地/其他云服务器上登录到容器的命令"></a>11、从本地/其他云服务器上登录到容器的命令</h2><p><code>ssh acs@ip -p 20000</code><br>退出容器时注意不要关闭容器，而是挂起容器：ctrl+p ctrl+q</p>
+<h2 id="12、完成容器的一些配置："><a href="#12、完成容器的一些配置：" class="headerlink" title="12、完成容器的一些配置："></a>12、完成容器的一些配置：</h2><p>nginx配置：<br>（1）修改yxc的acapp中的服务器IP<br>（2）将服务器的IP添加到项目的settings.py的ALLOWED_HOSTS中<br>（3）将yxc提供的nginx.conf写入容器的/etc/nginx/nginx.conf文件中<br>（4）将yxc提供的acapp.key写入容器的/etc/nginx/cert/acapp.key文件中<br>（5）将yxc提供的acapp.pem写入容器的/etc/nginx/cert/acapp.pem文件中<br>（6）启动nginx服务：<code>sudo /etc/init.d/nginx start</code><br>（7）启动uwsgi服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>redis配置：<br>（1）安装redis：<code>pip install django_redis</code><br>（2）启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code><br>（3）用<code>top</code>命令看有没有进程叫redis-server</p>
+<p>django channels配置：<br>（1）安装channels_redis：<code>pip install channels_redis</code><br>（2）启动django_channels：<br>  在~/acapp目录下执行：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<p>同时启动https（uwsgi）和wss（daphne）协议的服务后，项目就应该可以正常运行</p>
+<h2 id="13、启动https和wss服务"><a href="#13、启动https和wss服务" class="headerlink" title="13、启动https和wss服务"></a>13、启动https和wss服务</h2><p>启动https服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<hr>
+<h1 id="重启云服务器"><a href="#重启云服务器" class="headerlink" title="重启云服务器"></a>重启云服务器</h1><p>在云平台暂停云服务器后重新启动服务器并进入容器</p>
+<h2 id="1-在云平台启动云服务器"><a href="#1-在云平台启动云服务器" class="headerlink" title="1. 在云平台启动云服务器"></a>1. 在云平台启动云服务器</h2><p>需要等待5-10分钟才能完成重启的过程</p>
+<h2 id="2-查看云服务器中已有的容器"><a href="#2-查看云服务器中已有的容器" class="headerlink" title="2. 查看云服务器中已有的容器"></a>2. 查看云服务器中已有的容器</h2><p>运行命令：<code>sudo docker ps -a</code></p>
+<h2 id="3-启动被暂停-退出的容器"><a href="#3-启动被暂停-退出的容器" class="headerlink" title="3. 启动被暂停/退出的容器"></a>3. 启动被暂停/退出的容器</h2><p>运行命令：<code>sudo docker start django_server</code></p>
+<h2 id="4-进入容器"><a href="#4-进入容器" class="headerlink" title="4. 进入容器"></a>4. 进入容器</h2><p>在vscode上选择django_azure，点击进入即可</p>
+<h2 id="5-启动容器中的服务"><a href="#5-启动容器中的服务" class="headerlink" title="5. 启动容器中的服务"></a>5. 启动容器中的服务</h2><p>主要需要启动以下五个服务：</p>
+<p>启动nginx服务：<code>sudo /etc/init.d/nginx start</code></p>
+<p>启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code></p>
+<p>启动uwsgi（https）服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<p>启动match system服务：<code>./main.py</code></p>
+]]></content>
+      <categories>
+        <category>工具使用</category>
+      </categories>
+      <tags>
+        <tag>Cloud Server</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django Project Summary</title>
+    <url>/2024/01/21/Django-Project-Summary/</url>
+    <content><![CDATA[<h1 id="Django项目总结"><a href="#Django项目总结" class="headerlink" title="Django项目总结"></a>Django项目总结</h1><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>Game based on Django framework, developed by yifanChen</p>
+<h3 id="Website"><a href="#Website" class="headerlink" title="Website"></a>Website</h3><p><a href="https://app5894.acapp.acwing.com.cn/">https://app5894.acapp.acwing.com.cn/</a></p>
+<h3 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h3><p><a href="https://github.com/yfchenkeepgoing/Django_app">https://github.com/yfchenkeepgoing/Django_app</a></p>
+<h3 id="Gameplay"><a href="#Gameplay" class="headerlink" title="Gameplay"></a>Gameplay</h3><ol>
+<li>Right-click to move</li>
+<li>Left-click plus ‘Q’ for the skill: Fireball, with a cooldown of 3 seconds</li>
+<li>Left-click plus ‘F’ for the skill: Flash, with a cooldown of 5 seconds</li>
+<li>In multiplayer mode, the winning player gains 10 points, and the losing player loses 5 points</li>
+</ol>
+<h3 id="Technology-Stack"><a href="#Technology-Stack" class="headerlink" title="Technology Stack"></a>Technology Stack</h3><ol>
+<li>Frontend: JQuery</li>
+<li>Backend: Django</li>
+<li>Database: SQLite, Redis</li>
+<li>Network Protocols: HTTPS, WSS</li>
+<li>RPC: Thrift</li>
+<li>Authorization Protocol: OAuth</li>
+<li>Authentication: JWT</li>
+</ol>
+<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ol>
+<li>Complete menu interface and game interface</li>
+<li>Frontend and backend separation, with AcApp and Web versions on the frontend</li>
+<li>Deployed with Nginx to interface with the AcApp</li>
+<li>Comprehensive account system, username and password login, and one-click login with AcWing &amp; GitHub OAuth</li>
+<li>Online multiplayer and chat system implemented via WSS protocol</li>
+<li>Matchmaking system implemented through Thrift service</li>
+<li>Cross-origin issues resolved through Rest Framework and JWT authentication, achieving complete frontend-backend separation</li>
+<li>The ranking board displays the top ten players ranked by score</li>
+</ol>
+<h2 id="Django项目的框架"><a href="#Django项目的框架" class="headerlink" title="Django项目的框架"></a>Django项目的框架</h2><p>一个Django项目，大致由以下六部分组成：</p>
+<ol>
+<li>templates目录：管理html文件</li>
+<li>urls目录：管理路由，即链接与函数的对应关系，即每个链接交给哪个函数处理的信息，存储在urls文件夹中。</li>
+<li>views目录：视图，管理http函数（函数实现在views目录中）</li>
+<li>models目录：管理数据库数据。</li>
+<li>consumers目录：管理websocket函数（views管理http函数，即负责单向连接的函数；consumers管理双向连接的函数，比如联机对战和聊天的逻辑）</li>
+<li>static目录：管理静态文件，比如：</li>
+</ol>
+<ul>
+<li>css文件：对象的格式（网页每部分的格式），比如位置、长宽、颜色、背景、字体大小等</li>
+<li>js：对象的逻辑（项目的核心），比如对象的创建与销毁、事件函数、移动、变色等，渲染html也会在js部分（前端）</li>
+<li>image：图片</li>
+<li>audio：声音</li>
+</ul>
+<p>urls文件夹、views文件夹、models文件夹和consumers文件夹都由python文件组成，如果想通过import将文件导入，则需要在文件夹下创建 <code>__init__.py</code>文件（即索引文件，内容为空即可）。在所有python文件夹中都需要创建这样的函数，否则在import时就无法进去，会报错。</p>
+<h2 id="项目核心逻辑"><a href="#项目核心逻辑" class="headerlink" title="项目核心逻辑"></a>项目核心逻辑</h2><p>本项目由于是一个小游戏，因此前端的js代码占比较大。游戏单人模式的实现纯粹由前端完成，我用js代码实现了一个简易的游戏引擎。游戏的单人模式不需要前后端交互。</p>
+<p>需要前后端交互的部分有：</p>
+<ol>
+<li>注册与登录：涉及到写入、读取、查询数据库</li>
+<li>acwing和GitHub一键登录：即OAuth授权登录</li>
+<li>实现联机对战和聊天系统：涉及到在多名玩家之间同步五个事件（函数）：create_player, move_to, shoot_fireball, attack, message。前四个用于实现联机对战，最后一个用于实现聊天系统。</li>
+<li>Rest Framework与JWT身份验证：是对第一点和第二点的补充。</li>
+</ol>
+<ul>
+<li>JWT（json web token）相比于django自带的登录验证方式（通过session_id）安全性更高。</li>
+<li>方便实现真正意义上的前后端分离，即后端只需要提供实现好的api给前端调用，而Rest Framework为这些api的调试提供了可视化界面。</li>
+<li>JWT可以解决跨域产生的问题。</li>
+<li>可以使用http的四大类请求方法：get, post, delete, put，而不像之前仅仅使用get方法，这又提高了令牌的安全性。</li>
+</ul>
+<p>纯后端的部分只有匹配系统的实现。匹配系统的实现涉及到两个后端（即django web server和match system）之间的通信，匹配系统本身涉及到多线程和锁等方面的知识。</p>
+<p>我认为本项目的重点主要在于前后端交互的部分，前后端交互其实有一套统一的范式：先在views中实现后端的函数；然后在urls中为后端的函数定义url链接；再在前端代码中利用ajax技术通过url获得后端传来的数据（前后端一般以json的格式传递数据）；最后通过前端使用或展示数据。如果给用户设计了一套通过点击鼠标或者使用键盘向后端请求数据的模式，那么还需要在前端进行按键索引和绑定监听函数等操作。</p>
+<h2 id="改进项目"><a href="#改进项目" class="headerlink" title="改进项目"></a>改进项目</h2><ol>
+<li>使用功能更强大的前端框架，比如Vue或者React，取代简单的JQuey。</li>
+<li>使用更多种类型的数据库，比如关系型数据库MySQL，文档数据库MongoDB，对象存储服务等等。</li>
+<li>使用另外几种实现前后端通信的技术取代ajax，比如Fetch API，Server-Sent Events (SSE)，GraphQL和WebRTC，以提高系统的性能。</li>
+<li>学习并尝试使用Springboot框架和Go语言的后端框架。</li>
+<li>使用k8s来自动化部署、扩展和管理容器化应用程序。</li>
+</ol>
+<h2 id="漫谈"><a href="#漫谈" class="headerlink" title="漫谈"></a>漫谈</h2><h3 id="后端的主要分类"><a href="#后端的主要分类" class="headerlink" title="后端的主要分类"></a>后端的主要分类</h3><p>算法与推荐系统、开发各种服务、数据库</p>
+<h3 id="对于实现客户端与服务器之间的通信功能的技术的选择"><a href="#对于实现客户端与服务器之间的通信功能的技术的选择" class="headerlink" title="对于实现客户端与服务器之间的通信功能的技术的选择"></a>对于实现客户端与服务器之间的通信功能的技术的选择</h3><p>除了AJAX，现代Web开发中还有几种其他技术可以实现类似的客户端与服务器之间的通信功能。一些技术在特定场景下比AJAX更高效。以下是一些常用的技术：</p>
+<ol>
+<li><strong>Fetch API</strong>： Fetch API提供了一种更简洁和强大的方式来发起网络请求。它基于Promise，使得写异步代码更加简洁和直观。Fetch API是AJAX的现代替代方案，被广泛支持和使用。</li>
+<li><strong>WebSocket</strong>： WebSocket提供了全双工通信渠道，使得客户端和服务器可以实时、双向地通信。它非常适用于需要频繁和即时数据更新的应用，如在线游戏、聊天应用和实时数据流。</li>
+<li><strong>Server-Sent Events (SSE)</strong>： SSE允许服务器主动向客户端发送新数据。它是单向的，只有服务器可以发送消息给客户端。SSE适合实现如股票行情、新闻订阅等场景，其中服务器定期推送更新。</li>
+<li><strong>GraphQL</strong>： GraphQL是一种数据查询和操作语言，它允许客户端以更灵活的方式请求数据。与REST相比，GraphQL可以减少数据传输量，因为它允许客户端精确指定所需的数据。</li>
+<li><strong>WebRTC</strong>： WebRTC（Web Real-Time Communication）允许在不需要安装插件的情况下在Web应用中实现实时通信功能，常用于视频聊天和点对点数据共享。</li>
+</ol>
+<p>每种技术都有其特定的应用场景和优势。选择哪一种技术取决于应用的具体需求：</p>
+<ul>
+<li>对于简单的异步数据请求，AJAX和Fetch API都是不错的选择。</li>
+<li>对于需要高实时性的应用，WebSocket或WebRTC可能更合适。</li>
+<li>对于服务器主动推送数据的场景，SSE是一个好的选择。</li>
+<li>对于需要更灵活数据交互的场景，GraphQL提供了更好的解决方案。</li>
+</ul>
+<p>在性能方面，WebSocket和WebRTC通常在需要频繁和快速通信的场景下比AJAX更高效，因为它们建立了持久的连接，而不是像AJAX那样为每个请求创建新的连接。</p>
+<h3 id="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"><a href="#如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）" class="headerlink" title="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"></a>如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</h3><ul>
+<li>租一台数据库服务器</li>
+<li>在框架中负责数据库的部分配置数据库服务器的连接/登录</li>
+<li>下载该框架下使用该种数据库的包</li>
+<li>在框架中负责数据库的部分调用包中的api完成对数据库的各种操作，比如读、写、删除等。</li>
+</ul>
+<p>在 Django 中，通常不需要直接使用 SQL 语句来操作 MySQL 数据库，因为 Django 提供了一个强大的 ORM（对象关系映射）系统，允许你通过 Python 代码来操作数据库。这意味着你可以使用 Django 的模型和查询 API 来查询和操作数据，而无需直接编写 SQL 语句。</p>
+<p>Django 本身不直接支持 MongoDB，因为它是一个 NoSQL 数据库，与 Django 的 ORM 系统设计理念不同。如果你想在 Django 项目中使用 MongoDB，可以采取以下方法：</p>
+<ul>
+<li>使用 Djongo： Djongo 是一个将 Django ORM 映射到 MongoDB 的工具。通过 Djongo，你可以在一定程度上使用 Django ORM 的风格来操作 MongoDB。</li>
+<li>使用 PyMongo： PyMongo 是 MongoDB 的官方 Python 驱动程序。使用 PyMongo，你可以直接以 Python 代码与 MongoDB 交互，但这意味着你需要手动编写数据库操作逻辑，而不是使用 Django ORM。</li>
+</ul>
+<p>对于对象存储服务（如 Amazon S3），通常使用的是 RESTful API 而非传统的数据库查询语言。在 Django 项目中使用对象存储通常涉及以下步骤：</p>
+<ul>
+<li>选择合适的库： 例如，对于 Amazon S3，你可以使用 boto3，这是 AWS 的官方 Python SDK。</li>
+<li>进行配置和认证： 通常需要设置认证凭据和相关配置。</li>
+<li>使用 SDK 提供的 API： 使用 SDK 提供的方法来上传、下载、列出文件等。</li>
+</ul>
+<h3 id="JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点"><a href="#JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点" class="headerlink" title="JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点"></a>JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点</h3><p>Cookie：<br>优点：自动由浏览器管理，并且可以设置为HttpOnly（无法通过JavaScript访问，增加安全性），支持跨域访问控制（SameSite属性）。<br>缺点：容易受到CSRF（跨站请求伪造）攻击，尽管可以通过适当的防范措施（如使用CSRF Token）来缓解。</p>
+<p>LocalStorage：<br>优点：易于使用，可以在浏览器会话间持久存储。<br>缺点：容易受到XSS（跨站脚本攻击）攻击，因为恶意脚本可以访问LocalStorage并窃取令牌。</p>
+<p>内存（JavaScript变量）：<br>优点：在浏览器关闭时自动清除，不容易受到XSS攻击（只要不将令牌暴露给恶意脚本）。<br>缺点：不持久，用户刷新页面或关闭浏览器时会丢失，可能需要重新认证。</p>
+<p>最佳实践：<br>安全性考虑：通常推荐将JWT存储在HttpOnly的Cookie中，因为这样可以防止JavaScript访问令牌，从而减少XSS攻击的风险。</p>
+<p>CSRF防范：如果使用Cookie，应结合CSRF保护机制。</p>
+<p>易用性：如果需要在会话间持久保存用户的登录状态，LocalStorage可能更为方便。但是，务必注意XSS攻击的风险，并采取适当的安全措施。</p>
+<p>短期使用：对于需要高安全性且可接受在会话结束后用户需要重新登录的场景，可以考虑仅将JWT存储在内存中。</p>
+<p>在实践中，选择哪种方式取决于应用的安全需求、用户体验需求以及开发者对相关安全风险的管理能力。在处理任何形式的认证信息时，安全总是首要考虑的因素。<strong>在本项目中，出于安全性和短期使用的考量，我将JWT存储在了内存，即js变量中</strong>。如果没有明确地将JWT存储在Local Storage或Cookie中，那么它们就是存储在内存中。这意味着令牌只在当前页面会话中有效，一旦页面被关闭或刷新，令牌就会丢失。</p>
+]]></content>
+      <categories>
+        <category>web开发</category>
+      </categories>
+      <tags>
+        <tag>Backend</tag>
+        <tag>Django</tag>
+        <tag>Frontend</tag>
+        <tag>JQuery</tag>
+        <tag>Ajax</tag>
+        <tag>Database</tag>
+        <tag>SQLite</tag>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/01/20/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
 </search>
