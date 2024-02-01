@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-02-01 06:51:45" itemprop="dateModified" datetime="2024-02-01T06:51:45+00:00">2024-02-01</time>
+                <time title="修改时间：2024-02-01 07:00:31" itemprop="dateModified" datetime="2024-02-01T07:00:31+00:00">2024-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -337,13 +337,13 @@
 <li>本题如果有几个测试样例总是过不了，可以直接删去剪枝的代码，一般就可以通过了。剪枝是优化，即使不加，依然可以轻松通过。剪枝部分是易错点。</li>
 </ol>
 <h3 id="哈希表总结"><a href="#哈希表总结" class="headerlink" title="哈希表总结"></a>哈希表总结</h3><ol>
-<li>哈希表的使用场景：快速查找一个元素是否在集合中出现过。</li>
+<li>哈希表的使用场景：快速判断一个元素是否在集合中出现过。</li>
 <li>哈希的三重境界：普通数组-&gt;set-&gt;map。</li>
-<li>目前哈希中用到的set和map实际上是unordered_set和unordered_map，相对于set和map中的另外两种数据结构（set, multiset, map, multimap），unordered_set和unordered_map的查询效率和增删效率都是最高的。</li>
-<li>遇到哈希问题时，首先想想能不能用数组做哈希。用数组做哈希最直接，运行速度也最快，用set做哈希速度更慢，但遇到大规模的索引，数组放不下时，只能用set。</li>
+<li>目前哈希中用到的set和map实际上是unordered_set和unordered_map，相对于set和map中的另外两种数据结构（set, multiset, map, multimap），unordered_set和unordered_map的查询效率和增删效率都是最高的。选择set类型的三种数据结构时，若我们不需要数据有序，且需要去重，且希望效率高，则用unordered_set。选择map类型的三种数据结构时，若我们不需要key有序，且希望效率高，则用unordered_map。</li>
+<li>遇到哈希问题时，首先想想能不能用数组做哈希（比如题目中提到字符串中全是小写英文字母，就果断用数组做哈希）。用数组做哈希最直接，运行速度也最快，用set做哈希速度更慢，但遇到大规模的索引，数组放不下时，只能用set。</li>
 <li>什么时候用map做哈希？当对一个元素需要同时存储两个值时，就必须用map做哈希。这两个值一个作为key，一个作为value存入map中。key中一般存储的是元素的值（便于查询），value中可以存放元素的索引（如1. 两数之和），也可以存放元素出现的次数（如454.四数相加II）。</li>
 <li>map可以当作普通数组一样使用，忘了STL的用法可以复习知识部分。</li>
-<li>哈希表部分的八道算法题，前六道都使用的是正统的哈希法，最后两道（三树之和&amp;四数之和）并非不可以使用哈希法，但使用哈希法需要进行复杂的去重操作，代码容易写错，因此推荐使用双指针算法。</li>
+<li>哈希表部分的八道算法题，前六道都使用的是正统的哈希法，最后两道（三树之和&amp;四数之和）并非不可以使用哈希法，但使用哈希法需要进行复杂的去重操作，代码容易写错，且运行效率低下，因此推荐使用双指针算法。</li>
 <li>三数之和&amp;四数之和的易错点在于剪枝和去重。</li>
 </ol>
 
