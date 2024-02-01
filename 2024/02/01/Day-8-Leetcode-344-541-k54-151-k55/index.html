@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="链接344.反转字符串541. 反转字符串II卡码网：54.替换数字151.翻转字符串里的单词卡码网：55.右旋转字符串 知识541. 反转字符串II一般来说，编程语言自己实现的库函数都是左闭右开的，因此reverse(s, i, i + k)表示的是反转字符串s的第i位到第i + k位，不包含第i + k位。 卡码网：54.替换数字151.翻转字符串里的单词卡码网：55.右旋转字符串初次尝试34">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Day 8 | Leetcode 344, 541, k54, 151, k55">
+<meta property="og:url" content="http://example.com/2024/02/01/Day-8-Leetcode-344-541-k54-151-k55/index.html">
+<meta property="og:site_name" content="YifanChen&#39;s Blog">
+<meta property="og:description" content="链接344.反转字符串541. 反转字符串II卡码网：54.替换数字151.翻转字符串里的单词卡码网：55.右旋转字符串 知识541. 反转字符串II一般来说，编程语言自己实现的库函数都是左闭右开的，因此reverse(s, i, i + k)表示的是反转字符串s的第i位到第i + k位，不包含第i + k位。 卡码网：54.替换数字151.翻转字符串里的单词卡码网：55.右旋转字符串初次尝试34">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-01T07:17:56.000Z">
+<meta property="article:modified_time" content="2024-02-01T14:05:51.247Z">
+<meta property="article:author" content="Yifan Chen">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/02/01/Day-8-Leetcode-344-541-k54-151-k55/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Day 8 | Leetcode 344, 541, k54, 151, k55 | YifanChen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="YifanChen's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YifanChen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个专注技术的新手程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io" class="github-corner" title="YifanChen GitHub" aria-label="YifanChen GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/01/Day-8-Leetcode-344-541-k54-151-k55/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yifan Chen">
+      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YifanChen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Day 8 | Leetcode 344, 541, k54, 151, k55
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-02-01 07:17:56 / 修改时间：14:05:51" itemprop="dateCreated datePublished" datetime="2024-02-01T07:17:56+00:00">2024-02-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%EF%BC%88%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%89/" itemprop="url" rel="index"><span itemprop="name">算法（字符串）</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0344.%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2.html">344.反转字符串</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0541.%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2II.html">541. 反转字符串II</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/kama54.%E6%9B%BF%E6%8D%A2%E6%95%B0%E5%AD%97.html">卡码网：54.替换数字</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0151.%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D.html">151.翻转字符串里的单词</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/kama55.%E5%8F%B3%E6%97%8B%E5%AD%97%E7%AC%A6%E4%B8%B2.html">卡码网：55.右旋转字符串</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="541-反转字符串II"><a href="#541-反转字符串II" class="headerlink" title="541. 反转字符串II"></a>541. 反转字符串II</h3><p>一般来说，编程语言自己实现的库函数都是左闭右开的，因此<code>reverse(s, i, i + k)</code>表示的是反转字符串s的第i位到第i + k位，不包含第i + k位。</p>
+<h3 id="卡码网：54-替换数字"><a href="#卡码网：54-替换数字" class="headerlink" title="卡码网：54.替换数字"></a>卡码网：54.替换数字</h3><h3 id="151-翻转字符串里的单词"><a href="#151-翻转字符串里的单词" class="headerlink" title="151.翻转字符串里的单词"></a>151.翻转字符串里的单词</h3><h3 id="卡码网：55-右旋转字符串"><a href="#卡码网：55-右旋转字符串" class="headerlink" title="卡码网：55.右旋转字符串"></a>卡码网：55.右旋转字符串</h3><h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="344-反转字符串"><a href="#344-反转字符串" class="headerlink" title="344.反转字符串"></a>344.反转字符串</h3><p>先尝试用reverse函数秒杀，顺便复习reverse函数的用法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">reverseString</span><span class="params">(vector&lt;<span class="type">char</span>&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>reverse函数相当于把字符串反转以后，将新的字符串存入了旧的字符串中。</p>
+<p>我曾经做过反转链表的题，猜测用双指针可以解决这道题。写下了以下的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">reverseString</span><span class="params">(vector&lt;<span class="type">char</span>&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> l = <span class="number">0</span>, r = s.<span class="built_in">size</span>() - <span class="number">1</span>; l &lt; r; l ++ , r -- )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// swap(s[l], s[r]);</span></span><br><span class="line">            <span class="type">int</span> tmp = s[l];</span><br><span class="line">            s[l] = s[r];</span><br><span class="line">            s[r] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>直接用swap函数或者手写swap函数都是可以的。<code>l &lt; r</code>或者<code>l &lt;= r</code>都可以。因为字符串中字符的个数为奇数时，中间那个字符交换不交换都一样；字符个数为偶数时，交换最后两个成对的字符即可。</p>
+<h3 id="541-反转字符串II-1"><a href="#541-反转字符串II-1" class="headerlink" title="541. 反转字符串II"></a>541. 反转字符串II</h3><p>拿到这道题，我的第一想法是分类讨论。设字符串的长度是<code>len</code>。若<code>len &lt; k</code>，则全部反转；若<code>k &lt;= len &lt; 2k</code>，则反转前k个字母；若<code>len &gt;= 2k</code>，则按照题意反转。本题在反转的逻辑上没有困难，但问题在于如何分割出需要反转的子字符串。我没想出来什么好办法，写的逻辑太复杂又容易出错。</p>
+<h3 id="卡码网：54-替换数字-1"><a href="#卡码网：54-替换数字-1" class="headerlink" title="卡码网：54.替换数字"></a>卡码网：54.替换数字</h3><h3 id="151-翻转字符串里的单词-1"><a href="#151-翻转字符串里的单词-1" class="headerlink" title="151.翻转字符串里的单词"></a>151.翻转字符串里的单词</h3><h3 id="卡码网：55-右旋转字符串-1"><a href="#卡码网：55-右旋转字符串-1" class="headerlink" title="卡码网：55.右旋转字符串"></a>卡码网：55.右旋转字符串</h3><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="344-反转字符串-1"><a href="#344-反转字符串-1" class="headerlink" title="344.反转字符串"></a>344.反转字符串</h3><p>在算法的思路上，字符串和数组非常类似。本题应用双指针法即可：首尾交换，再次一级交换，以此类推。因此首尾各有一个指针，两指针交换，然后两指针同时向中间移动。若库函数直接把题目解决了，就不要用库函数。若库函数是题目的一部分，且我们知道库函数的大体实现逻辑和时间复杂度，那就可以用。代码如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">reverseString</span><span class="params">(vector&lt;<span class="type">char</span>&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, j = s.<span class="built_in">size</span>() - <span class="number">1</span>; i &lt; s.<span class="built_in">size</span>() / <span class="number">2</span>; i ++ , j -- )</span><br><span class="line">            <span class="built_in">swap</span>(s[i], s[j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>swap函数有两种方法，一种是常见的交换数值，另一种是位运算，可参见代码随想录。</p>
+<h3 id="541-反转字符串II-2"><a href="#541-反转字符串II-2" class="headerlink" title="541. 反转字符串II"></a>541. 反转字符串II</h3><p>模拟题，模拟复杂的规则下，如何反转字符串。题意：每2k段的前k个字符进行反转，尾部如果剩下的字符超过长度超过k，则反转k个字符，剩下的不动。尾部如果剩下的字符长度小于k，则全部反转。本题的代码可以很简洁。</p>
+<p>本题每次取2k段，因此按照2k来遍历：<code>for (int i = 0; i &lt; s.size(); i += 2k)</code>。然后在for循环中操作前k个字符即可。边界条件想不明白可以带一个具体的例子来试。代码和注释如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseStr</span><span class="params">(string s, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 每隔2k个字符跳转一次，即每次取出2k个字符</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i += <span class="number">2</span> * k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 对2k个字符的前k个字符进行反转</span></span><br><span class="line">            <span class="comment">// 由于每次取2k，取若干次后。字符串的尾部剩下的字符长度l可能l &lt; k 或 k &lt;= l &lt; 2k</span></span><br><span class="line">            <span class="comment">// 对前一种情况，需要将尾部全部反转，对后一种情况，需要反转尾部剩下字符的前k个字符</span></span><br><span class="line">            <span class="comment">// 先处理后一种情况，注意加上条件i + k &lt;= s.size()，这可以避免对索引超出范围的元素进行反转</span></span><br><span class="line">            <span class="comment">// 至于i + k是否能取到s.size()，可以举例子：k = 3, s = &#123;a, b, c&#125;，由此可见可以取等于</span></span><br><span class="line">            <span class="comment">// 也可以从理论上分析，由于reverse的区间是左闭右开的，因此s.begin() + i + k实际上取不到，因此可以让i + k = s.size() </span></span><br><span class="line">            <span class="comment">// 处理完后continue即可，除去反转2k个字符中的前k个字符的一般情况，尾部剩下的字符的长度的第一种情况和第二种情况只可能有一种发生</span></span><br><span class="line">            <span class="keyword">if</span> (i + k &lt;= s.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">begin</span>() + i + k); <span class="comment">// 左闭右开</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 再处理前一种情况，当剩余的字符长度l &lt; k时，反转剩余的全部字符</span></span><br><span class="line">            <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>也可以不用continue，直接采用if-else写法，参见代码随想录的写法（代码随线录的注释也更加简洁明了）：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseStr</span><span class="params">(string s, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i += (<span class="number">2</span> * k)) &#123;</span><br><span class="line">            <span class="comment">// 1. 每隔 2k 个字符的前 k 个字符进行反转</span></span><br><span class="line">            <span class="comment">// 2. 剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符</span></span><br><span class="line">            <span class="keyword">if</span> (i + k &lt;= s.<span class="built_in">size</span>()) &#123;</span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">begin</span>() + i + k );</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 3. 剩余字符少于 k 个，则将剩余字符全部反转</span></span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">end</span>());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="卡码网：54-替换数字-2"><a href="#卡码网：54-替换数字-2" class="headerlink" title="卡码网：54.替换数字"></a>卡码网：54.替换数字</h3><h3 id="151-翻转字符串里的单词-2"><a href="#151-翻转字符串里的单词-2" class="headerlink" title="151.翻转字符串里的单词"></a>151.翻转字符串里的单词</h3><h3 id="卡码网：55-右旋转字符串-2"><a href="#卡码网：55-右旋转字符串-2" class="headerlink" title="卡码网：55.右旋转字符串"></a>卡码网：55.右旋转字符串</h3><h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="344-反转字符串-2"><a href="#344-反转字符串-2" class="headerlink" title="344.反转字符串"></a>344.反转字符串</h3><p>两种for循环的写法：<code>for (int i = 0, j = s.size() - 1; i &lt; s.size() / 2; i ++ , j -- )</code>和<code>for (int l = 0, r = s.size() - 1; l &lt; r; l ++ , r -- )</code>都可以。</p>
+<h3 id="541-反转字符串II-3"><a href="#541-反转字符串II-3" class="headerlink" title="541. 反转字符串II"></a>541. 反转字符串II</h3><ol>
+<li>for循环每次以2k为长度去跳转</li>
+<li><p>本题反转字符的<strong>三种情况</strong>：</p>
+<ul>
+<li>每隔 2k 个字符的前 k 个字符进行反转</li>
+<li>剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符</li>
+<li>剩余字符少于 k 个，则将剩余字符全部反转</li>
+</ul>
+<p>三种情况每次只可能出现一种，即出现了一种情况，另外两种情况就不会出现了。据此，我写出了结构分明的三段式代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseStr</span><span class="params">(string s, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i += <span class="number">2</span> * k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 情况1</span></span><br><span class="line">            <span class="keyword">if</span> (i + <span class="number">2</span> * k &lt;= s.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">begin</span>() + i + k);</span><br><span class="line">                <span class="keyword">continue</span>; <span class="comment">// 可以省略</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 情况2</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (i + k &lt;= s.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">begin</span>() + i + k);</span><br><span class="line">                <span class="keyword">continue</span>; <span class="comment">// 可以省略</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 情况3</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>情况1和情况2可以合并，因此产生了实现部分中的第二版代码。</p>
+</li>
+<li>如果要求一段段地操作字符串或数组，那么for循环中的i变量是可以一段段增加的，而没必要每次+1</li>
+</ol>
+<h3 id="卡码网：54-替换数字-3"><a href="#卡码网：54-替换数字-3" class="headerlink" title="卡码网：54.替换数字"></a>卡码网：54.替换数字</h3><h3 id="151-翻转字符串里的单词-3"><a href="#151-翻转字符串里的单词-3" class="headerlink" title="151.翻转字符串里的单词"></a>151.翻转字符串里的单词</h3><h3 id="卡码网：55-右旋转字符串-3"><a href="#卡码网：55-右旋转字符串-3" class="headerlink" title="卡码网：55.右旋转字符串"></a>卡码网：55.右旋转字符串</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+              <a href="/tags/Leetcode/" rel="tag"># Leetcode</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/01/31/Day-7-Leetcode-454-383-15-18/" rel="prev" title="Day 7 | Leetcode 454, 383, 15, 18">
+      <i class="fa fa-chevron-left"></i> Day 7 | Leetcode 454, 383, 15, 18
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#541-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2II"><span class="nav-number">2.1.</span> <span class="nav-text">541. 反转字符串II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%A0%81%E7%BD%91%EF%BC%9A54-%E6%9B%BF%E6%8D%A2%E6%95%B0%E5%AD%97"><span class="nav-number">2.2.</span> <span class="nav-text">卡码网：54.替换数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D"><span class="nav-number">2.3.</span> <span class="nav-text">151.翻转字符串里的单词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%A0%81%E7%BD%91%EF%BC%9A55-%E5%8F%B3%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.4.</span> <span class="nav-text">卡码网：55.右旋转字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E6%AC%A1%E5%B0%9D%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">初次尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#344-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.1.</span> <span class="nav-text">344.反转字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#541-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2II-1"><span class="nav-number">3.2.</span> <span class="nav-text">541. 反转字符串II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%A0%81%E7%BD%91%EF%BC%9A54-%E6%9B%BF%E6%8D%A2%E6%95%B0%E5%AD%97-1"><span class="nav-number">3.3.</span> <span class="nav-text">卡码网：54.替换数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D-1"><span class="nav-number">3.4.</span> <span class="nav-text">151.翻转字符串里的单词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%A0%81%E7%BD%91%EF%BC%9A55-%E5%8F%B3%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2-1"><span class="nav-number">3.5.</span> <span class="nav-text">卡码网：55.右旋转字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#344-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2-1"><span class="nav-number">4.1.</span> <span class="nav-text">344.反转字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#541-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2II-2"><span class="nav-number">4.2.</span> <span class="nav-text">541. 反转字符串II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%A0%81%E7%BD%91%EF%BC%9A54-%E6%9B%BF%E6%8D%A2%E6%95%B0%E5%AD%97-2"><span class="nav-number">4.3.</span> <span class="nav-text">卡码网：54.替换数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D-2"><span class="nav-number">4.4.</span> <span class="nav-text">151.翻转字符串里的单词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%A0%81%E7%BD%91%EF%BC%9A55-%E5%8F%B3%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2-2"><span class="nav-number">4.5.</span> <span class="nav-text">卡码网：55.右旋转字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E5%BE%97%E4%B8%8E%E5%A4%87%E5%BF%98%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">心得与备忘录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#344-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2-2"><span class="nav-number">5.1.</span> <span class="nav-text">344.反转字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#541-%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2II-3"><span class="nav-number">5.2.</span> <span class="nav-text">541. 反转字符串II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%A0%81%E7%BD%91%EF%BC%9A54-%E6%9B%BF%E6%8D%A2%E6%95%B0%E5%AD%97-3"><span class="nav-number">5.3.</span> <span class="nav-text">卡码网：54.替换数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#151-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D-3"><span class="nav-number">5.4.</span> <span class="nav-text">151.翻转字符串里的单词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%A1%E7%A0%81%E7%BD%91%EF%BC%9A55-%E5%8F%B3%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2-3"><span class="nav-number">5.5.</span> <span class="nav-text">卡码网：55.右旋转字符串</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yifan Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Yifan Chen</p>
+  <div class="site-description" itemprop="description">主要记录算法和web开发方面的心得体会</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yifan Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '1495b8dcfa58a185e440',
+      clientSecret: 'f073065ea2e5270367cd8792371419093833c1f3',
+      repo        : 'yfchenkeepgoing.github.io',
+      owner       : 'yfchenkeepgoing',
+      admin       : ['yfchenkeepgoing'],
+      id          : '0bae3687be760e2986a057d65c45adc6',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>

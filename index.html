@@ -191,6 +191,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/01/Day-8-Leetcode-344-541-k54-151-k55/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yifan Chen">
+      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YifanChen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/01/Day-8-Leetcode-344-541-k54-151-k55/" class="post-title-link" itemprop="url">Day 8 | Leetcode 344, 541, k54, 151, k55</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-02-01 07:17:56 / 修改时间：14:05:51" itemprop="dateCreated datePublished" datetime="2024-02-01T07:17:56+00:00">2024-02-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%EF%BC%88%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%89/" itemprop="url" rel="index"><span itemprop="name">算法（字符串）</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0344.%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2.html">344.反转字符串</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0541.%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2II.html">541. 反转字符串II</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/kama54.%E6%9B%BF%E6%8D%A2%E6%95%B0%E5%AD%97.html">卡码网：54.替换数字</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0151.%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8C%E7%9A%84%E5%8D%95%E8%AF%8D.html">151.翻转字符串里的单词</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/kama55.%E5%8F%B3%E6%97%8B%E5%AD%97%E7%AC%A6%E4%B8%B2.html">卡码网：55.右旋转字符串</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="541-反转字符串II"><a href="#541-反转字符串II" class="headerlink" title="541. 反转字符串II"></a>541. 反转字符串II</h3><p>一般来说，编程语言自己实现的库函数都是左闭右开的，因此<code>reverse(s, i, i + k)</code>表示的是反转字符串s的第i位到第i + k位，不包含第i + k位。</p>
+<h3 id="卡码网：54-替换数字"><a href="#卡码网：54-替换数字" class="headerlink" title="卡码网：54.替换数字"></a>卡码网：54.替换数字</h3><h3 id="151-翻转字符串里的单词"><a href="#151-翻转字符串里的单词" class="headerlink" title="151.翻转字符串里的单词"></a>151.翻转字符串里的单词</h3><h3 id="卡码网：55-右旋转字符串"><a href="#卡码网：55-右旋转字符串" class="headerlink" title="卡码网：55.右旋转字符串"></a>卡码网：55.右旋转字符串</h3><h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="344-反转字符串"><a href="#344-反转字符串" class="headerlink" title="344.反转字符串"></a>344.反转字符串</h3><p>先尝试用reverse函数秒杀，顺便复习reverse函数的用法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">reverseString</span><span class="params">(vector&lt;<span class="type">char</span>&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>reverse函数相当于把字符串反转以后，将新的字符串存入了旧的字符串中。</p>
+<p>我曾经做过反转链表的题，猜测用双指针可以解决这道题。写下了以下的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">reverseString</span><span class="params">(vector&lt;<span class="type">char</span>&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> l = <span class="number">0</span>, r = s.<span class="built_in">size</span>() - <span class="number">1</span>; l &lt; r; l ++ , r -- )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// swap(s[l], s[r]);</span></span><br><span class="line">            <span class="type">int</span> tmp = s[l];</span><br><span class="line">            s[l] = s[r];</span><br><span class="line">            s[r] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>直接用swap函数或者手写swap函数都是可以的。<code>l &lt; r</code>或者<code>l &lt;= r</code>都可以。因为字符串中字符的个数为奇数时，中间那个字符交换不交换都一样；字符个数为偶数时，交换最后两个成对的字符即可。</p>
+<h3 id="541-反转字符串II-1"><a href="#541-反转字符串II-1" class="headerlink" title="541. 反转字符串II"></a>541. 反转字符串II</h3><p>拿到这道题，我的第一想法是分类讨论。设字符串的长度是<code>len</code>。若<code>len &lt; k</code>，则全部反转；若<code>k &lt;= len &lt; 2k</code>，则反转前k个字母；若<code>len &gt;= 2k</code>，则按照题意反转。本题在反转的逻辑上没有困难，但问题在于如何分割出需要反转的子字符串。我没想出来什么好办法，写的逻辑太复杂又容易出错。</p>
+<h3 id="卡码网：54-替换数字-1"><a href="#卡码网：54-替换数字-1" class="headerlink" title="卡码网：54.替换数字"></a>卡码网：54.替换数字</h3><h3 id="151-翻转字符串里的单词-1"><a href="#151-翻转字符串里的单词-1" class="headerlink" title="151.翻转字符串里的单词"></a>151.翻转字符串里的单词</h3><h3 id="卡码网：55-右旋转字符串-1"><a href="#卡码网：55-右旋转字符串-1" class="headerlink" title="卡码网：55.右旋转字符串"></a>卡码网：55.右旋转字符串</h3><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="344-反转字符串-1"><a href="#344-反转字符串-1" class="headerlink" title="344.反转字符串"></a>344.反转字符串</h3><p>在算法的思路上，字符串和数组非常类似。本题应用双指针法即可：首尾交换，再次一级交换，以此类推。因此首尾各有一个指针，两指针交换，然后两指针同时向中间移动。若库函数直接把题目解决了，就不要用库函数。若库函数是题目的一部分，且我们知道库函数的大体实现逻辑和时间复杂度，那就可以用。代码如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">reverseString</span><span class="params">(vector&lt;<span class="type">char</span>&gt;&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, j = s.<span class="built_in">size</span>() - <span class="number">1</span>; i &lt; s.<span class="built_in">size</span>() / <span class="number">2</span>; i ++ , j -- )</span><br><span class="line">            <span class="built_in">swap</span>(s[i], s[j]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>swap函数有两种方法，一种是常见的交换数值，另一种是位运算，可参见代码随想录。</p>
+<h3 id="541-反转字符串II-2"><a href="#541-反转字符串II-2" class="headerlink" title="541. 反转字符串II"></a>541. 反转字符串II</h3><p>模拟题，模拟复杂的规则下，如何反转字符串。题意：每2k段的前k个字符进行反转，尾部如果剩下的字符超过长度超过k，则反转k个字符，剩下的不动。尾部如果剩下的字符长度小于k，则全部反转。本题的代码可以很简洁。</p>
+<p>本题每次取2k段，因此按照2k来遍历：<code>for (int i = 0; i &lt; s.size(); i += 2k)</code>。然后在for循环中操作前k个字符即可。边界条件想不明白可以带一个具体的例子来试。代码和注释如下所示：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseStr</span><span class="params">(string s, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 每隔2k个字符跳转一次，即每次取出2k个字符</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i += <span class="number">2</span> * k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 对2k个字符的前k个字符进行反转</span></span><br><span class="line">            <span class="comment">// 由于每次取2k，取若干次后。字符串的尾部剩下的字符长度l可能l &lt; k 或 k &lt;= l &lt; 2k</span></span><br><span class="line">            <span class="comment">// 对前一种情况，需要将尾部全部反转，对后一种情况，需要反转尾部剩下字符的前k个字符</span></span><br><span class="line">            <span class="comment">// 先处理后一种情况，注意加上条件i + k &lt;= s.size()，这可以避免对索引超出范围的元素进行反转</span></span><br><span class="line">            <span class="comment">// 至于i + k是否能取到s.size()，可以举例子：k = 3, s = &#123;a, b, c&#125;，由此可见可以取等于</span></span><br><span class="line">            <span class="comment">// 也可以从理论上分析，由于reverse的区间是左闭右开的，因此s.begin() + i + k实际上取不到，因此可以让i + k = s.size() </span></span><br><span class="line">            <span class="comment">// 处理完后continue即可，除去反转2k个字符中的前k个字符的一般情况，尾部剩下的字符的长度的第一种情况和第二种情况只可能有一种发生</span></span><br><span class="line">            <span class="keyword">if</span> (i + k &lt;= s.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">begin</span>() + i + k); <span class="comment">// 左闭右开</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 再处理前一种情况，当剩余的字符长度l &lt; k时，反转剩余的全部字符</span></span><br><span class="line">            <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>也可以不用continue，直接采用if-else写法，参见代码随想录的写法（代码随线录的注释也更加简洁明了）：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseStr</span><span class="params">(string s, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i += (<span class="number">2</span> * k)) &#123;</span><br><span class="line">            <span class="comment">// 1. 每隔 2k 个字符的前 k 个字符进行反转</span></span><br><span class="line">            <span class="comment">// 2. 剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符</span></span><br><span class="line">            <span class="keyword">if</span> (i + k &lt;= s.<span class="built_in">size</span>()) &#123;</span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">begin</span>() + i + k );</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 3. 剩余字符少于 k 个，则将剩余字符全部反转</span></span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">end</span>());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="卡码网：54-替换数字-2"><a href="#卡码网：54-替换数字-2" class="headerlink" title="卡码网：54.替换数字"></a>卡码网：54.替换数字</h3><h3 id="151-翻转字符串里的单词-2"><a href="#151-翻转字符串里的单词-2" class="headerlink" title="151.翻转字符串里的单词"></a>151.翻转字符串里的单词</h3><h3 id="卡码网：55-右旋转字符串-2"><a href="#卡码网：55-右旋转字符串-2" class="headerlink" title="卡码网：55.右旋转字符串"></a>卡码网：55.右旋转字符串</h3><h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="344-反转字符串-2"><a href="#344-反转字符串-2" class="headerlink" title="344.反转字符串"></a>344.反转字符串</h3><p>两种for循环的写法：<code>for (int i = 0, j = s.size() - 1; i &lt; s.size() / 2; i ++ , j -- )</code>和<code>for (int l = 0, r = s.size() - 1; l &lt; r; l ++ , r -- )</code>都可以。</p>
+<h3 id="541-反转字符串II-3"><a href="#541-反转字符串II-3" class="headerlink" title="541. 反转字符串II"></a>541. 反转字符串II</h3><ol>
+<li>for循环每次以2k为长度去跳转</li>
+<li><p>本题反转字符的<strong>三种情况</strong>：</p>
+<ul>
+<li>每隔 2k 个字符的前 k 个字符进行反转</li>
+<li>剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符</li>
+<li>剩余字符少于 k 个，则将剩余字符全部反转</li>
+</ul>
+<p>三种情况每次只可能出现一种，即出现了一种情况，另外两种情况就不会出现了。据此，我写出了结构分明的三段式代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">reverseStr</span><span class="params">(string s, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i += <span class="number">2</span> * k)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 情况1</span></span><br><span class="line">            <span class="keyword">if</span> (i + <span class="number">2</span> * k &lt;= s.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">begin</span>() + i + k);</span><br><span class="line">                <span class="keyword">continue</span>; <span class="comment">// 可以省略</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 情况2</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (i + k &lt;= s.<span class="built_in">size</span>())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">begin</span>() + i + k);</span><br><span class="line">                <span class="keyword">continue</span>; <span class="comment">// 可以省略</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 情况3</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>() + i, s.<span class="built_in">end</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>情况1和情况2可以合并，因此产生了实现部分中的第二版代码。</p>
+</li>
+<li>如果要求一段段地操作字符串或数组，那么for循环中的i变量是可以一段段增加的，而没必要每次+1</li>
+</ol>
+<h3 id="卡码网：54-替换数字-3"><a href="#卡码网：54-替换数字-3" class="headerlink" title="卡码网：54.替换数字"></a>卡码网：54.替换数字</h3><h3 id="151-翻转字符串里的单词-3"><a href="#151-翻转字符串里的单词-3" class="headerlink" title="151.翻转字符串里的单词"></a>151.翻转字符串里的单词</h3><h3 id="卡码网：55-右旋转字符串-3"><a href="#卡码网：55-右旋转字符串-3" class="headerlink" title="卡码网：55.右旋转字符串"></a>卡码网：55.右旋转字符串</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/31/Day-7-Leetcode-454-383-15-18/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1475,111 +1568,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/20/Blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yifan Chen">
-      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YifanChen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/01/20/Blog/" class="post-title-link" itemprop="url">How to Build and Maintain a Personal Blog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-01-20 05:57:24 / 修改时间：09:58:31" itemprop="dateCreated datePublished" datetime="2024-01-20T05:57:24+00:00">2024-01-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="如何搭建和维护个人博客"><a href="#如何搭建和维护个人博客" class="headerlink" title="如何搭建和维护个人博客"></a>如何搭建和维护个人博客</h1><h2 id="个人博客的实现方式"><a href="#个人博客的实现方式" class="headerlink" title="个人博客的实现方式"></a>个人博客的实现方式</h2><p>使用GitHub Pages和Hexo框架搭建和维护个人博客</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="注意1"><a href="#注意1" class="headerlink" title="注意1"></a>注意1</h3><p>尽量避免在一点不止一行的情况下使用：</p>
-<p>的结构，因为这会导致网页上的博客渲染异常。在这种情况下，建议每一点使用一个小标题</p>
-<h3 id="注意2"><a href="#注意2" class="headerlink" title="注意2"></a>注意2</h3><p>在线博客的刷新需要几分钟时间，请在更新博客后稍安勿躁。在线博客各部分的更新速度不同，比如博客内容先更新了，但日志还没有更新，这是正常现象，稍稍等待即可</p>
-<h3 id="注意3"><a href="#注意3" class="headerlink" title="注意3"></a>注意3</h3><p>由于托管博客的仓库有两个分支，其中的master分支总会在我部署博客时实时更新，因此source分支在发布新博客时更新即可，不需要实时更新</p>
-<h3 id="注意4"><a href="#注意4" class="headerlink" title="注意4"></a>注意4</h3><p>使用VSCode在本地编辑博客即可，博客的内容可以复制自Typora，在VSCode中点击md文件左上角的铅笔符号（Edit in VSCode）即可在VSCode中编辑博客内容，每次编辑完后记得运行部署脚本将博客更新部署到网站上</p>
-<h2 id="博客结构"><a href="#博客结构" class="headerlink" title="博客结构"></a>博客结构</h2><p>本博客计划同时按照标签页（tags）和分类页（categories）进行分类。分类是更大的范畴，主要分为算法、web开发、工具使用、个人随笔和找工记录五大类。标签页是更小的范畴，有Python, C++, Java, Django, Springboot, Typora, GitHub Pages, Hexo, VsCode, 简历等等。一般一篇文章只隶属于一个category，但可以同时拥有多个标签。</p>
-<p>本博客可以通过网址：<br><a target="_blank" rel="noopener" href="https://yfchenkeepgoing.github.io/">https://yfchenkeepgoing.github.io/</a><br>访问，注意由于GitHub Pages是静态网页，因此出现延迟请稍安勿躁。另外，本博客所在的仓库地址为：<a target="_blank" rel="noopener" href="https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io">https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io</a><br>其中有两个分支，分别为master和source。master托管了正在运行的博客，其中的内容在每次运行部署脚本后就会被更新。source托管了博客文件夹的所有源文件，需要通过git命令进行更新。博客网页与master分支中的内容进行了绑定。</p>
-<h2 id="个人博客的特点和功能"><a href="#个人博客的特点和功能" class="headerlink" title="个人博客的特点和功能"></a>个人博客的特点和功能</h2><ol>
-<li>配置站点信息</li>
-<li>修改为next主题</li>
-<li>进行了next主题的配置，包括样式、favicon、avatar、rss、code、top、reading_process、bookmark、github_banner、pangu、math、pjax</li>
-<li>采用gitalk存储并显示评论，需要评论者使用GitHub登录</li>
-<li>使用了标签页和分类页</li>
-<li>拥有搜索页</li>
-</ol>
-<h2 id="如何搭建个人博客"><a href="#如何搭建个人博客" class="headerlink" title="如何搭建个人博客"></a>如何搭建个人博客</h2><p>参见知乎链接：<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/371995929">https://zhuanlan.zhihu.com/p/371995929</a></p>
-<p>其中指导非常详细，但过程较为繁琐，本文不再赘述。本文的重点在于如何维护搭建好的个人博客。</p>
-<h2 id="如何维护个人博客"><a href="#如何维护个人博客" class="headerlink" title="如何维护个人博客"></a>如何维护个人博客</h2><h3 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h3><p>进入博客的根目录下，然后调用 Hexo 的 generate 命令，将 Hexo 编译生成 HTML 代码，命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
-<p>然后我们利用 Hexo 提供的 serve 命令把博客在本地运行起来，命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo serve</span><br></pre></td></tr></table></figure>
-<p>然后通过链接：<a target="_blank" rel="noopener" href="http://localhost:4000/即可访问到渲染出的博客页面。注意：在这种情况下，博客页面只对自己可见，因此上述命令只能用于调试。">http://localhost:4000/即可访问到渲染出的博客页面。注意：在这种情况下，博客页面只对自己可见，因此上述命令只能用于调试。</a></p>
-<h3 id="维护在线博客"><a href="#维护在线博客" class="headerlink" title="维护在线博客"></a>维护在线博客</h3><h4 id="增加新的文章并将其分类到特定的tags和categories中"><a href="#增加新的文章并将其分类到特定的tags和categories中" class="headerlink" title="增加新的文章并将其分类到特定的tags和categories中"></a>增加新的文章并将其分类到特定的tags和categories中</h4><p>新建一篇名为HelloWorld的文章，在本地博客的根目录下执行命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new hello-world</span><br></pre></td></tr></table></figure>
-<p>创建的文章会出现在 source/_posts 文件夹下，是 MarkDown 格式。<br>在文章开头通过如下格式添加必要信息：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: hello-world # 自动创建，如hello<span class="emphasis">_world</span></span><br><span class="line"><span class="emphasis">date: 日期 # 自动创建，如2024-01-20 02:07:51</span></span><br><span class="line"><span class="emphasis">tags: </span></span><br><span class="line"><span class="emphasis">- 标签1</span></span><br><span class="line"><span class="emphasis">- 标签2</span></span><br><span class="line"><span class="emphasis">- 标签3</span></span><br><span class="line"><span class="emphasis">categories:</span></span><br><span class="line"><span class="emphasis">- 分类1</span></span><br><span class="line"><span class="emphasis">- 分类2</span></span><br><span class="line"><span class="emphasis">- 分类3</span></span><br><span class="line"><span class="emphasis">---</span></span><br></pre></td></tr></table></figure>
-<p>开头下方撰写正文，MarkDown 格式书写即可。这样在下次编译的时候就会自动识别标题、时间、类别等等，另外还有其他的一些参数设置，可以参考文档：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/writing.html">https://hexo.io/zh-cn/docs/writing.html</a></p>
-<h4 id="标签和分类的区别"><a href="#标签和分类的区别" class="headerlink" title="标签和分类的区别"></a>标签和分类的区别</h4><p><strong>Tags（标签）</strong>：<br>标签是用来描述博客文章中的具体细节的关键词。<br>它们是扁平的，不形成层次结构。<br>标签可以非常具体，也可以非常多，用于描述文章的具体内容，如“Python”、“Web开发”、“机器学习”等。<br><strong>一个文章可以有多个标签，标签的数量通常比分类多</strong>。</p>
-<p><strong>Categories（分类）</strong>：<br>分类通常用来表示博客文章的主要主题或大的分组。<br>它们是层次性的，可以有子分类，形成一个结构化的树状层次，例如：“技术”可以有子分类如“编程”、“网页设计”等。<br>分类通常较少，更宽泛，用于将文章分配到几个广泛的、互相排斥的主题中。<br><strong>一个博客文章通常只属于一个或少数几个分类</strong>。</p>
-<p>使用示例：<br>假设您写了一篇关于Python网络编程的博客文章。您可以将这篇文章归类到“编程”分类下，并给它加上“Python”、“网络编程”、“套接字编程”等标签。</p>
-<p><strong>总结：<br>分类用于表示文章的主要主题，是更广泛的分组工具。<br>标签用于详细描述文章的内容和细节，是更具体的关键词。</strong></p>
-<h4 id="通过部署脚本部署在线博客"><a href="#通过部署脚本部署在线博客" class="headerlink" title="通过部署脚本部署在线博客"></a>通过部署脚本部署在线博客</h4><p>在根目录下新建一个 deploy.sh 的脚本文件，内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo generate</span><br><span class="line"></span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<p>在部署发布的时候只需要执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh deploy.sh</span><br></pre></td></tr></table></figure>
-<p>就可以完成博客的更新了，非常方便。</p>
-<p>注意，在发布博客时只能执行上述命令，不能执行 <code>./deploy.sh</code>，否则博客无法正常发布。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1651,14 +1639,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
