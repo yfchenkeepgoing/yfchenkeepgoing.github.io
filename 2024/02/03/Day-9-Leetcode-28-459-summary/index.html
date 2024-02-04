@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="链接28. 实现 strStr()459.重复的子字符串字符串：总结篇双指针总结篇 知识KMP算法理论KMP与解决的问题KMP：发明本算法的三位学者的英文名首字母 应用：字符串匹配问题 经典例子：  给出文本串: aabaabaaf  给出模式串: aabaaf求在文本串中是否出现过模式串   暴力方法与KMP暴力解法：两重for循环，先遍历文本串，再遍历模式串，挨个匹配。从文本串的首位开始，若模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Day 9 | Leetcode 28, 459, summary">
+<meta property="og:url" content="http://example.com/2024/02/03/Day-9-Leetcode-28-459-summary/index.html">
+<meta property="og:site_name" content="YifanChen&#39;s Blog">
+<meta property="og:description" content="链接28. 实现 strStr()459.重复的子字符串字符串：总结篇双指针总结篇 知识KMP算法理论KMP与解决的问题KMP：发明本算法的三位学者的英文名首字母 应用：字符串匹配问题 经典例子：  给出文本串: aabaabaaf  给出模式串: aabaaf求在文本串中是否出现过模式串   暴力方法与KMP暴力解法：两重for循环，先遍历文本串，再遍历模式串，挨个匹配。从文本串的首位开始，若模">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://code-thinking-1253855093.file.myqcloud.com/pics/20220728205249.png">
+<meta property="article:published_time" content="2024-02-03T07:51:26.000Z">
+<meta property="article:modified_time" content="2024-02-04T15:48:39.191Z">
+<meta property="article:author" content="Yifan Chen">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="总结">
+<meta property="article:tag" content="KMP算法">
+<meta property="article:tag" content="find函数">
+<meta property="article:tag" content="移动匹配">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://code-thinking-1253855093.file.myqcloud.com/pics/20220728205249.png">
+
+<link rel="canonical" href="http://example.com/2024/02/03/Day-9-Leetcode-28-459-summary/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Day 9 | Leetcode 28, 459, summary | YifanChen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="YifanChen's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YifanChen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个专注技术的新手程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io" class="github-corner" title="YifanChen GitHub" aria-label="YifanChen GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/03/Day-9-Leetcode-28-459-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yifan Chen">
+      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YifanChen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Day 9 | Leetcode 28, 459, summary
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-02-03 07:51:26" itemprop="dateCreated datePublished" datetime="2024-02-03T07:51:26+00:00">2024-02-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-02-04 15:48:39" itemprop="dateModified" datetime="2024-02-04T15:48:39+00:00">2024-02-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%EF%BC%88%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%89/" itemprop="url" rel="index"><span itemprop="name">算法（字符串）</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0028.%E5%AE%9E%E7%8E%B0strStr.html">28. 实现 strStr()</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0459.%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2.html">459.重复的子字符串</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%80%BB%E7%BB%93.html">字符串：总结篇</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%8F%8C%E6%8C%87%E9%92%88%E6%80%BB%E7%BB%93.html">双指针总结篇</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="KMP算法理论"><a href="#KMP算法理论" class="headerlink" title="KMP算法理论"></a>KMP算法理论</h3><h4 id="KMP与解决的问题"><a href="#KMP与解决的问题" class="headerlink" title="KMP与解决的问题"></a>KMP与解决的问题</h4><p>KMP：发明本算法的三位学者的英文名首字母</p>
+<p>应用：字符串匹配问题</p>
+<p>经典例子：</p>
+<ul>
+<li><p>给出文本串: aabaabaaf</p>
+</li>
+<li><p>给出模式串: aabaaf<br>求在文本串中是否出现过模式串</p>
+</li>
+</ul>
+<h4 id="暴力方法与KMP"><a href="#暴力方法与KMP" class="headerlink" title="暴力方法与KMP"></a>暴力方法与KMP</h4><p>暴力解法：两重for循环，先遍历文本串，再遍历模式串，挨个匹配。从文本串的首位开始，若模式串不匹配文本串，则将模式串后移一位，直到匹配上。时间复杂度O(m * n)，m和n分别是文本串和模式串的长度。</p>
+<p>KMP算法：跳到之前已匹配的地方，继续匹配。</p>
+<h4 id="前缀表的由来"><a href="#前缀表的由来" class="headerlink" title="前缀表的由来"></a>前缀表的由来</h4><p>KMP算法如何知道我们之前已匹配过哪些，且跳到已匹配的内容后面继续匹配？</p>
+<p>前缀表有什么特性，可以让我们找到之前已匹配过的内容？</p>
+<p>在f处不匹配，找到f前面子串的后缀是aa，找到与该后缀相等的前缀的后面开始匹配。故我们要求一个字符串中的最长相等前后缀，重新匹配时跳到最长前缀之后开始匹配。</p>
+<h4 id="前缀与后缀"><a href="#前缀与后缀" class="headerlink" title="前缀与后缀"></a>前缀与后缀</h4><p>前缀：包含首字母，不包含尾字母的所有子串。</p>
+<p>后缀：包含尾字母，不包含首字母的所有子串。</p>
+<h4 id="最长相等前后缀"><a href="#最长相等前后缀" class="headerlink" title="最长相等前后缀"></a>最长相等前后缀</h4><p>最长相等的前缀和后缀的长度。以模式串aabaaf为例。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>子串</th>
+<th>前缀</th>
+<th>后缀</th>
+<th>最长相等的前缀和后缀的长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>无</td>
+<td>无</td>
+<td>0</td>
+</tr>
+<tr>
+<td>aa</td>
+<td>a</td>
+<td>a</td>
+<td>1</td>
+</tr>
+<tr>
+<td>aab</td>
+<td>a, aa</td>
+<td>b, ab</td>
+<td>0</td>
+</tr>
+<tr>
+<td>aaba</td>
+<td>a, aa, aab</td>
+<td>a, ba, aba</td>
+<td>1</td>
+</tr>
+<tr>
+<td>aabaa</td>
+<td>a, aa, aab, aaba</td>
+<td>a, aa, baa, abaa</td>
+<td>2</td>
+</tr>
+<tr>
+<td>aabaaf</td>
+<td>a, aa, aab, aaba, aabaa</td>
+<td>f, af, aaf, baaf, abaaf</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>得到模式串的前缀表：010120。</p>
+<h4 id="使用前缀表的匹配过程"><a href="#使用前缀表的匹配过程" class="headerlink" title="使用前缀表的匹配过程"></a>使用前缀表的匹配过程</h4><p>模式串 aabaaf<br>前缀表 010120<br>发现f不匹配，要找f前的最长相等前后缀，由前缀表得到最长相等前后缀为2。2意味着有一个后缀aa，前面也有一个与之相等的前缀aa。在后缀aa的后面不匹配了，就要从与后缀相等的前缀的后面继续开始匹配。最长相等前后缀为2，故从<code>s[2] = &#39;b&#39;</code>处开始重新匹配。</p>
+<h4 id="next数组"><a href="#next数组" class="headerlink" title="next数组"></a>next数组</h4><p>next/prefix都可以用来表示前缀表。在遇到不匹配的地方，next数组告诉我们要回退到哪里。前缀表为010120，对其的处理包括：右移/统一减一。不处理前缀表，就将其作为next数组，依然可以完成KMP算法。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>KMP算法-&gt;能解决哪些问题-&gt;为什么KMP算法匹配失败后可以跳到某个位置-&gt;前缀表-&gt;前缀表的特性及如何求取前缀表-&gt;用前缀表完成一次匹配的操作-&gt;实现KMP算法时，有时对前缀表统一减一，有时右移，这不设计KMP算法原理性的东西，只是实现上方法不同而已。</p>
+<h3 id="KMP算法的代码实现"><a href="#KMP算法的代码实现" class="headerlink" title="KMP算法的代码实现"></a>KMP算法的代码实现</h3><h4 id="next数组不同的实现方式"><a href="#next数组不同的实现方式" class="headerlink" title="next数组不同的实现方式"></a>next数组不同的实现方式</h4><p>模式串：aabaaf</p>
+<p>文本串：aabaabaaf</p>
+<p>前缀表：010120，用next数组表示。</p>
+<p>如何求next数组？</p>
+<ul>
+<li>有人会把前缀表右移，第一位放上-1，得到-101012，作为next数组。</li>
+<li>有人会把前缀表整体-1，得到-10-101-1，作为next数组。</li>
+<li>有人会直接拿前缀表做Next数组。<br>上述实现方式都可以，但具体处理逻辑会略有差别。</li>
+</ul>
+<p>模式串与文本串在模式串的最后一位f处发生了冲突，<strong>看f的前一位的前缀表的值是多少</strong>，发现是2，于是跳转到下标为2的位置，即b。如果next数组是前缀表右移得到，<strong>就直接比较f对应的next数组的值</strong>，发现是2，于是也跳转到b的位置。若next数组是前缀表-1得到，那么就把f的前一位的next数组的值+1，依然跳转到b的位置。</p>
+<p>next数组的核心：遇到冲突向前回退。<strong>本节我们就拿前缀表作为next数组</strong>。</p>
+<h4 id="求Next数组的具体代码"><a href="#求Next数组的具体代码" class="headerlink" title="求Next数组的具体代码"></a>求Next数组的具体代码</h4><p>共4步：</p>
+<ol>
+<li>初始化</li>
+<li>处理前后缀不相同的情况</li>
+<li>处理前后缀相同的情况</li>
+<li>更新next数组的值</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入的参数：next数组，我们需要对其进行赋值，模式串s</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">getNext</span><span class="params">(vector&lt;<span class="type">int</span>&gt; next, string s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 初始化</span></span><br><span class="line">    <span class="comment">// 指针i：指向后缀末尾位置</span></span><br><span class="line">    <span class="comment">// 指针j：指向前缀末尾位置，还代表着i之前（包括i）的子串的最长相等前后缀的长度</span></span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>; <span class="comment">// 前缀从0开始</span></span><br><span class="line">    <span class="type">int</span> next[N]; </span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">// next数组初始位置为0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 比较前后缀所对应的字符是否相等，故i从1开始，这样i和j才能进行比较</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; s.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 处理前后缀末尾不相同的情况</span></span><br><span class="line">        <span class="comment">// 因为在一次循环中，i相当于是固定不动的，所以此时j回退</span></span><br><span class="line">        <span class="comment">// j回退到next[j - 1]指向的位置，即遇见冲突，就看next数组（即前缀表）的前一位</span></span><br><span class="line">        <span class="comment">// 不止回退一步，而要连续回退，不能写if，而要写while</span></span><br><span class="line">        <span class="keyword">while</span> ( j &gt; <span class="number">0</span> &amp;&amp; s[i] != s[j]) j = next[j - <span class="number">1</span>]; <span class="comment">// 因为要求j - 1 &gt;= 0，因此要求j &gt; 0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 处理前后缀相同的情况</span></span><br><span class="line">        <span class="comment">// j代表着i之前（包括i）的子串的最长相等前后缀的长度</span></span><br><span class="line">        <span class="keyword">if</span> (s[i] == s[j]) j ++ ;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 更新next数组，在其中存储i之前（包括i）的子串的最长相等前后缀的长度</span></span><br><span class="line">        next[i] = j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="模拟运行过程"><a href="#模拟运行过程" class="headerlink" title="模拟运行过程"></a>模拟运行过程</h4><p>当j指向s[1]，i指向s[2]时，前后缀不匹配，此时next[j - 1] = next[0] = 0，j回退到s[0]，再次比较前后缀是否匹配，发现仍不相同，此时j无法继续回退，我们就更新next数组的值，next[2] = 0，这就代表i = 2之前包括i的子串的最长相等前后缀为0，这与表格中的结果相同。此时i后移一位，指向s[3]，有s[3] == s[0]，j ++，j = 1，next[3] = 1，说明aaba的最长相等前后缀长度是1，这与表格中的结果相同。进入下一轮循环，i = 4，同理。最终用getNext函数完成了对next数组的求值。</p>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>用上述函数，求得了next数组，即前缀表。</p>
+<h3 id="28-实现-strStr"><a href="#28-实现-strStr" class="headerlink" title="28. 实现 strStr()"></a>28. 实现 strStr()</h3><p>求next数组的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入的参数：next数组，我们需要对其进行赋值，模式串s</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">getNext</span><span class="params">(vector&lt;<span class="type">int</span>&gt; next, string s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>; <span class="comment">// 前缀从0开始</span></span><br><span class="line">    <span class="type">int</span> next[N]; </span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">0</span>; <span class="comment">// next数组初始位置为0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 比较前后缀所对应的字符是否相等，故i从1开始，这样i和j才能进行比较</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; s.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> ( j &gt; <span class="number">0</span> &amp;&amp; s[i] != s[j]) j = next[j - <span class="number">1</span>]; <span class="comment">// 因为要求j - 1 &gt;= 0，因此要求j &gt; 0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (s[i] == s[j]) j ++ ;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 更新next数组，在其中存储i之前（包括i）的子串的最长相等前后缀的长度</span></span><br><span class="line">        next[i] = j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用next数组做匹配的代码（文本串s，模式串t）：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> j = <span class="number">0</span>; <span class="comment">// 因为next数组里记录的起始位置为0</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i++) &#123; <span class="comment">// i从0开始，遍历文本串</span></span><br><span class="line">    <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; s[i] != t[j]) &#123; <span class="comment">// 不匹配, j - 1 &gt;= 0 =&gt; j &gt; 0</span></span><br><span class="line">        j = next[j - <span class="number">1</span>]; <span class="comment">// j 寻找之前匹配的位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (s[i] == t[j]) &#123; <span class="comment">// 匹配，j和i同时向后移动</span></span><br><span class="line">        j++; <span class="comment">// i的增加在for循环里</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// j指向了模式串t的末尾，那么就说明模式串t完全匹配文本串s里的某个子串了</span></span><br><span class="line">    <span class="keyword">if</span> (j == t.<span class="built_in">size</span>()) &#123; <span class="comment">// 文本串s里出现了模式串t</span></span><br><span class="line">        <span class="comment">// 返回当前在文本串匹配模式串的位置i-模式串的长度 + 1，就是文本串字符串中出现模式串的第一个位置（位置从0开始）</span></span><br><span class="line">        <span class="keyword">return</span> (i - t.<span class="built_in">size</span>() + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>完整代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">getNext</span><span class="params">(<span class="type">int</span>* next, <span class="type">const</span> string&amp; s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; s.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; s[i] != s[j]) &#123;</span><br><span class="line">                j = next[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == s[j]) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            next[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">strStr</span><span class="params">(string haystack, string needle)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 特殊情况，模式串长度为0，则返回0，本处是一个易错点</span></span><br><span class="line">        <span class="keyword">if</span> (needle.<span class="built_in">size</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 定义next数组</span></span><br><span class="line">        <span class="type">int</span> next[needle.<span class="built_in">size</span>()];</span><br><span class="line">        <span class="comment">// 填充next数组</span></span><br><span class="line">        <span class="built_in">getNext</span>(next, needle);</span><br><span class="line">        <span class="comment">// 用next数组做匹配</span></span><br><span class="line">        <span class="comment">// j指向模式串，i指向文本串</span></span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; haystack.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; haystack[i] != needle[j]) &#123;</span><br><span class="line">                j = next[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (haystack[i] == needle[j]) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j == needle.<span class="built_in">size</span>() ) &#123;</span><br><span class="line">                <span class="keyword">return</span> (i - needle.<span class="built_in">size</span>() + <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 模式串匹配不上文本串，则返回-1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>n为文本串长度，m为模式串长度</p>
+<ul>
+<li>时间复杂度: 生成next数组，时间复杂度是O(m)；根据前缀表不断调整匹配的位置，可以看出匹配的过程是O(n)。所以总共的时间复杂度为O(n + m)</li>
+<li>空间复杂度: 开辟空间用于存储next数组，即模式串的前缀表，因此是O(m)</li>
+</ul>
+<h3 id="459-重复的子字符串"><a href="#459-重复的子字符串" class="headerlink" title="459.重复的子字符串"></a>459.重复的子字符串</h3><h4 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h4><p>枚举所有的子串，看能否构成字符串。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 子串结束位置</span><br><span class="line">	<span class="keyword">for</span> 子串与主串比较</span><br></pre></td></tr></table></figure>
+<p>时间复杂度O(n^2)。目标子串的开始位置必然是主串最前面的元素，因此只需要枚举子串的结束位置即可。</p>
+<h4 id="移动匹配"><a href="#移动匹配" class="headerlink" title="移动匹配"></a>移动匹配</h4><p>设一个可由重复的子串构成的字符串为s，那么两个s拼接起来，前一个s的后半部分和后一个s的前半部分又可以构成一个新的字符串s。s由重复子串构成的判据：两个s相加起来，若其中出现了s，那么s就是由重复子串构成的。</p>
+<p>注意：在(s + s)中去搜索s时，一定要把(s + s)的首元素和尾元素删去。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">repeatedSubstringPattern</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        string ss = s + s;</span><br><span class="line">        ss.<span class="built_in">erase</span>(ss.<span class="built_in">begin</span>());</span><br><span class="line">        ss.<span class="built_in">erase</span>(ss.<span class="built_in">end</span>() - <span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// string::npos 是 std::string 类型的一个静态成员常量，表示字符串中不存在匹配的位置。在 find() 函数中，如果没有找到匹配的子串，则返回 string::npos。这个值通常是一个很大的无符号整数，表示找不到匹配的位置。</span></span><br><span class="line">        <span class="keyword">if</span> (ss.<span class="built_in">find</span>(s) != string::npos)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>find函数的实现其实就是28. 实现strStr()。若用KMP实现find函数，那么时间复杂度是O(m + n)，find函数的其他实现方法时间复杂度大抵也是O(m + n)。</p>
+<h4 id="KMP解法"><a href="#KMP解法" class="headerlink" title="KMP解法"></a>KMP解法</h4><p>KMP算法的应用场景：模式串是否在文本串中出现过，即上面的find函数的一种实现方式。</p>
+<p>前缀：不包含尾字母，一定包含首字母的所有子串。<br>后缀：包含尾字母，不包含首字母的所有子串。</p>
+<p>结论：若s由重复子串组成，那么它的最小重复单位就是它的最长相等前后缀不包含的那个子串。后缀不包含和前缀不包含的部分是相同的，都是最小重复子串。</p>
+<p>举例：abababab，最长相等前缀是ababab，最长相等后缀是ababab，剩余的部分ab即为最小重复子串。<br><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20220728205249.png" alt="图三"></p>
+<p>推导：设原字符串是s，标出其下标；设最长相等前缀是t，最长相等后缀是f，也分别标出下标。利用最长相等前缀和最长相等后缀的下标之间的对应关系和最长相等前后缀和原字符串下标之间的对应关系推导即可。</p>
+<p>实现：设s存在最小重复单位，len为s的长度，则<code>next[len - 1]</code>为s的最长相等前后缀的长度，最小重复单位的长度为：<code>len - next[len - 1]</code>，若该长度能被原字符串的长度整除：<code>len % (len - next[len - 1]) == 0</code>，那么return true。有如下代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 求next数组</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">getNext</span> <span class="params">(<span class="type">int</span>* next, <span class="type">const</span> string&amp; s)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">        next[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt; s.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            <span class="comment">// 处理前后缀不相同的情况</span></span><br><span class="line">            <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; s[i] != s[j]) &#123;</span><br><span class="line">                j = next[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 处理前后缀相同的情况</span></span><br><span class="line">            <span class="keyword">if</span>(s[i] == s[j]) &#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 更新next数组</span></span><br><span class="line">            next[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">repeatedSubstringPattern</span> <span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.<span class="built_in">size</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> next[s.<span class="built_in">size</span>()];</span><br><span class="line">        <span class="built_in">getNext</span>(next, s);</span><br><span class="line">        <span class="type">int</span> len = s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="comment">// 核心代码</span></span><br><span class="line">        <span class="keyword">if</span> (next[len - <span class="number">1</span>] != <span class="number">0</span> &amp;&amp; len % (len - (next[len - <span class="number">1</span>] )) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="28-实现-strStr-1"><a href="#28-实现-strStr-1" class="headerlink" title="28. 实现 strStr()"></a>28. 实现 strStr()</h3><p>直接听卡尔讲，尝试去理解，不要求独立写出代码。</p>
+<h3 id="459-重复的子字符串-1"><a href="#459-重复的子字符串-1" class="headerlink" title="459.重复的子字符串"></a>459.重复的子字符串</h3><p>直接听卡尔讲，尝试去理解，不要求独立写出代码。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="28-实现-strStr-2"><a href="#28-实现-strStr-2" class="headerlink" title="28. 实现 strStr()"></a>28. 实现 strStr()</h3><p>因为KMP算法很难，大家别奢求一次就把kmp全理解了，大家刚学KMP一定会有各种各样的疑问，先留着，别期望立刻啃明白，第一遍了解大概思路，二刷的时候，再看KMP会懂很多。或者说大家可以放弃一刷可以不看KMP，今天来回顾一下之前的算法题目就可以。</p>
+<p>因为大家算法能力还没到，细扣很难的算法，会把自己绕进去，就算别人给解释，只会激发出更多的问题和疑惑。所以大家先了解大体过程，知道这么回事， 等自己有算法基础和思维了，在看多看几遍视频，慢慢就理解了。</p>
+<h3 id="459-重复的子字符串-2"><a href="#459-重复的子字符串-2" class="headerlink" title="459.重复的子字符串"></a>459.重复的子字符串</h3><p>本题算是KMP算法的一个应用，不过对KMP了解不够熟练的话，理解本题就难很多。 </p>
+<p>建议是 <strong>KMP和本题，一刷的时候 ，可以适当放过，了解怎么回事就行，二刷的时候再来硬啃</strong></p>
+<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="28-实现-strStr-3"><a href="#28-实现-strStr-3" class="headerlink" title="28. 实现 strStr()"></a>28. 实现 strStr()</h3><ol>
+<li>我觉得KMP算法很想一种特殊的双指针算法。一个指针i用于遍历文本串，另一个指针j用于根据next数组的指引在模式串中移动。这种双指针算法可以把时间复杂度从暴力算法的O(n * m)优化为O(n + m)。</li>
+<li>代码分为独立的两部分，第一部分是求next数组（即前缀表），第二部分是同时在两个字符串中移动指针并使用next数组。</li>
+<li>当模式串为空时，应当返回0。因为空字符串被认为是任何字符串的子串，所以文本串中最开始与模式串匹配的字符的索引就是0。如果文本串中不存在与之匹配的模式串，则返回 -1。</li>
+</ol>
+<h3 id="459-重复的子字符串-3"><a href="#459-重复的子字符串-3" class="headerlink" title="459.重复的子字符串"></a>459.重复的子字符串</h3><ol>
+<li>本题有两种解法：移动匹配和KMP解法。如果忘记了KMP算法的next数组怎么写，可以使用移动匹配方法（最难写的KMP部分可以用find函数来代劳）。</li>
+<li>注意string中find函数的用法：在 find() 函数中，如果没有找到匹配的子串，则返回 string::npos。</li>
+<li>本题的KMP解法的关键在于结论：若s由重复子串组成，那么它的最小重复单位就是它的最长相等前后缀不包含的那个子串。</li>
+</ol>
+<h2 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2><h3 id="字符串总结"><a href="#字符串总结" class="headerlink" title="字符串总结"></a>字符串总结</h3><p>常见题型和常用方法：</p>
+<ol>
+<li>花式反转字符串（整体&amp;局部反转，有时还要搭配双指针算法删除空格）</li>
+<li>后续处理字符串</li>
+<li>KMP算法（匹配模式串和文本串）</li>
+<li>移动匹配（核心也是KMP算法，只不过核心由库函数find实现）</li>
+</ol>
+<p>小知识：</p>
+<ol>
+<li>substr，split，reverse, erase这四个库函数的时间复杂度都是O(n)，在循环中使用会使得程序的时间复杂度达到O(n^2)。此时需要双指针算法等进行优化。</li>
+<li>字符串本质为字符数组，数据结构基本等用于普通数组，因此普通数组中常用的双指针算法也常用于字符串中。</li>
+</ol>
+<h3 id="双指针总结"><a href="#双指针总结" class="headerlink" title="双指针总结"></a>双指针总结</h3><p>双指针应用于：</p>
+<ol>
+<li>数组：移除元素</li>
+<li>字符串：反转字符串、替换数字、翻转字符串里的单词</li>
+<li>链表：反转链表、环形链表II</li>
+<li>哈希表章节：三数之和、四数之和</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+              <a href="/tags/Leetcode/" rel="tag"># Leetcode</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E6%80%BB%E7%BB%93/" rel="tag"># 总结</a>
+              <a href="/tags/KMP%E7%AE%97%E6%B3%95/" rel="tag"># KMP算法</a>
+              <a href="/tags/find%E5%87%BD%E6%95%B0/" rel="tag"># find函数</a>
+              <a href="/tags/%E7%A7%BB%E5%8A%A8%E5%8C%B9%E9%85%8D/" rel="tag"># 移动匹配</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/02/01/Day-8-Leetcode-344-541-k54-151-k55/" rel="prev" title="Day 8 | Leetcode 344, 541, k54, 151, k55">
+      <i class="fa fa-chevron-left"></i> Day 8 | Leetcode 344, 541, k54, 151, k55
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA"><span class="nav-number">2.1.</span> <span class="nav-text">KMP算法理论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KMP%E4%B8%8E%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.1.</span> <span class="nav-text">KMP与解决的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E6%96%B9%E6%B3%95%E4%B8%8EKMP"><span class="nav-number">2.1.2.</span> <span class="nav-text">暴力方法与KMP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E8%A1%A8%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="nav-number">2.1.3.</span> <span class="nav-text">前缀表的由来</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E4%B8%8E%E5%90%8E%E7%BC%80"><span class="nav-number">2.1.4.</span> <span class="nav-text">前缀与后缀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E9%95%BF%E7%9B%B8%E7%AD%89%E5%89%8D%E5%90%8E%E7%BC%80"><span class="nav-number">2.1.5.</span> <span class="nav-text">最长相等前后缀</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%89%8D%E7%BC%80%E8%A1%A8%E7%9A%84%E5%8C%B9%E9%85%8D%E8%BF%87%E7%A8%8B"><span class="nav-number">2.1.6.</span> <span class="nav-text">使用前缀表的匹配过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#next%E6%95%B0%E7%BB%84"><span class="nav-number">2.1.7.</span> <span class="nav-text">next数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.8.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP%E7%AE%97%E6%B3%95%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.</span> <span class="nav-text">KMP算法的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#next%E6%95%B0%E7%BB%84%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.1.</span> <span class="nav-text">next数组不同的实现方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B1%82Next%E6%95%B0%E7%BB%84%E7%9A%84%E5%85%B7%E4%BD%93%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.2.</span> <span class="nav-text">求Next数组的具体代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">2.2.3.</span> <span class="nav-text">模拟运行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#28-%E5%AE%9E%E7%8E%B0-strStr"><span class="nav-number">2.3.</span> <span class="nav-text">28. 实现 strStr()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#459-%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.4.</span> <span class="nav-text">459.重复的子字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E8%A7%A3%E6%B3%95"><span class="nav-number">2.4.1.</span> <span class="nav-text">暴力解法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%8C%B9%E9%85%8D"><span class="nav-number">2.4.2.</span> <span class="nav-text">移动匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KMP%E8%A7%A3%E6%B3%95"><span class="nav-number">2.4.3.</span> <span class="nav-text">KMP解法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E6%AC%A1%E5%B0%9D%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">初次尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#28-%E5%AE%9E%E7%8E%B0-strStr-1"><span class="nav-number">3.1.</span> <span class="nav-text">28. 实现 strStr()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#459-%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2-1"><span class="nav-number">3.2.</span> <span class="nav-text">459.重复的子字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#28-%E5%AE%9E%E7%8E%B0-strStr-2"><span class="nav-number">4.1.</span> <span class="nav-text">28. 实现 strStr()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#459-%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2-2"><span class="nav-number">4.2.</span> <span class="nav-text">459.重复的子字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E5%BE%97%E4%B8%8E%E5%A4%87%E5%BF%98%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">心得与备忘录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#28-%E5%AE%9E%E7%8E%B0-strStr-3"><span class="nav-number">5.1.</span> <span class="nav-text">28. 实现 strStr()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#459-%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2-3"><span class="nav-number">5.2.</span> <span class="nav-text">459.重复的子字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%80%BB%E7%BB%93"><span class="nav-number">6.1.</span> <span class="nav-text">字符串总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88%E6%80%BB%E7%BB%93"><span class="nav-number">6.2.</span> <span class="nav-text">双指针总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yifan Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Yifan Chen</p>
+  <div class="site-description" itemprop="description">主要记录算法和web开发方面的心得体会</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yifan Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '1495b8dcfa58a185e440',
+      clientSecret: 'f073065ea2e5270367cd8792371419093833c1f3',
+      repo        : 'yfchenkeepgoing.github.io',
+      owner       : 'yfchenkeepgoing',
+      admin       : ['yfchenkeepgoing'],
+      id          : 'f6d23858f41d914e01df8b8337af2301',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>
