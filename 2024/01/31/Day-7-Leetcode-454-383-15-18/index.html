@@ -28,7 +28,7 @@
 <meta property="og:description" content="链接454.四数相加II383. 赎金信15. 三数之和18. 四数之和哈希表总结篇 知识454.四数相加IIcpp中的map中的value是支持++操作的，且value可以通过key直接索引到，就像普通的数组那样。 383. 赎金信 不仅对vector可以用范围遍历，对string类型的变量和普通的数组也可以用范围遍历的写法来简化代码。似乎范围遍历的速度要稍快于普通的for循环遍历。  cpp中">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-31T02:07:29.000Z">
-<meta property="article:modified_time" content="2024-02-01T07:13:55.188Z">
+<meta property="article:modified_time" content="2024-02-04T16:25:39.572Z">
 <meta property="article:author" content="Yifan Chen">
 <meta property="article:tag" content="Algorithm">
 <meta property="article:tag" content="Leetcode">
@@ -230,7 +230,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-02-01 07:13:55" itemprop="dateModified" datetime="2024-02-01T07:13:55+00:00">2024-02-01</time>
+                <time title="修改时间：2024-02-04 16:25:39" itemprop="dateModified" datetime="2024-02-04T16:25:39+00:00">2024-02-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -334,6 +334,7 @@
 <li>双指针法思路简单，但要注意去重的细节</li>
 <li>排序的目的是方便剪枝，且一个三元组只会有唯一的顺序</li>
 <li><strong>双指针法只适用于返回的结果是数而不是索引的题目</strong>，因为双指针法使用前必须对数组进行排序，排序后索引会被打乱，因此返回的结果不能是索引。若两数之和要求返回的结果是数，那么也可以用双指针算法。这不禁让我思考，若本题要求返回的结果是索引，那么也只能用哈希法。但如果要求返回的结果是索引，那么就不需要有复杂的去重操作，因此实际上是简化了本题。</li>
+<li>对于<code>nums[i]</code>（即a）去重的代码，可以用if判断写：<code>if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1]) continue;</code>，也可以用while循环写：<code>while (i &lt; nums.size() &amp;&amp; i &gt; 0 &amp;&amp; nums[i] == nums[i - 1]) i ++ ;</code>。一般在写while循环时，都需要加上<strong>对数组索引不可越界的限制</strong>：<code>i &lt; nums.size()</code>。如果出现报错：<code>Runtime Error: AddressSanitizer</code>，大概率是因为数组索引越界了，此时需要检查是否加上了限制条件<code>i &lt; nums.size()</code>和<code>i &gt; 0</code>。</li>
 </ol>
 <h3 id="18-四数之和-3"><a href="#18-四数之和-3" class="headerlink" title="18. 四数之和"></a>18. 四数之和</h3><ol>
 <li>本题思路和三数之和相同，但需要注意剪枝的细节</li>
