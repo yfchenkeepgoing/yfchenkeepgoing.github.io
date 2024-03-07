@@ -191,108 +191,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/21/How-to-Migrate-and-Restart-a-Cloud-Server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yifan Chen">
-      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YifanChen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/01/21/How-to-Migrate-and-Restart-a-Cloud-Server/" class="post-title-link" itemprop="url">How to Migrate and Restart a Cloud Server</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-01-21 19:31:01 / 修改时间：19:35:51" itemprop="dateCreated datePublished" datetime="2024-01-21T19:31:01+00:00">2024-01-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="迁移云服务器"><a href="#迁移云服务器" class="headerlink" title="迁移云服务器"></a>迁移云服务器</h1><h2 id="1、租云服务器，配置其免密登录"><a href="#1、租云服务器，配置其免密登录" class="headerlink" title="1、租云服务器，配置其免密登录"></a>1、租云服务器，配置其免密登录</h2><p>将本地的公钥复制到云服务器的~/.ssh/authorized_keys中，或者使用云服务器平台提供的密钥，在本地的.ssh文件夹中添加密钥在本地的位置<br>第一次登录云服务器（未配置免密登录）的具体流程可以参照以下步骤：</p>
-<p>IR_Group_7_project Demo Instruction</p>
-<ol>
-<li>Login our VM instance<br>Move key to secure location (eg. ~/.ssh in linux), then</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 path/to/shaoxi_key.pem</span><br><span class="line">ssh -i path/to/shaoxi_key.pem shaoxi@52.174.147.101</span><br></pre></td></tr></table></figure>
-<h2 id="2、在云服务器中安装docker"><a href="#2、在云服务器中安装docker" class="headerlink" title="2、在云服务器中安装docker"></a>2、在云服务器中安装docker</h2><p>安装步骤参见官网：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a><br>一般安装的版本为20.10.9，使用命令：<code>VERSION_STRING=5:20.10.9~3-0~ubuntu-focal</code><br>查看docker是否安装成功：<code>docker --version</code></p>
-<h2 id="3、在云服务器平台开放以下端口"><a href="#3、在云服务器平台开放以下端口" class="headerlink" title="3、在云服务器平台开放以下端口"></a>3、在云服务器平台开放以下端口</h2><p>22， 8000， 443， 80， 20000，协议均为TCP，源和目的地都为任何（0.0.0.0）</p>
-<h2 id="4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里"><a href="#4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里" class="headerlink" title="4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里"></a>4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里</h2><p>在powershell中执行的具体的命令为：<br><code>scp .\django_lesson_1.tar azureuser@20.123.135.13:~/</code></p>
-<h2 id="5、将镜像xxxx从本地文件xxxx-tar中加载出来"><a href="#5、将镜像xxxx从本地文件xxxx-tar中加载出来" class="headerlink" title="5、将镜像xxxx从本地文件xxxx.tar中加载出来"></a>5、将镜像xxxx从本地文件xxxx.tar中加载出来</h2><p><code>sudo docker load -i xxxx.tar</code></p>
-<h2 id="6、查看镜像是否成功加载出来"><a href="#6、查看镜像是否成功加载出来" class="headerlink" title="6、查看镜像是否成功加载出来"></a>6、查看镜像是否成功加载出来</h2><p>查看所有镜像的命令: <code>sudo docker images</code></p>
-<h2 id="7、使用镜像重新创建并运行容器"><a href="#7、使用镜像重新创建并运行容器" class="headerlink" title="7、使用镜像重新创建并运行容器"></a>7、使用镜像重新创建并运行容器</h2><p><code>docker run -p 20000:22 -p 8000:8000 -p 80:80 -p 443:443 --name django_server -itd django_lesson:1.1</code></p>
-<h2 id="8、登录到容器中"><a href="#8、登录到容器中" class="headerlink" title="8、登录到容器中"></a>8、登录到容器中</h2><p><code>sudo docker attach django_server</code><br>登录为root用户</p>
-<h2 id="9、创建非root用户"><a href="#9、创建非root用户" class="headerlink" title="9、创建非root用户"></a>9、创建非root用户</h2><p><code>adduser acs</code><br>赋予其sudo权限：<code>usermod -aG sudo acs</code><br>设置密码</p>
-<h2 id="10、配置容器的免密登录"><a href="#10、配置容器的免密登录" class="headerlink" title="10、配置容器的免密登录"></a>10、配置容器的免密登录</h2><p>配置免密登录的过程是：在容器的.ssh/authorized_keys中写入本地的.ssh文件夹（C:\Users\chen yi fan.ssh）中的公钥的内容<br>然后修改本地的.ssh/config文件，添加容器的信息，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host django_azure</span><br><span class="line">    HostName 20.123.135.13</span><br><span class="line">    User acs</span><br><span class="line">    Port 20000</span><br></pre></td></tr></table></figure>
-<h2 id="11、从本地-其他云服务器上登录到容器的命令"><a href="#11、从本地-其他云服务器上登录到容器的命令" class="headerlink" title="11、从本地/其他云服务器上登录到容器的命令"></a>11、从本地/其他云服务器上登录到容器的命令</h2><p><code>ssh acs@ip -p 20000</code><br>退出容器时注意不要关闭容器，而是挂起容器：ctrl+p ctrl+q</p>
-<h2 id="12、完成容器的一些配置："><a href="#12、完成容器的一些配置：" class="headerlink" title="12、完成容器的一些配置："></a>12、完成容器的一些配置：</h2><p>nginx配置：<br>（1）修改yxc的acapp中的服务器IP<br>（2）将服务器的IP添加到项目的settings.py的ALLOWED_HOSTS中<br>（3）将yxc提供的nginx.conf写入容器的/etc/nginx/nginx.conf文件中<br>（4）将yxc提供的acapp.key写入容器的/etc/nginx/cert/acapp.key文件中<br>（5）将yxc提供的acapp.pem写入容器的/etc/nginx/cert/acapp.pem文件中<br>（6）启动nginx服务：<code>sudo /etc/init.d/nginx start</code><br>（7）启动uwsgi服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>redis配置：<br>（1）安装redis：<code>pip install django_redis</code><br>（2）启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code><br>（3）用<code>top</code>命令看有没有进程叫redis-server</p>
-<p>django channels配置：<br>（1）安装channels_redis：<code>pip install channels_redis</code><br>（2）启动django_channels：<br>  在~/acapp目录下执行：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<p>同时启动https（uwsgi）和wss（daphne）协议的服务后，项目就应该可以正常运行</p>
-<h2 id="13、启动https和wss服务"><a href="#13、启动https和wss服务" class="headerlink" title="13、启动https和wss服务"></a>13、启动https和wss服务</h2><p>启动https服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<hr>
-<h1 id="重启云服务器"><a href="#重启云服务器" class="headerlink" title="重启云服务器"></a>重启云服务器</h1><p>在云平台暂停云服务器后重新启动服务器并进入容器</p>
-<h2 id="1-在云平台启动云服务器"><a href="#1-在云平台启动云服务器" class="headerlink" title="1. 在云平台启动云服务器"></a>1. 在云平台启动云服务器</h2><p>需要等待5-10分钟才能完成重启的过程</p>
-<h2 id="2-查看云服务器中已有的容器"><a href="#2-查看云服务器中已有的容器" class="headerlink" title="2. 查看云服务器中已有的容器"></a>2. 查看云服务器中已有的容器</h2><p>运行命令：<code>sudo docker ps -a</code></p>
-<h2 id="3-启动被暂停-退出的容器"><a href="#3-启动被暂停-退出的容器" class="headerlink" title="3. 启动被暂停/退出的容器"></a>3. 启动被暂停/退出的容器</h2><p>运行命令：<code>sudo docker start django_server</code></p>
-<h2 id="4-进入容器"><a href="#4-进入容器" class="headerlink" title="4. 进入容器"></a>4. 进入容器</h2><p>在vscode上选择django_azure，点击进入即可</p>
-<h2 id="5-启动容器中的服务"><a href="#5-启动容器中的服务" class="headerlink" title="5. 启动容器中的服务"></a>5. 启动容器中的服务</h2><p>主要需要启动以下五个服务：</p>
-<p>启动nginx服务：<code>sudo /etc/init.d/nginx start</code></p>
-<p>启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code></p>
-<p>启动uwsgi（https）服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<p>启动match system服务：<code>./main.py</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/20/Blog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -797,7 +695,7 @@ shift enter: 新起一行
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -810,7 +708,7 @@ shift enter: 新起一行
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">63</span>
+        <span class="site-state-item-count">56</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
