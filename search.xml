@@ -367,133 +367,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Day 15 | Leetcode Breadth-first traversal, 226, 101</title>
-    <url>/2024/02/15/Day-15-Leetcode-Breadth-first-traversal-226-101/</url>
-    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/0102.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86.html">层序遍历</a><br><a href="https://programmercarl.com/0226.%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91.html">226.翻转二叉树</a><br><a href="https://programmercarl.com/0101.%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91.html">101. 对称二叉树</a></p>
-<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h3><p>二叉树的层序遍历相当于图论中的广度优先搜索。leetcode 102：层序输出二叉树。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[6] --&gt; B[4];</span><br><span class="line">    A --&gt; C[7];</span><br><span class="line">    B --&gt; D[1];</span><br><span class="line">    B --&gt; E[3];</span><br><span class="line">    C --&gt; F[5]</span><br><span class="line">    C --&gt; G[8]</span><br></pre></td></tr></table></figure>
-<p>上述二叉树，一层放在一个数组里，返回的是二维数组。只依赖二叉树本身的结构，无法层序保存二叉树中的节点。需要借助另一种数据结构：队列，用于保存每一层遍历过的元素。图论中的广度优先搜索也是依赖队列实现的。</p>
-<p>模拟过程：根节点6加入队列，记录队列大小（size=1）。size表示这层二叉树中有几个元素。接下来弹出当前层的元素6，将6加入到结果数组中，开始处理下一层。再将6的左右孩子4和7加入队列中，此时size=2，第二层的元素个数为2，接下来弹出size（2）个元素，先弹出4，将4的左右孩子1和3加入队列。再弹出7，size归0，第二层遍历结束。弹出7后，再将7的左右孩子5和8加入队列。此时size=4，说明第三层中元素个数为4。接着队列中再弹出size(4)个元素，加入结果数组。上述过程如下图所示。<br><img src="https://github.com/yfchenkeepgoing/image/blob/main/Snipaste_2024-02-16_02-48-16.png?raw=true" alt="Snipaste_2024-02-16_02-48-16.png"></p>
-<p>我尝试根据上述模拟过程独立写出代码，但不知道怎么写while循环结束的条件。直接看卡尔的讲解。<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">queue&lt;TreeNode*&gt; q;</span><br><span class="line"><span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历的终止条件：队列中无元素</span></span><br><span class="line"><span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> size = q.<span class="built_in">size</span>(); <span class="comment">// 记录当前层节点的数量</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; vec; <span class="comment">// 存放一层的节点的值</span></span><br><span class="line">    <span class="comment">// 队列中弹出size个节点，加入到vec中</span></span><br><span class="line">    <span class="keyword">while</span> (size -- )</span><br><span class="line">    &#123;</span><br><span class="line">        TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将弹出节点的左右孩子加入到队列中</span></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">        <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    res.<span class="built_in">push_back</span>(vec);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure></p>
-<p>上述代码也是图论中广度优先搜索的模板。leetcode上有10道题都可以用本模板解决，只需要改动不超过三行代码。</p>
-<h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226.翻转二叉树"></a>226.翻转二叉树</h3><p>我能想到的办法是层序遍历二叉树，然后将每一层的输出数组翻转。但这样做需要将数组还原回到二叉树，比较麻烦。随后有产生想法，让一个节点的左指针指向其右节点，右指针指向其左节点即可，可能需要一个中间变量来存放左节点或者右节点。直接看卡尔的视频。</p>
-<h3 id="101-对称二叉树"><a href="#101-对称二叉树" class="headerlink" title="101. 对称二叉树"></a>101. 对称二叉树</h3><p>看到本题，我的第一想法是，本题是翻转二叉树的变式。若一个二叉树被翻转后，仍和原来保持一致，那么就可以认为它是对称二叉树。现在的问题在于如何比较两棵二叉树是否完全相同，我认为可以采用层序遍历，一层层比较即可。或者直接层序遍历完后将二叉树存入一个二维数组中，然后用两重循环+双指针算法判断二维数组是否对称。这样做实际上有个问题：</p>
-<p><img src="https://assets.leetcode.com/uploads/2021/02/19/symtree2.jpg" alt="img"></p>
-<p>上面这棵二叉树，层序遍历得到的二维数组为[1, [2, 2], [3, 3]]。二维数组是对称的，但二叉树却不是对称的。还是看卡尔的讲解吧。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="层序遍历-1"><a href="#层序遍历-1" class="headerlink" title="层序遍历"></a>层序遍历</h3><h4 id="107-二叉树的层次遍历II"><a href="#107-二叉树的层次遍历II" class="headerlink" title="107.二叉树的层次遍历II"></a>107.二叉树的层次遍历II</h4><p>只需要在最后翻转res数组即可：<code>reverse(res.begin(), res.end());</code>。翻转一个二维数组，二维数组中所有元素（一维数组）的顺序都会颠倒，但一维数组本身（即一维数组内部的顺序不会改变）。reverse函数可以用双指针算法手动实现：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> len = res.<span class="built_in">size</span>();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, j = len - <span class="number">1</span>; i &lt; len / <span class="number">2</span>; i ++ , j -- )</span><br><span class="line">    <span class="built_in">swap</span>(res[i], res[j]);</span><br></pre></td></tr></table></figure></p>
-<p>似乎手动实现的速度要快于调用现成的reverse函数。</p>
-<h4 id="199-二叉树的右视图"><a href="#199-二叉树的右视图" class="headerlink" title="199.二叉树的右视图"></a>199.二叉树的右视图</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (i == size - <span class="number">1</span>) res.<span class="built_in">push_back</span>(node-&gt;val); <span class="comment">// 将一层最右边的节点的值加入到结果数组中</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="637-二叉树的层平均值"><a href="#637-二叉树的层平均值" class="headerlink" title="637.二叉树的层平均值"></a>637.二叉树的层平均值</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">double</span>&gt; <span class="title">averageOfLevels</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">double</span>&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">double</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                sum += node-&gt;val;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res.<span class="built_in">push_back</span>(sum / size);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="429-N叉树的层序遍历"><a href="#429-N叉树的层序遍历" class="headerlink" title="429. N叉树的层序遍历"></a>429. N叉树的层序遍历</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Definition for a Node.</span></span><br><span class="line"><span class="comment">class Node &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    vector&lt;Node*&gt; children;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node() &#123;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node(int _val) &#123;</span></span><br><span class="line"><span class="comment">        val = _val;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node(int _val, vector&lt;Node*&gt; _children) &#123;</span></span><br><span class="line"><span class="comment">        val = _val;</span></span><br><span class="line"><span class="comment">        children = _children;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(Node* root) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        queue&lt;Node*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                Node* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; node-&gt;children.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">                    <span class="keyword">if</span> (node-&gt;children[i]) q.<span class="built_in">push</span>(node-&gt;children[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            res.<span class="built_in">push_back</span>(vec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="515-在每个树行中找最大值"><a href="#515-在每个树行中找最大值" class="headerlink" title="515.在每个树行中找最大值"></a>515.在每个树行中找最大值</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">largestValues</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">int</span> max = <span class="number">-2147483648</span>; <span class="comment">// Node.val的最小值，可简写为int max = INT_MIN;</span></span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                max = node-&gt;val &gt; max ? node-&gt;val: max; <span class="comment">// 注意问号表达式的用法</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res.<span class="built_in">push_back</span>(max);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="116-填充每个节点的下一个右侧节点指针"><a href="#116-填充每个节点的下一个右侧节点指针" class="headerlink" title="116. 填充每个节点的下一个右侧节点指针"></a>116. 填充每个节点的下一个右侧节点指针</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        queue&lt;Node*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            Node* node0, *node; </span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 取出一层的头结点</span></span><br><span class="line">                <span class="keyword">if</span> (i == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    node0 = q.<span class="built_in">front</span>();</span><br><span class="line">                    q.<span class="built_in">pop</span>();</span><br><span class="line">                 <span class="comment">// 本句话的目的：当一层只有头节点时，可以让该头节点在弹出的同时继续在队列中行插入其左右子节点</span></span><br><span class="line">                    node = node0; </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 本层前一个节点next指向本节点</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// node0和node交替前进</span></span><br><span class="line">                    node = q.<span class="built_in">front</span>();</span><br><span class="line">                    q.<span class="built_in">pop</span>();</span><br><span class="line">                    node0-&gt;next = node;</span><br><span class="line">                    node0 = node;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 本层最后一个节点指向NULL</span></span><br><span class="line">            node-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="117-填充每个节点的下一个右侧节点指针II"><a href="#117-填充每个节点的下一个右侧节点指针II" class="headerlink" title="117.填充每个节点的下一个右侧节点指针II"></a>117.填充每个节点的下一个右侧节点指针II</h4><p>本题代码和116完全相同。116题目中的条件：完整二叉树实际上是多余的。不管是不是完整二叉树，都可以用同样的代码解题。</p>
-<h4 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104.二叉树的最大深度"></a>104.二叉树的最大深度</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="111-二叉树的最小深度"><a href="#111-二叉树的最小深度" class="headerlink" title="111.二叉树的最小深度"></a>111.二叉树的最小深度</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left == <span class="literal">NULL</span> &amp;&amp; node-&gt;right == <span class="literal">NULL</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    flag = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res ++ ;</span><br><span class="line">            <span class="keyword">if</span> (flag == <span class="literal">false</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>注意：只有当某个节点的左右孩子都为空，这个节点才在二叉树的底部。一旦遇到这样的节点，立即跳出循环，返回res。根据这个思路，我将上述代码做了简化：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left == <span class="literal">NULL</span> &amp;&amp; node-&gt;right == <span class="literal">NULL</span>)</span><br><span class="line">                    <span class="keyword">return</span> ++ res;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="226-翻转二叉树-1"><a href="#226-翻转二叉树-1" class="headerlink" title="226.翻转二叉树"></a>226.翻转二叉树</h3><p>面试中的常考题。本质是交换每个节点的左右孩子，交换的是指针而非数值。这道题显然用递归解比较简单，但要想清楚用哪种遍历顺序。<strong>本题用前序和后序是最直接的，用中序遍历代码比较难写</strong>。迭代和层序遍历也可以做此题，但不要求掌握。</p>
-<p>递归三部曲：</p>
-<ul>
-<li><p>确定递归函数的返回值和参数: <code>TreeNode* invertTree(root)</code></p>
-</li>
-<li><p>确定函数的终止条件：<code>if (root == NULL) return root</code></p>
-</li>
-<li><p>具体的处理逻辑：前序遍历——中左右</p>
-<p> 对中节点，需要交换中节点的左右孩子: <code>swap(root-&gt;left, root-&gt;right)</code></p>
-<p> 左节点：<code>invertTree(root-&gt;left);</code></p>
-<p> 右节点：<code>invertTree(root-&gt;right);</code></p>
-<p> 将swap函数放在处理逻辑的最后，就是左右中，就是后续遍历。因此前序和后续遍历皆可解本题。但中序遍历不可以，举个例子：</p>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[4] --&gt; B[2];</span><br><span class="line">    A --&gt; C[7];</span><br><span class="line">    B --&gt; D[1];</span><br><span class="line">    B --&gt; E[3];</span><br><span class="line">    C --&gt; F[6]</span><br><span class="line">    C --&gt; G[9]</span><br></pre></td></tr></table></figure>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[4] --&gt; B[2];</span><br><span class="line">    A --&gt; C[7];</span><br><span class="line">    B --&gt; D[3];</span><br><span class="line">    B --&gt; E[1];</span><br><span class="line">    C --&gt; F[6]</span><br><span class="line">    C --&gt; G[9]</span><br></pre></td></tr></table></figure>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[4] --&gt; B[7];</span><br><span class="line">    A --&gt; C[2];</span><br><span class="line">    B --&gt; D[6];</span><br><span class="line">    B --&gt; E[9];</span><br><span class="line">    C --&gt; F[3]</span><br><span class="line">    C --&gt; G[1]</span><br></pre></td></tr></table></figure>
- <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[4] --&gt; B[7];</span><br><span class="line">    A --&gt; C[2];</span><br><span class="line">    B --&gt; D[6];</span><br><span class="line">    B --&gt; E[9];</span><br><span class="line">    C --&gt; F[1]</span><br><span class="line">    C --&gt; G[3]</span><br></pre></td></tr></table></figure>
-<p> 相当于原先根节点的左子树被处理了两次，原先根节点的右子树没被处理。对中序遍历的写法，具体的逻辑应该为：</p>
- <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">invertTree</span>(root-&gt;left); <span class="comment">// 处理左子树</span></span><br><span class="line"><span class="built_in">swap</span>(root-&gt;left, root-&gt;right); <span class="comment">// 交换左右子树，原先的右子树变为了现在的左子树，原先的左子树变为了现在的右子树</span></span><br><span class="line"><span class="built_in">invertTree</span>(root-&gt;left); <span class="comment">// 原先的左子树已经被处理过了，现在需要处理原先的右子树，就是现在的左子树</span></span><br></pre></td></tr></table></figure>
-<p> 不建议绕弯子去写中序，很容易出错。</p>
-</li>
-</ul>
-<p>前序遍历：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前序遍历写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> root; <span class="comment">// 终止条件</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 中左右</span></span><br><span class="line">        <span class="built_in">swap</span>(root-&gt;left, root-&gt;right);</span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> root; <span class="comment">// 每次递归后返回结果</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>后序遍历写法：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 后序遍历写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左右中</span></span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;right);</span><br><span class="line">        <span class="built_in">swap</span>(root-&gt;left, root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>中序遍历写法(<strong>绕，理解即可，不要写</strong>)：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 中序遍历写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左中右</span></span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">        <span class="built_in">swap</span>(root-&gt;left, root-&gt;right);</span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="101-对称二叉树-1"><a href="#101-对称二叉树-1" class="headerlink" title="101. 对称二叉树"></a>101. 对称二叉树</h3><p>本质上是判断根节点的左子树和右子树是否可以互相翻转。需要比较二叉树同是外侧的节点和同是内侧的节点是否相等。接着考虑用哪种方式遍历二叉树。<strong>二叉树类的题目确定遍历顺序非常重要</strong>。<strong>本题目只能使用后序遍历</strong>（左右中）。因为我们需要先收集完根节点左右孩子的信息再返回给根节点，才能知道根节点的左右孩子是否相同，进而知道二叉树是否是对称的。</p>
-<ol>
-<li><p>确定函数传入的参数和返回值</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 判断根节点的左右子树是否可以互相翻转</span></span><br><span class="line"><span class="comment">// 本质是判断两个二叉树是否可以相互翻转，因此需要同时处理两棵二叉树</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compare</span><span class="params">(TreeNode* left, TreeNode* right)</span> <span class="comment">// 传入的参数为左子树的头节点和右子树的头节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>确定终止条件<br>共有以下5种情况<br>|左节点|右节点|返回值|<br>|:—-:|:—-:|:—-:|<br>|空|非空|false|<br>|非空|空|false|<br>|空|空|true|<br>|非空且值不等|非空且值不等|false|<br>|非空且值相等|非空且值相等|继续向下遍历，写单层递归的逻辑|</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>单层递归的逻辑（如何像下一层遍历）<br>同是外侧的节点和同是内侧的节点相同，才可以return true。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> outside = <span class="built_in">compare</span>(left-&gt;left, right-&gt;right); <span class="comment">// 比较一对外侧节点是否相同</span></span><br><span class="line"><span class="type">bool</span> inside = <span class="built_in">compare</span>(left-&gt;right, right-&gt;left);  <span class="comment">// 比较一对内侧节点是否相同</span></span><br><span class="line"><span class="type">bool</span> res = outside &amp;&amp; inside; <span class="comment">// 内外侧节点都相同，则才可以左右翻转</span></span><br><span class="line"><span class="keyword">return</span> res; </span><br></pre></td></tr></table></figure>
-<p>上面代码框的前三行代码分别对应后序遍历的左右中。中只能放在最后，不能提前，否则会出现还没计算outside和inside就来计算res的情况，因此必须是后序遍历。</p>
-</li>
-</ol>
-<p>后序遍历解决本题的完整代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">compare</span><span class="params">(TreeNode* left, TreeNode* right)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> outside = <span class="built_in">compare</span>(left-&gt;left, right-&gt;right);</span><br><span class="line">        <span class="type">bool</span> inside = <span class="built_in">compare</span>(left-&gt;right, right-&gt;left);</span><br><span class="line">        <span class="type">bool</span> res = outside &amp;&amp; inside;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isSymmetric</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">compare</span>(root-&gt;left, root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>本题也可以用迭代法实现。</p>
-<h4 id="572-另一个树的子树"><a href="#572-另一个树的子树" class="headerlink" title="572.另一个树的子树"></a>572.另一个树的子树</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">compare</span><span class="params">(TreeNode* left, TreeNode* right)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> outside = <span class="built_in">compare</span>(left-&gt;left, right-&gt;left);</span><br><span class="line">        <span class="type">bool</span> inside = <span class="built_in">compare</span>(left-&gt;right, right-&gt;right);</span><br><span class="line">        <span class="type">bool</span> res = outside &amp;&amp; inside;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isSubtree</span><span class="params">(TreeNode* root, TreeNode* subRoot)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (subRoot == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">compare</span>(root, subRoot)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 递归比较root树的子树和subRoot是否相同</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">isSubtree</span>(root-&gt;left, subRoot) || <span class="built_in">isSubtree</span>(root-&gt;right, subRoot);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>本题注意如何递归地比较root树的子树和subRoot树是否相同：<code>return isSubtree(root-&gt;left, subRoot) || isSubtree(root-&gt;right, subRoot);</code>。</p>
-<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="层序遍历-2"><a href="#层序遍历-2" class="headerlink" title="层序遍历"></a>层序遍历</h3><ol>
-<li>本题（leetcode102）的模板需要熟记，可以用来解决10道leetcode。</li>
-<li>本题的关键在于用队列来保存每一层遍历过的元素。</li>
-<li><strong>本题的思路可以概括为</strong>：将二叉树的一层加入到队列中，记录队列的大小为size。然后弹出size个节点，用数组收集弹出的节点，并在弹出节点的同时插入弹出的节点的左右子节点。弹完size个节点后，数组中就是当前层的所有元素，而队列中则是下一层的所有节点。</li>
-<li>本题不需要用指针来遍历整棵树，只需要对维护和操作队列即可。</li>
-<li>本题收获最终结果的退出条件为队列为空；二叉树的一层遍历完毕的退出条件为size = 0。</li>
-<li><p>二叉树的右视图这题需要特别注意，以下写法是错误的：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                res.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>原因是：对于以下的二叉树：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[6] --&gt; B[4];</span><br><span class="line">    A --&gt; C[NULL];</span><br></pre></td></tr></table></figure>
-<p>尽管6只有左子节点，没有右子节点，但站在二叉树的右边看这颗二叉树，看到的结果是[6, 4]，如果按照上面的写法，则返回的结果是[6]，4作为左子节点不会被加入到队列中，也不会出现在结果数组中。</p>
-</li>
-<li><p>N叉树的层序遍历需要注意：新定义的N叉树的名字叫Node，不要下意识地写成TreeNode。在队列中更新N叉树下一层的节点时，注意需要用for循环遍历一遍当前node的孩子数组，因为N叉树中的一个节点不仅有左右孩子，而是有一个孩子数组。</p>
-</li>
-<li><p>二叉树的最大深度的解题关键在于：层序遍历二叉树，每遍历完一层记录层数的变量+1。</p>
-</li>
-<li><p>二叉树的最大/最小深度这两道题，<code>res ++</code>放在第二重while循环之后和之前都可以。我在实现中的写法都是把<code>res ++</code>放在了第二重while循环之后，但实际上放在第二重while循环之前写出的代码更简洁易懂，可以参考代码随想录上给出的代码。</p>
-</li>
-<li><p>注意复习填充每个节点的下一个右侧节点指针，这道题第一遍没有写出来。本题的关键在于特判一层的头节点，以及node0和node交替前进。</p>
-</li>
-<li><p>116和117题的代码完全相同。差别只在于116题题目说是完整二叉树，117题目则没有这个说明。</p>
-</li>
-</ol>
-<h3 id="226-翻转二叉树-2"><a href="#226-翻转二叉树-2" class="headerlink" title="226.翻转二叉树"></a>226.翻转二叉树</h3><ol>
-<li><p>注意：本题中的root是指遍历的每个节点，而非特指根节点。</p>
-</li>
-<li><p>本题的关键思路：交换中节点的左右子树，递归处理左右节点。</p>
-</li>
-<li><p>记住前序和后续的写法即可，swap要么写在左右的上面，要么写在左右的下面。抛弃中序写法，太绕！</p>
-</li>
-<li><p>记得最后要<code>return root</code>。因为终止条件：<code>if (root == NULL) return root</code>，只会返回一个为空的节点。大多数情况下不会触发这个终止条件，而是触发最后一个<code>return root</code>。</p>
-</li>
-<li><p>可以定义一个cur节点遍历二叉树的每个节点，这样就不会与根节点root产生混淆。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前序遍历写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        TreeNode* cur = root;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span> cur;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 中左右</span></span><br><span class="line">        <span class="built_in">swap</span>(cur-&gt;left, cur-&gt;right);</span><br><span class="line">        <span class="built_in">invertTree</span>(cur-&gt;left);</span><br><span class="line">        <span class="built_in">invertTree</span>(cur-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> cur;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>本题除递归写法外，用一般迭代、统一迭代、层序遍历的写法都可以，其实在原本的三种迭代方式的代码的基础上稍作修改就可以，但三种迭代方式的代码本身就已经较为复杂，容易写错，因此除非必须建议不要采用迭代写法。</p>
-</li>
-<li><p>但还是不得不说，<strong>层序遍历解本题也很方便</strong>，本题也可以归类到层序遍历能够解决的10道题中，在层序遍历的基础上，交换每个节点的左右子节点即可，代码如下所示：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="built_in">swap</span>(node-&gt;left, node-&gt;right); <span class="comment">// 交换每个节点的左右子节点</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="101-对称二叉树-2"><a href="#101-对称二叉树-2" class="headerlink" title="101. 对称二叉树"></a>101. 对称二叉树</h3><ol>
-<li>本题实际上需要比较根节点的左右子树是否可以相互翻转，因此需要同时遍历两棵树，所以传入的参数为左右子树的头节点。</li>
-<li>本题只能采用后序遍历，遍历左子树的顺序是左右中，遍历右子树的顺序是右左中。</li>
-<li>终止条件需要分五类讨论。见实现中的表格。</li>
-<li>单层递归的核心逻辑为：判断同在外侧的节点是否相同，判断同在内侧的节点是否相同。</li>
-<li>本题的迭代写法其实也不难理解，原理是通过一个容器来成对的存放我们要比较的元素。但优先掌握本题的递归写法即可。</li>
-<li>100.相同的树和572.另一个树的子树基本和本题是一样的，只要稍加修改就可以。572题稍有特殊，需要注意如何递归地比较root树的子树和subRoot树是否相同。同时在主函数中也需要进行分类讨论（subRoot树为空, root树为空，两树相同，root树的子树和subRoot树相同/相异）。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>算法（二叉树）</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>Leetcode</tag>
-        <tag>C++</tag>
-        <tag>二叉树</tag>
-        <tag>层序遍历</tag>
-        <tag>递归解法</tag>
-        <tag>后序遍历</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Day 14 | Leetcode Recursive traversal, Iterative traversal, Unified iteration</title>
     <url>/2024/02/11/Day-14-Leetcode-Recursive-traversal-Iterative-traversal-Unified-iteration/</url>
     <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE">理论基础</a><br><a href="https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86.html">递归遍历</a><br><a href="https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86.html">迭代遍历</a><br><a href="https://programmercarl.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%BB%9F%E4%B8%80%E8%BF%AD%E4%BB%A3%E6%B3%95.html">统一迭代</a></p>
@@ -635,6 +508,133 @@
         <tag>递归遍历</tag>
         <tag>迭代遍历</tag>
         <tag>统一迭代</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Day 15 | Leetcode Breadth-first traversal, 226, 101</title>
+    <url>/2024/02/15/Day-15-Leetcode-Breadth-first-traversal-226-101/</url>
+    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/0102.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86.html">层序遍历</a><br><a href="https://programmercarl.com/0226.%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91.html">226.翻转二叉树</a><br><a href="https://programmercarl.com/0101.%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91.html">101. 对称二叉树</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h3><p>二叉树的层序遍历相当于图论中的广度优先搜索。leetcode 102：层序输出二叉树。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[6] --&gt; B[4];</span><br><span class="line">    A --&gt; C[7];</span><br><span class="line">    B --&gt; D[1];</span><br><span class="line">    B --&gt; E[3];</span><br><span class="line">    C --&gt; F[5]</span><br><span class="line">    C --&gt; G[8]</span><br></pre></td></tr></table></figure>
+<p>上述二叉树，一层放在一个数组里，返回的是二维数组。只依赖二叉树本身的结构，无法层序保存二叉树中的节点。需要借助另一种数据结构：队列，用于保存每一层遍历过的元素。图论中的广度优先搜索也是依赖队列实现的。</p>
+<p>模拟过程：根节点6加入队列，记录队列大小（size=1）。size表示这层二叉树中有几个元素。接下来弹出当前层的元素6，将6加入到结果数组中，开始处理下一层。再将6的左右孩子4和7加入队列中，此时size=2，第二层的元素个数为2，接下来弹出size（2）个元素，先弹出4，将4的左右孩子1和3加入队列。再弹出7，size归0，第二层遍历结束。弹出7后，再将7的左右孩子5和8加入队列。此时size=4，说明第三层中元素个数为4。接着队列中再弹出size(4)个元素，加入结果数组。上述过程如下图所示。<br><img src="https://github.com/yfchenkeepgoing/image/blob/main/Snipaste_2024-02-16_02-48-16.png?raw=true" alt="Snipaste_2024-02-16_02-48-16.png"></p>
+<p>我尝试根据上述模拟过程独立写出代码，但不知道怎么写while循环结束的条件。直接看卡尔的讲解。<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">queue&lt;TreeNode*&gt; q;</span><br><span class="line"><span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历的终止条件：队列中无元素</span></span><br><span class="line"><span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> size = q.<span class="built_in">size</span>(); <span class="comment">// 记录当前层节点的数量</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; vec; <span class="comment">// 存放一层的节点的值</span></span><br><span class="line">    <span class="comment">// 队列中弹出size个节点，加入到vec中</span></span><br><span class="line">    <span class="keyword">while</span> (size -- )</span><br><span class="line">    &#123;</span><br><span class="line">        TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">        q.<span class="built_in">pop</span>();</span><br><span class="line">        vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将弹出节点的左右孩子加入到队列中</span></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">        <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    res.<span class="built_in">push_back</span>(vec);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure></p>
+<p>上述代码也是图论中广度优先搜索的模板。leetcode上有10道题都可以用本模板解决，只需要改动不超过三行代码。</p>
+<h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226.翻转二叉树"></a>226.翻转二叉树</h3><p>我能想到的办法是层序遍历二叉树，然后将每一层的输出数组翻转。但这样做需要将数组还原回到二叉树，比较麻烦。随后有产生想法，让一个节点的左指针指向其右节点，右指针指向其左节点即可，可能需要一个中间变量来存放左节点或者右节点。直接看卡尔的视频。</p>
+<h3 id="101-对称二叉树"><a href="#101-对称二叉树" class="headerlink" title="101. 对称二叉树"></a>101. 对称二叉树</h3><p>看到本题，我的第一想法是，本题是翻转二叉树的变式。若一个二叉树被翻转后，仍和原来保持一致，那么就可以认为它是对称二叉树。现在的问题在于如何比较两棵二叉树是否完全相同，我认为可以采用层序遍历，一层层比较即可。或者直接层序遍历完后将二叉树存入一个二维数组中，然后用两重循环+双指针算法判断二维数组是否对称。这样做实际上有个问题：</p>
+<p><img src="https://assets.leetcode.com/uploads/2021/02/19/symtree2.jpg" alt="img"></p>
+<p>上面这棵二叉树，层序遍历得到的二维数组为[1, [2, 2], [3, 3]]。二维数组是对称的，但二叉树却不是对称的。还是看卡尔的讲解吧。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="层序遍历-1"><a href="#层序遍历-1" class="headerlink" title="层序遍历"></a>层序遍历</h3><h4 id="107-二叉树的层次遍历II"><a href="#107-二叉树的层次遍历II" class="headerlink" title="107.二叉树的层次遍历II"></a>107.二叉树的层次遍历II</h4><p>只需要在最后翻转res数组即可：<code>reverse(res.begin(), res.end());</code>。翻转一个二维数组，二维数组中所有元素（一维数组）的顺序都会颠倒，但一维数组本身（即一维数组内部的顺序不会改变）。reverse函数可以用双指针算法手动实现：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> len = res.<span class="built_in">size</span>();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, j = len - <span class="number">1</span>; i &lt; len / <span class="number">2</span>; i ++ , j -- )</span><br><span class="line">    <span class="built_in">swap</span>(res[i], res[j]);</span><br></pre></td></tr></table></figure></p>
+<p>似乎手动实现的速度要快于调用现成的reverse函数。</p>
+<h4 id="199-二叉树的右视图"><a href="#199-二叉树的右视图" class="headerlink" title="199.二叉树的右视图"></a>199.二叉树的右视图</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (i == size - <span class="number">1</span>) res.<span class="built_in">push_back</span>(node-&gt;val); <span class="comment">// 将一层最右边的节点的值加入到结果数组中</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="637-二叉树的层平均值"><a href="#637-二叉树的层平均值" class="headerlink" title="637.二叉树的层平均值"></a>637.二叉树的层平均值</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">double</span>&gt; <span class="title">averageOfLevels</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">double</span>&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">double</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                sum += node-&gt;val;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res.<span class="built_in">push_back</span>(sum / size);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="429-N叉树的层序遍历"><a href="#429-N叉树的层序遍历" class="headerlink" title="429. N叉树的层序遍历"></a>429. N叉树的层序遍历</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">// Definition for a Node.</span></span><br><span class="line"><span class="comment">class Node &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    vector&lt;Node*&gt; children;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node() &#123;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node(int _val) &#123;</span></span><br><span class="line"><span class="comment">        val = _val;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Node(int _val, vector&lt;Node*&gt; _children) &#123;</span></span><br><span class="line"><span class="comment">        val = _val;</span></span><br><span class="line"><span class="comment">        children = _children;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(Node* root) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        queue&lt;Node*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                Node* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; node-&gt;children.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">                    <span class="keyword">if</span> (node-&gt;children[i]) q.<span class="built_in">push</span>(node-&gt;children[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            res.<span class="built_in">push_back</span>(vec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="515-在每个树行中找最大值"><a href="#515-在每个树行中找最大值" class="headerlink" title="515.在每个树行中找最大值"></a>515.在每个树行中找最大值</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">largestValues</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span>(q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">int</span> max = <span class="number">-2147483648</span>; <span class="comment">// Node.val的最小值，可简写为int max = INT_MIN;</span></span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                max = node-&gt;val &gt; max ? node-&gt;val: max; <span class="comment">// 注意问号表达式的用法</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res.<span class="built_in">push_back</span>(max);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="116-填充每个节点的下一个右侧节点指针"><a href="#116-填充每个节点的下一个右侧节点指针" class="headerlink" title="116. 填充每个节点的下一个右侧节点指针"></a>116. 填充每个节点的下一个右侧节点指针</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Node* <span class="title">connect</span><span class="params">(Node* root)</span> </span>&#123;</span><br><span class="line">        queue&lt;Node*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            Node* node0, *node; </span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 取出一层的头结点</span></span><br><span class="line">                <span class="keyword">if</span> (i == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    node0 = q.<span class="built_in">front</span>();</span><br><span class="line">                    q.<span class="built_in">pop</span>();</span><br><span class="line">                 <span class="comment">// 本句话的目的：当一层只有头节点时，可以让该头节点在弹出的同时继续在队列中行插入其左右子节点</span></span><br><span class="line">                    node = node0; </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 本层前一个节点next指向本节点</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// node0和node交替前进</span></span><br><span class="line">                    node = q.<span class="built_in">front</span>();</span><br><span class="line">                    q.<span class="built_in">pop</span>();</span><br><span class="line">                    node0-&gt;next = node;</span><br><span class="line">                    node0 = node;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 本层最后一个节点指向NULL</span></span><br><span class="line">            node-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="117-填充每个节点的下一个右侧节点指针II"><a href="#117-填充每个节点的下一个右侧节点指针II" class="headerlink" title="117.填充每个节点的下一个右侧节点指针II"></a>117.填充每个节点的下一个右侧节点指针II</h4><p>本题代码和116完全相同。116题目中的条件：完整二叉树实际上是多余的。不管是不是完整二叉树，都可以用同样的代码解题。</p>
+<h4 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104.二叉树的最大深度"></a>104.二叉树的最大深度</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="111-二叉树的最小深度"><a href="#111-二叉树的最小深度" class="headerlink" title="111.二叉树的最小深度"></a>111.二叉树的最小深度</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="type">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left == <span class="literal">NULL</span> &amp;&amp; node-&gt;right == <span class="literal">NULL</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    flag = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res ++ ;</span><br><span class="line">            <span class="keyword">if</span> (flag == <span class="literal">false</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>注意：只有当某个节点的左右孩子都为空，这个节点才在二叉树的底部。一旦遇到这样的节点，立即跳出循环，返回res。根据这个思路，我将上述代码做了简化：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">minDepth</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left == <span class="literal">NULL</span> &amp;&amp; node-&gt;right == <span class="literal">NULL</span>)</span><br><span class="line">                    <span class="keyword">return</span> ++ res;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="226-翻转二叉树-1"><a href="#226-翻转二叉树-1" class="headerlink" title="226.翻转二叉树"></a>226.翻转二叉树</h3><p>面试中的常考题。本质是交换每个节点的左右孩子，交换的是指针而非数值。这道题显然用递归解比较简单，但要想清楚用哪种遍历顺序。<strong>本题用前序和后序是最直接的，用中序遍历代码比较难写</strong>。迭代和层序遍历也可以做此题，但不要求掌握。</p>
+<p>递归三部曲：</p>
+<ul>
+<li><p>确定递归函数的返回值和参数: <code>TreeNode* invertTree(root)</code></p>
+</li>
+<li><p>确定函数的终止条件：<code>if (root == NULL) return root</code></p>
+</li>
+<li><p>具体的处理逻辑：前序遍历——中左右</p>
+<p> 对中节点，需要交换中节点的左右孩子: <code>swap(root-&gt;left, root-&gt;right)</code></p>
+<p> 左节点：<code>invertTree(root-&gt;left);</code></p>
+<p> 右节点：<code>invertTree(root-&gt;right);</code></p>
+<p> 将swap函数放在处理逻辑的最后，就是左右中，就是后续遍历。因此前序和后续遍历皆可解本题。但中序遍历不可以，举个例子：</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[4] --&gt; B[2];</span><br><span class="line">    A --&gt; C[7];</span><br><span class="line">    B --&gt; D[1];</span><br><span class="line">    B --&gt; E[3];</span><br><span class="line">    C --&gt; F[6]</span><br><span class="line">    C --&gt; G[9]</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[4] --&gt; B[2];</span><br><span class="line">    A --&gt; C[7];</span><br><span class="line">    B --&gt; D[3];</span><br><span class="line">    B --&gt; E[1];</span><br><span class="line">    C --&gt; F[6]</span><br><span class="line">    C --&gt; G[9]</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[4] --&gt; B[7];</span><br><span class="line">    A --&gt; C[2];</span><br><span class="line">    B --&gt; D[6];</span><br><span class="line">    B --&gt; E[9];</span><br><span class="line">    C --&gt; F[3]</span><br><span class="line">    C --&gt; G[1]</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[4] --&gt; B[7];</span><br><span class="line">    A --&gt; C[2];</span><br><span class="line">    B --&gt; D[6];</span><br><span class="line">    B --&gt; E[9];</span><br><span class="line">    C --&gt; F[1]</span><br><span class="line">    C --&gt; G[3]</span><br></pre></td></tr></table></figure>
+<p> 相当于原先根节点的左子树被处理了两次，原先根节点的右子树没被处理。对中序遍历的写法，具体的逻辑应该为：</p>
+ <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">invertTree</span>(root-&gt;left); <span class="comment">// 处理左子树</span></span><br><span class="line"><span class="built_in">swap</span>(root-&gt;left, root-&gt;right); <span class="comment">// 交换左右子树，原先的右子树变为了现在的左子树，原先的左子树变为了现在的右子树</span></span><br><span class="line"><span class="built_in">invertTree</span>(root-&gt;left); <span class="comment">// 原先的左子树已经被处理过了，现在需要处理原先的右子树，就是现在的左子树</span></span><br></pre></td></tr></table></figure>
+<p> 不建议绕弯子去写中序，很容易出错。</p>
+</li>
+</ul>
+<p>前序遍历：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前序遍历写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> root; <span class="comment">// 终止条件</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 中左右</span></span><br><span class="line">        <span class="built_in">swap</span>(root-&gt;left, root-&gt;right);</span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> root; <span class="comment">// 每次递归后返回结果</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>后序遍历写法：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 后序遍历写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左右中</span></span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;right);</span><br><span class="line">        <span class="built_in">swap</span>(root-&gt;left, root-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>中序遍历写法(<strong>绕，理解即可，不要写</strong>)：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 中序遍历写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左中右</span></span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">        <span class="built_in">swap</span>(root-&gt;left, root-&gt;right);</span><br><span class="line">        <span class="built_in">invertTree</span>(root-&gt;left);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="101-对称二叉树-1"><a href="#101-对称二叉树-1" class="headerlink" title="101. 对称二叉树"></a>101. 对称二叉树</h3><p>本质上是判断根节点的左子树和右子树是否可以互相翻转。需要比较二叉树同是外侧的节点和同是内侧的节点是否相等。接着考虑用哪种方式遍历二叉树。<strong>二叉树类的题目确定遍历顺序非常重要</strong>。<strong>本题目只能使用后序遍历</strong>（左右中）。因为我们需要先收集完根节点左右孩子的信息再返回给根节点，才能知道根节点的左右孩子是否相同，进而知道二叉树是否是对称的。</p>
+<ol>
+<li><p>确定函数传入的参数和返回值</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 判断根节点的左右子树是否可以互相翻转</span></span><br><span class="line"><span class="comment">// 本质是判断两个二叉树是否可以相互翻转，因此需要同时处理两棵二叉树</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compare</span><span class="params">(TreeNode* left, TreeNode* right)</span> <span class="comment">// 传入的参数为左子树的头节点和右子树的头节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>确定终止条件<br>共有以下5种情况<br>|左节点|右节点|返回值|<br>|:—-:|:—-:|:—-:|<br>|空|非空|false|<br>|非空|空|false|<br>|空|空|true|<br>|非空且值不等|非空且值不等|false|<br>|非空且值相等|非空且值相等|继续向下遍历，写单层递归的逻辑|</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单层递归的逻辑（如何像下一层遍历）<br>同是外侧的节点和同是内侧的节点相同，才可以return true。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> outside = <span class="built_in">compare</span>(left-&gt;left, right-&gt;right); <span class="comment">// 比较一对外侧节点是否相同</span></span><br><span class="line"><span class="type">bool</span> inside = <span class="built_in">compare</span>(left-&gt;right, right-&gt;left);  <span class="comment">// 比较一对内侧节点是否相同</span></span><br><span class="line"><span class="type">bool</span> res = outside &amp;&amp; inside; <span class="comment">// 内外侧节点都相同，则才可以左右翻转</span></span><br><span class="line"><span class="keyword">return</span> res; </span><br></pre></td></tr></table></figure>
+<p>上面代码框的前三行代码分别对应后序遍历的左右中。中只能放在最后，不能提前，否则会出现还没计算outside和inside就来计算res的情况，因此必须是后序遍历。</p>
+</li>
+</ol>
+<p>后序遍历解决本题的完整代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">compare</span><span class="params">(TreeNode* left, TreeNode* right)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> outside = <span class="built_in">compare</span>(left-&gt;left, right-&gt;right);</span><br><span class="line">        <span class="type">bool</span> inside = <span class="built_in">compare</span>(left-&gt;right, right-&gt;left);</span><br><span class="line">        <span class="type">bool</span> res = outside &amp;&amp; inside;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isSymmetric</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">compare</span>(root-&gt;left, root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>本题也可以用迭代法实现。</p>
+<h4 id="572-另一个树的子树"><a href="#572-另一个树的子树" class="headerlink" title="572.另一个树的子树"></a>572.另一个树的子树</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">compare</span><span class="params">(TreeNode* left, TreeNode* right)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (left-&gt;val != right-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> outside = <span class="built_in">compare</span>(left-&gt;left, right-&gt;left);</span><br><span class="line">        <span class="type">bool</span> inside = <span class="built_in">compare</span>(left-&gt;right, right-&gt;right);</span><br><span class="line">        <span class="type">bool</span> res = outside &amp;&amp; inside;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isSubtree</span><span class="params">(TreeNode* root, TreeNode* subRoot)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (subRoot == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">compare</span>(root, subRoot)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 递归比较root树的子树和subRoot是否相同</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">isSubtree</span>(root-&gt;left, subRoot) || <span class="built_in">isSubtree</span>(root-&gt;right, subRoot);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>本题注意如何递归地比较root树的子树和subRoot树是否相同：<code>return isSubtree(root-&gt;left, subRoot) || isSubtree(root-&gt;right, subRoot);</code>。</p>
+<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="层序遍历-2"><a href="#层序遍历-2" class="headerlink" title="层序遍历"></a>层序遍历</h3><ol>
+<li>本题（leetcode102）的模板需要熟记，可以用来解决10道leetcode。</li>
+<li>本题的关键在于用队列来保存每一层遍历过的元素。</li>
+<li><strong>本题的思路可以概括为</strong>：将二叉树的一层加入到队列中，记录队列的大小为size。然后弹出size个节点，用数组收集弹出的节点，并在弹出节点的同时插入弹出的节点的左右子节点。弹完size个节点后，数组中就是当前层的所有元素，而队列中则是下一层的所有节点。</li>
+<li>本题不需要用指针来遍历整棵树，只需要对维护和操作队列即可。</li>
+<li>本题收获最终结果的退出条件为队列为空；二叉树的一层遍历完毕的退出条件为size = 0。</li>
+<li><p>二叉树的右视图这题需要特别注意，以下写法是错误的：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rightSideView</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                res.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>原因是：对于以下的二叉树：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[6] --&gt; B[4];</span><br><span class="line">    A --&gt; C[NULL];</span><br></pre></td></tr></table></figure>
+<p>尽管6只有左子节点，没有右子节点，但站在二叉树的右边看这颗二叉树，看到的结果是[6, 4]，如果按照上面的写法，则返回的结果是[6]，4作为左子节点不会被加入到队列中，也不会出现在结果数组中。</p>
+</li>
+<li><p>N叉树的层序遍历需要注意：新定义的N叉树的名字叫Node，不要下意识地写成TreeNode。在队列中更新N叉树下一层的节点时，注意需要用for循环遍历一遍当前node的孩子数组，因为N叉树中的一个节点不仅有左右孩子，而是有一个孩子数组。</p>
+</li>
+<li><p>二叉树的最大深度的解题关键在于：层序遍历二叉树，每遍历完一层记录层数的变量+1。</p>
+</li>
+<li><p>二叉树的最大/最小深度这两道题，<code>res ++</code>放在第二重while循环之后和之前都可以。我在实现中的写法都是把<code>res ++</code>放在了第二重while循环之后，但实际上放在第二重while循环之前写出的代码更简洁易懂，可以参考代码随想录上给出的代码。</p>
+</li>
+<li><p>注意复习填充每个节点的下一个右侧节点指针，这道题第一遍没有写出来。本题的关键在于特判一层的头节点，以及node0和node交替前进。</p>
+</li>
+<li><p>116和117题的代码完全相同。差别只在于116题题目说是完整二叉树，117题目则没有这个说明。</p>
+</li>
+</ol>
+<h3 id="226-翻转二叉树-2"><a href="#226-翻转二叉树-2" class="headerlink" title="226.翻转二叉树"></a>226.翻转二叉树</h3><ol>
+<li><p>注意：本题中的root是指遍历的每个节点，而非特指根节点。</p>
+</li>
+<li><p>本题的关键思路：交换中节点的左右子树，递归处理左右节点。</p>
+</li>
+<li><p>记住前序和后续的写法即可，swap要么写在左右的上面，要么写在左右的下面。抛弃中序写法，太绕！</p>
+</li>
+<li><p>记得最后要<code>return root</code>。因为终止条件：<code>if (root == NULL) return root</code>，只会返回一个为空的节点。大多数情况下不会触发这个终止条件，而是触发最后一个<code>return root</code>。</p>
+</li>
+<li><p>可以定义一个cur节点遍历二叉树的每个节点，这样就不会与根节点root产生混淆。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 前序遍历写法</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        TreeNode* cur = root;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span> cur;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 中左右</span></span><br><span class="line">        <span class="built_in">swap</span>(cur-&gt;left, cur-&gt;right);</span><br><span class="line">        <span class="built_in">invertTree</span>(cur-&gt;left);</span><br><span class="line">        <span class="built_in">invertTree</span>(cur-&gt;right);</span><br><span class="line">        <span class="keyword">return</span> cur;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>本题除递归写法外，用一般迭代、统一迭代、层序遍历的写法都可以，其实在原本的三种迭代方式的代码的基础上稍作修改就可以，但三种迭代方式的代码本身就已经较为复杂，容易写错，因此除非必须建议不要采用迭代写法。</p>
+</li>
+<li><p>但还是不得不说，<strong>层序遍历解本题也很方便</strong>，本题也可以归类到层序遍历能够解决的10道题中，在层序遍历的基础上，交换每个节点的左右子节点即可，代码如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">invertTree</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="built_in">swap</span>(node-&gt;left, node-&gt;right); <span class="comment">// 交换每个节点的左右子节点</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="101-对称二叉树-2"><a href="#101-对称二叉树-2" class="headerlink" title="101. 对称二叉树"></a>101. 对称二叉树</h3><ol>
+<li>本题实际上需要比较根节点的左右子树是否可以相互翻转，因此需要同时遍历两棵树，所以传入的参数为左右子树的头节点。</li>
+<li>本题只能采用后序遍历，遍历左子树的顺序是左右中，遍历右子树的顺序是右左中。</li>
+<li>终止条件需要分五类讨论。见实现中的表格。</li>
+<li>单层递归的核心逻辑为：判断同在外侧的节点是否相同，判断同在内侧的节点是否相同。</li>
+<li>本题的迭代写法其实也不难理解，原理是通过一个容器来成对的存放我们要比较的元素。但优先掌握本题的递归写法即可。</li>
+<li>100.相同的树和572.另一个树的子树基本和本题是一样的，只要稍加修改就可以。572题稍有特殊，需要注意如何递归地比较root树的子树和subRoot树是否相同。同时在主函数中也需要进行分类讨论（subRoot树为空, root树为空，两树相同，root树的子树和subRoot树相同/相异）。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>算法（二叉树）</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Leetcode</tag>
+        <tag>C++</tag>
+        <tag>二叉树</tag>
+        <tag>层序遍历</tag>
+        <tag>递归解法</tag>
+        <tag>后序遍历</tag>
       </tags>
   </entry>
   <entry>
@@ -1373,134 +1373,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Django Project Summary</title>
-    <url>/2024/01/21/Django-Project-Summary/</url>
-    <content><![CDATA[<h1 id="Django项目总结"><a href="#Django项目总结" class="headerlink" title="Django项目总结"></a>Django项目总结</h1><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>Game based on Django framework, developed by yifanChen</p>
-<h3 id="Website"><a href="#Website" class="headerlink" title="Website"></a>Website</h3><p><a href="https://app5894.acapp.acwing.com.cn/">https://app5894.acapp.acwing.com.cn/</a></p>
-<h3 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h3><p><a href="https://github.com/yfchenkeepgoing/Django_app">https://github.com/yfchenkeepgoing/Django_app</a></p>
-<h3 id="Gameplay"><a href="#Gameplay" class="headerlink" title="Gameplay"></a>Gameplay</h3><ol>
-<li>Right-click to move</li>
-<li>Left-click plus ‘Q’ for the skill: Fireball, with a cooldown of 3 seconds</li>
-<li>Left-click plus ‘F’ for the skill: Flash, with a cooldown of 5 seconds</li>
-<li>In multiplayer mode, the winning player gains 10 points, and the losing player loses 5 points</li>
-</ol>
-<h3 id="Technology-Stack"><a href="#Technology-Stack" class="headerlink" title="Technology Stack"></a>Technology Stack</h3><ol>
-<li>Frontend: JQuery</li>
-<li>Backend: Django</li>
-<li>Database: SQLite, Redis</li>
-<li>Network Protocols: HTTPS, WSS</li>
-<li>RPC: Thrift</li>
-<li>Authorization Protocol: OAuth</li>
-<li>Authentication: JWT</li>
-</ol>
-<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ol>
-<li>Complete menu interface and game interface</li>
-<li>Frontend and backend separation, with AcApp and Web versions on the frontend</li>
-<li>Deployed with Nginx to interface with the AcApp</li>
-<li>Comprehensive account system, username and password login, and one-click login with AcWing &amp; GitHub OAuth</li>
-<li>Online multiplayer and chat system implemented via WSS protocol</li>
-<li>Matchmaking system implemented through Thrift service</li>
-<li>Cross-origin issues resolved through Rest Framework and JWT authentication, achieving complete frontend-backend separation</li>
-<li>The ranking board displays the top ten players ranked by score</li>
-</ol>
-<h2 id="Django项目的框架"><a href="#Django项目的框架" class="headerlink" title="Django项目的框架"></a>Django项目的框架</h2><p>一个Django项目，大致由以下六部分组成：</p>
-<ol>
-<li>templates目录：管理html文件</li>
-<li>urls目录：管理路由，即链接与函数的对应关系，即每个链接交给哪个函数处理的信息，存储在urls文件夹中。</li>
-<li>views目录：视图，管理http函数（函数实现在views目录中）</li>
-<li>models目录：管理数据库数据。</li>
-<li>consumers目录：管理websocket函数（views管理http函数，即负责单向连接的函数；consumers管理双向连接的函数，比如联机对战和聊天的逻辑）</li>
-<li>static目录：管理静态文件，比如：</li>
-</ol>
-<ul>
-<li>css文件：对象的格式（网页每部分的格式），比如位置、长宽、颜色、背景、字体大小等</li>
-<li>js：对象的逻辑（项目的核心），比如对象的创建与销毁、事件函数、移动、变色等，渲染html也会在js部分（前端）</li>
-<li>image：图片</li>
-<li>audio：声音</li>
-</ul>
-<p>urls文件夹、views文件夹、models文件夹和consumers文件夹都由python文件组成，如果想通过import将文件导入，则需要在文件夹下创建 <code>__init__.py</code>文件（即索引文件，内容为空即可）。在所有python文件夹中都需要创建这样的函数，否则在import时就无法进去，会报错。</p>
-<h2 id="项目核心逻辑"><a href="#项目核心逻辑" class="headerlink" title="项目核心逻辑"></a>项目核心逻辑</h2><p>本项目由于是一个小游戏，因此前端的js代码占比较大。游戏单人模式的实现纯粹由前端完成，我用js代码实现了一个简易的游戏引擎。游戏的单人模式不需要前后端交互。</p>
-<p>需要前后端交互的部分有：</p>
-<ol>
-<li>注册与登录：涉及到写入、读取、查询数据库</li>
-<li>acwing和GitHub一键登录：即OAuth授权登录</li>
-<li>实现联机对战和聊天系统：涉及到在多名玩家之间同步五个事件（函数）：create_player, move_to, shoot_fireball, attack, message。前四个用于实现联机对战，最后一个用于实现聊天系统。</li>
-<li>Rest Framework与JWT身份验证：是对第一点和第二点的补充。</li>
-</ol>
-<ul>
-<li>JWT（json web token）相比于django自带的登录验证方式（通过session_id）安全性更高。</li>
-<li>方便实现真正意义上的前后端分离，即后端只需要提供实现好的api给前端调用，而Rest Framework为这些api的调试提供了可视化界面。</li>
-<li>JWT可以解决跨域产生的问题。</li>
-<li>可以使用http的四大类请求方法：get, post, delete, put，而不像之前仅仅使用get方法，这又提高了令牌的安全性。</li>
-</ul>
-<p>纯后端的部分只有匹配系统的实现。匹配系统的实现涉及到两个后端（即django web server和match system）之间的通信，匹配系统本身涉及到多线程和锁等方面的知识。</p>
-<p>我认为本项目的重点主要在于前后端交互的部分，前后端交互其实有一套统一的范式：先在views中实现后端的函数；然后在urls中为后端的函数定义url链接；再在前端代码中利用ajax技术通过url获得后端传来的数据（前后端一般以json的格式传递数据）；最后通过前端使用或展示数据。如果给用户设计了一套通过点击鼠标或者使用键盘向后端请求数据的模式，那么还需要在前端进行按键索引和绑定监听函数等操作。</p>
-<h2 id="改进项目"><a href="#改进项目" class="headerlink" title="改进项目"></a>改进项目</h2><ol>
-<li>使用功能更强大的前端框架，比如Vue或者React，取代简单的JQuey。</li>
-<li>使用更多种类型的数据库，比如关系型数据库MySQL，文档数据库MongoDB，对象存储服务等等。</li>
-<li>使用另外几种实现前后端通信的技术取代ajax，比如Fetch API，Server-Sent Events (SSE)，GraphQL和WebRTC，以提高系统的性能。</li>
-<li>学习并尝试使用Springboot框架和Go语言的后端框架。</li>
-<li>使用k8s来自动化部署、扩展和管理容器化应用程序。</li>
-</ol>
-<h2 id="漫谈"><a href="#漫谈" class="headerlink" title="漫谈"></a>漫谈</h2><h3 id="后端的主要分类"><a href="#后端的主要分类" class="headerlink" title="后端的主要分类"></a>后端的主要分类</h3><p>算法与推荐系统、开发各种服务、数据库</p>
-<h3 id="对于实现客户端与服务器之间的通信功能的技术的选择"><a href="#对于实现客户端与服务器之间的通信功能的技术的选择" class="headerlink" title="对于实现客户端与服务器之间的通信功能的技术的选择"></a>对于实现客户端与服务器之间的通信功能的技术的选择</h3><p>除了AJAX，现代Web开发中还有几种其他技术可以实现类似的客户端与服务器之间的通信功能。一些技术在特定场景下比AJAX更高效。以下是一些常用的技术：</p>
-<ol>
-<li><strong>Fetch API</strong>： Fetch API提供了一种更简洁和强大的方式来发起网络请求。它基于Promise，使得写异步代码更加简洁和直观。Fetch API是AJAX的现代替代方案，被广泛支持和使用。</li>
-<li><strong>WebSocket</strong>： WebSocket提供了全双工通信渠道，使得客户端和服务器可以实时、双向地通信。它非常适用于需要频繁和即时数据更新的应用，如在线游戏、聊天应用和实时数据流。</li>
-<li><strong>Server-Sent Events (SSE)</strong>： SSE允许服务器主动向客户端发送新数据。它是单向的，只有服务器可以发送消息给客户端。SSE适合实现如股票行情、新闻订阅等场景，其中服务器定期推送更新。</li>
-<li><strong>GraphQL</strong>： GraphQL是一种数据查询和操作语言，它允许客户端以更灵活的方式请求数据。与REST相比，GraphQL可以减少数据传输量，因为它允许客户端精确指定所需的数据。</li>
-<li><strong>WebRTC</strong>： WebRTC（Web Real-Time Communication）允许在不需要安装插件的情况下在Web应用中实现实时通信功能，常用于视频聊天和点对点数据共享。</li>
-</ol>
-<p>每种技术都有其特定的应用场景和优势。选择哪一种技术取决于应用的具体需求：</p>
-<ul>
-<li>对于简单的异步数据请求，AJAX和Fetch API都是不错的选择。</li>
-<li>对于需要高实时性的应用，WebSocket或WebRTC可能更合适。</li>
-<li>对于服务器主动推送数据的场景，SSE是一个好的选择。</li>
-<li>对于需要更灵活数据交互的场景，GraphQL提供了更好的解决方案。</li>
-</ul>
-<p>在性能方面，WebSocket和WebRTC通常在需要频繁和快速通信的场景下比AJAX更高效，因为它们建立了持久的连接，而不是像AJAX那样为每个请求创建新的连接。</p>
-<h3 id="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"><a href="#如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）" class="headerlink" title="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"></a>如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</h3><ul>
-<li>租一台数据库服务器</li>
-<li>在框架中负责数据库的部分配置数据库服务器的连接/登录</li>
-<li>下载该框架下使用该种数据库的包</li>
-<li>在框架中负责数据库的部分调用包中的api完成对数据库的各种操作，比如读、写、删除等。</li>
-</ul>
-<p>在 Django 中，通常不需要直接使用 SQL 语句来操作 MySQL 数据库，因为 Django 提供了一个强大的 ORM（对象关系映射）系统，允许你通过 Python 代码来操作数据库。这意味着你可以使用 Django 的模型和查询 API 来查询和操作数据，而无需直接编写 SQL 语句。</p>
-<p>Django 本身不直接支持 MongoDB，因为它是一个 NoSQL 数据库，与 Django 的 ORM 系统设计理念不同。如果你想在 Django 项目中使用 MongoDB，可以采取以下方法：</p>
-<ul>
-<li>使用 Djongo： Djongo 是一个将 Django ORM 映射到 MongoDB 的工具。通过 Djongo，你可以在一定程度上使用 Django ORM 的风格来操作 MongoDB。</li>
-<li>使用 PyMongo： PyMongo 是 MongoDB 的官方 Python 驱动程序。使用 PyMongo，你可以直接以 Python 代码与 MongoDB 交互，但这意味着你需要手动编写数据库操作逻辑，而不是使用 Django ORM。</li>
-</ul>
-<p>对于对象存储服务（如 Amazon S3），通常使用的是 RESTful API 而非传统的数据库查询语言。在 Django 项目中使用对象存储通常涉及以下步骤：</p>
-<ul>
-<li>选择合适的库： 例如，对于 Amazon S3，你可以使用 boto3，这是 AWS 的官方 Python SDK。</li>
-<li>进行配置和认证： 通常需要设置认证凭据和相关配置。</li>
-<li>使用 SDK 提供的 API： 使用 SDK 提供的方法来上传、下载、列出文件等。</li>
-</ul>
-<h3 id="JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点"><a href="#JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点" class="headerlink" title="JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点"></a>JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点</h3><p>Cookie：<br>优点：自动由浏览器管理，并且可以设置为HttpOnly（无法通过JavaScript访问，增加安全性），支持跨域访问控制（SameSite属性）。<br>缺点：容易受到CSRF（跨站请求伪造）攻击，尽管可以通过适当的防范措施（如使用CSRF Token）来缓解。</p>
-<p>LocalStorage：<br>优点：易于使用，可以在浏览器会话间持久存储。<br>缺点：容易受到XSS（跨站脚本攻击）攻击，因为恶意脚本可以访问LocalStorage并窃取令牌。</p>
-<p>内存（JavaScript变量）：<br>优点：在浏览器关闭时自动清除，不容易受到XSS攻击（只要不将令牌暴露给恶意脚本）。<br>缺点：不持久，用户刷新页面或关闭浏览器时会丢失，可能需要重新认证。</p>
-<p>最佳实践：<br>安全性考虑：通常推荐将JWT存储在HttpOnly的Cookie中，因为这样可以防止JavaScript访问令牌，从而减少XSS攻击的风险。</p>
-<p>CSRF防范：如果使用Cookie，应结合CSRF保护机制。</p>
-<p>易用性：如果需要在会话间持久保存用户的登录状态，LocalStorage可能更为方便。但是，务必注意XSS攻击的风险，并采取适当的安全措施。</p>
-<p>短期使用：对于需要高安全性且可接受在会话结束后用户需要重新登录的场景，可以考虑仅将JWT存储在内存中。</p>
-<p>在实践中，选择哪种方式取决于应用的安全需求、用户体验需求以及开发者对相关安全风险的管理能力。在处理任何形式的认证信息时，安全总是首要考虑的因素。<strong>在本项目中，出于安全性和短期使用的考量，我将JWT存储在了内存，即js变量中</strong>。如果没有明确地将JWT存储在Local Storage或Cookie中，那么它们就是存储在内存中。这意味着令牌只在当前页面会话中有效，一旦页面被关闭或刷新，令牌就会丢失。</p>
-]]></content>
-      <categories>
-        <category>web开发</category>
-      </categories>
-      <tags>
-        <tag>Backend</tag>
-        <tag>Django</tag>
-        <tag>Frontend</tag>
-        <tag>JQuery</tag>
-        <tag>Ajax</tag>
-        <tag>Database</tag>
-        <tag>SQLite</tag>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Day 9 | Leetcode 28, 459, summary</title>
     <url>/2024/02/03/Day-9-Leetcode-28-459-summary/</url>
     <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/0028.%E5%AE%9E%E7%8E%B0strStr.html">28. 实现 strStr()</a><br><a href="https://programmercarl.com/0459.%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2.html">459.重复的子字符串</a><br><a href="https://programmercarl.com/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%80%BB%E7%BB%93.html">字符串：总结篇</a><br><a href="https://programmercarl.com/%E5%8F%8C%E6%8C%87%E9%92%88%E6%80%BB%E7%BB%93.html">双指针总结篇</a></p>
@@ -1688,49 +1560,131 @@
       </tags>
   </entry>
   <entry>
-    <title>How to Migrate and Restart a Cloud Server</title>
-    <url>/2024/01/21/How-to-Migrate-and-Restart-a-Cloud-Server/</url>
-    <content><![CDATA[<h1 id="迁移云服务器"><a href="#迁移云服务器" class="headerlink" title="迁移云服务器"></a>迁移云服务器</h1><h2 id="1、租云服务器，配置其免密登录"><a href="#1、租云服务器，配置其免密登录" class="headerlink" title="1、租云服务器，配置其免密登录"></a>1、租云服务器，配置其免密登录</h2><p>将本地的公钥复制到云服务器的~/.ssh/authorized_keys中，或者使用云服务器平台提供的密钥，在本地的.ssh文件夹中添加密钥在本地的位置<br>第一次登录云服务器（未配置免密登录）的具体流程可以参照以下步骤：</p>
-<p>IR_Group_7_project Demo Instruction</p>
-<ol>
-<li>Login our VM instance<br>Move key to secure location (eg. ~/.ssh in linux), then</li>
+    <title>Django Project Summary</title>
+    <url>/2024/01/21/Django-Project-Summary/</url>
+    <content><![CDATA[<h1 id="Django项目总结"><a href="#Django项目总结" class="headerlink" title="Django项目总结"></a>Django项目总结</h1><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>Game based on Django framework, developed by yifanChen</p>
+<h3 id="Website"><a href="#Website" class="headerlink" title="Website"></a>Website</h3><p><a href="https://app5894.acapp.acwing.com.cn/">https://app5894.acapp.acwing.com.cn/</a></p>
+<h3 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h3><p><a href="https://github.com/yfchenkeepgoing/Django_app">https://github.com/yfchenkeepgoing/Django_app</a></p>
+<h3 id="Gameplay"><a href="#Gameplay" class="headerlink" title="Gameplay"></a>Gameplay</h3><ol>
+<li>Right-click to move</li>
+<li>Left-click plus ‘Q’ for the skill: Fireball, with a cooldown of 3 seconds</li>
+<li>Left-click plus ‘F’ for the skill: Flash, with a cooldown of 5 seconds</li>
+<li>In multiplayer mode, the winning player gains 10 points, and the losing player loses 5 points</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 path/to/shaoxi_key.pem</span><br><span class="line">ssh -i path/to/shaoxi_key.pem shaoxi@52.174.147.101</span><br></pre></td></tr></table></figure>
-<h2 id="2、在云服务器中安装docker"><a href="#2、在云服务器中安装docker" class="headerlink" title="2、在云服务器中安装docker"></a>2、在云服务器中安装docker</h2><p>安装步骤参见官网：<a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a><br>一般安装的版本为20.10.9，使用命令：<code>VERSION_STRING=5:20.10.9~3-0~ubuntu-focal</code><br>查看docker是否安装成功：<code>docker --version</code></p>
-<h2 id="3、在云服务器平台开放以下端口"><a href="#3、在云服务器平台开放以下端口" class="headerlink" title="3、在云服务器平台开放以下端口"></a>3、在云服务器平台开放以下端口</h2><p>22， 8000， 443， 80， 20000，协议均为TCP，源和目的地都为任何（0.0.0.0）</p>
-<h2 id="4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里"><a href="#4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里" class="headerlink" title="4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里"></a>4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里</h2><p>在powershell中执行的具体的命令为：<br><code>scp .\django_lesson_1.tar azureuser@20.123.135.13:~/</code></p>
-<h2 id="5、将镜像xxxx从本地文件xxxx-tar中加载出来"><a href="#5、将镜像xxxx从本地文件xxxx-tar中加载出来" class="headerlink" title="5、将镜像xxxx从本地文件xxxx.tar中加载出来"></a>5、将镜像xxxx从本地文件xxxx.tar中加载出来</h2><p><code>sudo docker load -i xxxx.tar</code></p>
-<h2 id="6、查看镜像是否成功加载出来"><a href="#6、查看镜像是否成功加载出来" class="headerlink" title="6、查看镜像是否成功加载出来"></a>6、查看镜像是否成功加载出来</h2><p>查看所有镜像的命令: <code>sudo docker images</code></p>
-<h2 id="7、使用镜像重新创建并运行容器"><a href="#7、使用镜像重新创建并运行容器" class="headerlink" title="7、使用镜像重新创建并运行容器"></a>7、使用镜像重新创建并运行容器</h2><p><code>docker run -p 20000:22 -p 8000:8000 -p 80:80 -p 443:443 --name django_server -itd django_lesson:1.1</code></p>
-<h2 id="8、登录到容器中"><a href="#8、登录到容器中" class="headerlink" title="8、登录到容器中"></a>8、登录到容器中</h2><p><code>sudo docker attach django_server</code><br>登录为root用户</p>
-<h2 id="9、创建非root用户"><a href="#9、创建非root用户" class="headerlink" title="9、创建非root用户"></a>9、创建非root用户</h2><p><code>adduser acs</code><br>赋予其sudo权限：<code>usermod -aG sudo acs</code><br>设置密码</p>
-<h2 id="10、配置容器的免密登录"><a href="#10、配置容器的免密登录" class="headerlink" title="10、配置容器的免密登录"></a>10、配置容器的免密登录</h2><p>配置免密登录的过程是：在容器的.ssh/authorized_keys中写入本地的.ssh文件夹（C:\Users\chen yi fan.ssh）中的公钥的内容<br>然后修改本地的.ssh/config文件，添加容器的信息，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host django_azure</span><br><span class="line">    HostName 20.123.135.13</span><br><span class="line">    User acs</span><br><span class="line">    Port 20000</span><br></pre></td></tr></table></figure>
-<h2 id="11、从本地-其他云服务器上登录到容器的命令"><a href="#11、从本地-其他云服务器上登录到容器的命令" class="headerlink" title="11、从本地/其他云服务器上登录到容器的命令"></a>11、从本地/其他云服务器上登录到容器的命令</h2><p><code>ssh acs@ip -p 20000</code><br>退出容器时注意不要关闭容器，而是挂起容器：ctrl+p ctrl+q</p>
-<h2 id="12、完成容器的一些配置："><a href="#12、完成容器的一些配置：" class="headerlink" title="12、完成容器的一些配置："></a>12、完成容器的一些配置：</h2><p>nginx配置：<br>（1）修改yxc的acapp中的服务器IP<br>（2）将服务器的IP添加到项目的settings.py的ALLOWED_HOSTS中<br>（3）将yxc提供的nginx.conf写入容器的/etc/nginx/nginx.conf文件中<br>（4）将yxc提供的acapp.key写入容器的/etc/nginx/cert/acapp.key文件中<br>（5）将yxc提供的acapp.pem写入容器的/etc/nginx/cert/acapp.pem文件中<br>（6）启动nginx服务：<code>sudo /etc/init.d/nginx start</code><br>（7）启动uwsgi服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>redis配置：<br>（1）安装redis：<code>pip install django_redis</code><br>（2）启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code><br>（3）用<code>top</code>命令看有没有进程叫redis-server</p>
-<p>django channels配置：<br>（1）安装channels_redis：<code>pip install channels_redis</code><br>（2）启动django_channels：<br>  在~/acapp目录下执行：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<p>同时启动https（uwsgi）和wss（daphne）协议的服务后，项目就应该可以正常运行</p>
-<h2 id="13、启动https和wss服务"><a href="#13、启动https和wss服务" class="headerlink" title="13、启动https和wss服务"></a>13、启动https和wss服务</h2><p>启动https服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<hr>
-<h1 id="重启云服务器"><a href="#重启云服务器" class="headerlink" title="重启云服务器"></a>重启云服务器</h1><p>在云平台暂停云服务器后重新启动服务器并进入容器</p>
-<h2 id="1-在云平台启动云服务器"><a href="#1-在云平台启动云服务器" class="headerlink" title="1. 在云平台启动云服务器"></a>1. 在云平台启动云服务器</h2><p>需要等待5-10分钟才能完成重启的过程</p>
-<h2 id="2-查看云服务器中已有的容器"><a href="#2-查看云服务器中已有的容器" class="headerlink" title="2. 查看云服务器中已有的容器"></a>2. 查看云服务器中已有的容器</h2><p>运行命令：<code>sudo docker ps -a</code></p>
-<h2 id="3-启动被暂停-退出的容器"><a href="#3-启动被暂停-退出的容器" class="headerlink" title="3. 启动被暂停/退出的容器"></a>3. 启动被暂停/退出的容器</h2><p>运行命令：<code>sudo docker start django_server</code></p>
-<h2 id="4-进入容器"><a href="#4-进入容器" class="headerlink" title="4. 进入容器"></a>4. 进入容器</h2><p>在vscode上选择django_azure，点击进入即可</p>
-<h2 id="5-启动容器中的服务"><a href="#5-启动容器中的服务" class="headerlink" title="5. 启动容器中的服务"></a>5. 启动容器中的服务</h2><p>主要需要启动以下五个服务：</p>
-<p>启动nginx服务：<code>sudo /etc/init.d/nginx start</code></p>
-<p>启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code></p>
-<p>启动uwsgi（https）服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
-<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
-<p>启动match system服务：<code>./main.py</code></p>
+<h3 id="Technology-Stack"><a href="#Technology-Stack" class="headerlink" title="Technology Stack"></a>Technology Stack</h3><ol>
+<li>Frontend: JQuery</li>
+<li>Backend: Django</li>
+<li>Database: SQLite, Redis</li>
+<li>Network Protocols: HTTPS, WSS</li>
+<li>RPC: Thrift</li>
+<li>Authorization Protocol: OAuth</li>
+<li>Authentication: JWT</li>
+</ol>
+<h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ol>
+<li>Complete menu interface and game interface</li>
+<li>Frontend and backend separation, with AcApp and Web versions on the frontend</li>
+<li>Deployed with Nginx to interface with the AcApp</li>
+<li>Comprehensive account system, username and password login, and one-click login with AcWing &amp; GitHub OAuth</li>
+<li>Online multiplayer and chat system implemented via WSS protocol</li>
+<li>Matchmaking system implemented through Thrift service</li>
+<li>Cross-origin issues resolved through Rest Framework and JWT authentication, achieving complete frontend-backend separation</li>
+<li>The ranking board displays the top ten players ranked by score</li>
+</ol>
+<h2 id="Django项目的框架"><a href="#Django项目的框架" class="headerlink" title="Django项目的框架"></a>Django项目的框架</h2><p>一个Django项目，大致由以下六部分组成：</p>
+<ol>
+<li>templates目录：管理html文件</li>
+<li>urls目录：管理路由，即链接与函数的对应关系，即每个链接交给哪个函数处理的信息，存储在urls文件夹中。</li>
+<li>views目录：视图，管理http函数（函数实现在views目录中）</li>
+<li>models目录：管理数据库数据。</li>
+<li>consumers目录：管理websocket函数（views管理http函数，即负责单向连接的函数；consumers管理双向连接的函数，比如联机对战和聊天的逻辑）</li>
+<li>static目录：管理静态文件，比如：</li>
+</ol>
+<ul>
+<li>css文件：对象的格式（网页每部分的格式），比如位置、长宽、颜色、背景、字体大小等</li>
+<li>js：对象的逻辑（项目的核心），比如对象的创建与销毁、事件函数、移动、变色等，渲染html也会在js部分（前端）</li>
+<li>image：图片</li>
+<li>audio：声音</li>
+</ul>
+<p>urls文件夹、views文件夹、models文件夹和consumers文件夹都由python文件组成，如果想通过import将文件导入，则需要在文件夹下创建 <code>__init__.py</code>文件（即索引文件，内容为空即可）。在所有python文件夹中都需要创建这样的函数，否则在import时就无法进去，会报错。</p>
+<h2 id="项目核心逻辑"><a href="#项目核心逻辑" class="headerlink" title="项目核心逻辑"></a>项目核心逻辑</h2><p>本项目由于是一个小游戏，因此前端的js代码占比较大。游戏单人模式的实现纯粹由前端完成，我用js代码实现了一个简易的游戏引擎。游戏的单人模式不需要前后端交互。</p>
+<p>需要前后端交互的部分有：</p>
+<ol>
+<li>注册与登录：涉及到写入、读取、查询数据库</li>
+<li>acwing和GitHub一键登录：即OAuth授权登录</li>
+<li>实现联机对战和聊天系统：涉及到在多名玩家之间同步五个事件（函数）：create_player, move_to, shoot_fireball, attack, message。前四个用于实现联机对战，最后一个用于实现聊天系统。</li>
+<li>Rest Framework与JWT身份验证：是对第一点和第二点的补充。</li>
+</ol>
+<ul>
+<li>JWT（json web token）相比于django自带的登录验证方式（通过session_id）安全性更高。</li>
+<li>方便实现真正意义上的前后端分离，即后端只需要提供实现好的api给前端调用，而Rest Framework为这些api的调试提供了可视化界面。</li>
+<li>JWT可以解决跨域产生的问题。</li>
+<li>可以使用http的四大类请求方法：get, post, delete, put，而不像之前仅仅使用get方法，这又提高了令牌的安全性。</li>
+</ul>
+<p>纯后端的部分只有匹配系统的实现。匹配系统的实现涉及到两个后端（即django web server和match system）之间的通信，匹配系统本身涉及到多线程和锁等方面的知识。</p>
+<p>我认为本项目的重点主要在于前后端交互的部分，前后端交互其实有一套统一的范式：先在views中实现后端的函数；然后在urls中为后端的函数定义url链接；再在前端代码中利用ajax技术通过url获得后端传来的数据（前后端一般以json的格式传递数据）；最后通过前端使用或展示数据。如果给用户设计了一套通过点击鼠标或者使用键盘向后端请求数据的模式，那么还需要在前端进行按键索引和绑定监听函数等操作。</p>
+<h2 id="改进项目"><a href="#改进项目" class="headerlink" title="改进项目"></a>改进项目</h2><ol>
+<li>使用功能更强大的前端框架，比如Vue或者React，取代简单的JQuey。</li>
+<li>使用更多种类型的数据库，比如关系型数据库MySQL，文档数据库MongoDB，对象存储服务等等。</li>
+<li>使用另外几种实现前后端通信的技术取代ajax，比如Fetch API，Server-Sent Events (SSE)，GraphQL和WebRTC，以提高系统的性能。</li>
+<li>学习并尝试使用Springboot框架和Go语言的后端框架。</li>
+<li>使用k8s来自动化部署、扩展和管理容器化应用程序。</li>
+</ol>
+<h2 id="漫谈"><a href="#漫谈" class="headerlink" title="漫谈"></a>漫谈</h2><h3 id="后端的主要分类"><a href="#后端的主要分类" class="headerlink" title="后端的主要分类"></a>后端的主要分类</h3><p>算法与推荐系统、开发各种服务、数据库</p>
+<h3 id="对于实现客户端与服务器之间的通信功能的技术的选择"><a href="#对于实现客户端与服务器之间的通信功能的技术的选择" class="headerlink" title="对于实现客户端与服务器之间的通信功能的技术的选择"></a>对于实现客户端与服务器之间的通信功能的技术的选择</h3><p>除了AJAX，现代Web开发中还有几种其他技术可以实现类似的客户端与服务器之间的通信功能。一些技术在特定场景下比AJAX更高效。以下是一些常用的技术：</p>
+<ol>
+<li><strong>Fetch API</strong>： Fetch API提供了一种更简洁和强大的方式来发起网络请求。它基于Promise，使得写异步代码更加简洁和直观。Fetch API是AJAX的现代替代方案，被广泛支持和使用。</li>
+<li><strong>WebSocket</strong>： WebSocket提供了全双工通信渠道，使得客户端和服务器可以实时、双向地通信。它非常适用于需要频繁和即时数据更新的应用，如在线游戏、聊天应用和实时数据流。</li>
+<li><strong>Server-Sent Events (SSE)</strong>： SSE允许服务器主动向客户端发送新数据。它是单向的，只有服务器可以发送消息给客户端。SSE适合实现如股票行情、新闻订阅等场景，其中服务器定期推送更新。</li>
+<li><strong>GraphQL</strong>： GraphQL是一种数据查询和操作语言，它允许客户端以更灵活的方式请求数据。与REST相比，GraphQL可以减少数据传输量，因为它允许客户端精确指定所需的数据。</li>
+<li><strong>WebRTC</strong>： WebRTC（Web Real-Time Communication）允许在不需要安装插件的情况下在Web应用中实现实时通信功能，常用于视频聊天和点对点数据共享。</li>
+</ol>
+<p>每种技术都有其特定的应用场景和优势。选择哪一种技术取决于应用的具体需求：</p>
+<ul>
+<li>对于简单的异步数据请求，AJAX和Fetch API都是不错的选择。</li>
+<li>对于需要高实时性的应用，WebSocket或WebRTC可能更合适。</li>
+<li>对于服务器主动推送数据的场景，SSE是一个好的选择。</li>
+<li>对于需要更灵活数据交互的场景，GraphQL提供了更好的解决方案。</li>
+</ul>
+<p>在性能方面，WebSocket和WebRTC通常在需要频繁和快速通信的场景下比AJAX更高效，因为它们建立了持久的连接，而不是像AJAX那样为每个请求创建新的连接。</p>
+<h3 id="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"><a href="#如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）" class="headerlink" title="如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）"></a>如何使用MySQL，MongoDB，对象存储服务等外置的数据库（它们不像sqlite，不集成于后端框架内）</h3><ul>
+<li>租一台数据库服务器</li>
+<li>在框架中负责数据库的部分配置数据库服务器的连接/登录</li>
+<li>下载该框架下使用该种数据库的包</li>
+<li>在框架中负责数据库的部分调用包中的api完成对数据库的各种操作，比如读、写、删除等。</li>
+</ul>
+<p>在 Django 中，通常不需要直接使用 SQL 语句来操作 MySQL 数据库，因为 Django 提供了一个强大的 ORM（对象关系映射）系统，允许你通过 Python 代码来操作数据库。这意味着你可以使用 Django 的模型和查询 API 来查询和操作数据，而无需直接编写 SQL 语句。</p>
+<p>Django 本身不直接支持 MongoDB，因为它是一个 NoSQL 数据库，与 Django 的 ORM 系统设计理念不同。如果你想在 Django 项目中使用 MongoDB，可以采取以下方法：</p>
+<ul>
+<li>使用 Djongo： Djongo 是一个将 Django ORM 映射到 MongoDB 的工具。通过 Djongo，你可以在一定程度上使用 Django ORM 的风格来操作 MongoDB。</li>
+<li>使用 PyMongo： PyMongo 是 MongoDB 的官方 Python 驱动程序。使用 PyMongo，你可以直接以 Python 代码与 MongoDB 交互，但这意味着你需要手动编写数据库操作逻辑，而不是使用 Django ORM。</li>
+</ul>
+<p>对于对象存储服务（如 Amazon S3），通常使用的是 RESTful API 而非传统的数据库查询语言。在 Django 项目中使用对象存储通常涉及以下步骤：</p>
+<ul>
+<li>选择合适的库： 例如，对于 Amazon S3，你可以使用 boto3，这是 AWS 的官方 Python SDK。</li>
+<li>进行配置和认证： 通常需要设置认证凭据和相关配置。</li>
+<li>使用 SDK 提供的 API： 使用 SDK 提供的方法来上传、下载、列出文件等。</li>
+</ul>
+<h3 id="JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点"><a href="#JWT可以存放在内存、local-storage和cookie中，这三个存放地各自有优缺点" class="headerlink" title="JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点"></a>JWT可以存放在内存、local storage和cookie中，这三个存放地各自有优缺点</h3><p>Cookie：<br>优点：自动由浏览器管理，并且可以设置为HttpOnly（无法通过JavaScript访问，增加安全性），支持跨域访问控制（SameSite属性）。<br>缺点：容易受到CSRF（跨站请求伪造）攻击，尽管可以通过适当的防范措施（如使用CSRF Token）来缓解。</p>
+<p>LocalStorage：<br>优点：易于使用，可以在浏览器会话间持久存储。<br>缺点：容易受到XSS（跨站脚本攻击）攻击，因为恶意脚本可以访问LocalStorage并窃取令牌。</p>
+<p>内存（JavaScript变量）：<br>优点：在浏览器关闭时自动清除，不容易受到XSS攻击（只要不将令牌暴露给恶意脚本）。<br>缺点：不持久，用户刷新页面或关闭浏览器时会丢失，可能需要重新认证。</p>
+<p>最佳实践：<br>安全性考虑：通常推荐将JWT存储在HttpOnly的Cookie中，因为这样可以防止JavaScript访问令牌，从而减少XSS攻击的风险。</p>
+<p>CSRF防范：如果使用Cookie，应结合CSRF保护机制。</p>
+<p>易用性：如果需要在会话间持久保存用户的登录状态，LocalStorage可能更为方便。但是，务必注意XSS攻击的风险，并采取适当的安全措施。</p>
+<p>短期使用：对于需要高安全性且可接受在会话结束后用户需要重新登录的场景，可以考虑仅将JWT存储在内存中。</p>
+<p>在实践中，选择哪种方式取决于应用的安全需求、用户体验需求以及开发者对相关安全风险的管理能力。在处理任何形式的认证信息时，安全总是首要考虑的因素。<strong>在本项目中，出于安全性和短期使用的考量，我将JWT存储在了内存，即js变量中</strong>。如果没有明确地将JWT存储在Local Storage或Cookie中，那么它们就是存储在内存中。这意味着令牌只在当前页面会话中有效，一旦页面被关闭或刷新，令牌就会丢失。</p>
 ]]></content>
       <categories>
-        <category>工具使用</category>
+        <category>web开发</category>
       </categories>
       <tags>
-        <tag>Cloud Server</tag>
+        <tag>Backend</tag>
+        <tag>Django</tag>
+        <tag>Frontend</tag>
+        <tag>JQuery</tag>
+        <tag>Ajax</tag>
+        <tag>Database</tag>
+        <tag>SQLite</tag>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
@@ -1774,6 +1728,52 @@
         <tag>Java编程项目</tag>
         <tag>开源项目</tag>
         <tag>阅读项目源码技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>How to Migrate and Restart a Cloud Server</title>
+    <url>/2024/01/21/How-to-Migrate-and-Restart-a-Cloud-Server/</url>
+    <content><![CDATA[<h1 id="迁移云服务器"><a href="#迁移云服务器" class="headerlink" title="迁移云服务器"></a>迁移云服务器</h1><h2 id="1、租云服务器，配置其免密登录"><a href="#1、租云服务器，配置其免密登录" class="headerlink" title="1、租云服务器，配置其免密登录"></a>1、租云服务器，配置其免密登录</h2><p>将本地的公钥复制到云服务器的~/.ssh/authorized_keys中，或者使用云服务器平台提供的密钥，在本地的.ssh文件夹中添加密钥在本地的位置<br>第一次登录云服务器（未配置免密登录）的具体流程可以参照以下步骤：</p>
+<p>IR_Group_7_project Demo Instruction</p>
+<ol>
+<li>Login our VM instance<br>Move key to secure location (eg. ~/.ssh in linux), then</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 path/to/shaoxi_key.pem</span><br><span class="line">ssh -i path/to/shaoxi_key.pem shaoxi@52.174.147.101</span><br></pre></td></tr></table></figure>
+<h2 id="2、在云服务器中安装docker"><a href="#2、在云服务器中安装docker" class="headerlink" title="2、在云服务器中安装docker"></a>2、在云服务器中安装docker</h2><p>安装步骤参见官网：<a href="https://docs.docker.com/engine/install/ubuntu/">https://docs.docker.com/engine/install/ubuntu/</a><br>一般安装的版本为20.10.9，使用命令：<code>VERSION_STRING=5:20.10.9~3-0~ubuntu-focal</code><br>查看docker是否安装成功：<code>docker --version</code></p>
+<h2 id="3、在云服务器平台开放以下端口"><a href="#3、在云服务器平台开放以下端口" class="headerlink" title="3、在云服务器平台开放以下端口"></a>3、在云服务器平台开放以下端口</h2><p>22， 8000， 443， 80， 20000，协议均为TCP，源和目的地都为任何（0.0.0.0）</p>
+<h2 id="4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里"><a href="#4、将本地的C-Users-chen-yi-fan-django-lesson-1-tar上传到云服务器里" class="headerlink" title="4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里"></a>4、将本地的C:\Users\chen yi fan\django_lesson_1.tar上传到云服务器里</h2><p>在powershell中执行的具体的命令为：<br><code>scp .\django_lesson_1.tar azureuser@20.123.135.13:~/</code></p>
+<h2 id="5、将镜像xxxx从本地文件xxxx-tar中加载出来"><a href="#5、将镜像xxxx从本地文件xxxx-tar中加载出来" class="headerlink" title="5、将镜像xxxx从本地文件xxxx.tar中加载出来"></a>5、将镜像xxxx从本地文件xxxx.tar中加载出来</h2><p><code>sudo docker load -i xxxx.tar</code></p>
+<h2 id="6、查看镜像是否成功加载出来"><a href="#6、查看镜像是否成功加载出来" class="headerlink" title="6、查看镜像是否成功加载出来"></a>6、查看镜像是否成功加载出来</h2><p>查看所有镜像的命令: <code>sudo docker images</code></p>
+<h2 id="7、使用镜像重新创建并运行容器"><a href="#7、使用镜像重新创建并运行容器" class="headerlink" title="7、使用镜像重新创建并运行容器"></a>7、使用镜像重新创建并运行容器</h2><p><code>docker run -p 20000:22 -p 8000:8000 -p 80:80 -p 443:443 --name django_server -itd django_lesson:1.1</code></p>
+<h2 id="8、登录到容器中"><a href="#8、登录到容器中" class="headerlink" title="8、登录到容器中"></a>8、登录到容器中</h2><p><code>sudo docker attach django_server</code><br>登录为root用户</p>
+<h2 id="9、创建非root用户"><a href="#9、创建非root用户" class="headerlink" title="9、创建非root用户"></a>9、创建非root用户</h2><p><code>adduser acs</code><br>赋予其sudo权限：<code>usermod -aG sudo acs</code><br>设置密码</p>
+<h2 id="10、配置容器的免密登录"><a href="#10、配置容器的免密登录" class="headerlink" title="10、配置容器的免密登录"></a>10、配置容器的免密登录</h2><p>配置免密登录的过程是：在容器的.ssh/authorized_keys中写入本地的.ssh文件夹（C:\Users\chen yi fan.ssh）中的公钥的内容<br>然后修改本地的.ssh/config文件，添加容器的信息，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host django_azure</span><br><span class="line">    HostName 20.123.135.13</span><br><span class="line">    User acs</span><br><span class="line">    Port 20000</span><br></pre></td></tr></table></figure>
+<h2 id="11、从本地-其他云服务器上登录到容器的命令"><a href="#11、从本地-其他云服务器上登录到容器的命令" class="headerlink" title="11、从本地/其他云服务器上登录到容器的命令"></a>11、从本地/其他云服务器上登录到容器的命令</h2><p><code>ssh acs@ip -p 20000</code><br>退出容器时注意不要关闭容器，而是挂起容器：ctrl+p ctrl+q</p>
+<h2 id="12、完成容器的一些配置："><a href="#12、完成容器的一些配置：" class="headerlink" title="12、完成容器的一些配置："></a>12、完成容器的一些配置：</h2><p>nginx配置：<br>（1）修改yxc的acapp中的服务器IP<br>（2）将服务器的IP添加到项目的settings.py的ALLOWED_HOSTS中<br>（3）将yxc提供的nginx.conf写入容器的/etc/nginx/nginx.conf文件中<br>（4）将yxc提供的acapp.key写入容器的/etc/nginx/cert/acapp.key文件中<br>（5）将yxc提供的acapp.pem写入容器的/etc/nginx/cert/acapp.pem文件中<br>（6）启动nginx服务：<code>sudo /etc/init.d/nginx start</code><br>（7）启动uwsgi服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>redis配置：<br>（1）安装redis：<code>pip install django_redis</code><br>（2）启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code><br>（3）用<code>top</code>命令看有没有进程叫redis-server</p>
+<p>django channels配置：<br>（1）安装channels_redis：<code>pip install channels_redis</code><br>（2）启动django_channels：<br>  在~/acapp目录下执行：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<p>同时启动https（uwsgi）和wss（daphne）协议的服务后，项目就应该可以正常运行</p>
+<h2 id="13、启动https和wss服务"><a href="#13、启动https和wss服务" class="headerlink" title="13、启动https和wss服务"></a>13、启动https和wss服务</h2><p>启动https服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<hr>
+<h1 id="重启云服务器"><a href="#重启云服务器" class="headerlink" title="重启云服务器"></a>重启云服务器</h1><p>在云平台暂停云服务器后重新启动服务器并进入容器</p>
+<h2 id="1-在云平台启动云服务器"><a href="#1-在云平台启动云服务器" class="headerlink" title="1. 在云平台启动云服务器"></a>1. 在云平台启动云服务器</h2><p>需要等待5-10分钟才能完成重启的过程</p>
+<h2 id="2-查看云服务器中已有的容器"><a href="#2-查看云服务器中已有的容器" class="headerlink" title="2. 查看云服务器中已有的容器"></a>2. 查看云服务器中已有的容器</h2><p>运行命令：<code>sudo docker ps -a</code></p>
+<h2 id="3-启动被暂停-退出的容器"><a href="#3-启动被暂停-退出的容器" class="headerlink" title="3. 启动被暂停/退出的容器"></a>3. 启动被暂停/退出的容器</h2><p>运行命令：<code>sudo docker start django_server</code></p>
+<h2 id="4-进入容器"><a href="#4-进入容器" class="headerlink" title="4. 进入容器"></a>4. 进入容器</h2><p>在vscode上选择django_azure，点击进入即可</p>
+<h2 id="5-启动容器中的服务"><a href="#5-启动容器中的服务" class="headerlink" title="5. 启动容器中的服务"></a>5. 启动容器中的服务</h2><p>主要需要启动以下五个服务：</p>
+<p>启动nginx服务：<code>sudo /etc/init.d/nginx start</code></p>
+<p>启动redis-server：<code>sudo redis-server /etc/redis/redis.conf</code></p>
+<p>启动uwsgi（https）服务：<code>uwsgi --ini scripts/uwsgi.ini</code></p>
+<p>启动wss服务：<code>daphne -b 0.0.0.0 -p 5015 acapp.asgi:application</code></p>
+<p>启动match system服务：<code>./main.py</code></p>
+]]></content>
+      <categories>
+        <category>工具使用</category>
+      </categories>
+      <tags>
+        <tag>Cloud Server</tag>
       </tags>
   </entry>
   <entry>
@@ -1961,9 +1961,9 @@
 <p>接下来创建一个<code>api route</code>，其将只加载我们最喜欢的电影列表。在<code>pages/api/favorites.ts</code>，写下如下的代码：<br><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// fetch all of our favorite movies</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NextApiRequest</span>, <span class="title class_">NextApiResponse</span> &#125; <span class="keyword">from</span> <span class="string">&quot;next&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> prismadb <span class="keyword">from</span> <span class="string">&#x27;@/lib/prismadb&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> serverAuth <span class="keyword">from</span> <span class="string">&quot;@/lib/serverAuth&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">handler</span>(<span class="params">req:NextApiRequest, res: NextApiResponse</span>) &#123;</span><br><span class="line">    <span class="comment">// limit this route only to get method</span></span><br><span class="line">    <span class="keyword">if</span> (req.<span class="property">method</span> !== <span class="string">&#x27;GET&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">405</span>).<span class="title function_">end</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// try and catch block</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; currentUser &#125; = <span class="keyword">await</span> <span class="title function_">serverAuth</span>(req);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// find all movies which have a relation to current user favorite IDs</span></span><br><span class="line">        <span class="keyword">const</span>  favoriteMovies  = <span class="keyword">await</span> prismadb.<span class="property">movie</span>.<span class="title function_">findMany</span>(&#123;</span><br><span class="line">            <span class="attr">where</span>: &#123;</span><br><span class="line">                <span class="attr">id</span>: &#123;</span><br><span class="line">                    <span class="attr">in</span>: currentUser?.<span class="property">favoriteIds</span>,</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">200</span>).<span class="title function_">json</span>(favoriteMovies);</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">end</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>接着再写一个hook，用于加载最喜欢的电影列表。在<code>hooks/useFavorites.ts</code>中写入以下的代码：<br><figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> useSWR <span class="keyword">from</span> <span class="string">&quot;swr&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> fetcher <span class="keyword">from</span> <span class="string">&quot;@/lib/fetcher&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">useFavorites</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; data, error, isLoading, mutate &#125; = <span class="title function_">useSWR</span>(<span class="string">&#x27;/api/favorites&#x27;</span>, fetcher, &#123;</span><br><span class="line">        <span class="attr">revalidateIfStale</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">revalidateOnFocus</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">revalidateOnReconnect</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        data,</span><br><span class="line">        error,</span><br><span class="line">        isLoading,</span><br><span class="line">        mutate</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> useFavorites;</span><br></pre></td></tr></table></figure></p>
 <p>再写一个组件：<code>components/FavoriteButton.tsx</code>，作为按钮：<br><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useCallback, useMemo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> useCurrentUser <span class="keyword">from</span> <span class="string">&quot;@/hooks/useCurrentUser&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> useFavorites <span class="keyword">from</span> <span class="string">&quot;@/hooks/useFavorites&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">FavoriteButtonProps</span> &#123;</span><br><span class="line">    <span class="attr">movieId</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// only one parameter: movieId</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">FavoriteButton</span>: <span class="title class_">React</span>.<span class="property">FC</span>&lt;<span class="title class_">FavoriteButtonProps</span>&gt; = <span class="function">(<span class="params">&#123; movieId &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">FavoriteButton</span>;</span><br></pre></td></tr></table></figure></p>
-<p>将该按钮加在MovieCard中。在<code>components.MovieCard.tsx</code>中的播放按钮之后加入：<br><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">FavoriteButton</span> movieId=&#123;data?.<span class="property">id</span>&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>将该按钮加在MovieCard中。在<code>components/MovieCard.tsx</code>中的播放按钮之后加入：<br><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">FavoriteButton</span> movieId=&#123;data?.<span class="property">id</span>&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
 <p>补充知识：在JavaScript和TypeScript中，<code>?</code>操作符在这个上下文中被用作可选链（Optional Chaining）操作符。当你在一个对象后面加上<code>?</code>后跟属性名或方法，这意味着如果这个对象存在（即不是<code>null</code>或<code>undefined</code>），则会尝试访问该属性或方法；如果对象是<code>null</code>或<code>undefined</code>，则不会尝试访问该属性或方法，而是直接返回<code>undefined</code>。这避免了在访问深层嵌套对象属性时可能出现的类型错误。</p>
-<p>接着<br><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useCallback, useMemo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AiOutlinePlus</span>  &#125; <span class="keyword">from</span> <span class="string">&quot;react-icons/ai&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> useCurrentUser <span class="keyword">from</span> <span class="string">&quot;@/hooks/useCurrentUser&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> useFavorites <span class="keyword">from</span> <span class="string">&quot;@/hooks/useFavorites&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">FavoriteButtonProps</span> &#123;</span><br><span class="line">    <span class="attr">movieId</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// only one parameter: movieId</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">FavoriteButton</span>: <span class="title class_">React</span>.<span class="property">FC</span>&lt;<span class="title class_">FavoriteButtonProps</span>&gt; = <span class="function">(<span class="params">&#123; movieId &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            cursor-pointer</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            group/item</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            w-6</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            h-6</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            lg:w-10</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            lg:h-10</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            border-white</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            border-2</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            rounded-full</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            flex</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            justify-center</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            items-center</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            transition</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            hover:border-neutral-300</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        &quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">AiOutlinePlus</span> <span class="attr">className</span>=<span class="string">&quot;text-white&quot;</span> <span class="attr">size</span> =<span class="string">&#123;25&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">FavoriteButton</span>;</span><br></pre></td></tr></table></figure></p>
+<p>接着写<code>components/FavoriteButton.tsx</code>：<br><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useCallback, useMemo &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AiOutlinePlus</span>  &#125; <span class="keyword">from</span> <span class="string">&quot;react-icons/ai&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> useCurrentUser <span class="keyword">from</span> <span class="string">&quot;@/hooks/useCurrentUser&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> useFavorites <span class="keyword">from</span> <span class="string">&quot;@/hooks/useFavorites&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">FavoriteButtonProps</span> &#123;</span><br><span class="line">    <span class="attr">movieId</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// only one parameter: movieId</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">FavoriteButton</span>: <span class="title class_">React</span>.<span class="property">FC</span>&lt;<span class="title class_">FavoriteButtonProps</span>&gt; = <span class="function">(<span class="params">&#123; movieId &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            cursor-pointer</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            group/item</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            w-6</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            h-6</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            lg:w-10</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            lg:h-10</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            border-white</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            border-2</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            rounded-full</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            flex</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            justify-center</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            items-center</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            transition</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">            hover:border-neutral-300</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        &quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">AiOutlinePlus</span> <span class="attr">className</span>=<span class="string">&quot;text-white&quot;</span> <span class="attr">size</span> =<span class="string">&#123;25&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">FavoriteButton</span>;</span><br></pre></td></tr></table></figure></p>
 <p>然后在Trending Now列表以外再创建一个My Favorites列表。进入<code>pages/index.tsx</code>中，增加以下的代码：<br><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="attr">data</span>: favorites = [] &#125; = <span class="title function_">useFavorites</span>(); <span class="comment">// use hook to get favorite movies</span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">MovieList</span> <span class="attr">title</span>=<span class="string">&quot;My List&quot;</span> <span class="attr">data</span>=<span class="string">&#123;favorites&#125;</span> /&gt;</span></span></span><br></pre></td></tr></table></figure></p>
 <p>由于目前还没有最喜欢的电影，因此My List为空。在<code>FavoriteButton.tsx</code>中添加以下代码：<br><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="attr">mutate</span>: mutateFavorites &#125; = <span class="title function_">useFavorites</span>();</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">data</span>: currentUser, mutate &#125; = <span class="title function_">useCurrentUser</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// check if the favorite list of current user includes movieId</span></span><br><span class="line"><span class="keyword">const</span> isFavorite = useMemo (<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> list = currentUser?.<span class="property">favoriteIds</span> || [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list.<span class="title function_">include</span>(movieId);</span><br><span class="line">&#125;, [currentUser, movieId]); <span class="comment">// dependency in []</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// once we click the favorite, we will check if the current movie is favorited</span></span><br><span class="line"><span class="comment">// if yes, trigger the delete request</span></span><br><span class="line"><span class="comment">// if no, add the movie in the favorite list</span></span><br><span class="line"><span class="keyword">const</span> toggleFavorites = <span class="title function_">useCallback</span>(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> response;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isFavorite) &#123;</span><br><span class="line">        response = <span class="keyword">await</span> axios.<span class="title function_">delete</span>(<span class="string">&#x27;/api/favorite&#x27;</span>, &#123; <span class="attr">data</span>: &#123; movieId &#125;&#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        response = <span class="keyword">await</span> axios.<span class="title function_">post</span>(<span class="string">&#x27;/api/favorite&#x27;</span>, &#123; movieId &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// update the favorite list of current user</span></span><br><span class="line">    <span class="keyword">const</span> updatedFavoriteIds = response?.<span class="property">data</span>?.<span class="property">favoriteIds</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// mutate用于更新currentUser数据</span></span><br><span class="line">    <span class="title function_">mutate</span>(&#123;</span><br><span class="line">        ...currentUser, <span class="comment">// 复制了currentUser对象中的所有属性到一个新对象中</span></span><br><span class="line">        <span class="comment">// 如果currentUser对象中已经存在favoriteIds属性，这一操作将会覆盖原有的值。如果不存在，就会添加一个新的favoriteIds属性</span></span><br><span class="line">        <span class="attr">favoriteIds</span>: updatedFavoriteIds,</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">mutateFavorites</span>(); <span class="comment">// 来自useFavorites中的mutate，每次更新currentUser的favoriteIds的数据后，立即刷新</span></span><br><span class="line">&#125;, [movieId, isFavorite, currentUser, mutate, mutateFavorites]);</span><br></pre></td></tr></table></figure></p>
 <p>实现了上述函数后，我们要让favorite按钮变得可交互。添加以下代码：<br><figure class="highlight tsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Icon</span> = isFavorite ? <span class="title class_">AiOutlineCheck</span> : <span class="title class_">AiOutlinePlus</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> </span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onClick</span>=<span class="string">&#123;toggleFavorites&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">className</span>=<span class="string">&quot;</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        cursor-pointer</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        group/item</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        w-6</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        h-6</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        lg:w-10</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        lg:h-10</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        border-white</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        border-2</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        rounded-full</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        flex</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        justify-center</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        items-center</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        transition</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">        hover:border-neutral-300</span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml">    &quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Icon</span> <span class="attr">className</span>=<span class="string">&quot;text-white&quot;</span> <span class="attr">size</span> =<span class="string">&#123;25&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
@@ -2012,120 +2012,6 @@
         <tag>MongoDB</tag>
         <tag>NextAuth</tag>
         <tag>Vercel</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Summary of full stack netflix clone</title>
-    <url>/2024/03/07/Summary-of-full-stack-netflix-clone/</url>
-    <content><![CDATA[<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
-<li>Frontend: React</li>
-<li>Server-side Rendering: Next.js</li>
-<li>Styling: Tailwind CSS</li>
-<li>Data abstraction layer: Prisma</li>
-<li>Storage: MongoDB</li>
-<li>Authentication: NextAuth</li>
-<li>Deploy: Vercel</li>
-<li>Typescript</li>
-<li>the entire website fully</li>
-</ul>
-<p>The entire website fully responsive across all devices.</p>
-<h2 id="实现的功能"><a href="#实现的功能" class="headerlink" title="实现的功能"></a>实现的功能</h2><ul>
-<li>credential login: username + password</li>
-<li>profile: automatically generated once we register</li>
-<li>homepage: loaded with a random movie-billboard</li>
-<li>movies: load from database</li>
-<li>favourites: add movies as favourites</li>
-<li>botton:  shows more information about the movie</li>
-<li>play the movie</li>
-<li>Google and GitHub oauth login</li>
-</ul>
-<h2 id="全栈开发的一般流程"><a href="#全栈开发的一般流程" class="headerlink" title="全栈开发的一般流程"></a>全栈开发的一般流程</h2><ul>
-<li><p>对登录页面：</p>
-<p> 先在pages中创建auth.tsx，然后在components中创建Input.tsx，将其加入到auth.tsx中。实现next auth时需要创建pages/api/[…nextauth].ts文件。</p>
-</li>
-<li><p>通过授权登录保护登录界面以外的路径：</p>
-<p> 在lib文件夹中创建<code>serverAuth.ts</code>，可以在所有的api routes中检查我们是否登录。进入<code>pages/api</code>中，创建<code>current.ts</code>；接着写用于front end fetching的部分，创建<code>libs/fetcher.ts</code>。在前端写用于载入当前用户的代码。在根目录下新建hooks文件夹，在其中新建文件<code>useCurrentUser.ts</code>。在<code>pages/index.tsx</code>中保护家路径。接下来关注如何通过<code>useCurrentUser.ts</code>中的hook来获取用户信息，在index.tsx中加入代码即可。为了创建profile，在pages文件夹下创建<code>profiles.tsx</code>文件。接着在<code>auth.tsx</code>中，将三个登录处的重定向URL重定向到profiles页面并删除<code>router</code>。现在产生了效果：在未登录时访问profiles页面会被重定向到auth页面。</p>
-</li>
-<li><p>对导航组件：</p>
-</li>
-<li><p>对广告牌组件：</p>
-</li>
-<li><p>对电影列表和电影卡片组件：</p>
-</li>
-<li><p>对收藏功能：</p>
-</li>
-<li><p>对电影播放功能：</p>
-</li>
-<li><p>对电影详细信息功能：</p>
-</li>
-</ul>
-<h2 id="我的思考"><a href="#我的思考" class="headerlink" title="我的思考"></a>我的思考</h2><ol>
-<li><p>Tailwind CSS的好处：我的主要感受是不需要手写css文件，直接在classname中写内容就可以。注意使用Tailwind CSS前，需要进行必要的配置。Tailwind CSS的具体优点如下所示：</p>
-<ul>
-<li><p>快速原型开发<br>Tailwind 的实用工具类使得快速原型设计变得非常简单。你可以通过组合不同的类来快速构建界面，而不需要离开 HTML 文件去编写和调试 CSS 文件，这可以显著加快开发速度。</p>
-</li>
-<li><p>一致性和可重用性<br>通过使用 Tailwind 提供的实用工具类，可以在整个项目中保持样式的一致性。由于你在不同的地方复用相同的实用工具类，这自然而然地导致了样式的可重用性和一致性。</p>
-</li>
-<li><p>可定制和可配置<br>Tailwind CSS 高度可定制。你可以根据项目的设计指南调整配置文件（如颜色、字体大小、边距等），这使得创建符合品牌指南的设计变得简单。</p>
-</li>
-<li><p>减少 CSS 的复杂性<br>由于采用实用工具类的方式，你可以避免编写过多的自定义 CSS 和处理复杂的 CSS 继承关系，这降低了代码的复杂性。</p>
-</li>
-<li><p>响应式设计友好<br>Tailwind CSS 内置了响应式设计的支持，通过简单的前缀可以轻松地实现不同屏幕尺寸的样式适配，而不需要编写额外的媒体查询。</p>
-</li>
-<li><p>减少未使用的 CSS<br>通过与 PurgeCSS 的集成，Tailwind CSS 可以在构建过程中自动移除未使用的 CSS，这意味着最终的样式表非常精简，加载时间快。</p>
-</li>
-<li><p>总结<br>尽管 Tailwind CSS 提供了诸多好处，如加速开发、提高一致性和可维护性，但它也有一定的学习曲线，尤其是对于习惯了传统 CSS 开发方式的开发者来说。此外，一些开发者可能会对在 HTML 中大量使用实用工具类表示担忧，担心这会导致 HTML 文件的可读性降低。不过，对于许多项目和团队而言，Tailwind CSS 提供的好处远远超过了这些潜在的缺点。</p>
-</li>
-</ul>
-</li>
-<li><p>Google oauth比较难用。在本地将项目跑起来时，Google oauth功能正常，但当我尝试在vercel上部署本项目时，Google oauth就完全无法正常使用，甚至每次产生的报错信息都不相同。与此形成鲜明对比的是，GitHub oauth比较好用，配置和更改都较为简单，且将项目部署在vercel上以后再使用GitHub oauth也不会出问题。</p>
-</li>
-<li><p>Next.js和React各自的作用：</p>
-<p>React 和 Next.js 在一个项目中的共存实际上非常常见，并且它们各自扮演着互补的角色。理解它们的主要用途有助于更好地利用这两个库/框架来构建你的应用。</p>
-<p>React</p>
-<p>React 是一个用于构建用户界面的 JavaScript 库，由 Facebook 开发。它的主要特点是组件化开发和声明式编程，使得开发复杂、高性能的单页应用（SPA）变得简单。React 本身主要关注于视图层（UI），允许开发者以组件的形式构建复杂的用户界面。它并不提供诸如路由、服务器端渲染等功能，这些通常需要通过其他库或框架来实现。</p>
-<p>Next.js</p>
-<p>Next.js 是一个基于 Node.js 的框架，它为 React 应用提供了额外的结构和功能，如自动的代码分割、服务器端渲染（SSR）、静态站点生成（SSG）、基于文件的路由系统、API 路由等。Next.js 旨在解决 React 单页应用的一些限制，特别是在 SEO 和首屏加载性能方面。通过服务器端渲染，Next.js 可以提前渲染页面，使其内容能够被搜索引擎索引，同时也提升了页面加载的速度。</p>
-<p>它们是如何一起工作的</p>
-<ul>
-<li>React 在项目中的角色：负责定义应用的组件结构、状态管理和用户交互逻辑。开发者会使用 React 来创建应用的各个界面组件。</li>
-<li>Next.js 在项目中的角色：提供框架和额外功能，帮助这些 React 组件以更高效、优化的方式被呈现和服务。<strong>例如，Next.js 通过文件系统提供的路由功能，自动将位于 <code>pages/</code> 目录下的 React 组件转换为可访问的页面</strong>。</li>
-</ul>
-<p>总结</p>
-<p>在一个项目中，React 用来构建用户界面的组件，而 Next.js 则用来增强 React 应用，提供路由、预渲染（SSR 或 SSG）等功能，以及优化应用的性能和可访问性。Next.js 让开发者能够更专注于业务逻辑和组件本身，而不是底层的架构问题，从而简化了 React 应用的开发和部署过程。简言之，你可以将 React 视为构建应用的砖块，而 Next.js 则是将这些砖块组织起来，建造出结构化、高效、易于维护的应用的框架。<strong>我的理解：React只能做前端，而React+Next.js就可以做全栈了</strong>。</p>
-</li>
-<li><p>Prisma是一款现代化的ORM框架，它可以连接到多种数据库类型（如 PostgreSQL 、 MySQL 、 SQLite 和 SQL Server等），在本项目中我们用Prisma连接了MongoDB。在ORM的帮助下，我们不需要写SQL语句，只需要定义数据库中的数据名称和数据类型，就可以实现对数据库的各种操作。</p>
-</li>
-<li><p>本项目中的大多数代码都是Typescript（.ts）代码或者TypeScript JSX(.tsx)代码。前者是基于javascript开发的。TypeScript 是 JavaScript 的一个超集，这意味着它包含了 JavaScript 的所有功能，并在此基础上添加了更多的特性。后者是 TypeScript 的扩展，允许在 TypeScript 文件中使用 JSX 语法。JSX 是一种语法糖，允许开发者在 JavaScript 代码中写像HTML一样的标记语言，这在React 开发中非常常见。由于 TypeScript 默认不理解 JSX 语法，TSX（<code>.tsx</code> 文件扩展名）提供了一种方式来使用 TypeScript 和 JSX。因此，<code>.tsx</code> 文件通常用于包含 JSX 的 TypeScript 项目，尤其是在开发 React 组件时。<strong>简而言之，当代码中需要有类似HTML的代码时，即需要创建一个页面或者页面的一部分时，用tsx。无类似HTML的代码，则用ts</strong>。在本项目中，定义所有组件的components文件夹中的文件全用了tsx，因为要写HTML代码；同理，pages文件夹中除了api文件夹以外的所有文件用的也是tsx。剩下的文件夹中的文件普遍用的是ts，包括hooks文件夹，lib文件夹和pages/api文件夹。</p>
-</li>
-<li><p>本项目中几个主要文件夹的作用：</p>
-<p>属于 Next.js 的特定文件夹：</p>
-<ul>
-<li><strong>pages</strong>：这是 Next.js 特有的一个文件夹，用于基于文件系统的路由。在 Next.js 中，<code>pages</code> 目录下的每一个文件都会自动对应一个路由，这是 Next.js 框架的核心特性之一。pages中还有api文件夹，因此在本项目中可以像前后端分离的项目那样在后端定义api，然后在前端调用。<strong>只不过本项目中是在next.js实现的伪后端中定义api，然后在react实现的纯前端中调用api</strong>。</li>
-<li><strong>public</strong>：这个文件夹也是 Next.js 的标准部分，用于存放静态文件，如图片、字体等。在项目中，你可以通过相对路径直接引用 <code>public</code> 文件夹中的资源。</li>
-<li><strong>styles</strong>：虽然存放样式的做法在前端项目中非常常见，但在 Next.js 项目中，<code>styles</code> 文件夹通常用于组织 CSS 或 SCSS 文件。Next.js 支持 CSS Modules 和内置的 Sass 支持，这个文件夹通常用来利用这些特性。本项目中的styles文件夹中只有一个global.css文件，主要负责对tailwind css的配置和定义一些默认的css格式。</li>
-</ul>
-<p>通常属于开发者根据项目需求创建的文件夹（既适用于 React，也适用于 Next.js）：</p>
-</li>
-</ol>
-<ul>
-<li><p>components：存放 React 组件的文件夹。这些组件可以在不同的页面中复用。这是 React 项目的常见结构，但在 Next.js 项目中同样适用。</p>
-</li>
-<li><p>hooks：存放自定义 React 钩子（Hooks）。自定义钩子是 React 16.8 引入的功能，用于在函数组件之间复用状态逻辑。</p>
-</li>
-<li><p>lib：通常用于存放一些工具库或者用于与 API 交互的函数等。这个文件夹的具体用途依项目需求而定，既适用于纯 React 项目，也适用于 Next.js 项目。</p>
-</li>
-</ul>
-<p>数据库相关的文件：</p>
-<p>prisma：这个文件夹通常用于存放与 Prisma 相关的配置和模型文件。Prisma 是一个流行的 Node.js 和 TypeScript ORM（对象关系映射），用于构建数据库访问。这不是 Next.js 或 React 特有的，而是根据你的项目是否需要与数据库交互来决定使用。</p>
-<p>总结：<br>Next.js 特有：pages 和 public 文件夹是 Next.js 特定的，而 styles 虽然不是 Next.js 特有的，但其在 Next.js 项目中的使用方式往往利用了 Next.js 的一些特性。</p>
-<p>React 和 Next.js 通用：components、hooks、lib 和 prisma 文件夹是根据开发者的项目需求创建的，它们既适用于 React 项目，也适用于 Next.js 项目。这些文件夹的使用反映了现代前端项目的一些最佳实践，如组件化开发、自定义钩子的使用等。</p>
-]]></content>
-      <categories>
-        <category>web开发</category>
-      </categories>
-      <tags>
-        <tag>总结</tag>
       </tags>
   </entry>
   <entry>
@@ -2331,6 +2217,164 @@ shift enter: 新起一行
       <tags>
         <tag>Typora</tag>
         <tag>Mardown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Summary of full stack netflix clone</title>
+    <url>/2024/03/07/Summary-of-full-stack-netflix-clone/</url>
+    <content><![CDATA[<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
+<li>Frontend: React</li>
+<li>Server-side Rendering: Next.js</li>
+<li>Styling: Tailwind CSS</li>
+<li>Data abstraction layer: Prisma</li>
+<li>Storage: MongoDB</li>
+<li>Authentication: NextAuth</li>
+<li>Deploy: Vercel</li>
+<li>Typescript</li>
+<li>the entire website fully</li>
+</ul>
+<p>The entire website fully responsive across all devices.</p>
+<h2 id="实现的功能"><a href="#实现的功能" class="headerlink" title="实现的功能"></a>实现的功能</h2><ul>
+<li>credential login: username + password</li>
+<li>profile: automatically generated once we register</li>
+<li>homepage: loaded with a random movie-billboard</li>
+<li>movies: load from database</li>
+<li>favourites: add movies as favourites</li>
+<li>botton:  shows more information about the movie</li>
+<li>play the movie</li>
+<li>Google and GitHub oauth login</li>
+</ul>
+<h2 id="精简笔记与全栈开发的一般流程"><a href="#精简笔记与全栈开发的一般流程" class="headerlink" title="精简笔记与全栈开发的一般流程"></a>精简笔记与全栈开发的一般流程</h2><h3 id="登录页面"><a href="#登录页面" class="headerlink" title="登录页面"></a>登录页面</h3><p>先在pages中创建auth.tsx，然后在components中创建Input.tsx，将其加入到auth.tsx中。实现next auth时需要创建pages/api/[…nextauth].ts文件。</p>
+<h3 id="通过授权登录保护登录界面以外的路径"><a href="#通过授权登录保护登录界面以外的路径" class="headerlink" title="通过授权登录保护登录界面以外的路径"></a>通过授权登录保护登录界面以外的路径</h3><p>保护路由：</p>
+<ul>
+<li>serverAuth.ts（lib）：利用 next-auth 的 getSession 实现API路由的用户登录检查，防止未登录用户访问。</li>
+<li>current.ts（pages/api）：API路由，使用 serverAuth.ts 验证用户登录，返回用户信息或错误。</li>
+</ul>
+<p>前端用户信息获取：</p>
+<ul>
+<li>fetcher.ts（lib）：通过 axios 封装的简易数据获取函数。</li>
+<li>useCurrentUser.ts（hooks）：自定义Hook，结合 swr 和 fetcher.ts 从 /api/current 获取当前登录用户信息。</li>
+</ul>
+<p>客户端路由保护与个人资料页面：</p>
+<ul>
+<li>index.tsx 和 profiles.tsx（pages）：通过 getServerSideProps 中的 getSession 实现路由保护，控制访问权限。</li>
+<li>页面重定向：auth.tsx 调整登录后重定向逻辑，确保正确导向 /profiles。</li>
+</ul>
+<p>实现细节：</p>
+<ul>
+<li>用户状态展示：在 profiles.tsx 中展示用户信息，并实现点击默认头像返回首页的功能。</li>
+<li>环境配置调整：通过修改 .env 和 package.json 解决开发中遇到的端口配置问题，保证登录流程正常。</li>
+</ul>
+<h3 id="导航组件"><a href="#导航组件" class="headerlink" title="导航组件"></a>导航组件</h3><p>在这个项目中，开发了一个导航组件（Navigation Component），涉及了几个主要的文件和它们之间的关系，以及各自的功能和作用：</p>
+<ol>
+<li><p>index.tsx（主页文件）：这是应用的入口页面，最初被清理以只保留基本结构。它通过 getServerSideProps 功能检查用户的会话，基于会话存在与否决定重定向到登录页面或显示主内容。后续，Navbar 组件被引入到此文件中，作为页面的一部分。</p>
+</li>
+<li><p>Navbar.tsx（导航栏组件）：位于 components 文件夹内，Navbar 是顶部的导航条组件，负责显示应用的导航链接。它包括了一个动态背景变化的功能，随着页面滚动，背景从透明变为不透明。</p>
+</li>
+<li><p>NavbarItem.tsx（导航项组件）：同样位于 components 文件夹内，用于表示 Navbar 中的单个导航链接。它通过 props 接收 label 来显示不同的导航项。</p>
+</li>
+<li><p>MobileMenu.tsx（移动菜单组件）：这个组件负责在小屏幕上显示一个可展开的移动菜单。它通过 visible prop 控制显示状态，包含多个 NavbarItem 组件来展示导航选项。</p>
+</li>
+<li><p>AccountMenu.tsx（账户菜单组件）：用于在 Navbar 组件中显示用户的账户菜单，它提供了注销功能并可以通过 visible prop 控制其显示。</p>
+</li>
+</ol>
+<p>项目中还实现了一些额外的交互特性，比如：</p>
+<ul>
+<li>使用 React 的 useState 和 useEffect Hooks 来管理组件的状态和生命周期，例如控制菜单的显示状态和根据页面滚动动态改变导航栏背景。</li>
+<li>通过 useCallback 来优化事件处理函数，避免不必要的重新渲染。</li>
+<li>导航组件和移动菜单的显示逻辑，包括在小屏幕上通过点击“浏览”来展开和隐藏导航项。</li>
+<li>在 Navbar 组件中，引入了 react-icons 库中的图标来增强视觉效果，并通过条件渲染实现了箭头图标的旋转动画，以指示菜单的展开和收起状态。</li>
+</ul>
+<p>整体而言，这个导航组件通过组合多个子组件和利用 React 的特性，实现了一个响应式、具有交互性的用户界面，能够适应不同的设备和屏幕尺寸。</p>
+<h3 id="广告牌组件"><a href="#广告牌组件" class="headerlink" title="广告牌组件"></a>广告牌组件</h3><p>首先将定义有电影信息的json文件手动添加到MongoDB中。<br>然后创建新的api：random，用于随机返回一部电影。<br>在<code>hooks/useBillboard.ts</code>中写代码以避免对首页推荐电影的重复加载。在<code>components</code>中新建<code>Billboard.tsx</code>，然后在<code>index.tsx</code>中引入<code>Billboard</code>。<br>接着在<code>Billboard.tsx</code>中填入具体的内容，目的是fetch the data for a random movie，并继续加入电影、电影名、电影介绍和More info按钮。</p>
+<h3 id="电影列表和电影卡片组件"><a href="#电影列表和电影卡片组件" class="headerlink" title="电影列表和电影卡片组件"></a>电影列表和电影卡片组件</h3><p>定义api: <code>pages/api/movies/index.ts</code>，加载所有电影。<br>接着在hooks文件夹中创建<code>useMovieList.ts</code>，用于返回<code>api/movies</code>中得到的数据。<br>接着在<code>components</code>中创建<code>MovieList.tsx</code>，并在<code>pages/index.tsx</code>中装入MovieList并传入必要的参数，并使用上面定义的hook: <code>useMovieList.ts</code>。<br>接着在<code>components</code>文件夹中创建<code>MovieCard.tsx</code>文件，用于实现电影卡片组件，并将<code>MovieCard</code>放入<code>MovieList.tsx</code>中。</p>
+<h3 id="收藏功能"><a href="#收藏功能" class="headerlink" title="收藏功能"></a>收藏功能</h3><p>定义api: <code>pages/api/favorite.ts</code>，用于实现用户在收藏和取消收藏电影时对数据库的操作。<br>再定义一个api: <code>pages/api/favorites.ts</code>，用于加载我们收藏的电影列表。<br>接着写一个hook: <code>useFavorites.ts</code>，用于调用第二个api从而加载我们收藏的电影列表。<br>再写一个组件<code>components/FavoriteButton.tsx</code>，作为收藏按钮。<br>将该按钮加入MovieCard中。然后在Trending Now列表以外再创建一个My Favorites列表，这是在<code>pages/index.tsx</code>中实现的。<br>最后让favorite按钮变得可交互。这样在Trending Now列表上的电影上的加号时，其就会被添加到My List，然后加号会变成勾。这样一部电影就被收藏了。取消收藏也是同理。</p>
+<h3 id="电影播放功能"><a href="#电影播放功能" class="headerlink" title="电影播放功能"></a>电影播放功能</h3><p>首先定义api: 创建<code>pages/api/movies/[movieId].ts</code>，用于通过外部传入的movieId找到电影。<br>再创建<code>hooks/useMovie.ts</code>，调用上述api，并负责给上述api传入参数movieId。<br>接着写播放按钮：<code>components/PlayButton.tsx</code>，并在<code>components/Billboard.tsx</code>中加入播放按钮。<br>现在实现了点击播放按钮，跳转到另一个页面的功能，接着在MovieCard组件中也实现这个功能。<br>然后具体写跳转到的<code>/watch</code>页面，创建<code>pages/watch/[movieId].tsx</code>，并在这个页面中实现加载视频名字、返回等功能。</p>
+<h3 id="电影详细信息功能"><a href="#电影详细信息功能" class="headerlink" title="电影详细信息功能"></a>电影详细信息功能</h3><p>实现的功能：点击More Info按钮，会显示电影的信息。<br>创建用于状态管理（打开或关闭More Info）的钩子：<code>hooks/useInfoModel.ts</code>。<br>创建显示电影详细信息的组件：<code>components/InfoModal.tsx</code><br>在pages/index.tsx中加入上述组件。<br>给InfoModal组件加上关闭、播放、收藏按钮，最后加上电影信息等字样。<br>利用onClick函数实现点击关闭按钮关闭页面的功能。<br>在<code>pages/index.tsx</code>中实现对组件<code>InfoModal.tsx</code>的触发，从而展现电影的详细信息。<br><code>components/Billboard.tsx</code>中实现点击More Info按钮触发组件<code>InfoModal.tsx</code>，从而展现电影的详细信息。<br>在电影卡片组件中同样实现点击按钮展现电影详细信息。<br>修复个人profile中名字始终加载为username的问题。</p>
+<h3 id="给全栈项目开发新功能的一般过程"><a href="#给全栈项目开发新功能的一般过程" class="headerlink" title="给全栈项目开发新功能的一般过程"></a>给全栈项目开发新功能的一般过程</h3><p>熟悉了上述精简版本的笔记后，我们可以对全栈项目（react + next.js）的开发做一些总结。</p>
+<p>对于实现登录页面和通过授权登录保护登录界面以外的路径，这两项属于偏后端的范畴，主要利用的是next.js的一些特性（特别是pages和api）。这两个任务没有什么一般性的套路，需要用到的文件夹也比较复杂，包括pages, hooks, lib等，跟着讲义一步步实现。</p>
+<p>对于实现导航组件，这个属于偏前端的范畴，主要需要在pages中定义一个菜单界面，再在components中定义若干个组件。在这里需要注意组件的复用。组件拼凑组合起来就能实现一个网页。同时还需要注意如何实现交互特性和其他的一些细节。</p>
+<p>对于广告牌组件、电影列表和电影卡片组件、收藏功能、电影播放功能、电影详细信息功能，这些都属于前后端交互的范畴，是有统一的开发套路的。<strong>一般来说是先定义api，再定义hook（调用api），再定义组件（调用hook获取api的数据），再将组件加入到页面（pages）中</strong>。这就是开发全栈项目的一般的新功能（非拓荒）的一般过程。</p>
+<h2 id="我的思考"><a href="#我的思考" class="headerlink" title="我的思考"></a>我的思考</h2><ol>
+<li><p>Tailwind CSS的好处：我的主要感受是不需要手写css文件，直接在classname中写内容就可以。注意使用Tailwind CSS前，需要进行必要的配置。Tailwind CSS的具体优点如下所示：</p>
+<ul>
+<li><p>快速原型开发<br>Tailwind 的实用工具类使得快速原型设计变得非常简单。你可以通过组合不同的类来快速构建界面，而不需要离开 HTML 文件去编写和调试 CSS 文件，这可以显著加快开发速度。</p>
+</li>
+<li><p>一致性和可重用性<br>通过使用 Tailwind 提供的实用工具类，可以在整个项目中保持样式的一致性。由于你在不同的地方复用相同的实用工具类，这自然而然地导致了样式的可重用性和一致性。</p>
+</li>
+<li><p>可定制和可配置<br>Tailwind CSS 高度可定制。你可以根据项目的设计指南调整配置文件（如颜色、字体大小、边距等），这使得创建符合品牌指南的设计变得简单。</p>
+</li>
+<li><p>减少 CSS 的复杂性<br>由于采用实用工具类的方式，你可以避免编写过多的自定义 CSS 和处理复杂的 CSS 继承关系，这降低了代码的复杂性。</p>
+</li>
+<li><p>响应式设计友好<br>Tailwind CSS 内置了响应式设计的支持，通过简单的前缀可以轻松地实现不同屏幕尺寸的样式适配，而不需要编写额外的媒体查询。</p>
+</li>
+<li><p>减少未使用的 CSS<br>通过与 PurgeCSS 的集成，Tailwind CSS 可以在构建过程中自动移除未使用的 CSS，这意味着最终的样式表非常精简，加载时间快。</p>
+</li>
+<li><p>总结<br>尽管 Tailwind CSS 提供了诸多好处，如加速开发、提高一致性和可维护性，但它也有一定的学习曲线，尤其是对于习惯了传统 CSS 开发方式的开发者来说。此外，一些开发者可能会对在 HTML 中大量使用实用工具类表示担忧，担心这会导致 HTML 文件的可读性降低。不过，对于许多项目和团队而言，Tailwind CSS 提供的好处远远超过了这些潜在的缺点。</p>
+</li>
+</ul>
+</li>
+<li><p>Google oauth比较难用。在本地将项目跑起来时，Google oauth功能正常，但当我尝试在vercel上部署本项目时，Google oauth就完全无法正常使用，甚至每次产生的报错信息都不相同。与此形成鲜明对比的是，GitHub oauth比较好用，配置和更改都较为简单，且将项目部署在vercel上以后再使用GitHub oauth也不会出问题。</p>
+</li>
+<li><p>Next.js和React各自的作用：</p>
+<p>React 和 Next.js 在一个项目中的共存实际上非常常见，并且它们各自扮演着互补的角色。理解它们的主要用途有助于更好地利用这两个库/框架来构建你的应用。</p>
+<p>React</p>
+<p>React 是一个用于构建用户界面的 JavaScript 库，由 Facebook 开发。它的主要特点是组件化开发和声明式编程，使得开发复杂、高性能的单页应用（SPA）变得简单。React 本身主要关注于视图层（UI），允许开发者以组件的形式构建复杂的用户界面。它并不提供诸如路由、服务器端渲染等功能，这些通常需要通过其他库或框架来实现。</p>
+<p>Next.js</p>
+<p>Next.js 是一个基于 Node.js 的框架，它为 React 应用提供了额外的结构和功能，如自动的代码分割、服务器端渲染（SSR）、静态站点生成（SSG）、基于文件的路由系统、API 路由等。Next.js 旨在解决 React 单页应用的一些限制，特别是在 SEO 和首屏加载性能方面。通过服务器端渲染，Next.js 可以提前渲染页面，使其内容能够被搜索引擎索引，同时也提升了页面加载的速度。</p>
+<p>它们是如何一起工作的</p>
+<ul>
+<li>React 在项目中的角色：负责定义应用的组件结构、状态管理和用户交互逻辑。开发者会使用 React 来创建应用的各个界面组件。</li>
+<li>Next.js 在项目中的角色：提供框架和额外功能，帮助这些 React 组件以更高效、优化的方式被呈现和服务。<strong>例如，Next.js 通过文件系统提供的路由功能，自动将位于 <code>pages/</code> 目录下的 React 组件转换为可访问的页面</strong>。</li>
+</ul>
+<p>总结</p>
+<p>在一个项目中，React 用来构建用户界面的组件，而 Next.js 则用来增强 React 应用，提供路由、预渲染（SSR 或 SSG）等功能，以及优化应用的性能和可访问性。Next.js 让开发者能够更专注于业务逻辑和组件本身，而不是底层的架构问题，从而简化了 React 应用的开发和部署过程。简言之，你可以将 React 视为构建应用的砖块，而 Next.js 则是将这些砖块组织起来，建造出结构化、高效、易于维护的应用的框架。<strong>我的理解：React只能做前端，而React+Next.js就可以做全栈了</strong>。</p>
+</li>
+<li><p>Prisma是一款现代化的ORM框架，它可以连接到多种数据库类型（如 PostgreSQL 、 MySQL 、 SQLite 和 SQL Server等），在本项目中我们用Prisma连接了MongoDB。在ORM的帮助下，我们不需要写SQL语句，只需要定义数据库中的数据名称和数据类型，就可以实现对数据库的各种操作。</p>
+</li>
+<li><p>本项目中的大多数代码都是Typescript（.ts）代码或者TypeScript JSX(.tsx)代码。前者是基于javascript开发的。TypeScript 是 JavaScript 的一个超集，这意味着它包含了 JavaScript 的所有功能，并在此基础上添加了更多的特性。后者是 TypeScript 的扩展，允许在 TypeScript 文件中使用 JSX 语法。JSX 是一种语法糖，允许开发者在 JavaScript 代码中写像HTML一样的标记语言，这在React 开发中非常常见。由于 TypeScript 默认不理解 JSX 语法，TSX（<code>.tsx</code> 文件扩展名）提供了一种方式来使用 TypeScript 和 JSX。因此，<code>.tsx</code> 文件通常用于包含 JSX 的 TypeScript 项目，尤其是在开发 React 组件时。<strong>简而言之，当代码中需要有类似HTML的代码时，即需要创建一个页面或者页面的一部分时，用tsx。无类似HTML的代码，则用ts</strong>。在本项目中，定义所有组件的components文件夹中的文件全用了tsx，因为要写HTML代码；同理，pages文件夹中除了api文件夹以外的所有文件用的也是tsx。剩下的文件夹中的文件普遍用的是ts，包括hooks文件夹，lib文件夹和pages/api文件夹。</p>
+</li>
+<li><p>本项目中几个主要文件夹的作用：</p>
+<p>属于 Next.js 的特定文件夹：</p>
+<ul>
+<li><strong>pages</strong>：这是 Next.js 特有的一个文件夹，用于基于文件系统的路由。在 Next.js 中，<code>pages</code> 目录下的每一个文件都会自动对应一个路由，这是 Next.js 框架的核心特性之一。pages中还有api文件夹，因此在本项目中可以像前后端分离的项目那样在后端定义api，然后在前端调用。<strong>只不过本项目中是在next.js实现的伪后端中定义api，然后在react实现的纯前端中调用api</strong>。</li>
+<li><strong>public</strong>：这个文件夹也是 Next.js 的标准部分，用于存放静态文件，如图片、字体等。在项目中，你可以通过相对路径直接引用 <code>public</code> 文件夹中的资源。</li>
+<li><strong>styles</strong>：虽然存放样式的做法在前端项目中非常常见，但在 Next.js 项目中，<code>styles</code> 文件夹通常用于组织 CSS 或 SCSS 文件。Next.js 支持 CSS Modules 和内置的 Sass 支持，这个文件夹通常用来利用这些特性。本项目中的styles文件夹中只有一个global.css文件，主要负责对tailwind css的配置和定义一些默认的css格式。</li>
+</ul>
+<p>通常属于开发者根据项目需求创建的文件夹（既适用于 React，也适用于 Next.js）：</p>
+<ul>
+<li><p>components：存放 React 组件的文件夹。这些组件可以在不同的页面中复用。这是 React 项目的常见结构，但在 Next.js 项目中同样适用。</p>
+</li>
+<li><p>hooks：存放自定义 React 钩子（Hooks）。自定义钩子是 React 16.8 引入的功能，用于在函数组件之间复用状态逻辑。</p>
+</li>
+<li><p>lib：通常用于存放一些工具库或者用于与 API 交互的函数等。这个文件夹的具体用途依项目需求而定，既适用于纯 React 项目，也适用于 Next.js 项目。</p>
+</li>
+</ul>
+<p>数据库相关的文件：</p>
+<p>prisma：这个文件夹通常用于存放与 Prisma 相关的配置和模型文件。Prisma 是一个流行的 Node.js 和 TypeScript ORM（对象关系映射），用于构建数据库访问。这不是 Next.js 或 React 特有的，而是根据你的项目是否需要与数据库交互来决定使用。</p>
+<p>总结：<br>Next.js 特有：pages 和 public 文件夹是 Next.js 特定的，而 styles 虽然不是 Next.js 特有的，但其在 Next.js 项目中的使用方式往往利用了 Next.js 的一些特性。</p>
+<p>React 和 Next.js 通用：components、hooks、lib 和 prisma 文件夹是根据开发者的项目需求创建的，它们既适用于 React 项目，也适用于 Next.js 项目。这些文件夹的使用反映了现代前端项目的一些最佳实践，如组件化开发、自定义钩子的使用等。</p>
+</li>
+<li><p>本项目中使用到了hook的以下功能：</p>
+<ul>
+<li><p>状态管理 (<code>useState</code>)<br>这是 Hooks 最基本的用途之一，允许在函数组件中添加状态。这对于实现按钮点击、输入表单处理、切换UI组件显示隐藏等功能至关重要。</p>
+</li>
+<li><p>数据获取（<code>useSWR</code>）<br><code>useSWR</code> 是一个由 Vercel 团队开发的 React Hook，它是 SWR (Stale-While-Revalidate) 数据获取库的一部分。SWR 是一种缓存策略，其名称来自 HTTP 缓存无效化策略，意味着“先返回缓存中的数据（陈旧的），然后发送请求（重新验证），最后用新数据替换旧数据”。<code>useSWR</code> 主要用于数据获取场景，特别是在需要频繁请求更新数据的应用中，它提供了一种简单而强大的方法来获取、缓存、更新远程数据。</p>
+</li>
+<li><p>副作用处理 (<code>useEffect</code>)<br>用于执行副作用操作，如数据获取（调用API）、订阅/取消订阅事件、直接操作DOM。这对于在组件加载、更新或卸载时执行外部操作非常有用。</p>
+</li>
+<li><p>性能优化 (<code>useCallback</code>)<br><code>useCallback</code> 可以避免在每次渲染时都进行不必要的计算或创建新的函数实例，从而提高性能。</p>
+<p>需要特别注意的是，hook是一种概念，因此不局限于定义在某个特定的文件夹（如 <code>hooks</code> 文件夹）中，而是可以在函数的任何地方使用。在本项目中，hooks文件夹中的hooks主要负责对api的调用，而components, pages等文件夹中的hooks主要负责状态管理和性能优化。</p>
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>web开发</category>
+      </categories>
+      <tags>
+        <tag>总结</tag>
       </tags>
   </entry>
   <entry>
