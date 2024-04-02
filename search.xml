@@ -781,6 +781,175 @@
       </tags>
   </entry>
   <entry>
+    <title>Day 18 Leetcode 513, 112, 106</title>
+    <url>/2024/03/12/Day-18-Leetcode-513-112-106/</url>
+    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/0513.%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC.html">513.找树左下角的值</a><br><a href="https://programmercarl.com/0112.%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C.html">112. 路径总和，113. 路径总和ii</a><br><a href="https://programmercarl.com/0106.%E4%BB%8E%E4%B8%AD%E5%BA%8F%E4%B8%8E%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91.html">106.从中序与后序遍历序列构造二叉树，105.从前序与中序遍历序列构造二叉树</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="106-从中序与后序遍历序列构造二叉树"><a href="#106-从中序与后序遍历序列构造二叉树" class="headerlink" title="106.从中序与后序遍历序列构造二叉树"></a>106.从中序与后序遍历序列构造二叉树</h3><p><code>vector&lt;int&gt; lm(inorder.begin(), inorder.begin() + i);</code>创建了一个左闭右开的区间。在C++中，<code>std::vector</code>的这个构造函数接受两个迭代器作为参数，分别表示要复制的范围的开始和结束。这个范围遵循左闭右开的原则，即包括开始位置的元素，但不包括结束位置的元素。</p>
+<h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="513-找树左下角的值"><a href="#513-找树左下角的值" class="headerlink" title="513.找树左下角的值"></a>513.找树左下角的值</h3><p>拿到本题后，我先复习了层序遍历的代码，然后先拿层序遍历法尝试一下。本题果然可以简单地用层序遍历解决：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (size -- )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            res.<span class="built_in">push_back</span>(vec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 下面两行代码可以简写为return res.back().front();</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; ans = res.<span class="built_in">back</span>();</span><br><span class="line">        <span class="keyword">return</span> ans.<span class="built_in">front</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>现在尝试用递归做本题。首先需要考虑前/中/后序遍历。发现确实不好写，不知道该采用怎样的遍历顺序，且终止条件也不知道该怎么写，直接看卡尔的讲解。</p>
+<h3 id="112-路径总和"><a href="#112-路径总和" class="headerlink" title="112. 路径总和"></a>112. 路径总和</h3><p>本题用层序遍历肯定不好做，因为涉及到从root节点到叶子节点。我尝试用递归解决本题。本题肯定涉及到回溯，搜索完一条root节点到叶子节点的和之后，若没找到targetSum，还需要返回root节点，寻找到新的叶子节点的路径。我不会做此题，直接看卡尔的讲解。</p>
+<h3 id="113-路径总和ii"><a href="#113-路径总和ii" class="headerlink" title="113. 路径总和ii"></a>113. 路径总和ii</h3><p>本题我尝试用112的方法独立完成，但是没有成功，其实我写的代码离能成功运行的代码已经很接近了，思路没错就是部分细节不对。本题的方法应该和112相同，但代码实现上会复杂一些。</p>
+<h3 id="106-从中序与后序遍历序列构造二叉树-1"><a href="#106-从中序与后序遍历序列构造二叉树-1" class="headerlink" title="106.从中序与后序遍历序列构造二叉树"></a>106.从中序与后序遍历序列构造二叉树</h3><p>本题是二叉树中的难题，我没有什么思路，直接来看卡尔的视频。</p>
+<h3 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105.从前序与中序遍历序列构造二叉树"></a>105.从前序与中序遍历序列构造二叉树</h3><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="513-找树左下角的值-1"><a href="#513-找树左下角的值-1" class="headerlink" title="513.找树左下角的值"></a>513.找树左下角的值</h3><p>树左下角的值：树的最后一行最靠左侧的值（不一定是左孩子）。本题用层序遍历（迭代法）最合适，目标值就是最后一层的第一个值。<strong>本题用迭代法比用递归法更简单直观</strong>。现在主要讲解递归法。</p>
+<p>如何用递归法找到树左下角的值？深度最大的叶子节点一定在最后一行。因为本题不需要处理中节点，只需要先遍历左节点即可，<strong>因此本题使用前中后序遍历都可</strong>。<strong>只要保证先遍历左节点，且得到的是深度最大的节点</strong>，找到的就是最后一行最靠左侧的节点。现在开始写代码：<br><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 记录二叉树最大深度的全局变量</span></span><br><span class="line"><span class="type">int</span> maxDepth = INT_MIN; <span class="comment">// 初始化为int中的最小值</span></span><br><span class="line"><span class="type">int</span> res; <span class="comment">// 若当前深度大于maxDepth，则更新res为当前节点的值</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// depth用于记录当前遍历的节点的深度</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* root, <span class="type">int</span> depth)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 终止条件：遍历到叶子节点</span></span><br><span class="line">    <span class="keyword">if</span> (root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 若当前深度大于maxDepth，则更新res为当前节点的值</span></span><br><span class="line">        <span class="keyword">if</span> (depth &gt; maxDepth) </span><br><span class="line">        &#123;</span><br><span class="line">            maxDepth = depth;</span><br><span class="line">            res = root-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 单层递归的逻辑，前中后序遍历皆可，本题不需要中节点的处理逻辑</span></span><br><span class="line">    <span class="comment">// 左节点</span></span><br><span class="line">    <span class="keyword">if</span> (root-&gt;left)</span><br><span class="line">    &#123;</span><br><span class="line">        depth ++ ;</span><br><span class="line">        <span class="built_in">traversal</span>(root-&gt;left, depth); <span class="comment">// 递归</span></span><br><span class="line">        depth -- ; <span class="comment">// 回溯，即回退到左节点的父节点，然后遍历父节点的右节点，不回溯则会一直向左遍历</span></span><br><span class="line">        <span class="comment">// 以上三行代码可以简写为traversal(root-&gt;left, depth + 1)</span></span><br><span class="line">        <span class="comment">// 因为depth + 1并没有改变depth的值，相当于在traversal中+1，在traversal之后复原</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 右节点</span></span><br><span class="line">    <span class="keyword">if</span> (root-&gt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        depth ++ ;</span><br><span class="line">        <span class="built_in">traversal</span>(root-&gt;right, depth);</span><br><span class="line">        depth -- ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>本题的递归解法同样显示地展现了回溯。根据上述核心代码，我写出了本题递归解法的完整代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> maxDepth = INT_MIN; <span class="comment">// 直接int maxDepth = 0也可以</span></span><br><span class="line">    <span class="type">int</span> res;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* root, <span class="type">int</span> depth)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 终止条件，遍历到叶子节点</span></span><br><span class="line">        <span class="comment">// 若当前深度大于最大深度，则需要更新最大深度和结果</span></span><br><span class="line">        <span class="keyword">if</span> (root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (depth &gt; maxDepth)</span><br><span class="line">            &#123;</span><br><span class="line">                res = root-&gt;val;</span><br><span class="line">                maxDepth = depth;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 单层递归的逻辑</span></span><br><span class="line">        <span class="comment">// 左节点</span></span><br><span class="line">        <span class="keyword">if</span> (root-&gt;left)</span><br><span class="line">        &#123;</span><br><span class="line">            depth ++ ;</span><br><span class="line">            <span class="built_in">traversal</span>(root-&gt;left, depth);</span><br><span class="line">            depth -- ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 右节点</span></span><br><span class="line">        <span class="keyword">if</span> (root-&gt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            depth ++ ;</span><br><span class="line">            <span class="built_in">traversal</span>(root-&gt;right, depth);</span><br><span class="line">            depth -- ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">traversal</span>(root, <span class="number">1</span>); <span class="comment">// root节点的深度一般被规定为1，当然规定为0也可以</span></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>本题的层序遍历解法其实也有更简便的写法，不需要浪费空间复杂度来存储树中的所有元素的值。代码如下所示：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findBottomLeftValue</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) q.<span class="built_in">push</span>(root);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> res;</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> size = q.<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i ++ )</span><br><span class="line">            &#123;</span><br><span class="line">                TreeNode* node = q.<span class="built_in">front</span>();</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (i == <span class="number">0</span>) res = node-&gt;val;</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) q.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) q.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="112-路径总和-1"><a href="#112-路径总和-1" class="headerlink" title="112. 路径总和"></a>112. 路径总和</h3><p>题意：有无从root节点到叶子节点的一条路径，路径上所有元素之和等于目标和。推荐使用递归法。本题使用前中后序遍历皆可，因为不涉及中节点的处理逻辑，因此中节点放在哪里都可以。规则看似简单，但代码不好写。现在开始写代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 返回值为bool类型，找到一条符合条件的路径，立即从下（叶子节点）往上（根节点）返回true</span></span><br><span class="line"><span class="comment">// cnt：计数器，在主函数中传入目标值</span></span><br><span class="line"><span class="comment">// 如果传入0，从上往下遍历每遍历到一个节点就加上这个节点的值，看遍历到叶子节点时cnt是否等于target，这样代码更复杂，不如直接传入target，每次遍历到一个节点就在target中减去该节点的值，看到叶子节点时cnt是否为0</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">traversal</span><span class="params">(TreeNode* node, <span class="type">int</span> cnt)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 终止条件：遇到叶子节点且cnt=0</span></span><br><span class="line">    <span class="keyword">if</span> (node-&gt;left == <span class="literal">NULL</span> &amp;&amp; node-&gt;right == <span class="literal">NULL</span> &amp;&amp; cnt == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (node-&gt;left == <span class="literal">NULL</span> &amp;&amp; node-&gt;right == <span class="literal">NULL</span> &amp;&amp; cnt != <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 单层递归逻辑</span></span><br><span class="line">    <span class="comment">// 左节点</span></span><br><span class="line">    <span class="keyword">if</span> (node-&gt;left)</span><br><span class="line">    &#123;</span><br><span class="line">        cnt -= node-&gt;left-&gt;val; <span class="comment">// 从cnt中减去左节点的值</span></span><br><span class="line">        <span class="comment">// 若返回true，则说明node的左孩子到叶子节点的路径中有符合题目要求的路径</span></span><br><span class="line">        <span class="comment">// 此时目标值为cnt -= node-&gt;left-&gt;val</span></span><br><span class="line">        <span class="comment">// 此时应该继续向上返回true，这样才能一层层将true的结果返回给根节点</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">traversal</span>(node-&gt;left, cnt)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// 回溯，遍历到叶子节点后，需要回退到根节点去遍历一条新的路径，因此需要回溯</span></span><br><span class="line">        <span class="comment">// 若不回溯，则cnt一直做减法，则遍历完左子树后，遍历右子树时根本不可能找到符合条件的路径</span></span><br><span class="line">        cnt += node-&gt;left-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 右节点，逻辑同上</span></span><br><span class="line">    <span class="keyword">if</span> (node-&gt;right)</span><br><span class="line">    &#123;</span><br><span class="line">        cnt -= node-&gt;right-&gt;val;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">traversal</span>(node-&gt;right, cnt)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        cnt += node-&gt;right-&gt;val;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 一直不return true, 则return false</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上代码没有对中节点的处理逻辑，因此前中后序都可以。对左右节点的处理逻辑可以简写为一句话，我以左节点为例：<code>if (traversal(node-&gt;left, cnt -= node-&gt;left-&gt;val)) return true;</code>，但不建议这样写，因为无法清晰地看到回溯的逻辑。</p>
+<p>本题的完整代码如下所示：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">traversal</span><span class="params">(TreeNode* node, <span class="type">int</span> cnt)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 终止条件：遍历到叶子节点</span></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;left == <span class="literal">NULL</span> &amp;&amp; node-&gt;right == <span class="literal">NULL</span> &amp;&amp; cnt == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">// if (node-&gt;left == NULL &amp;&amp; node-&gt;right == NULL &amp;&amp; cnt != 0)</span></span><br><span class="line">        <span class="comment">//     return false;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 左节点</span></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;left)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt -= node-&gt;left-&gt;val;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">traversal</span>(node-&gt;left, cnt)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            cnt += node-&gt;left-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 右节点</span></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            cnt -= node-&gt;right-&gt;val;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">traversal</span>(node-&gt;right, cnt)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            cnt += node-&gt;right-&gt;val;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode* root, <span class="type">int</span> targetSum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(root, targetSum - root-&gt;val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="113-路径总和ii-1"><a href="#113-路径总和ii-1" class="headerlink" title="113. 路径总和ii"></a>113. 路径总和ii</h3><p>本题由于要遍历整棵树，找到所有路径，因此递归函数不要返回值，遍历完整棵树后，在函数外定义好的<code>path</code>和<code>res</code>中自然会被递归函数写入应有的结果。如果只是要找树中符合条件的一条路径，那么递归函数就要返回值，一旦遍历到叶子节点时找到了合适的路径，就立即返回true，要是一直找不到符合条件的路径，再返回false。</p>
+<p>本题的代码相较于上一题要复杂一些，但<strong>核心思路其实是相同的</strong>。以下几点是与112的主要差异。</p>
+<ul>
+<li><p>首先定义一个<code>vector&lt;int&gt; path</code>来存放一条符合条件的路径，再定义一个<code>vector&lt;vector&lt;int&gt;&gt; res</code>来存放树中所有符合条件的路径。</p>
+</li>
+<li><p>在针对左右节点的操作中，需要回溯，但与112不同的是，本题中的回溯不仅需要回溯<code>cnt</code>，还需要回溯<code>path</code>中的元素（先将左右节点放入path中，回溯时又从path中弹出左右节点）。</p>
+</li>
+<li><p>由于本题的递归函数没有返回值，因此只需要返回空即可，即<code>return;</code>。</p>
+</li>
+<li><p>本题需要在主函数中在path中事先插入根节点的值，作为启动的引线（可以想想极端情况，树中只有一个节点，即根节点，如果不在path中事先插入根节点的值，那么即使根节点的值等于<code>targetSum</code>，res中也不会存有根节点的值）。</p>
+</li>
+</ul>
+<p>本题的具体代码如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 本题的递归函数不需要返回值</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* node, <span class="type">int</span> cnt)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (node-&gt;right == <span class="literal">NULL</span> &amp;&amp; node-&gt;left == <span class="literal">NULL</span> &amp;&amp; cnt == <span class="number">0</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;right == <span class="literal">NULL</span> &amp;&amp; node-&gt;left == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左节点</span></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;left)</span><br><span class="line">        &#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(node-&gt;left-&gt;val);</span><br><span class="line">            cnt -= node-&gt;left-&gt;val;</span><br><span class="line">            <span class="built_in">traversal</span>(node-&gt;left, cnt); <span class="comment">// 递归</span></span><br><span class="line">            path.<span class="built_in">pop_back</span>(); <span class="comment">// 回溯</span></span><br><span class="line">            cnt += node-&gt;left-&gt;val; <span class="comment">// 回溯</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 右节点</span></span><br><span class="line">        <span class="keyword">if</span> (node-&gt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            path.<span class="built_in">push_back</span>(node-&gt;right-&gt;val);</span><br><span class="line">            cnt -= node-&gt;right-&gt;val;</span><br><span class="line">            <span class="built_in">traversal</span>(node-&gt;right, cnt); <span class="comment">// 递归</span></span><br><span class="line">            path.<span class="built_in">pop_back</span>(); <span class="comment">// 回溯</span></span><br><span class="line">            cnt += node-&gt;right-&gt;val; <span class="comment">// 回溯</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">pathSum</span>(TreeNode* root, <span class="type">int</span> targetSum) &#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> res;</span><br><span class="line">        path.<span class="built_in">push_back</span>(root-&gt;val); <span class="comment">// 事先把根节点放进路径</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">traversal</span>(root, targetSum - root-&gt;val);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="106-从中序与后序遍历序列构造二叉树-2"><a href="#106-从中序与后序遍历序列构造二叉树-2" class="headerlink" title="106.从中序与后序遍历序列构造二叉树"></a>106.从中序与后序遍历序列构造二叉树</h3><p>任务：从中序和后序数组中构造出一棵唯一的二叉树。思路：如何用两个数组构造二叉树？<br>中序：左中右，例：9 3 15 20 7<br>后序：左右中，例：9 15 7 20 3<br>由于需要确定根节点，根节点是中节点，而根据中序数组无法确定出根节点的位置，这时就需要后序数组。后序数组的最后一个元素一定是中节点，也就是根节点。以上述两数组为例，根节点就是3。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[3]</span><br></pre></td></tr></table></figure>
+<p>再看中序数组，root是3，则左节点是9，右节点是15，20，7。这一步操作就是利用后序数组中找到的root节点在中序数组中完成切割的任务。<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[3] --&gt; B[9];</span><br><span class="line">    A --&gt; C[x];</span><br></pre></td></tr></table></figure></p>
+<p>再利用中序数组中切割出的两部分在后序数组中完成切割。由上一步知，左节点是9，右节点是15，20，7。结合后序数组知，右节点是15，7，20。右节点中最后一个元素是20，因此20是右子树的中节点。<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[3] --&gt; B[9];</span><br><span class="line">    A --&gt; C[20];</span><br></pre></td></tr></table></figure></p>
+<p>再利用后序数组去切割中序数组。20是右子树的中节点，中序数组中的右区间为15，20，7，因此左节点是15，右节点是7。<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[3] --&gt; B[9];</span><br><span class="line">    A --&gt; C[20];</span><br><span class="line">    C --&gt; F[15];</span><br><span class="line">    C --&gt; G[7];</span><br></pre></td></tr></table></figure></p>
+<p>关键：先通过后序数组找到root节点，再利用root节点切割中序数组，再利用中序数组切割出的左右区间切割后序数组，交替进行。可以具体为以下六步：</p>
+<ol>
+<li><p>后序数组为空，说明无root节点，返回空的树</p>
+</li>
+<li><p>后序数组最后一个元素作为root</p>
+</li>
+<li><p>寻找中序数组中root的位置作为切割点</p>
+</li>
+<li><p>切割中序数组，切为左右区间</p>
+</li>
+<li><p>根据切割中序数组得到的左右区间切割后序数组</p>
+</li>
+<li><p>递归处理，构造下一层子树</p>
+</li>
+</ol>
+<p>现在开始写本题的伪代码（注重整体思路而非细节）：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 确定递归函数的参数和返回值</span></span><br><span class="line"><span class="comment">// 返回值：二叉树的根节点</span></span><br><span class="line"><span class="function">TreeNode* <span class="title">traversal</span><span class="params">(vector&lt;<span class="type">int</span>&gt; inorder, vector&lt;<span class="type">int</span>&gt; postorder)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 终止条件：后序数组为空</span></span><br><span class="line">    <span class="keyword">if</span> (postorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 后序数组的最后一个元素为root节点的值</span></span><br><span class="line">    <span class="type">int</span> rootvalue = postorder[postorder.<span class="built_in">size</span>() - <span class="number">1</span>];</span><br><span class="line">    TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootvalue);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 优化：若postorder中只有一个元素，则该元素必为叶子节点（root节点也是叶子节点）</span></span><br><span class="line">    <span class="keyword">if</span> (postorder.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 单层递归的逻辑</span></span><br><span class="line">    <span class="comment">// 寻找中序数组中root的位置作为切割点</span></span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="comment">// 返回中序数组中root的index</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; inorder.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (inorder[i] == rootvalue)</span><br><span class="line">            <span class="keyword">break</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 根据root切中序数组，得到一个左中序数组和一个右中序数组</span></span><br><span class="line">    <span class="comment">// 切后序数组，拿上一步得到的左中序数组来切出后序数组的左区间和右区间，得到一个左后序数组和一个右后序数组</span></span><br><span class="line">    <span class="comment">// 递归处理左区间和右区间，即递归构建root的左右子树</span></span><br><span class="line">    root-&gt;left = <span class="built_in">traversal</span>(左中序, 左后序);</span><br><span class="line">    root-&gt;right = <span class="built_in">traversal</span>(右中序, 右后序);</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li>切中序数组和切后序数组时需要有统一的区间定义。要么都坚持左闭右开，要么都坚持左闭右闭。</li>
+<li>先切中序数组，再切后序数组。因为中序数组中的左区间和后序数组中的左区间一定相同。</li>
+<li>建议debug时打印切中序数组得到的左中序和右中序数组，打印切后序数组的左后序和右后序数组。</li>
+</ul>
+<p>中序和前序数组也可以唯一地确定一棵二叉树。前序数组是中左右，拿着前序数组的第一个元素，即为root元素，拿去切中序数组。剩下的思路是相同的。</p>
+<p>中序和后序数组可以唯一地确定二叉树，中序和前序数组也可以唯一地确定二叉树，<strong>但后序和前序数组不能唯一地确定二叉树</strong>。原因：前序数组和后序数组都可以直接知道root在哪里，但前序和后序数组的左右区间的分割点我们找不到。中序数组的重要性在于其把左右区间给分隔开了。举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[1] --&gt; B[2];</span><br><span class="line">    B[2] --&gt; C[3]</span><br><span class="line">    B[2] --&gt; E[null]</span><br><span class="line">    A --&gt; D[null];</span><br></pre></td></tr></table></figure>
+<p>对以上二叉树，前序数组：123，后序数组：321</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[1] --&gt; B[null];</span><br><span class="line">    A[1] --&gt; C[2]</span><br><span class="line">    C[2] --&gt; D[null]</span><br><span class="line">    C[2] --&gt; E[3]</span><br></pre></td></tr></table></figure>
+<p>对以上二叉树，前序数组：123，后序数组：321<br>虽然两棵二叉树的前序数组和后序数组完全一致，但这两棵二叉树完全不同，<strong>因此仅靠前序和后序数组不能唯一地确定二叉树</strong>。</p>
+<p>本题是二叉树中的难题、复杂题，需要经常复习。以上笔记cover了易错点。</p>
+<p>根据上述原理，我写出了以下代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">traversal</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (postorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> rootvalue = postorder[postorder.<span class="built_in">size</span>() - <span class="number">1</span>];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootvalue);</span><br><span class="line">        <span class="keyword">if</span> (postorder.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到inorder中root的下标</span></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; inorder.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (inorder[i] == rootvalue)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将inorder根据i分为左中数组和右中数组</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; lm;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; rm;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; i; j ++ ) </span><br><span class="line">        &#123;</span><br><span class="line">            lm.<span class="built_in">push_back</span>(inorder[j]); </span><br><span class="line">            cout &lt;&lt; inorder[j] &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">// 打印lm数组中的所有元素</span></span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; inorder.<span class="built_in">size</span>(); j ++ ) </span><br><span class="line">        &#123;</span><br><span class="line">            rm.<span class="built_in">push_back</span>(inorder[j]); </span><br><span class="line">            cout &lt;&lt; inorder[j] &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">// 打印rm数组中的所有元素</span></span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">        postorder.<span class="built_in">resize</span>(postorder.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将postorder根据上一步的结果分为左后数组和右后数组</span></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; lb;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; rb;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> l = <span class="number">0</span>; l &lt; lm.<span class="built_in">size</span>(); l ++ ) </span><br><span class="line">        &#123;</span><br><span class="line">            lb.<span class="built_in">push_back</span>(postorder[l]); </span><br><span class="line">            cout &lt;&lt; postorder[l] &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">// 打印lb数组中的所有元素</span></span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> l = lm.<span class="built_in">size</span>(); l &lt; postorder.<span class="built_in">size</span>(); l ++ ) </span><br><span class="line">        &#123;</span><br><span class="line">            rb.<span class="built_in">push_back</span>(postorder[l]); </span><br><span class="line">            cout &lt;&lt; postorder[l] &lt;&lt; <span class="string">&#x27; &#x27;</span>; <span class="comment">// 打印rb数组中的所有元素</span></span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">        root-&gt;left = <span class="built_in">traversal</span>(lm, lb);</span><br><span class="line">        root-&gt;right = <span class="built_in">traversal</span>(rm, rb);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (inorder.<span class="built_in">size</span>() == <span class="number">0</span> || postorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(inorder, postorder);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>该代码可以通过201 / 202个测试样例，但有一个测试样例超时了，这就需要对上述代码进行优化。写出上述代码时，我犯了一个错误。在将<code>postorder</code>根据<code>inorder</code>的结果分为左后数组和右后数组的过程中，我的第一版代码采用了以下的写法（逻辑：把左中数组的最后一个元素作为分界点，在后序数组中查询之，并以此分界点将后序数组划分为左后数组和右后数组）：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; lb;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; rb;</span><br><span class="line"><span class="type">int</span> value = lm[lm.<span class="built_in">size</span>() - <span class="number">1</span>];</span><br><span class="line"><span class="type">int</span> k;</span><br><span class="line"><span class="keyword">for</span> (k = <span class="number">0</span>; k &lt; lm.<span class="built_in">size</span>(); k ++ )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (postorder[k] == value)</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//cout &lt;&lt; &quot;k=&quot; &lt;&lt; k &lt;&lt; endl;</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> l = <span class="number">0</span>; l &lt; k; l ++ ) </span><br><span class="line">&#123;</span><br><span class="line">    lb.<span class="built_in">push_back</span>(postorder[l]);</span><br><span class="line">    cout &lt;&lt; postorder[l] &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; endl;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> l = k + <span class="number">1</span>; l &lt; postorder.<span class="built_in">size</span>(); l ++ ) </span><br><span class="line">&#123;</span><br><span class="line">    rb.<span class="built_in">push_back</span>(postorder[l]);</span><br><span class="line">    cout &lt;&lt; postorder[l] &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">cout &lt;&lt; endl;</span><br></pre></td></tr></table></figure></p>
+<p>当左中序数组<code>lm</code>为空时，<code>int value = lm[lm.size() - 1];</code>会访问<code>lm[-1]</code>。该元素显然不存在，故会报错：index error。因此不能这样写，应该采用按照左中序数组的元素数量分割后序数组的写法。</p>
+<p>我对上述代码进行简易的优化后（将resize函数改为pop_back函数，时间复杂度略微降低），就可以通过本题，代码如下所示：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">traversal</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (postorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> rootvalue = postorder[postorder.<span class="built_in">size</span>() - <span class="number">1</span>];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootvalue);</span><br><span class="line">        <span class="keyword">if</span> (postorder.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; inorder.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (inorder[i] == rootvalue)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; lm, rm;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; i; j ++ ) lm.<span class="built_in">push_back</span>(inorder[j]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; inorder.<span class="built_in">size</span>(); j ++ ) rm.<span class="built_in">push_back</span>(inorder[j]);</span><br><span class="line"></span><br><span class="line">        postorder.<span class="built_in">pop_back</span>();</span><br><span class="line"></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; lb, rb;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; lm.<span class="built_in">size</span>(); j ++ ) lb.<span class="built_in">push_back</span>(postorder[j]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = lm.<span class="built_in">size</span>(); j &lt; postorder.<span class="built_in">size</span>(); j ++ ) rb.<span class="built_in">push_back</span>(postorder[j]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        root-&gt;left = <span class="built_in">traversal</span>(lm, lb);</span><br><span class="line">        root-&gt;right = <span class="built_in">traversal</span>(rm, rb);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (inorder.<span class="built_in">size</span>() == <span class="number">0</span> || postorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(inorder, postorder);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>当然，还有进一步优化的空间，代码也可以写得更为简洁。我写下了如下的代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">traversal</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 终止条件1：postorder中为空</span></span><br><span class="line">        <span class="keyword">if</span> (postorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 终止条件2：postorder中只有一个元素，即为root</span></span><br><span class="line">        <span class="type">int</span> rootvalue = postorder[postorder.<span class="built_in">size</span>() - <span class="number">1</span>];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootvalue);</span><br><span class="line">        <span class="keyword">if</span> (postorder.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// postorder中的最后一个元素为root，在inorder中找到root的下标</span></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; inorder.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (inorder[i] == rootvalue)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将inorder以root作为分割点分割为左中序数组和右中序数组</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">lm</span><span class="params">(inorder.begin(), inorder.begin() + i)</span></span>; <span class="comment">// 左中序数组</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rm</span><span class="params">(inorder.begin() + i + <span class="number">1</span>, inorder.end())</span></span>; <span class="comment">// 右中序数组</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 删去postorder的最后一个元素（即root）</span></span><br><span class="line">        <span class="comment">// 也可写作postorder.resize(postorder.size() - 1);</span></span><br><span class="line">        postorder.<span class="built_in">pop_back</span>();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将postorder以上一步分割得到的左中序数组分割为左后序数组和右后序数组</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">lb</span><span class="params">(postorder.begin(), postorder.begin() + lm.size())</span></span>; <span class="comment">// 左后序数组</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rb</span><span class="params">(postorder.begin() + lm.size(), postorder.end())</span></span>; <span class="comment">// 右后序数组</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 递归构建root的左子树和右子树</span></span><br><span class="line">        root-&gt;left = <span class="built_in">traversal</span>(lm, lb); <span class="comment">// 构建左子树，传入的参数为左中序数组和左后序数组</span></span><br><span class="line">        root-&gt;right = <span class="built_in">traversal</span>(rm, rb); <span class="comment">// 构建右子树，传入的参数为右中序数组和右后序数组</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 中序数组或后序数组为空，则树不存在，返回空</span></span><br><span class="line">        <span class="keyword">if</span> (inorder.<span class="built_in">size</span>() == <span class="number">0</span> || postorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(inorder, postorder);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>代码的运行时间基本可以减半，我觉得主要原因是<code>vector&lt;int&gt; lm(inorder.begin(), inorder.begin() + i);</code>这种写法的时间复杂度要优于遍历数组然后赋值。</p>
+<p>本题的下标索引写法（能大大降低空间复杂度，不需要每层递归产生新的数组，只需要对索引重新赋值即可，本写法的代码逻辑和上面的写法完全一致）：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">traversal</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder, <span class="type">int</span> inbegin, <span class="type">int</span> inend, <span class="type">int</span> postbegin, <span class="type">int</span> postend)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (postend == postbegin) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="type">int</span> rootvalue = postorder[postend - <span class="number">1</span>];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootvalue);</span><br><span class="line">        <span class="keyword">if</span> (postend - postbegin == <span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// inorder中找到root</span></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = inbegin; i &lt; inend; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (inorder[i] == rootvalue)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// root分割inorder为左中序数组和右中序数组</span></span><br><span class="line">        <span class="type">int</span> leftinorderbegin = inbegin;</span><br><span class="line">        <span class="type">int</span> leftinorderend = i;</span><br><span class="line">        <span class="type">int</span> rightinorderbegin = i + <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> rightinorderend = inend;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 后序数组删去root</span></span><br><span class="line">        postend -- ;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将postorder分割为左后序数组和右后序数组</span></span><br><span class="line">        <span class="type">int</span> leftpostorderbegin = postbegin;</span><br><span class="line">        <span class="type">int</span> leftpostorderend = postbegin + leftinorderend - leftinorderbegin;</span><br><span class="line">        <span class="type">int</span> rightpostorderbegin = postbegin + leftinorderend - leftinorderbegin;</span><br><span class="line">        <span class="type">int</span> rightpostorderend = postend;</span><br><span class="line"></span><br><span class="line">        root-&gt;left = <span class="built_in">traversal</span>(inorder, postorder, leftinorderbegin, leftinorderend, leftpostorderbegin, leftpostorderend);</span><br><span class="line">        root-&gt;right = <span class="built_in">traversal</span>(inorder, postorder, rightinorderbegin, rightinorderend, rightpostorderbegin, rightpostorderend);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; inorder, vector&lt;<span class="type">int</span>&gt;&amp; postorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (inorder.<span class="built_in">size</span>() == <span class="number">0</span> || postorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(inorder, postorder, <span class="number">0</span>, inorder.<span class="built_in">size</span>(), <span class="number">0</span>, postorder.<span class="built_in">size</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="105-从前序与中序遍历序列构造二叉树-1"><a href="#105-从前序与中序遍历序列构造二叉树-1" class="headerlink" title="105.从前序与中序遍历序列构造二叉树"></a>105.从前序与中序遍历序列构造二叉树</h3><p>本题的代码思路和上题完全一致，我独立一遍写出了本题的代码：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 本题类似于106：利用中序数组和后序数组构造二叉树</span></span><br><span class="line"><span class="comment">// 本题关键思路：前序数组第一位是root</span></span><br><span class="line"><span class="comment">// 在inorder中查找root</span></span><br><span class="line"><span class="comment">// 以root作为分割点，将inorder分为左中序数组和右中序数组</span></span><br><span class="line"><span class="comment">// 根据上一步结果，将preorder分为左前序数组和右前序数组</span></span><br><span class="line"><span class="comment">// 递归处理左右子树</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">traversal</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (preorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> rootvalue = preorder[<span class="number">0</span>];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootvalue);</span><br><span class="line">        <span class="keyword">if</span> (preorder.<span class="built_in">size</span>() == <span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在inorder中查找root</span></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; inorder.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (inorder[i] == rootvalue)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 以root作为分割点，将inorder分为左中序数组和右中序数组</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">lm</span><span class="params">(inorder.begin(), inorder.begin() + i)</span></span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rm</span><span class="params">(inorder.begin() + i + <span class="number">1</span>, inorder.end())</span></span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 删去preorder的头元素（即root元素）</span></span><br><span class="line">        <span class="built_in">reverse</span>(preorder.<span class="built_in">begin</span>(), preorder.<span class="built_in">end</span>());</span><br><span class="line">        preorder.<span class="built_in">pop_back</span>();</span><br><span class="line">        <span class="built_in">reverse</span>(preorder.<span class="built_in">begin</span>(), preorder.<span class="built_in">end</span>());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据上一步结果，将preorder分为左前序数组和右前序数组</span></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">lf</span><span class="params">(preorder.begin(), preorder.begin() + lm.size())</span></span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rf</span><span class="params">(preorder.begin() + lm.size(), preorder.end())</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 递归处理左右子树</span></span><br><span class="line">        root-&gt;left = <span class="built_in">traversal</span>(lf, lm);</span><br><span class="line">        root-&gt;right = <span class="built_in">traversal</span>(rf, rm);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (preorder.<span class="built_in">size</span>() == <span class="number">0</span> || inorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(preorder, inorder);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>本题的下标索引写法如下所示。用下标索引写法，本题删去前序数组中的第一个元素（root）就非常简单，只需要<code>prebegin ++</code>即可。<br><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">TreeNode* <span class="title">traversal</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder, <span class="type">int</span> prebegin, <span class="type">int</span> preend, <span class="type">int</span> inbegin, <span class="type">int</span> inend)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (prebegin == preend) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> rootvalue = preorder[prebegin];</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> <span class="built_in">TreeNode</span>(rootvalue);</span><br><span class="line">        <span class="keyword">if</span> (prebegin - preend == <span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// inorder中找root</span></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = inbegin; i &lt; inend; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (inorder[i] == rootvalue)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 用root划分inorder</span></span><br><span class="line">        <span class="type">int</span> leftinbegin = inbegin;</span><br><span class="line">        <span class="type">int</span> leftinend = i;</span><br><span class="line">        <span class="type">int</span> rightinbegin = i + <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> rightinend = inend;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// preorder中删去root</span></span><br><span class="line">        prebegin ++ ;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 用划分inorder的结果划分preorder</span></span><br><span class="line">        <span class="type">int</span> leftprebegin = prebegin;</span><br><span class="line">        <span class="type">int</span> leftpreend = prebegin + leftinend - leftinbegin;</span><br><span class="line">        <span class="type">int</span> rightprebegin = prebegin + leftinend - leftinbegin;</span><br><span class="line">        <span class="type">int</span> rightpreend = preend;</span><br><span class="line"></span><br><span class="line">        root-&gt;left = <span class="built_in">traversal</span>(preorder, inorder, leftprebegin, leftpreend, leftinbegin, leftinend);</span><br><span class="line">        root-&gt;right = <span class="built_in">traversal</span>(preorder, inorder, rightprebegin, rightpreend, rightinbegin, rightinend);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">TreeNode* <span class="title">buildTree</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; preorder, vector&lt;<span class="type">int</span>&gt;&amp; inorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (preorder.<span class="built_in">size</span>() == <span class="number">0</span> || inorder.<span class="built_in">size</span>() == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">traversal</span>(preorder, inorder, <span class="number">0</span>, preorder.<span class="built_in">size</span>(), <span class="number">0</span>, inorder.<span class="built_in">size</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="513-找树左下角的值-2"><a href="#513-找树左下角的值-2" class="headerlink" title="513.找树左下角的值"></a>513.找树左下角的值</h3><ol>
+<li><p>本题用层序遍历法解决更简单，用递归法解决更麻烦。</p>
+</li>
+<li><p>本题的层序遍历解法不需要浪费空间复杂度来存储整棵二叉树中的元素值或者二叉树中某一层的元素值。直接存储每一层最左侧元素的值，然后一层层从上往下遍历即可，最后自然会更新为树左下角的值。</p>
+</li>
+<li><p>本题的递归解法的核心在于：保证优先左边搜索，然后记录深度最大的叶子节点，此时得到的节点就是树的最后一行最左边的节点。</p>
+</li>
+<li><p>递归三部曲：</p>
+<ul>
+<li>确定函数的返回值和传入的参数<br>本题可以用全局变量记录树的最大深度和结果，这样traversal函数就不需要返回值，只需要在函数中更新记录结果的全局变量即可。传入的参数为根节点和当前节点的深度。</li>
+<li>确定终止条件<br>当遍历到叶子节点时，终止。若叶子节点的深度大于最大深度，则更新最大深度和结果。</li>
+<li>单层递归逻辑<br>前中后序遍历都可以，只需要保证优先遍历左节点即可。注意要显式地回溯，这样遍历完父节点的左节点后才能回到父节点，然后接着遍历父节点的右节点。否则会一直向左遍历。<h3 id="112-路径总和-2"><a href="#112-路径总和-2" class="headerlink" title="112. 路径总和"></a>112. 路径总和</h3></li>
+</ul>
+</li>
+<li><p>本题推荐用递归解，因为不需要处理中节点，所以前中后序遍历都可。</p>
+</li>
+<li><p>本题的递归函数的返回值为bool类型。因为一旦找到一条符合条件的路径，要立即从下（叶子节点）往上（根节点）返回true，因此递归函数需要返回值。</p>
+</li>
+<li><p>本题传入递归函数的参数除去node外，还需要传入cnt。cnt直接是targetSum（确切来说是<code>targetSum - root-&gt;val;</code>），遍历到一个节点就减去该节点的值（从根节点开始遍历，因此传入时就要减去根节点的值），观察遍历到叶子节点时cnt是否为0即可。</p>
+</li>
+<li><p>递归三部曲：</p>
+<ul>
+<li><p>确定函数的返回值和传入的参数：返回值bool，传入的参数node和cnt</p>
+</li>
+<li><p>确定终止条件：遍历到叶子节点且cnt == 0，则返回true</p>
+</li>
+<li><p>单层递归逻辑</p>
+<p>先处理左节点，首先cnt值减去左孩子的值，然后递归判断左孩子到叶子节点的路径中是否有满足条件的路径，若有，则需要从下往上返回true。然后再回溯，将减去的cnt值加回来。若不回溯，cnt就一直减小，导致右孩子到叶子节点的路径中不可能有满足条件的路径。对右节点的处理也是类似的。</p>
+</li>
+</ul>
+</li>
+<li><p>本题需要特别注意：调用递归函数时，传入的参数是<code>targetSum - root-&gt;val</code>，而不是<code>targetSum</code>。原因是在递归函数的终止条件中，若二叉树中只有root节点不为NULL，且cnt为零时，就返回true，因此本处的cnt应该已经将root节点的值排除在外了。若cnt不把root节点的值排除在外，则在二叉树只有root节点的情况下，永远不可能返回true，因为cnt不可能为0。</p>
+</li>
+</ol>
+<h3 id="113-路径总和ii-2"><a href="#113-路径总和ii-2" class="headerlink" title="113. 路径总和ii"></a>113. 路径总和ii</h3><ol>
+<li>本题和112的基本思路完全一致，但应当关注和112的差异，主要有以下5点差异。</li>
+<li>本题需要在函数外先定义一个<code>vector&lt;int&gt; path</code>来存放一条符合条件的路径，再定义一个<code>vector&lt;vector&lt;int&gt;&gt; res</code>来存放树中所有符合条件的路径。</li>
+<li>本题的递归函数不需要返回值，112的递归函数需要返回值。具体原因见本题的实现部分。</li>
+<li>由于本题的递归函数不需要返回值，因此本题的递归函数在返回时只需要写<code>return;</code>。</li>
+<li>在处理左右节点的逻辑中，需要对<code>cnt</code>操作并将左右节点的值放入<code>path</code>中，然后再调用递归函数。因此在回溯时，也需要同时恢复<code>cnt</code>的值和<code>path</code>数组。</li>
+<li>本题需要在主函数中在path中事先插入根节点的值，作为启动的引线。</li>
+</ol>
+<h3 id="106-从中序与后序遍历序列构造二叉树-3"><a href="#106-从中序与后序遍历序列构造二叉树-3" class="headerlink" title="106.从中序与后序遍历序列构造二叉树"></a>106.从中序与后序遍历序列构造二叉树</h3><ol>
+<li>本题的具体操作过程可以举一个具体的例子来展现，参见本题的实现部分。</li>
+<li>本题的核心思路在于以下五步：<ul>
+<li>根据后序数组找到root（后序数组中的最后一位）</li>
+<li>在中序数组中查找root的下标</li>
+<li>以root为分割点，将中序数组分割为左中序数组和右中序数组</li>
+<li>在后序数组中找到与左中序数组相同的一段，即为左后序数组，剩下的后序数组为右后序数组</li>
+<li>递归构建root的左右子树（根据左右中序数组和左右后序数组）</li>
+</ul>
+</li>
+<li>本题的调试方法：打印出左右中序数组和左右后序数组，观察它们是否符合预期</li>
+<li>中序和后序数组可以唯一地确定一棵二叉树，前序和中序数组也可以唯一地确定一棵二叉树，但前序和后序数组不可以唯一地确定一棵二叉树，我在实现部分举出了反例。原因：前序数组和后序数组都可以直接知道root在哪里，但前序和后序数组的左右区间的分割点我们找不到。中序数组的重要性在于其把左右区间给分隔开了。</li>
+<li>本题和下一题的更佳写法是下标索引写法，即每次用下标索引来分割。虽然时间复杂度基本保持不变，但空间复杂度相比于传统写法大大降低了，因为不需要每层递归产生新的数组，只需要对索引重新赋值即可。</li>
+<li>下标索引写法挺容易出错的，特别是在确定左右区间的边界上，搞不定的话就采用简单直接的普通写法。</li>
+<li><p>我写的下标索引写法，还可以做进一步优化，若将划分postorder的代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> leftpostorderbegin = postbegin;</span><br><span class="line"><span class="type">int</span> leftpostorderend = postbegin + leftinorderend - leftinorderbegin;</span><br><span class="line"><span class="type">int</span> rightpostorderbegin = postbegin + leftinorderend - leftinorderbegin;</span><br><span class="line"><span class="type">int</span> rightpostorderend = postend;</span><br></pre></td></tr></table></figure>
+<p>直接写作：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> leftpostorderbegin = postbegin;</span><br><span class="line"><span class="type">int</span> leftpostorderend = postbegin + i - inbegin;</span><br><span class="line"><span class="type">int</span> rightpostorderbegin = postbegin + i - inbegin;</span><br><span class="line"><span class="type">int</span> rightpostorderend = postend - <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>即将</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">postend -- ;</span><br><span class="line"><span class="type">int</span> leftinorderbegin = inbegin;</span><br><span class="line"><span class="type">int</span> leftinorderend = i;</span><br><span class="line"><span class="type">int</span> rightinorderbegin = i + <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> rightinorderend = inend;</span><br></pre></td></tr></table></figure>
+<p>直接代入划分postorder的代码中，时间复杂度可以进一步降低。对于106题的下标索引写法也是如此。</p>
+</li>
+</ol>
+<h3 id="105-从前序与中序遍历序列构造二叉树-2"><a href="#105-从前序与中序遍历序列构造二叉树-2" class="headerlink" title="105.从前序与中序遍历序列构造二叉树"></a>105.从前序与中序遍历序列构造二叉树</h3><ol>
+<li><p>本题的核心思路和上题完全相同，也是在于以下五步：</p>
+<ul>
+<li><p>前序数组第一位是root</p>
+</li>
+<li><p>在inorder中查找root</p>
+</li>
+<li><p>以root作为分割点，将inorder分为左中序数组和右中序数组</p>
+</li>
+<li><p>根据上一步结果，将preorder分为左前序数组和右前序数组</p>
+</li>
+<li><p>递归处理左右子树</p>
+</li>
+</ul>
+</li>
+<li><p>本题和上题的不同之处在于，上题在分割出左右中序数组后，需要删去后序数组的最后一个元素，即root元素。本题则是在分割出左右中序数组后，需要删去前序数组的第一个元素，即root元素。删去数组的最后一个元素的操作相对简单，只需要<code>pop_back</code>即可，但删去数组的第一个元素的操作相对复杂。我想到的办法是翻转数组，删去数组最后一个元素，再翻转数组。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>算法（二叉树）</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Leetcode</tag>
+        <tag>C++</tag>
+        <tag>层序遍历</tag>
+        <tag>递归解法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Day 2 | Leetcode 977, 209, 59</title>
     <url>/2024/01/25/Day-2-Leetcode-977-209-59/</url>
     <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><p><a href="https://www.bilibili.com/video/BV1QB4y1D7ep">https://www.bilibili.com/video/BV1QB4y1D7ep</a></p>
@@ -942,97 +1111,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Day 4 | Leetcode 24, 19, 160, 142</title>
-    <url>/2024/01/27/Day-4-Leetcode-24-19-160-142/</url>
-    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/0024.%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9.html">24. 两两交换链表中的节点</a><br><a href="https://programmercarl.com/0019.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9.html">19.删除链表的倒数第N个节点</a><br><a href="https://programmercarl.com/%E9%9D%A2%E8%AF%95%E9%A2%9802.07.%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4.html">面试题 02.07. 链表相交</a><br><a href="https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html">142.环形链表II</a><br><a href="https://programmercarl.com/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93%E7%AF%87.html">链表总结篇</a></p>
-<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="面试题-02-07-链表相交"><a href="#面试题-02-07-链表相交" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><ol>
-<li>两个链表的交点不是数值相等，而是指针相等。</li>
-<li>本题在构造测试样例时，会输入两个单链表和两个单链表的交叉点，以及交叉点到两个链表头节点的距离。因此，只有指定的交叉点才是真正的交叉点，仅仅是值相等的节点并不一定是真正的交叉点。指定的交叉点被构造出来时在内存中的地址相同，而仅仅是值相等的两个节点在内存中的地址不一定相同。</li>
-</ol>
-<h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><p>应该和交换数组中的两个元素相同。需要创建一个额外的节点tmp，然后若要交换a节点和b节点，则进行：<code>tmp = b, a = b, b = tmp</code>即可。</p>
-<h3 id="19-删除链表的倒数第N个节点"><a href="#19-删除链表的倒数第N个节点" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h3><p>我能想到的办法：先遍历一遍列表，返回列表有几个节点。然后再遍历一遍列表，当cur指向倒数第N个节点的前一个节点时，停止遍历链表，删除cur-&gt;next，然后返回链表的头节点即可。应该也要用到虚拟头节点，避免删除链表的第一个节点时需要特判。我按照上述思路写了代码，可以成功通过测评！！</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建虚拟头节点</span></span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 统计链表中的节点数量</span></span><br><span class="line">        <span class="type">int</span> size = <span class="number">0</span>;</span><br><span class="line">        ListNode* cur = dummyHead;</span><br><span class="line">        <span class="keyword">while</span> (cur-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">            size ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 将cur指向倒数第n个节点的前一个节点</span></span><br><span class="line">        ListNode* cur1 = dummyHead;</span><br><span class="line">        <span class="type">int</span> size1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (size1 &lt; size - n)</span><br><span class="line">        &#123;</span><br><span class="line">            cur1 = cur1-&gt;next;</span><br><span class="line">            size1 ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 删除倒数第n个节点，并释放其占用的内存</span></span><br><span class="line">        ListNode* tmp = cur1-&gt;next;</span><br><span class="line">        cur1-&gt;next= cur1-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> tmp;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 返回结果</span></span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>更好的办法是采用双指针算法，见实现部分。</p>
-<h3 id="面试题-02-07-链表相交-1"><a href="#面试题-02-07-链表相交-1" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><p>我的第一想法是采用暴力解法。一个指针指向链表A的头节点，一个指针指向链表B的头节点，移动两个指针，当两个指针指向同一个节点时，说明该节点是两个链表相交的节点。据此，我写出了暴力解法的代码：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        ListNode* dummyHead1 = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        ListNode* dummyHead2 = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead1-&gt;next = headA;</span><br><span class="line">        dummyHead2-&gt;next = headB;</span><br><span class="line"></span><br><span class="line">        ListNode* cur1 = dummyHead1;</span><br><span class="line">        ListNode* cur2 = dummyHead2;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (cur1 = dummyHead1; cur1 != <span class="literal">NULL</span>; cur1 = cur1-&gt;next)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (cur2 = dummyHead2; cur2 != <span class="literal">NULL</span>; cur2 = cur2-&gt;next)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (cur1 == cur2)</span><br><span class="line">                    <span class="keyword">return</span> cur1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>暴力解法的时间复杂度是O(n^2)，应该有时间复杂度为O(n)的解法。时间复杂度更低的代码参见代码随想录。</p>
-<h3 id="142-环形链表II"><a href="#142-环形链表II" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><p>从没有见过这类题目，拿到题目毫无思路，直接看视频讲解和文字题解。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="24-两两交换链表中的节点-1"><a href="#24-两两交换链表中的节点-1" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><p>注意：是交换链表中的节点，而不仅仅交换节点的数值。偶数个节点则正好两两交换，奇数个节点则最后一个点不参与交换。一定需要dummyHead，因为要交换节点1、2，就一定要用到它们之前的那个节点，即dummyHead（dummyHead-&gt;2-&gt;1-&gt;3-&gt;…）。同理，要交换节点3、4，就一定要用到它们之前的那个节点，即节点2。<strong>因此当前指针一定要指向要反转的两个节点中的前一个节点，且当前指针每次移动两位</strong>。</p>
-<p>若链表中的节点个数为奇数，则cur-&gt;next-&gt;next == NULL时循环结束，若链表中的节点个数为偶数，则cur -&gt; next == NULL时循环结束。如下图所示。故遍历结束的条件为 <code>while (cur-&gt;next != NULL &amp;&amp; cur-&gt;next-&gt;next != NULL)</code>。两个条件不可以反过来写，否则当出现空链表时，cur-&gt;next-&gt;next没有被定义，会出现空指针异常。<br><img src="https://github.com/yfchenkeepgoing/image/blob/main/%E7%BB%98%E5%9B%BE1.png?raw=true" alt="绘图1.png"></p>
-<p>接下来是两两交换节点的逻辑。改变后的链表为dummyHead-&gt;2-&gt;1-&gt;3，由于dummyHead-&gt;1改变为dummyHead-&gt;2后，原本的节点1已经不能被访问到了，因此需要先用tmp存下节点1。同理，由于要将2-&gt;3改为2-&gt;1，因此需要先用tmp1存下节点3。交换完节点的链表为：dummyHead-&gt;2-&gt;1-&gt;4-&gt;3…..。对于两两交换节点的逻辑，可以参考代码随想录教程中的三幅图片。</p>
-<p><img src="https://code-thinking.cdn.bcebos.com/pics/24.%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B93.png" alt="24.两两交换链表中的节点3"></p>
-<p>交换3和4节点的步骤时：cur目前为1，我们让1指向4，4再指向3，3再指向5（如果有5的话）。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">swapPairs</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 交换两个节点需要用到这两个节点前的那个节点</span></span><br><span class="line">        <span class="comment">// 因此定义虚拟头节点，用于交换节点1和节点2</span></span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line"></span><br><span class="line">        ListNode* cur = dummyHead;</span><br><span class="line">        <span class="comment">// 搞清楚遍历的终止条件，参见笔记的图示</span></span><br><span class="line">        <span class="comment">// 以下两个终止条件分别针对节点数目为偶数和奇数的情况</span></span><br><span class="line">        <span class="keyword">while</span> (cur-&gt;next != <span class="literal">NULL</span> &amp;&amp; cur-&gt;next-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// dummyHead-&gt;2时，dummyHead-&gt;1不再存在，无法访问到1，因此需要事先存储节点1</span></span><br><span class="line">            ListNode* tmp = cur-&gt;next;</span><br><span class="line">            <span class="comment">// 同理，2-&gt;1时，2-&gt;3不再存在，无法访问到3，因此需要事先存储节点3</span></span><br><span class="line">            ListNode* tmp1 = cur-&gt;next-&gt;next-&gt;next;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// dummyHead-&gt;2-&gt;1-&gt;3</span></span><br><span class="line">            cur-&gt;next = cur-&gt;next-&gt;next; <span class="comment">// dummyHead-&gt;1变为dummyHead-&gt;2</span></span><br><span class="line">            cur-&gt;next-&gt;next = tmp; <span class="comment">// dummyHead-&gt;2-&gt;3变成dummyHead-&gt;2-&gt;1</span></span><br><span class="line">            tmp-&gt;next = tmp1; <span class="comment">//dummyHead-&gt;2-&gt;1再在末尾接上3</span></span><br><span class="line"></span><br><span class="line">            cur = cur-&gt;next-&gt;next; <span class="comment">// cur指针后移两位</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="19-删除链表的倒数第N个节点-1"><a href="#19-删除链表的倒数第N个节点-1" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h3><p>看了代码随想录的思路之后，我独立写出了快慢指针解法：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 快慢指针</span></span><br><span class="line">        ListNode* fast = dummyHead;</span><br><span class="line">        ListNode* slow = dummyHead;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// fast先向后移动n位</span></span><br><span class="line">        <span class="keyword">while</span> (n -- ) fast = fast-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// fast移动到链表的最后一个节点（非空节点），此时slow移动到链表的倒数第n个节点前面的那个节点</span></span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除倒数第n个节点</span></span><br><span class="line">        ListNode* tmp = slow-&gt;next;</span><br><span class="line">        slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> tmp;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>也可以让fast先向后移动(n + 1)位，然后让fast和slow同时移动，直到fast移动到NULL为止，此时slow指向的也是倒数第n个节点的前一个节点。对这种办法，可以在移动fast指针前先让n ++ , 也可以在第一个while循环后让fast指针多向后移动一位。<strong>最稳妥的写法</strong>如下所示：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line"></span><br><span class="line">        ListNode* fast = dummyHead;</span><br><span class="line">        ListNode* slow = dummyHead;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 首先将快指针移动n + 1步</span></span><br><span class="line">        n ++ ;</span><br><span class="line">        <span class="keyword">while</span> (n -- &amp;&amp; fast != <span class="literal">NULL</span>) fast = fast-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 快慢指针同时移动，直到快指针指向NULL。此时慢指针指向要删除的节点前面那个节点</span></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 释放内存并删除倒数第n个节点</span></span><br><span class="line">        ListNode* tmp = slow-&gt;next;</span><br><span class="line">        slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> tmp;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>由于题目有如下限制：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">The number of nodes in the list is sz.</span><br><span class="line">1 &lt;= sz &lt;= 30</span><br><span class="line">0 &lt;= Node.val &lt;= 100</span><br><span class="line">1 &lt;= n &lt;= sz</span><br></pre></td></tr></table></figure>
-<p>因此即使不加上fast != NULL，也可以通过，但如果题目没有n &lt;= sz的限制，那么必须加上fast != NULL，且不能使用以下写法：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (n -- &amp;&amp; fast != <span class="literal">NULL</span>) fast = fast-&gt;next;</span><br><span class="line">fast = fast-&gt;next;</span><br></pre></td></tr></table></figure>
-<p>因为若采用以上写法，当n &gt; sz时，当while循环结束后，fast已经指向了NULL，此时再做fast = fast-&gt;next操作，会导致空指针异常。</p>
-<h3 id="面试题-02-07-链表相交-2"><a href="#面试题-02-07-链表相交-2" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><p>代码随想录的思路：求出两个链表的长度，并求出两个链表长度的差值，然后让curA移动到，和curB末尾对齐的位置。此时我们就可以比较curA和curB是否相同，如果不相同，同时向后移动curA和curB，如果遇到curA == curB，则找到交点。否则循环退出返回空指针。</p>
-<p>看了代码随想录的思路后，我独立写出了代码：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sizea = <span class="number">0</span>, sizeb = <span class="number">0</span>;</span><br><span class="line">        ListNode* cura = headA;</span><br><span class="line">        ListNode* curb = headB;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算a链表的长度</span></span><br><span class="line">        <span class="keyword">while</span> (cura != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cura = cura-&gt;next;</span><br><span class="line">            sizea ++ ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算b链表的长度</span></span><br><span class="line">        <span class="keyword">while</span> (curb != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            curb = curb-&gt;next;</span><br><span class="line">            sizeb ++ ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cura = headA, curb = headB;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> delta = <span class="built_in">abs</span>(sizea - sizeb); <span class="comment">// 两链表长度的差值</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sizea &gt;= sizeb)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (delta -- ) cura = cura-&gt;next;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (sizeb -- )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (cura == curb) <span class="keyword">return</span> cura;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    cura = cura-&gt;next;</span><br><span class="line">                    curb = curb-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (delta -- ) curb = curb-&gt;next;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (sizea -- )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (cura == curb) <span class="keyword">return</span> cura;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    cura = cura-&gt;next;</span><br><span class="line">                    curb = curb-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这里特别需要注意的是，在计算完a链表和b链表的长度后，需要让 <code>cura = headA, curb = headB</code>。</p>
-<p>代码随想录的写法更见简洁：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        ListNode* cura = headA, * curb = headB;</span><br><span class="line">        <span class="type">int</span> sizea = <span class="number">0</span>, sizeb = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算a链表和b链表的长度</span></span><br><span class="line">        <span class="keyword">while</span> (cura != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cura = cura-&gt;next;</span><br><span class="line">            sizea ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (curb != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            curb = curb-&gt;next;</span><br><span class="line">            sizeb ++ ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 始终保证链表a的长度大于等于链表b的长度</span></span><br><span class="line">        <span class="keyword">if</span> (sizea &lt; sizeb)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">swap</span>(sizea, sizeb);</span><br><span class="line">            <span class="built_in">swap</span>(headA, headB);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 交换cura和curb后，再恢复cura和curb的指向</span></span><br><span class="line">        <span class="comment">// 也可以在上面直接swap(cura, curb)，那这句话就可以写到if判断的前面去</span></span><br><span class="line">        cura = headA, curb = headB;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 计算两链表的长度之差</span></span><br><span class="line">        <span class="type">int</span> delta = sizea - sizeb;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 移动指向链表a的指针，让链表a和b的尾部对齐</span></span><br><span class="line">        <span class="keyword">while</span> (delta -- ) cura = cura-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (cura != <span class="literal">NULL</span>) <span class="comment">// 写作while (sizeb -- )也可</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (cura == curb) <span class="keyword">return</span> cura;</span><br><span class="line">            cura = cura-&gt;next;</span><br><span class="line">            curb = curb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="142-环形链表II-1"><a href="#142-环形链表II-1" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><p>有两问：</p>
-<ol>
-<li><p>判断链表中是否有环</p>
-<p>用快慢指针来判断是否有环。若链表是一条直线，则快慢指针永远不会相遇。只有当链表中有环存在时，快指针先进入了环且在环中浪费了时间，快慢指针才会相遇。快指针从头节点开始，每次移动两位，慢指针也从头节点开始，每次移动一位，二者若相遇则一定在环里相遇，相遇则说明有环。快指针是一个节点一个节点的靠近慢指针，因此二者一定会在环中相遇。</p>
-</li>
-<li><p>找到环的入口</p>
-<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20220925103433.png" alt="img"></p>
-<p>列方程即可解出x：<code>x = n (y + z) - y, (n &gt;= 1)</code>，由于看不出x和负数-y之间的关系，我们让出一圈，看x和z的关系：<code>x = (n - 1) (y + z) + z, (n &gt;= 1)</code>。这就意味着：<strong>从头结点出发一个指针，从相遇节点 也出发一个指针，这两个指针每次只走一个节点， 那么当这两个指针相遇的时候就是环形入口的节点</strong>。</p>
-<p>为什么第一次在环中相遇，slow的步数是x+y而不是 x + 若干环的长度 + y 呢？”这个问题，可以这样解释，设快指针每秒移动2格，慢指针每秒移动1格，圆的周长是k。则慢指针走一圈需要的时间是k，设两指针之间的距离为m(m &lt; k)，则快指针追上慢指针的时间是m（快指针相对于满指针每秒移动1格），此时慢指针走过的距离是m，由于m &lt; k，因此慢指针在遇到快指针之前走过的距离小于圆的周长。</p>
-</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = head, * slow = head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 下面两个循环条件保证了fast指针可以指向NULL，但不能指向NULL的next，这样就不会导致空指针异常</span></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next; <span class="comment">// 快指针每次移动两位</span></span><br><span class="line">            slow = slow-&gt;next; <span class="comment">// 慢指针每次移动一位</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 快慢指针相遇，说明链表中有环</span></span><br><span class="line">            <span class="keyword">if</span> (fast == slow)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 一指针从相遇处开始移动，一指针从head处开始移动，二者相遇的位置就是环的入口，数学推导见笔记</span></span><br><span class="line">                ListNode* index1 = fast, * index2 = head;</span><br><span class="line">                <span class="keyword">while</span> (index1 != index2)</span><br><span class="line">                &#123;</span><br><span class="line">                    index1 = index1-&gt;next;</span><br><span class="line">                    index2 = index2-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> index1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>; <span class="comment">// 若没有返回环的入口节点，则说明没有环，返回空指针</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>我自研的另一种写法：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = head, * slow = head;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 判断链表中是否有环</span></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (fast == slow)</span><br><span class="line">            &#123;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 有环，则返回环的起点，无环，则返回空指针</span></span><br><span class="line">        <span class="keyword">if</span> (flag &amp;&amp; fast == slow)</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode* index1 = head, * index2 = slow;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(index1 != index2)</span><br><span class="line">            &#123;</span><br><span class="line">                index1 = index1-&gt;next;</span><br><span class="line">                index2 = index2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> index1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>注意，一定要通过flag判断，只有当fast和slow相等且二者都在第一个while循环中转过时，才能确保链表中有环，若fast和slow相等，则可能是链表中只有一个节点的情况，此时fast和slow都没有在第一个循环中转过，因此二者相等且都等于head。</p>
-<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="24-两两交换链表中的节点-2"><a href="#24-两两交换链表中的节点-2" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><ol>
-<li>注意cur应该指向哪里。</li>
-<li>注意遍历的终止条件（奇数/偶数个节点）</li>
-<li>若原先的两节点之间的连接被断开，则需要在断开前保存两节点中后面那个节点，否则后面的那个节点无法被访问到</li>
-</ol>
-<h3 id="面试题-02-07-链表相交-3"><a href="#面试题-02-07-链表相交-3" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><ol>
-<li>本题的关键思路在于：<strong>对齐两个链表的尾部</strong>。本题的算法实际上也是（快慢）双指针算法。</li>
-<li>比较链表中的两个节点是否相同，直接用 <code>cura == curb</code>即可，不能用 <code>cura-&gt;val == curb-&gt;val &amp;&amp; cura-&gt;next == curb-&gt;next</code>，因为比较两个节点除去比较val和next这两个参数外，还需要比较其本身的内存地址。</li>
-<li>本题的时间复杂度分析：<br>计算两个链表的长度：O(n) + O(m)<br>调整指针以对齐两个链表：O(n - m)或O(m - n)<br>同时遍历两个链表寻找交点：O(min(n, m))<br>第一步和第三步的时间复杂度加在一起是 <code>O(n) + O(m) + O(min(n, m))</code>。但是，因为 <code>O(min(n, m))</code>在 <code>O(n) + O(m)</code>中已经被包含（总是小于或等于 <code>n</code>和 <code>m</code>），所以总的时间复杂度简化为 <code>O(n) + O(m)</code>。第二步（调整指针以对齐两个链表）的时间复杂度实际上也包含在 <code>O(n) + O(m)</code>中，因为无论是 <code>n - m</code>还是 <code>m - n</code>，它的值总是小于或等于 <code>n</code>和 <code>m</code>。因此，整个函数的总时间复杂度为 <code>O(n + m)</code>，这里 <code>n</code>和 <code>m</code>分别是两个链表的长度。这个时间复杂度已经涵盖了所有的主要操作，包括计算长度、对齐链表和寻找交点。<strong>时间复杂度的计算应当关注主要操作，省略次要操作</strong>。</li>
-<li>在leetcode中调用swap，abs等函数时，不需要自行引用头文件，基本的函数和数据结构（STL）已经默认被引用了，因此直接写出来即可。</li>
-</ol>
-<h3 id="142-环形链表II-2"><a href="#142-环形链表II-2" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><ol>
-<li>记住使用快慢双指针算法，有环的情况下快慢指针必然会相遇。</li>
-<li>画图理解如何求环的起点的index。</li>
-<li><strong>记得复习时着重看这道题</strong></li>
-</ol>
-<h2 id="总结：链表"><a href="#总结：链表" class="headerlink" title="总结：链表"></a>总结：链表</h2><ol>
-<li>插入虚拟头节点dummyHead，可以避免空链表并避免对头节点操作的特判</li>
-<li>创建一个当前节点cur，对整个链表进行遍历（<code>cur = cur-&gt;next</code>），而不用链表中原本存在的节点对链表进行遍历</li>
-<li>NULL节点表示不存在的节点；虚拟节点实际上是存在的，其值为0，是人为创建的节点</li>
-<li>递归时，需要先检查递归的终止条件，然后执行递归步骤</li>
-<li>想要删除哪个节点，就用cur指针指向其前面的那个节点</li>
-<li><strong>链表中最常用的算法是双指针算法</strong>，在206.反转链表，19.删除链表的倒数第N个节点，面试题 02.07. 链表相交，142.环形链表II中都用到了，其他题目基本不需要算法，利用链表的一些基本性质进行增删改查即可。</li>
-<li><strong>记得复习142.环形链表II和24.两两交换链表中的节点</strong>，前者是链表中最独特也最难的一道题，难在数学推导和想清楚细节；后者在退出循环的条件和用tmp保存节点方面需要特别注意。</li>
-</ol>
-<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93.png" alt="img"></p>
-]]></content>
-      <categories>
-        <category>算法（链表）</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>Leetcode</tag>
-        <tag>C++</tag>
-        <tag>双指针算法</tag>
-        <tag>总结</tag>
-        <tag>环形链表</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Day 6 | Leetcode 242, 349, 202, 1</title>
     <url>/2024/01/29/Day-6-Leetcode-242-349-202-1/</url>
     <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html">哈希表理论基础</a><br><a href="https://programmercarl.com/0242.%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D.html">242.有效的字母异位词</a><br><a href="https://programmercarl.com/0349.%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86.html">349. 两个数组的交集</a><br><a href="https://programmercarl.com/0202.%E5%BF%AB%E4%B9%90%E6%95%B0.html">202. 快乐数</a><br><a href="https://programmercarl.com/0001.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C.html">1. 两数之和</a></p>
@@ -1147,6 +1225,97 @@
         <tag>数组哈希</tag>
         <tag>set哈希</tag>
         <tag>map哈希</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Day 4 | Leetcode 24, 19, 160, 142</title>
+    <url>/2024/01/27/Day-4-Leetcode-24-19-160-142/</url>
+    <content><![CDATA[<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a href="https://programmercarl.com/0024.%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9.html">24. 两两交换链表中的节点</a><br><a href="https://programmercarl.com/0019.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E8%8A%82%E7%82%B9.html">19.删除链表的倒数第N个节点</a><br><a href="https://programmercarl.com/%E9%9D%A2%E8%AF%95%E9%A2%9802.07.%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4.html">面试题 02.07. 链表相交</a><br><a href="https://programmercarl.com/0142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II.html">142.环形链表II</a><br><a href="https://programmercarl.com/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93%E7%AF%87.html">链表总结篇</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="面试题-02-07-链表相交"><a href="#面试题-02-07-链表相交" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><ol>
+<li>两个链表的交点不是数值相等，而是指针相等。</li>
+<li>本题在构造测试样例时，会输入两个单链表和两个单链表的交叉点，以及交叉点到两个链表头节点的距离。因此，只有指定的交叉点才是真正的交叉点，仅仅是值相等的节点并不一定是真正的交叉点。指定的交叉点被构造出来时在内存中的地址相同，而仅仅是值相等的两个节点在内存中的地址不一定相同。</li>
+</ol>
+<h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><p>应该和交换数组中的两个元素相同。需要创建一个额外的节点tmp，然后若要交换a节点和b节点，则进行：<code>tmp = b, a = b, b = tmp</code>即可。</p>
+<h3 id="19-删除链表的倒数第N个节点"><a href="#19-删除链表的倒数第N个节点" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h3><p>我能想到的办法：先遍历一遍列表，返回列表有几个节点。然后再遍历一遍列表，当cur指向倒数第N个节点的前一个节点时，停止遍历链表，删除cur-&gt;next，然后返回链表的头节点即可。应该也要用到虚拟头节点，避免删除链表的第一个节点时需要特判。我按照上述思路写了代码，可以成功通过测评！！</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建虚拟头节点</span></span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 统计链表中的节点数量</span></span><br><span class="line">        <span class="type">int</span> size = <span class="number">0</span>;</span><br><span class="line">        ListNode* cur = dummyHead;</span><br><span class="line">        <span class="keyword">while</span> (cur-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">            size ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 将cur指向倒数第n个节点的前一个节点</span></span><br><span class="line">        ListNode* cur1 = dummyHead;</span><br><span class="line">        <span class="type">int</span> size1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (size1 &lt; size - n)</span><br><span class="line">        &#123;</span><br><span class="line">            cur1 = cur1-&gt;next;</span><br><span class="line">            size1 ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 删除倒数第n个节点，并释放其占用的内存</span></span><br><span class="line">        ListNode* tmp = cur1-&gt;next;</span><br><span class="line">        cur1-&gt;next= cur1-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> tmp;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 返回结果</span></span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>更好的办法是采用双指针算法，见实现部分。</p>
+<h3 id="面试题-02-07-链表相交-1"><a href="#面试题-02-07-链表相交-1" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><p>我的第一想法是采用暴力解法。一个指针指向链表A的头节点，一个指针指向链表B的头节点，移动两个指针，当两个指针指向同一个节点时，说明该节点是两个链表相交的节点。据此，我写出了暴力解法的代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        ListNode* dummyHead1 = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        ListNode* dummyHead2 = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead1-&gt;next = headA;</span><br><span class="line">        dummyHead2-&gt;next = headB;</span><br><span class="line"></span><br><span class="line">        ListNode* cur1 = dummyHead1;</span><br><span class="line">        ListNode* cur2 = dummyHead2;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (cur1 = dummyHead1; cur1 != <span class="literal">NULL</span>; cur1 = cur1-&gt;next)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (cur2 = dummyHead2; cur2 != <span class="literal">NULL</span>; cur2 = cur2-&gt;next)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (cur1 == cur2)</span><br><span class="line">                    <span class="keyword">return</span> cur1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>暴力解法的时间复杂度是O(n^2)，应该有时间复杂度为O(n)的解法。时间复杂度更低的代码参见代码随想录。</p>
+<h3 id="142-环形链表II"><a href="#142-环形链表II" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><p>从没有见过这类题目，拿到题目毫无思路，直接看视频讲解和文字题解。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="24-两两交换链表中的节点-1"><a href="#24-两两交换链表中的节点-1" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><p>注意：是交换链表中的节点，而不仅仅交换节点的数值。偶数个节点则正好两两交换，奇数个节点则最后一个点不参与交换。一定需要dummyHead，因为要交换节点1、2，就一定要用到它们之前的那个节点，即dummyHead（dummyHead-&gt;2-&gt;1-&gt;3-&gt;…）。同理，要交换节点3、4，就一定要用到它们之前的那个节点，即节点2。<strong>因此当前指针一定要指向要反转的两个节点中的前一个节点，且当前指针每次移动两位</strong>。</p>
+<p>若链表中的节点个数为奇数，则cur-&gt;next-&gt;next == NULL时循环结束，若链表中的节点个数为偶数，则cur -&gt; next == NULL时循环结束。如下图所示。故遍历结束的条件为 <code>while (cur-&gt;next != NULL &amp;&amp; cur-&gt;next-&gt;next != NULL)</code>。两个条件不可以反过来写，否则当出现空链表时，cur-&gt;next-&gt;next没有被定义，会出现空指针异常。<br><img src="https://github.com/yfchenkeepgoing/image/blob/main/%E7%BB%98%E5%9B%BE1.png?raw=true" alt="绘图1.png"></p>
+<p>接下来是两两交换节点的逻辑。改变后的链表为dummyHead-&gt;2-&gt;1-&gt;3，由于dummyHead-&gt;1改变为dummyHead-&gt;2后，原本的节点1已经不能被访问到了，因此需要先用tmp存下节点1。同理，由于要将2-&gt;3改为2-&gt;1，因此需要先用tmp1存下节点3。交换完节点的链表为：dummyHead-&gt;2-&gt;1-&gt;4-&gt;3…..。对于两两交换节点的逻辑，可以参考代码随想录教程中的三幅图片。</p>
+<p><img src="https://code-thinking.cdn.bcebos.com/pics/24.%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B93.png" alt="24.两两交换链表中的节点3"></p>
+<p>交换3和4节点的步骤时：cur目前为1，我们让1指向4，4再指向3，3再指向5（如果有5的话）。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">swapPairs</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 交换两个节点需要用到这两个节点前的那个节点</span></span><br><span class="line">        <span class="comment">// 因此定义虚拟头节点，用于交换节点1和节点2</span></span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line"></span><br><span class="line">        ListNode* cur = dummyHead;</span><br><span class="line">        <span class="comment">// 搞清楚遍历的终止条件，参见笔记的图示</span></span><br><span class="line">        <span class="comment">// 以下两个终止条件分别针对节点数目为偶数和奇数的情况</span></span><br><span class="line">        <span class="keyword">while</span> (cur-&gt;next != <span class="literal">NULL</span> &amp;&amp; cur-&gt;next-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// dummyHead-&gt;2时，dummyHead-&gt;1不再存在，无法访问到1，因此需要事先存储节点1</span></span><br><span class="line">            ListNode* tmp = cur-&gt;next;</span><br><span class="line">            <span class="comment">// 同理，2-&gt;1时，2-&gt;3不再存在，无法访问到3，因此需要事先存储节点3</span></span><br><span class="line">            ListNode* tmp1 = cur-&gt;next-&gt;next-&gt;next;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// dummyHead-&gt;2-&gt;1-&gt;3</span></span><br><span class="line">            cur-&gt;next = cur-&gt;next-&gt;next; <span class="comment">// dummyHead-&gt;1变为dummyHead-&gt;2</span></span><br><span class="line">            cur-&gt;next-&gt;next = tmp; <span class="comment">// dummyHead-&gt;2-&gt;3变成dummyHead-&gt;2-&gt;1</span></span><br><span class="line">            tmp-&gt;next = tmp1; <span class="comment">//dummyHead-&gt;2-&gt;1再在末尾接上3</span></span><br><span class="line"></span><br><span class="line">            cur = cur-&gt;next-&gt;next; <span class="comment">// cur指针后移两位</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="19-删除链表的倒数第N个节点-1"><a href="#19-删除链表的倒数第N个节点-1" class="headerlink" title="19.删除链表的倒数第N个节点"></a>19.删除链表的倒数第N个节点</h3><p>看了代码随想录的思路之后，我独立写出了快慢指针解法：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 快慢指针</span></span><br><span class="line">        ListNode* fast = dummyHead;</span><br><span class="line">        ListNode* slow = dummyHead;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// fast先向后移动n位</span></span><br><span class="line">        <span class="keyword">while</span> (n -- ) fast = fast-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// fast移动到链表的最后一个节点（非空节点），此时slow移动到链表的倒数第n个节点前面的那个节点</span></span><br><span class="line">        <span class="keyword">while</span> (fast-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 删除倒数第n个节点</span></span><br><span class="line">        ListNode* tmp = slow-&gt;next;</span><br><span class="line">        slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> tmp;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>也可以让fast先向后移动(n + 1)位，然后让fast和slow同时移动，直到fast移动到NULL为止，此时slow指向的也是倒数第n个节点的前一个节点。对这种办法，可以在移动fast指针前先让n ++ , 也可以在第一个while循环后让fast指针多向后移动一位。<strong>最稳妥的写法</strong>如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">removeNthFromEnd</span><span class="params">(ListNode* head, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        ListNode* dummyHead = <span class="keyword">new</span> <span class="built_in">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">        dummyHead-&gt;next = head;</span><br><span class="line"></span><br><span class="line">        ListNode* fast = dummyHead;</span><br><span class="line">        ListNode* slow = dummyHead;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 首先将快指针移动n + 1步</span></span><br><span class="line">        n ++ ;</span><br><span class="line">        <span class="keyword">while</span> (n -- &amp;&amp; fast != <span class="literal">NULL</span>) fast = fast-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 快慢指针同时移动，直到快指针指向NULL。此时慢指针指向要删除的节点前面那个节点</span></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 释放内存并删除倒数第n个节点</span></span><br><span class="line">        ListNode* tmp = slow-&gt;next;</span><br><span class="line">        slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">delete</span> tmp;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dummyHead-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>由于题目有如下限制：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">The number of nodes in the list is sz.</span><br><span class="line">1 &lt;= sz &lt;= 30</span><br><span class="line">0 &lt;= Node.val &lt;= 100</span><br><span class="line">1 &lt;= n &lt;= sz</span><br></pre></td></tr></table></figure>
+<p>因此即使不加上fast != NULL，也可以通过，但如果题目没有n &lt;= sz的限制，那么必须加上fast != NULL，且不能使用以下写法：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (n -- &amp;&amp; fast != <span class="literal">NULL</span>) fast = fast-&gt;next;</span><br><span class="line">fast = fast-&gt;next;</span><br></pre></td></tr></table></figure>
+<p>因为若采用以上写法，当n &gt; sz时，当while循环结束后，fast已经指向了NULL，此时再做fast = fast-&gt;next操作，会导致空指针异常。</p>
+<h3 id="面试题-02-07-链表相交-2"><a href="#面试题-02-07-链表相交-2" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><p>代码随想录的思路：求出两个链表的长度，并求出两个链表长度的差值，然后让curA移动到，和curB末尾对齐的位置。此时我们就可以比较curA和curB是否相同，如果不相同，同时向后移动curA和curB，如果遇到curA == curB，则找到交点。否则循环退出返回空指针。</p>
+<p>看了代码随想录的思路后，我独立写出了代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> sizea = <span class="number">0</span>, sizeb = <span class="number">0</span>;</span><br><span class="line">        ListNode* cura = headA;</span><br><span class="line">        ListNode* curb = headB;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算a链表的长度</span></span><br><span class="line">        <span class="keyword">while</span> (cura != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cura = cura-&gt;next;</span><br><span class="line">            sizea ++ ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算b链表的长度</span></span><br><span class="line">        <span class="keyword">while</span> (curb != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            curb = curb-&gt;next;</span><br><span class="line">            sizeb ++ ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cura = headA, curb = headB;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> delta = <span class="built_in">abs</span>(sizea - sizeb); <span class="comment">// 两链表长度的差值</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sizea &gt;= sizeb)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (delta -- ) cura = cura-&gt;next;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (sizeb -- )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (cura == curb) <span class="keyword">return</span> cura;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    cura = cura-&gt;next;</span><br><span class="line">                    curb = curb-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (delta -- ) curb = curb-&gt;next;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (sizea -- )</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (cura == curb) <span class="keyword">return</span> cura;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    cura = cura-&gt;next;</span><br><span class="line">                    curb = curb-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这里特别需要注意的是，在计算完a链表和b链表的长度后，需要让 <code>cura = headA, curb = headB</code>。</p>
+<p>代码随想录的写法更见简洁：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">getIntersectionNode</span><span class="params">(ListNode *headA, ListNode *headB)</span> </span>&#123;</span><br><span class="line">        ListNode* cura = headA, * curb = headB;</span><br><span class="line">        <span class="type">int</span> sizea = <span class="number">0</span>, sizeb = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 计算a链表和b链表的长度</span></span><br><span class="line">        <span class="keyword">while</span> (cura != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cura = cura-&gt;next;</span><br><span class="line">            sizea ++ ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (curb != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            curb = curb-&gt;next;</span><br><span class="line">            sizeb ++ ;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 始终保证链表a的长度大于等于链表b的长度</span></span><br><span class="line">        <span class="keyword">if</span> (sizea &lt; sizeb)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">swap</span>(sizea, sizeb);</span><br><span class="line">            <span class="built_in">swap</span>(headA, headB);</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 交换cura和curb后，再恢复cura和curb的指向</span></span><br><span class="line">        <span class="comment">// 也可以在上面直接swap(cura, curb)，那这句话就可以写到if判断的前面去</span></span><br><span class="line">        cura = headA, curb = headB;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 计算两链表的长度之差</span></span><br><span class="line">        <span class="type">int</span> delta = sizea - sizeb;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 移动指向链表a的指针，让链表a和b的尾部对齐</span></span><br><span class="line">        <span class="keyword">while</span> (delta -- ) cura = cura-&gt;next;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (cura != <span class="literal">NULL</span>) <span class="comment">// 写作while (sizeb -- )也可</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (cura == curb) <span class="keyword">return</span> cura;</span><br><span class="line">            cura = cura-&gt;next;</span><br><span class="line">            curb = curb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="142-环形链表II-1"><a href="#142-环形链表II-1" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><p>有两问：</p>
+<ol>
+<li><p>判断链表中是否有环</p>
+<p>用快慢指针来判断是否有环。若链表是一条直线，则快慢指针永远不会相遇。只有当链表中有环存在时，快指针先进入了环且在环中浪费了时间，快慢指针才会相遇。快指针从头节点开始，每次移动两位，慢指针也从头节点开始，每次移动一位，二者若相遇则一定在环里相遇，相遇则说明有环。快指针是一个节点一个节点的靠近慢指针，因此二者一定会在环中相遇。</p>
+</li>
+<li><p>找到环的入口</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20220925103433.png" alt="img"></p>
+<p>列方程即可解出x：<code>x = n (y + z) - y, (n &gt;= 1)</code>，由于看不出x和负数-y之间的关系，我们让出一圈，看x和z的关系：<code>x = (n - 1) (y + z) + z, (n &gt;= 1)</code>。这就意味着：<strong>从头结点出发一个指针，从相遇节点 也出发一个指针，这两个指针每次只走一个节点， 那么当这两个指针相遇的时候就是环形入口的节点</strong>。</p>
+<p>为什么第一次在环中相遇，slow的步数是x+y而不是 x + 若干环的长度 + y 呢？”这个问题，可以这样解释，设快指针每秒移动2格，慢指针每秒移动1格，圆的周长是k。则慢指针走一圈需要的时间是k，设两指针之间的距离为m(m &lt; k)，则快指针追上慢指针的时间是m（快指针相对于满指针每秒移动1格），此时慢指针走过的距离是m，由于m &lt; k，因此慢指针在遇到快指针之前走过的距离小于圆的周长。</p>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = head, * slow = head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 下面两个循环条件保证了fast指针可以指向NULL，但不能指向NULL的next，这样就不会导致空指针异常</span></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next; <span class="comment">// 快指针每次移动两位</span></span><br><span class="line">            slow = slow-&gt;next; <span class="comment">// 慢指针每次移动一位</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 快慢指针相遇，说明链表中有环</span></span><br><span class="line">            <span class="keyword">if</span> (fast == slow)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 一指针从相遇处开始移动，一指针从head处开始移动，二者相遇的位置就是环的入口，数学推导见笔记</span></span><br><span class="line">                ListNode* index1 = fast, * index2 = head;</span><br><span class="line">                <span class="keyword">while</span> (index1 != index2)</span><br><span class="line">                &#123;</span><br><span class="line">                    index1 = index1-&gt;next;</span><br><span class="line">                    index2 = index2-&gt;next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> index1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>; <span class="comment">// 若没有返回环的入口节点，则说明没有环，返回空指针</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我自研的另一种写法：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">detectCycle</span><span class="params">(ListNode *head)</span> </span>&#123;</span><br><span class="line">        ListNode* fast = head, * slow = head;</span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// 判断链表中是否有环</span></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="literal">NULL</span> &amp;&amp; fast-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (fast == slow)</span><br><span class="line">            &#123;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 有环，则返回环的起点，无环，则返回空指针</span></span><br><span class="line">        <span class="keyword">if</span> (flag &amp;&amp; fast == slow)</span><br><span class="line">        &#123;</span><br><span class="line">            ListNode* index1 = head, * index2 = slow;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(index1 != index2)</span><br><span class="line">            &#123;</span><br><span class="line">                index1 = index1-&gt;next;</span><br><span class="line">                index2 = index2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> index1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>注意，一定要通过flag判断，只有当fast和slow相等且二者都在第一个while循环中转过时，才能确保链表中有环，若fast和slow相等，则可能是链表中只有一个节点的情况，此时fast和slow都没有在第一个循环中转过，因此二者相等且都等于head。</p>
+<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="24-两两交换链表中的节点-2"><a href="#24-两两交换链表中的节点-2" class="headerlink" title="24. 两两交换链表中的节点"></a>24. 两两交换链表中的节点</h3><ol>
+<li>注意cur应该指向哪里。</li>
+<li>注意遍历的终止条件（奇数/偶数个节点）</li>
+<li>若原先的两节点之间的连接被断开，则需要在断开前保存两节点中后面那个节点，否则后面的那个节点无法被访问到</li>
+</ol>
+<h3 id="面试题-02-07-链表相交-3"><a href="#面试题-02-07-链表相交-3" class="headerlink" title="面试题 02.07. 链表相交"></a>面试题 02.07. 链表相交</h3><ol>
+<li>本题的关键思路在于：<strong>对齐两个链表的尾部</strong>。本题的算法实际上也是（快慢）双指针算法。</li>
+<li>比较链表中的两个节点是否相同，直接用 <code>cura == curb</code>即可，不能用 <code>cura-&gt;val == curb-&gt;val &amp;&amp; cura-&gt;next == curb-&gt;next</code>，因为比较两个节点除去比较val和next这两个参数外，还需要比较其本身的内存地址。</li>
+<li>本题的时间复杂度分析：<br>计算两个链表的长度：O(n) + O(m)<br>调整指针以对齐两个链表：O(n - m)或O(m - n)<br>同时遍历两个链表寻找交点：O(min(n, m))<br>第一步和第三步的时间复杂度加在一起是 <code>O(n) + O(m) + O(min(n, m))</code>。但是，因为 <code>O(min(n, m))</code>在 <code>O(n) + O(m)</code>中已经被包含（总是小于或等于 <code>n</code>和 <code>m</code>），所以总的时间复杂度简化为 <code>O(n) + O(m)</code>。第二步（调整指针以对齐两个链表）的时间复杂度实际上也包含在 <code>O(n) + O(m)</code>中，因为无论是 <code>n - m</code>还是 <code>m - n</code>，它的值总是小于或等于 <code>n</code>和 <code>m</code>。因此，整个函数的总时间复杂度为 <code>O(n + m)</code>，这里 <code>n</code>和 <code>m</code>分别是两个链表的长度。这个时间复杂度已经涵盖了所有的主要操作，包括计算长度、对齐链表和寻找交点。<strong>时间复杂度的计算应当关注主要操作，省略次要操作</strong>。</li>
+<li>在leetcode中调用swap，abs等函数时，不需要自行引用头文件，基本的函数和数据结构（STL）已经默认被引用了，因此直接写出来即可。</li>
+</ol>
+<h3 id="142-环形链表II-2"><a href="#142-环形链表II-2" class="headerlink" title="142.环形链表II"></a>142.环形链表II</h3><ol>
+<li>记住使用快慢双指针算法，有环的情况下快慢指针必然会相遇。</li>
+<li>画图理解如何求环的起点的index。</li>
+<li><strong>记得复习时着重看这道题</strong></li>
+</ol>
+<h2 id="总结：链表"><a href="#总结：链表" class="headerlink" title="总结：链表"></a>总结：链表</h2><ol>
+<li>插入虚拟头节点dummyHead，可以避免空链表并避免对头节点操作的特判</li>
+<li>创建一个当前节点cur，对整个链表进行遍历（<code>cur = cur-&gt;next</code>），而不用链表中原本存在的节点对链表进行遍历</li>
+<li>NULL节点表示不存在的节点；虚拟节点实际上是存在的，其值为0，是人为创建的节点</li>
+<li>递归时，需要先检查递归的终止条件，然后执行递归步骤</li>
+<li>想要删除哪个节点，就用cur指针指向其前面的那个节点</li>
+<li><strong>链表中最常用的算法是双指针算法</strong>，在206.反转链表，19.删除链表的倒数第N个节点，面试题 02.07. 链表相交，142.环形链表II中都用到了，其他题目基本不需要算法，利用链表的一些基本性质进行增删改查即可。</li>
+<li><strong>记得复习142.环形链表II和24.两两交换链表中的节点</strong>，前者是链表中最独特也最难的一道题，难在数学推导和想清楚细节；后者在退出循环的条件和用tmp保存节点方面需要特别注意。</li>
+</ol>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/%E9%93%BE%E8%A1%A8%E6%80%BB%E7%BB%93.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>算法（链表）</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Leetcode</tag>
+        <tag>C++</tag>
+        <tag>双指针算法</tag>
+        <tag>总结</tag>
+        <tag>环形链表</tag>
       </tags>
   </entry>
   <entry>
@@ -1266,6 +1435,24 @@
         <tag>总结</tag>
         <tag>数组哈希</tag>
         <tag>map哈希</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Experiences of OAs</title>
+    <url>/2024/02/27/Experiences-of-OAs/</url>
+    <content><![CDATA[<h2 id="Amazon-SDE-OA"><a href="#Amazon-SDE-OA" class="headerlink" title="Amazon SDE OA"></a>Amazon SDE OA</h2><ol>
+<li>题目不难，简单的算法</li>
+<li>第二题涉及到链表的增加头、尾节点和删去头节点，但用最简单直接的做法会超时</li>
+<li>第二题的优化做法没有完全实现（出现报错），导致第二题没有完美地做出来，应该会被拒</li>
+<li>时间一共70分钟，乍一看很充裕，但是如果碰到要优化的地方，时间就不够用了，因此下次做OA一定要做快一些，留出充足的时间给可能需要的优化和debug。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>找工记录</category>
+      </categories>
+      <tags>
+        <tag>OA</tag>
+        <tag>经验与教训</tag>
       </tags>
   </entry>
   <entry>
@@ -1542,24 +1729,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Experiences of OAs</title>
-    <url>/2024/02/27/Experiences-of-OAs/</url>
-    <content><![CDATA[<h2 id="Amazon-SDE-OA"><a href="#Amazon-SDE-OA" class="headerlink" title="Amazon SDE OA"></a>Amazon SDE OA</h2><ol>
-<li>题目不难，简单的算法</li>
-<li>第二题涉及到链表的增加头、尾节点和删去头节点，但用最简单直接的做法会超时</li>
-<li>第二题的优化做法没有完全实现（出现报错），导致第二题没有完美地做出来，应该会被拒</li>
-<li>时间一共70分钟，乍一看很充裕，但是如果碰到要优化的地方，时间就不够用了，因此下次做OA一定要做快一些，留出充足的时间给可能需要的优化和debug。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>找工记录</category>
-      </categories>
-      <tags>
-        <tag>OA</tag>
-        <tag>经验与教训</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Django Project Summary</title>
     <url>/2024/01/21/Django-Project-Summary/</url>
     <content><![CDATA[<h1 id="Django项目总结"><a href="#Django项目总结" class="headerlink" title="Django项目总结"></a>Django项目总结</h1><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>Game based on Django framework, developed by yifanChen</p>
@@ -1688,46 +1857,161 @@
       </tags>
   </entry>
   <entry>
-    <title>How to Understand an Open Source Project</title>
-    <url>/2024/01/30/How-to-Understand-an-Open-Source-Project/</url>
-    <content><![CDATA[<h2 id="快速了解项目"><a href="#快速了解项目" class="headerlink" title="快速了解项目"></a>快速了解项目</h2><p><img src="https://github.com/yfchenkeepgoing/image/blob/main/Snipaste_2024-01-30_11-45-52.png?raw=true" alt="Snipaste_2024-01-30_11-45-52.png"></p>
-<p>从0带读Java小说项目。项目：<a href="https://novel.xxyopen.com/">小说精品屋</a></p>
-<p>首先看代码的简介（README），然后看代码的更新频率（几年没更新的就不用看了）。</p>
-<p>接着看项目的介绍，看项目的技术栈和我们自己的技术栈是否匹配。</p>
-<p>接着看包结构（项目结构）。</p>
-<p>看技术选型。高级的技术：ShardingSphere-JDBC（数据库分库分表支持）、分布式缓存支持、搜索引擎服务、开源消息中间件、文件存储、对象存储。</p>
-<p>接着看<strong>核心：项目如何安装，如何启动</strong>。</p>
-<h2 id="了解项目依赖"><a href="#了解项目依赖" class="headerlink" title="了解项目依赖"></a>了解项目依赖</h2><p>通过github1s（在线查看项目的工具）看项目。</p>
-<p>==看项目从整体到局部，先看项目的架构及关键配置文件==</p>
-<p>比如assets放静态文件，sql放SQL语句。根目录下的pom.xml定义了父工程的配置。在父工程的配置中又定义了子模块，可以达到多包同时编译的效果。</p>
-<p>dockerfile：可以用其来生成一个docker镜像</p>
-<p>Java的项目主要分为两部分：resources放一些资源文件和配置，另一部分是java的核心代码。</p>
-<p>看resources/application.yml：跑起这个项目需要启动哪些服务。</p>
-<p>resources/mybatis：放一些SQL语句</p>
-<p>resources/static：放前端的文件，比如javascript, css等等。</p>
-<p>resources/templates：用的是thymeleaf，拓展标签可以动态地把一些后台数据渲染到页面。</p>
-<p>resources/application-dev.yml：是项目的开发环境的配置。</p>
-<p>resources/application-prod.yml：是项目生成环境的配置。</p>
-<p>resources/logback.yml：日志</p>
-<h2 id="了解项目结构"><a href="#了解项目结构" class="headerlink" title="了解项目结构"></a>了解项目结构</h2><p>现在java项目的目录结构比较清晰和规范。都是mvc结构：model view controller。</p>
-<p>controller：控制层，接收用户的请求，给予一些响应，业务逻辑一般不写在其中</p>
-<p>core：项目核心的类</p>
-<p>mapper：mybatis的映射文件，在这个文件中定义操作数据库的方法</p>
-<p>page：控制页面的返回。用户请求一个地址，请求发送到controller，会响应并返回某个页面给用户，和前端的模板有关联。</p>
-<p>service：编写业务的逻辑</p>
-<p>vo：返回给页面的数据</p>
-<p>springboot的启动类，会自动帮助我启动一个tomcat服务器</p>
-<h2 id="追踪请求（了解分层）"><a href="#追踪请求（了解分层）" class="headerlink" title="追踪请求（了解分层）"></a>追踪请求（了解分层）</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.bilibili.com/video/BV13q4y1U7JU/?spm_id_from=333.337.search-card.all.click&amp;vd_source=bf2f8cedefdf16acd0e7a14d8e4669fd">带你读懂一个开源项目，学习通用套路！程序员阅读项目源码技巧、Java 编程项目分享</a></p>
-<p><a href="https://www.code-nav.cn/">编程导航</a></p>
-<p><a href="https://novel.xxyopen.com/">小说精品屋</a></p>
+    <title>Summary of full stack netflix clone</title>
+    <url>/2024/03/07/Summary-of-full-stack-netflix-clone/</url>
+    <content><![CDATA[<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
+<li>Frontend: React</li>
+<li>Server-side Rendering: Next.js</li>
+<li>Styling: Tailwind CSS</li>
+<li>Data abstraction layer: Prisma</li>
+<li>Storage: MongoDB</li>
+<li>Authentication: NextAuth</li>
+<li>Deploy: Vercel</li>
+<li>Typescript</li>
+<li>the entire website fully</li>
+</ul>
+<p>The entire website fully responsive across all devices.</p>
+<h2 id="实现的功能"><a href="#实现的功能" class="headerlink" title="实现的功能"></a>实现的功能</h2><ul>
+<li>credential login: username + password</li>
+<li>profile: automatically generated once we register</li>
+<li>homepage: loaded with a random movie-billboard</li>
+<li>movies: load from database</li>
+<li>favourites: add movies as favourites</li>
+<li>botton:  shows more information about the movie</li>
+<li>play the movie</li>
+<li>Google and GitHub oauth login</li>
+</ul>
+<h2 id="精简笔记与全栈开发的一般流程"><a href="#精简笔记与全栈开发的一般流程" class="headerlink" title="精简笔记与全栈开发的一般流程"></a>精简笔记与全栈开发的一般流程</h2><h3 id="登录页面"><a href="#登录页面" class="headerlink" title="登录页面"></a>登录页面</h3><p>先在pages中创建auth.tsx，然后在components中创建Input.tsx，将其加入到auth.tsx中。实现next auth时需要创建pages/api/[…nextauth].ts文件。</p>
+<h3 id="通过授权登录保护登录界面以外的路径"><a href="#通过授权登录保护登录界面以外的路径" class="headerlink" title="通过授权登录保护登录界面以外的路径"></a>通过授权登录保护登录界面以外的路径</h3><p>保护路由：</p>
+<ul>
+<li>serverAuth.ts（lib）：利用 next-auth 的 getSession 实现API路由的用户登录检查，防止未登录用户访问。</li>
+<li>current.ts（pages/api）：API路由，使用 serverAuth.ts 验证用户登录，返回用户信息或错误。</li>
+</ul>
+<p>前端用户信息获取：</p>
+<ul>
+<li>fetcher.ts（lib）：通过 axios 封装的简易数据获取函数。</li>
+<li>useCurrentUser.ts（hooks）：自定义Hook，结合 swr 和 fetcher.ts 从 /api/current 获取当前登录用户信息。</li>
+</ul>
+<p>客户端路由保护与个人资料页面：</p>
+<ul>
+<li>index.tsx 和 profiles.tsx（pages）：通过 getServerSideProps 中的 getSession 实现路由保护，控制访问权限。</li>
+<li>页面重定向：auth.tsx 调整登录后重定向逻辑，确保正确导向 /profiles。</li>
+</ul>
+<p>实现细节：</p>
+<ul>
+<li>用户状态展示：在 profiles.tsx 中展示用户信息，并实现点击默认头像返回首页的功能。</li>
+<li>环境配置调整：通过修改 .env 和 package.json 解决开发中遇到的端口配置问题，保证登录流程正常。</li>
+</ul>
+<h3 id="导航组件"><a href="#导航组件" class="headerlink" title="导航组件"></a>导航组件</h3><p>在这个项目中，开发了一个导航组件（Navigation Component），涉及了几个主要的文件和它们之间的关系，以及各自的功能和作用：</p>
+<ol>
+<li><p>index.tsx（主页文件）：这是应用的入口页面，最初被清理以只保留基本结构。它通过 getServerSideProps 功能检查用户的会话，基于会话存在与否决定重定向到登录页面或显示主内容。后续，Navbar 组件被引入到此文件中，作为页面的一部分。</p>
+</li>
+<li><p>Navbar.tsx（导航栏组件）：位于 components 文件夹内，Navbar 是顶部的导航条组件，负责显示应用的导航链接。它包括了一个动态背景变化的功能，随着页面滚动，背景从透明变为不透明。</p>
+</li>
+<li><p>NavbarItem.tsx（导航项组件）：同样位于 components 文件夹内，用于表示 Navbar 中的单个导航链接。它通过 props 接收 label 来显示不同的导航项。</p>
+</li>
+<li><p>MobileMenu.tsx（移动菜单组件）：这个组件负责在小屏幕上显示一个可展开的移动菜单。它通过 visible prop 控制显示状态，包含多个 NavbarItem 组件来展示导航选项。</p>
+</li>
+<li><p>AccountMenu.tsx（账户菜单组件）：用于在 Navbar 组件中显示用户的账户菜单，它提供了注销功能并可以通过 visible prop 控制其显示。</p>
+</li>
+</ol>
+<p>项目中还实现了一些额外的交互特性，比如：</p>
+<ul>
+<li>使用 React 的 useState 和 useEffect Hooks 来管理组件的状态和生命周期，例如控制菜单的显示状态和根据页面滚动动态改变导航栏背景。</li>
+<li>通过 useCallback 来优化事件处理函数，避免不必要的重新渲染。</li>
+<li>导航组件和移动菜单的显示逻辑，包括在小屏幕上通过点击“浏览”来展开和隐藏导航项。</li>
+<li>在 Navbar 组件中，引入了 react-icons 库中的图标来增强视觉效果，并通过条件渲染实现了箭头图标的旋转动画，以指示菜单的展开和收起状态。</li>
+</ul>
+<p>整体而言，这个导航组件通过组合多个子组件和利用 React 的特性，实现了一个响应式、具有交互性的用户界面，能够适应不同的设备和屏幕尺寸。</p>
+<h3 id="广告牌组件"><a href="#广告牌组件" class="headerlink" title="广告牌组件"></a>广告牌组件</h3><p>首先将定义有电影信息的json文件手动添加到MongoDB中。<br>然后创建新的api：random，用于随机返回一部电影。<br>在<code>hooks/useBillboard.ts</code>中写代码以避免对首页推荐电影的重复加载。在<code>components</code>中新建<code>Billboard.tsx</code>，然后在<code>index.tsx</code>中引入<code>Billboard</code>。<br>接着在<code>Billboard.tsx</code>中填入具体的内容，目的是fetch the data for a random movie，并继续加入电影、电影名、电影介绍和More info按钮。</p>
+<h3 id="电影列表和电影卡片组件"><a href="#电影列表和电影卡片组件" class="headerlink" title="电影列表和电影卡片组件"></a>电影列表和电影卡片组件</h3><p>定义api: <code>pages/api/movies/index.ts</code>，加载所有电影。<br>接着在hooks文件夹中创建<code>useMovieList.ts</code>，用于返回<code>api/movies</code>中得到的数据。<br>接着在<code>components</code>中创建<code>MovieList.tsx</code>，并在<code>pages/index.tsx</code>中装入MovieList并传入必要的参数，并使用上面定义的hook: <code>useMovieList.ts</code>。<br>接着在<code>components</code>文件夹中创建<code>MovieCard.tsx</code>文件，用于实现电影卡片组件，并将<code>MovieCard</code>放入<code>MovieList.tsx</code>中。</p>
+<h3 id="收藏功能"><a href="#收藏功能" class="headerlink" title="收藏功能"></a>收藏功能</h3><p>定义api: <code>pages/api/favorite.ts</code>，用于实现用户在收藏和取消收藏电影时对数据库的操作。<br>再定义一个api: <code>pages/api/favorites.ts</code>，用于加载我们收藏的电影列表。<br>接着写一个hook: <code>useFavorites.ts</code>，用于调用第二个api从而加载我们收藏的电影列表。<br>再写一个组件<code>components/FavoriteButton.tsx</code>，作为收藏按钮。<br>将该按钮加入MovieCard中。然后在Trending Now列表以外再创建一个My Favorites列表，这是在<code>pages/index.tsx</code>中实现的。<br>最后让favorite按钮变得可交互。这样在Trending Now列表上的电影上的加号时，其就会被添加到My List，然后加号会变成勾。这样一部电影就被收藏了。取消收藏也是同理。</p>
+<h3 id="电影播放功能"><a href="#电影播放功能" class="headerlink" title="电影播放功能"></a>电影播放功能</h3><p>首先定义api: 创建<code>pages/api/movies/[movieId].ts</code>，用于通过外部传入的movieId找到电影。<br>再创建<code>hooks/useMovie.ts</code>，调用上述api，并负责给上述api传入参数movieId。<br>接着写播放按钮：<code>components/PlayButton.tsx</code>，并在<code>components/Billboard.tsx</code>中加入播放按钮。<br>现在实现了点击播放按钮，跳转到另一个页面的功能，接着在MovieCard组件中也实现这个功能。<br>然后具体写跳转到的<code>/watch</code>页面，创建<code>pages/watch/[movieId].tsx</code>，并在这个页面中实现加载视频名字、返回等功能。</p>
+<h3 id="电影详细信息功能"><a href="#电影详细信息功能" class="headerlink" title="电影详细信息功能"></a>电影详细信息功能</h3><p>实现的功能：点击More Info按钮，会显示电影的信息。<br>创建用于状态管理（打开或关闭More Info）的钩子：<code>hooks/useInfoModel.ts</code>。<br>创建显示电影详细信息的组件：<code>components/InfoModal.tsx</code><br>在pages/index.tsx中加入上述组件。<br>给InfoModal组件加上关闭、播放、收藏按钮，最后加上电影信息等字样。<br>利用onClick函数实现点击关闭按钮关闭页面的功能。<br>在<code>pages/index.tsx</code>中实现对组件<code>InfoModal.tsx</code>的触发，从而展现电影的详细信息。<br><code>components/Billboard.tsx</code>中实现点击More Info按钮触发组件<code>InfoModal.tsx</code>，从而展现电影的详细信息。<br>在电影卡片组件中同样实现点击按钮展现电影详细信息。<br>修复个人profile中名字始终加载为username的问题。</p>
+<h3 id="给全栈项目开发新功能的一般过程"><a href="#给全栈项目开发新功能的一般过程" class="headerlink" title="给全栈项目开发新功能的一般过程"></a>给全栈项目开发新功能的一般过程</h3><p>熟悉了上述精简版本的笔记后，我们可以对全栈项目（react + next.js）的开发做一些总结。</p>
+<p>对于实现登录页面和通过授权登录保护登录界面以外的路径，这两项属于偏后端的范畴，主要利用的是next.js的一些特性（特别是pages和api）。这两个任务没有什么一般性的套路，需要用到的文件夹也比较复杂，包括pages, hooks, lib等，跟着讲义一步步实现。</p>
+<p>对于实现导航组件，这个属于偏前端的范畴，主要需要在pages中定义一个菜单界面，再在components中定义若干个组件。在这里需要注意组件的复用。组件拼凑组合起来就能实现一个网页。同时还需要注意如何实现交互特性和其他的一些细节。</p>
+<p>对于广告牌组件、电影列表和电影卡片组件、收藏功能、电影播放功能、电影详细信息功能，这些都属于前后端交互的范畴，是有统一的开发套路的。<strong>一般来说是先定义api，再定义hook（调用api），再定义组件（调用hook获取api的数据），再将组件加入到页面（pages）中</strong>。这就是开发全栈项目的一般的新功能（非拓荒）的一般过程。</p>
+<h2 id="我的思考"><a href="#我的思考" class="headerlink" title="我的思考"></a>我的思考</h2><ol>
+<li><p>Tailwind CSS的好处：我的主要感受是不需要手写css文件，直接在classname中写内容就可以。注意使用Tailwind CSS前，需要进行必要的配置。Tailwind CSS的具体优点如下所示：</p>
+<ul>
+<li><p>快速原型开发<br>Tailwind 的实用工具类使得快速原型设计变得非常简单。你可以通过组合不同的类来快速构建界面，而不需要离开 HTML 文件去编写和调试 CSS 文件，这可以显著加快开发速度。</p>
+</li>
+<li><p>一致性和可重用性<br>通过使用 Tailwind 提供的实用工具类，可以在整个项目中保持样式的一致性。由于你在不同的地方复用相同的实用工具类，这自然而然地导致了样式的可重用性和一致性。</p>
+</li>
+<li><p>可定制和可配置<br>Tailwind CSS 高度可定制。你可以根据项目的设计指南调整配置文件（如颜色、字体大小、边距等），这使得创建符合品牌指南的设计变得简单。</p>
+</li>
+<li><p>减少 CSS 的复杂性<br>由于采用实用工具类的方式，你可以避免编写过多的自定义 CSS 和处理复杂的 CSS 继承关系，这降低了代码的复杂性。</p>
+</li>
+<li><p>响应式设计友好<br>Tailwind CSS 内置了响应式设计的支持，通过简单的前缀可以轻松地实现不同屏幕尺寸的样式适配，而不需要编写额外的媒体查询。</p>
+</li>
+<li><p>减少未使用的 CSS<br>通过与 PurgeCSS 的集成，Tailwind CSS 可以在构建过程中自动移除未使用的 CSS，这意味着最终的样式表非常精简，加载时间快。</p>
+</li>
+<li><p>总结<br>尽管 Tailwind CSS 提供了诸多好处，如加速开发、提高一致性和可维护性，但它也有一定的学习曲线，尤其是对于习惯了传统 CSS 开发方式的开发者来说。此外，一些开发者可能会对在 HTML 中大量使用实用工具类表示担忧，担心这会导致 HTML 文件的可读性降低。不过，对于许多项目和团队而言，Tailwind CSS 提供的好处远远超过了这些潜在的缺点。</p>
+</li>
+</ul>
+</li>
+<li><p>Google oauth比较难用。在本地将项目跑起来时，Google oauth功能正常，但当我尝试在vercel上部署本项目时，Google oauth就完全无法正常使用，甚至每次产生的报错信息都不相同。与此形成鲜明对比的是，GitHub oauth比较好用，配置和更改都较为简单，且将项目部署在vercel上以后再使用GitHub oauth也不会出问题。</p>
+</li>
+<li><p>Next.js和React各自的作用：</p>
+<p>React 和 Next.js 在一个项目中的共存实际上非常常见，并且它们各自扮演着互补的角色。理解它们的主要用途有助于更好地利用这两个库/框架来构建你的应用。</p>
+<p>React</p>
+<p>React 是一个用于构建用户界面的 JavaScript 库，由 Facebook 开发。它的主要特点是组件化开发和声明式编程，使得开发复杂、高性能的单页应用（SPA）变得简单。React 本身主要关注于视图层（UI），允许开发者以组件的形式构建复杂的用户界面。它并不提供诸如路由、服务器端渲染等功能，这些通常需要通过其他库或框架来实现。</p>
+<p>Next.js</p>
+<p>Next.js 是一个基于 Node.js 的框架，它为 React 应用提供了额外的结构和功能，如自动的代码分割、服务器端渲染（SSR）、静态站点生成（SSG）、基于文件的路由系统、API 路由等。Next.js 旨在解决 React 单页应用的一些限制，特别是在 SEO 和首屏加载性能方面。通过服务器端渲染，Next.js 可以提前渲染页面，使其内容能够被搜索引擎索引，同时也提升了页面加载的速度。</p>
+<p>它们是如何一起工作的</p>
+<ul>
+<li>React 在项目中的角色：负责定义应用的组件结构、状态管理和用户交互逻辑。开发者会使用 React 来创建应用的各个界面组件。</li>
+<li>Next.js 在项目中的角色：提供框架和额外功能，帮助这些 React 组件以更高效、优化的方式被呈现和服务。<strong>例如，Next.js 通过文件系统提供的路由功能，自动将位于 <code>pages/</code> 目录下的 React 组件转换为可访问的页面</strong>。</li>
+</ul>
+<p>总结</p>
+<p>在一个项目中，React 用来构建用户界面的组件，而 Next.js 则用来增强 React 应用，提供路由、预渲染（SSR 或 SSG）等功能，以及优化应用的性能和可访问性。Next.js 让开发者能够更专注于业务逻辑和组件本身，而不是底层的架构问题，从而简化了 React 应用的开发和部署过程。简言之，你可以将 React 视为构建应用的砖块，而 Next.js 则是将这些砖块组织起来，建造出结构化、高效、易于维护的应用的框架。<strong>我的理解：React只能做前端，而React+Next.js就可以做全栈了</strong>。</p>
+</li>
+<li><p>Prisma是一款现代化的ORM框架，它可以连接到多种数据库类型（如 PostgreSQL 、 MySQL 、 SQLite 和 SQL Server等），在本项目中我们用Prisma连接了MongoDB。在ORM的帮助下，我们不需要写SQL语句，只需要定义数据库中的数据名称和数据类型，就可以实现对数据库的各种操作。</p>
+</li>
+<li><p>本项目中的大多数代码都是Typescript（.ts）代码或者TypeScript JSX(.tsx)代码。前者是基于javascript开发的。TypeScript 是 JavaScript 的一个超集，这意味着它包含了 JavaScript 的所有功能，并在此基础上添加了更多的特性。后者是 TypeScript 的扩展，允许在 TypeScript 文件中使用 JSX 语法。JSX 是一种语法糖，允许开发者在 JavaScript 代码中写像HTML一样的标记语言，这在React 开发中非常常见。由于 TypeScript 默认不理解 JSX 语法，TSX（<code>.tsx</code> 文件扩展名）提供了一种方式来使用 TypeScript 和 JSX。因此，<code>.tsx</code> 文件通常用于包含 JSX 的 TypeScript 项目，尤其是在开发 React 组件时。<strong>简而言之，当代码中需要有类似HTML的代码时，即需要创建一个页面或者页面的一部分时，用tsx。无类似HTML的代码，则用ts</strong>。在本项目中，定义所有组件的components文件夹中的文件全用了tsx，因为要写HTML代码；同理，pages文件夹中除了api文件夹以外的所有文件用的也是tsx。剩下的文件夹中的文件普遍用的是ts，包括hooks文件夹，lib文件夹和pages/api文件夹。</p>
+</li>
+<li><p>本项目中几个主要文件夹的作用：</p>
+<p>属于 Next.js 的特定文件夹：</p>
+<ul>
+<li><strong>pages</strong>：这是 Next.js 特有的一个文件夹，用于基于文件系统的路由。在 Next.js 中，<code>pages</code> 目录下的每一个文件都会自动对应一个路由，这是 Next.js 框架的核心特性之一。pages中还有api文件夹，因此在本项目中可以像前后端分离的项目那样在后端定义api，然后在前端调用。<strong>只不过本项目中是在next.js实现的伪后端中定义api，然后在react实现的纯前端中调用api</strong>。</li>
+<li><strong>public</strong>：这个文件夹也是 Next.js 的标准部分，用于存放静态文件，如图片、字体等。在项目中，你可以通过相对路径直接引用 <code>public</code> 文件夹中的资源。</li>
+<li><strong>styles</strong>：虽然存放样式的做法在前端项目中非常常见，但在 Next.js 项目中，<code>styles</code> 文件夹通常用于组织 CSS 或 SCSS 文件。Next.js 支持 CSS Modules 和内置的 Sass 支持，这个文件夹通常用来利用这些特性。本项目中的styles文件夹中只有一个global.css文件，主要负责对tailwind css的配置和定义一些默认的css格式。</li>
+</ul>
+<p>通常属于开发者根据项目需求创建的文件夹（既适用于 React，也适用于 Next.js）：</p>
+<ul>
+<li><p>components：存放 React 组件的文件夹。这些组件可以在不同的页面中复用。这是 React 项目的常见结构，但在 Next.js 项目中同样适用。</p>
+</li>
+<li><p>hooks：存放自定义 React 钩子（Hooks）。自定义钩子是 React 16.8 引入的功能，用于在函数组件之间复用状态逻辑。</p>
+</li>
+<li><p>lib：通常用于存放一些工具库或者用于与 API 交互的函数等。这个文件夹的具体用途依项目需求而定，既适用于纯 React 项目，也适用于 Next.js 项目。</p>
+</li>
+</ul>
+<p>数据库相关的文件：</p>
+<p>prisma：这个文件夹通常用于存放与 Prisma 相关的配置和模型文件。Prisma 是一个流行的 Node.js 和 TypeScript ORM（对象关系映射），用于构建数据库访问。这不是 Next.js 或 React 特有的，而是根据你的项目是否需要与数据库交互来决定使用。</p>
+<p>总结：<br>Next.js 特有：pages 和 public 文件夹是 Next.js 特定的，而 styles 虽然不是 Next.js 特有的，但其在 Next.js 项目中的使用方式往往利用了 Next.js 的一些特性。</p>
+<p>React 和 Next.js 通用：components、hooks、lib 和 prisma 文件夹是根据开发者的项目需求创建的，它们既适用于 React 项目，也适用于 Next.js 项目。这些文件夹的使用反映了现代前端项目的一些最佳实践，如组件化开发、自定义钩子的使用等。</p>
+</li>
+<li><p>本项目中使用到了hook的以下功能：</p>
+<ul>
+<li><p>状态管理 (<code>useState</code>)<br>这是 Hooks 最基本的用途之一，允许在函数组件中添加状态。这对于实现按钮点击、输入表单处理、切换UI组件显示隐藏等功能至关重要。</p>
+</li>
+<li><p>数据获取（<code>useSWR</code>）<br><code>useSWR</code> 是一个由 Vercel 团队开发的 React Hook，它是 SWR (Stale-While-Revalidate) 数据获取库的一部分。SWR 是一种缓存策略，其名称来自 HTTP 缓存无效化策略，意味着“先返回缓存中的数据（陈旧的），然后发送请求（重新验证），最后用新数据替换旧数据”。<code>useSWR</code> 主要用于数据获取场景，特别是在需要频繁请求更新数据的应用中，它提供了一种简单而强大的方法来获取、缓存、更新远程数据。</p>
+</li>
+<li><p>副作用处理 (<code>useEffect</code>)<br>用于执行副作用操作，如数据获取（调用API）、订阅/取消订阅事件、直接操作DOM。这对于在组件加载、更新或卸载时执行外部操作非常有用。</p>
+</li>
+<li><p>性能优化 (<code>useCallback</code>)<br><code>useCallback</code> 可以避免在每次渲染时都进行不必要的计算或创建新的函数实例，从而提高性能。</p>
+<p>需要特别注意的是，hook是一种概念，因此不局限于定义在某个特定的文件夹（如 <code>hooks</code> 文件夹）中，而是可以在函数的任何地方使用。在本项目中，hooks文件夹中的hooks主要负责对api的调用，而components, pages等文件夹中的hooks主要负责状态管理和性能优化。</p>
+</li>
+</ul>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>web开发</category>
       </categories>
       <tags>
-        <tag>Java编程项目</tag>
-        <tag>开源项目</tag>
-        <tag>阅读项目源码技巧</tag>
+        <tag>总结</tag>
       </tags>
   </entry>
   <entry>
@@ -1775,6 +2059,268 @@
       <tags>
         <tag>Cloud Server</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>How to Understand an Open Source Project</title>
+    <url>/2024/01/30/How-to-Understand-an-Open-Source-Project/</url>
+    <content><![CDATA[<h2 id="快速了解项目"><a href="#快速了解项目" class="headerlink" title="快速了解项目"></a>快速了解项目</h2><p><img src="https://github.com/yfchenkeepgoing/image/blob/main/Snipaste_2024-01-30_11-45-52.png?raw=true" alt="Snipaste_2024-01-30_11-45-52.png"></p>
+<p>从0带读Java小说项目。项目：<a href="https://novel.xxyopen.com/">小说精品屋</a></p>
+<p>首先看代码的简介（README），然后看代码的更新频率（几年没更新的就不用看了）。</p>
+<p>接着看项目的介绍，看项目的技术栈和我们自己的技术栈是否匹配。</p>
+<p>接着看包结构（项目结构）。</p>
+<p>看技术选型。高级的技术：ShardingSphere-JDBC（数据库分库分表支持）、分布式缓存支持、搜索引擎服务、开源消息中间件、文件存储、对象存储。</p>
+<p>接着看<strong>核心：项目如何安装，如何启动</strong>。</p>
+<h2 id="了解项目依赖"><a href="#了解项目依赖" class="headerlink" title="了解项目依赖"></a>了解项目依赖</h2><p>通过github1s（在线查看项目的工具）看项目。</p>
+<p>==看项目从整体到局部，先看项目的架构及关键配置文件==</p>
+<p>比如assets放静态文件，sql放SQL语句。根目录下的pom.xml定义了父工程的配置。在父工程的配置中又定义了子模块，可以达到多包同时编译的效果。</p>
+<p>dockerfile：可以用其来生成一个docker镜像</p>
+<p>Java的项目主要分为两部分：resources放一些资源文件和配置，另一部分是java的核心代码。</p>
+<p>看resources/application.yml：跑起这个项目需要启动哪些服务。</p>
+<p>resources/mybatis：放一些SQL语句</p>
+<p>resources/static：放前端的文件，比如javascript, css等等。</p>
+<p>resources/templates：用的是thymeleaf，拓展标签可以动态地把一些后台数据渲染到页面。</p>
+<p>resources/application-dev.yml：是项目的开发环境的配置。</p>
+<p>resources/application-prod.yml：是项目生成环境的配置。</p>
+<p>resources/logback.yml：日志</p>
+<h2 id="了解项目结构"><a href="#了解项目结构" class="headerlink" title="了解项目结构"></a>了解项目结构</h2><p>现在java项目的目录结构比较清晰和规范。都是mvc结构：model view controller。</p>
+<p>controller：控制层，接收用户的请求，给予一些响应，业务逻辑一般不写在其中</p>
+<p>core：项目核心的类</p>
+<p>mapper：mybatis的映射文件，在这个文件中定义操作数据库的方法</p>
+<p>page：控制页面的返回。用户请求一个地址，请求发送到controller，会响应并返回某个页面给用户，和前端的模板有关联。</p>
+<p>service：编写业务的逻辑</p>
+<p>vo：返回给页面的数据</p>
+<p>springboot的启动类，会自动帮助我启动一个tomcat服务器</p>
+<h2 id="追踪请求（了解分层）"><a href="#追踪请求（了解分层）" class="headerlink" title="追踪请求（了解分层）"></a>追踪请求（了解分层）</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.bilibili.com/video/BV13q4y1U7JU/?spm_id_from=333.337.search-card.all.click&amp;vd_source=bf2f8cedefdf16acd0e7a14d8e4669fd">带你读懂一个开源项目，学习通用套路！程序员阅读项目源码技巧、Java 编程项目分享</a></p>
+<p><a href="https://www.code-nav.cn/">编程导航</a></p>
+<p><a href="https://novel.xxyopen.com/">小说精品屋</a></p>
+]]></content>
+      <categories>
+        <category>web开发</category>
+      </categories>
+      <tags>
+        <tag>Java编程项目</tag>
+        <tag>开源项目</tag>
+        <tag>阅读项目源码技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>How to use Typora</title>
+    <url>/2024/01/20/Typora/</url>
+    <content><![CDATA[<h2 id="（1）标题"><a href="#（1）标题" class="headerlink" title="（1）标题"></a>（1）标题</h2><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h2 id="（2）快捷键"><a href="#（2）快捷键" class="headerlink" title="（2）快捷键"></a>（2）快捷键</h2><p>普通模式和源代码模式：ctrl+/<br>md语法正确显示需要在有文字的一行后面再空一行，把鼠标放在有文字的最后一行的后两行的位置</p>
+<p>标题：按下ctrl和+，则当前行变成第六级的标题，每按一次ctrl和+则当前标题的等级提升一级。按下ctrl和-则是按下ctrl和+的逆向操作。</p>
+<h2 id="（3）字体"><a href="#（3）字体" class="headerlink" title="（3）字体"></a>（3）字体</h2><p><strong>加粗</strong><br><em>倾斜</em><br><strong><em>斜体加粗</em></strong><br><del>删除线</del> （~<em>2删除线~</em>2）<br>==高亮==<br>我是^上标^<br>我是~下标~       （注意用英文的~）</p>
+<h2 id="（4）列表"><a href="#（4）列表" class="headerlink" title="（4）列表"></a>（4）列表</h2><p>无序列表：<br>下一级是加号前面空两格<br>第一级是实心的圆，第二级是空心的圆，第三级开始都是实心的小方框</p>
+<ul>
+<li>一二三四五<ul>
+<li>上山打老虎<ul>
+<li>老虎没打到<ul>
+<li>打到小松鼠</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>有序列表：</p>
+<ol>
+<li>一二三四五</li>
+<li>上山打老虎</li>
+<li>老虎没达到</li>
+<li>打到小松鼠</li>
+</ol>
+<h2 id="（5）表格"><a href="#（5）表格" class="headerlink" title="（5）表格"></a>（5）表格</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>MON</th>
+<th>TUE</th>
+<th>WED</th>
+<th>THU</th>
+<th>FRI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上山</td>
+<td>上山</td>
+<td>上山</td>
+<td>上山</td>
+<td>上山</td>
+</tr>
+<tr>
+<td>打老虎</td>
+<td>打老虎</td>
+<td>打老虎</td>
+<td>打老虎</td>
+<td>打老虎</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>在普通模式下，输入：|MON|TUE|WED|THU|FRI|，再输入回车，即可出现表格，可以增加表格的行和列，以及左右居中等等</p>
+<h2 id="（6）引用"><a href="#（6）引用" class="headerlink" title="（6）引用"></a>（6）引用</h2><p>下一级别：加一个&gt;</p>
+<blockquote>
+<p>一二三四五</p>
+<blockquote>
+<p>上山打老虎</p>
+<blockquote>
+<p>老虎没达到</p>
+<blockquote>
+<p>打到小松鼠</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="（7）分割线"><a href="#（7）分割线" class="headerlink" title="（7）分割线"></a>（7）分割线</h2><p>疯狂打——-即可</p>
+<hr>
+<h2 id="（7）代码"><a href="#（7）代码" class="headerlink" title="==（7）代码=="></a>==（7）代码==</h2><p><code>我是代码</code></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="（8）字数和侧边栏"><a href="#（8）字数和侧边栏" class="headerlink" title="（8）字数和侧边栏"></a>（8）字数和侧边栏</h2><p>字数在右下角<br>侧边栏在左侧，可以通过在普通模式中点击左下角的小圆圈呼出<br>大纲也在侧边栏中</p>
+<h2 id="（9）插入图片"><a href="#（9）插入图片" class="headerlink" title="（9）插入图片"></a>（9）插入图片</h2><p>将图片放入到图片文件夹中，然后复制图片将其直接粘贴进来即可</p>
+<p><img src="D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-15-35.png" alt="Snipaste_2023-12-27_04-15-35"></p>
+<p><img src="D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-12-14.png" alt="Snipaste_2023-12-27_04-12-14"></p>
+<h2 id="（10）改变字体颜色"><a href="#（10）改变字体颜色" class="headerlink" title="（10）改变字体颜色"></a>（10）改变字体颜色</h2><p>将字体改变为红色：<code>&lt;font color=red&gt;</code>文字 <code>&lt;/font&gt;</code></p>
+<p>==平常用高亮即可，不要用红色==</p>
+<h2 id="11-diff代码块"><a href="#11-diff代码块" class="headerlink" title="(11) diff代码块"></a>(11) diff代码块</h2><figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">- 这行被删除了</span></span><br><span class="line"><span class="addition">+ 这行被添加了</span></span><br><span class="line">  这行没有改变</span><br></pre></td></tr></table></figure>
+<h2 id="12-enter和shift-enter的区别"><a href="#12-enter和shift-enter的区别" class="headerlink" title="(12) enter和shift enter的区别"></a>(12) enter和shift enter的区别</h2><p>enter: 新起一段（空一行）<br>shift enter: 新起一行</p>
+<h2 id="13-markdown-source-code"><a href="#13-markdown-source-code" class="headerlink" title="(13) markdown source code"></a>(13) markdown source code</h2><pre><code>
+## （1）标题
+
+# 一级标题
+
+## 二级标题
+
+### 三级标题
+
+#### 四级标题
+
+##### 五级标题
+
+###### 六级标题
+
+## （2）快捷键
+
+普通模式和源代码模式：ctrl+/
+md语法正确显示需要在有文字的一行后面再空一行，把鼠标放在有文字的最后一行的后两行的位置
+
+标题：按下ctrl和+，则当前行变成第六级的标题，每按一次ctrl和+则当前标题的等级提升一级。按下ctrl和-则是按下ctrl和+的逆向操作。
+
+## （3）字体
+
+**加粗**
+*倾斜*
+***斜体加粗***
+~~删除线~~ （~*2删除线~*2）
+==高亮==
+我是^上标^
+我是~下标~       （注意用英文的~）
+
+## （4）列表
+
+无序列表：
+下一级是加号前面空两格
+第一级是实心的圆，第二级是空心的圆，第三级开始都是实心的小方框
+
++ 一二三四五
+  + 上山打老虎
+    + 老虎没打到
+      + 打到小松鼠
+
+有序列表：
+
+1. 一二三四五
+2. 上山打老虎
+3. 老虎没达到
+4. 打到小松鼠
+
+## （5）表格
+
+| MON    | TUE    | WED    | THU    | FRI    |
+| ------ | ------ | ------ | ------ | ------ |
+| 上山   | 上山   | 上山   | 上山   | 上山   |
+| 打老虎 | 打老虎 | 打老虎 | 打老虎 | 打老虎 |
+
+在普通模式下，输入：|MON|TUE|WED|THU|FRI|，再输入回车，即可出现表格，可以增加表格的行和列，以及左右居中等等
+
+## （6）引用
+
+下一级别：加一个>
+
+> 一二三四五
+>
+>> 上山打老虎
+>>
+>>> 老虎没达到
+>>>
+>>>> 打到小松鼠
+>>>>
+>>>
+>>
+
+## （7）分割线
+
+疯狂打-----即可
+
+---
+
+##==（7）代码==
+
+`我是代码`
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+## （8）字数和侧边栏
+
+字数在右下角
+侧边栏在左侧，可以通过在普通模式中点击左下角的小圆圈呼出
+大纲也在侧边栏中
+
+## （9）插入图片
+
+将图片放入到图片文件夹中，然后复制图片将其直接粘贴进来即可
+
+![Snipaste_2023-12-27_04-15-35](D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-15-35.png)
+
+![Snipaste_2023-12-27_04-12-14](D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-12-14.png)
+
+## （10）改变字体颜色
+
+将字体改变为红色：`<font color=red>`文字 `</font>`
+
+==平常用高亮即可，不要用红色==
+
+## (11) diff代码块
+
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">- 这行被删除了</span></span><br><span class="line"><span class="addition">+ 这行被添加了</span></span><br><span class="line">  这行没有改变</span><br></pre></td></tr></table></figure>
+
+## (12) enter和shift enter的区别
+
+enter: 新起一段（空一行）
+shift enter: 新起一行
+</code></pre>
+]]></content>
+      <categories>
+        <category>工具使用</category>
+      </categories>
+      <tags>
+        <tag>Typora</tag>
+        <tag>Mardown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2024/01/20/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>Full Stack Netflix Clone</title>
@@ -2013,382 +2559,5 @@
         <tag>NextAuth</tag>
         <tag>Vercel</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>How to use Typora</title>
-    <url>/2024/01/20/Typora/</url>
-    <content><![CDATA[<h2 id="（1）标题"><a href="#（1）标题" class="headerlink" title="（1）标题"></a>（1）标题</h2><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h2 id="（2）快捷键"><a href="#（2）快捷键" class="headerlink" title="（2）快捷键"></a>（2）快捷键</h2><p>普通模式和源代码模式：ctrl+/<br>md语法正确显示需要在有文字的一行后面再空一行，把鼠标放在有文字的最后一行的后两行的位置</p>
-<p>标题：按下ctrl和+，则当前行变成第六级的标题，每按一次ctrl和+则当前标题的等级提升一级。按下ctrl和-则是按下ctrl和+的逆向操作。</p>
-<h2 id="（3）字体"><a href="#（3）字体" class="headerlink" title="（3）字体"></a>（3）字体</h2><p><strong>加粗</strong><br><em>倾斜</em><br><strong><em>斜体加粗</em></strong><br><del>删除线</del> （~<em>2删除线~</em>2）<br>==高亮==<br>我是^上标^<br>我是~下标~       （注意用英文的~）</p>
-<h2 id="（4）列表"><a href="#（4）列表" class="headerlink" title="（4）列表"></a>（4）列表</h2><p>无序列表：<br>下一级是加号前面空两格<br>第一级是实心的圆，第二级是空心的圆，第三级开始都是实心的小方框</p>
-<ul>
-<li>一二三四五<ul>
-<li>上山打老虎<ul>
-<li>老虎没打到<ul>
-<li>打到小松鼠</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>有序列表：</p>
-<ol>
-<li>一二三四五</li>
-<li>上山打老虎</li>
-<li>老虎没达到</li>
-<li>打到小松鼠</li>
-</ol>
-<h2 id="（5）表格"><a href="#（5）表格" class="headerlink" title="（5）表格"></a>（5）表格</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>MON</th>
-<th>TUE</th>
-<th>WED</th>
-<th>THU</th>
-<th>FRI</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>上山</td>
-<td>上山</td>
-<td>上山</td>
-<td>上山</td>
-<td>上山</td>
-</tr>
-<tr>
-<td>打老虎</td>
-<td>打老虎</td>
-<td>打老虎</td>
-<td>打老虎</td>
-<td>打老虎</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>在普通模式下，输入：|MON|TUE|WED|THU|FRI|，再输入回车，即可出现表格，可以增加表格的行和列，以及左右居中等等</p>
-<h2 id="（6）引用"><a href="#（6）引用" class="headerlink" title="（6）引用"></a>（6）引用</h2><p>下一级别：加一个&gt;</p>
-<blockquote>
-<p>一二三四五</p>
-<blockquote>
-<p>上山打老虎</p>
-<blockquote>
-<p>老虎没达到</p>
-<blockquote>
-<p>打到小松鼠</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<h2 id="（7）分割线"><a href="#（7）分割线" class="headerlink" title="（7）分割线"></a>（7）分割线</h2><p>疯狂打——-即可</p>
-<hr>
-<h2 id="（7）代码"><a href="#（7）代码" class="headerlink" title="==（7）代码=="></a>==（7）代码==</h2><p><code>我是代码</code></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="（8）字数和侧边栏"><a href="#（8）字数和侧边栏" class="headerlink" title="（8）字数和侧边栏"></a>（8）字数和侧边栏</h2><p>字数在右下角<br>侧边栏在左侧，可以通过在普通模式中点击左下角的小圆圈呼出<br>大纲也在侧边栏中</p>
-<h2 id="（9）插入图片"><a href="#（9）插入图片" class="headerlink" title="（9）插入图片"></a>（9）插入图片</h2><p>将图片放入到图片文件夹中，然后复制图片将其直接粘贴进来即可</p>
-<p><img src="D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-15-35.png" alt="Snipaste_2023-12-27_04-15-35"></p>
-<p><img src="D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-12-14.png" alt="Snipaste_2023-12-27_04-12-14"></p>
-<h2 id="（10）改变字体颜色"><a href="#（10）改变字体颜色" class="headerlink" title="（10）改变字体颜色"></a>（10）改变字体颜色</h2><p>将字体改变为红色：<code>&lt;font color=red&gt;</code>文字 <code>&lt;/font&gt;</code></p>
-<p>==平常用高亮即可，不要用红色==</p>
-<h2 id="11-diff代码块"><a href="#11-diff代码块" class="headerlink" title="(11) diff代码块"></a>(11) diff代码块</h2><figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">- 这行被删除了</span></span><br><span class="line"><span class="addition">+ 这行被添加了</span></span><br><span class="line">  这行没有改变</span><br></pre></td></tr></table></figure>
-<h2 id="12-enter和shift-enter的区别"><a href="#12-enter和shift-enter的区别" class="headerlink" title="(12) enter和shift enter的区别"></a>(12) enter和shift enter的区别</h2><p>enter: 新起一段（空一行）<br>shift enter: 新起一行</p>
-<h2 id="13-markdown-source-code"><a href="#13-markdown-source-code" class="headerlink" title="(13) markdown source code"></a>(13) markdown source code</h2><pre><code>
-## （1）标题
-
-# 一级标题
-
-## 二级标题
-
-### 三级标题
-
-#### 四级标题
-
-##### 五级标题
-
-###### 六级标题
-
-## （2）快捷键
-
-普通模式和源代码模式：ctrl+/
-md语法正确显示需要在有文字的一行后面再空一行，把鼠标放在有文字的最后一行的后两行的位置
-
-标题：按下ctrl和+，则当前行变成第六级的标题，每按一次ctrl和+则当前标题的等级提升一级。按下ctrl和-则是按下ctrl和+的逆向操作。
-
-## （3）字体
-
-**加粗**
-*倾斜*
-***斜体加粗***
-~~删除线~~ （~*2删除线~*2）
-==高亮==
-我是^上标^
-我是~下标~       （注意用英文的~）
-
-## （4）列表
-
-无序列表：
-下一级是加号前面空两格
-第一级是实心的圆，第二级是空心的圆，第三级开始都是实心的小方框
-
-+ 一二三四五
-  + 上山打老虎
-    + 老虎没打到
-      + 打到小松鼠
-
-有序列表：
-
-1. 一二三四五
-2. 上山打老虎
-3. 老虎没达到
-4. 打到小松鼠
-
-## （5）表格
-
-| MON    | TUE    | WED    | THU    | FRI    |
-| ------ | ------ | ------ | ------ | ------ |
-| 上山   | 上山   | 上山   | 上山   | 上山   |
-| 打老虎 | 打老虎 | 打老虎 | 打老虎 | 打老虎 |
-
-在普通模式下，输入：|MON|TUE|WED|THU|FRI|，再输入回车，即可出现表格，可以增加表格的行和列，以及左右居中等等
-
-## （6）引用
-
-下一级别：加一个>
-
-> 一二三四五
->
->> 上山打老虎
->>
->>> 老虎没达到
->>>
->>>> 打到小松鼠
->>>>
->>>
->>
-
-## （7）分割线
-
-疯狂打-----即可
-
----
-
-##==（7）代码==
-
-`我是代码`
-
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-## （8）字数和侧边栏
-
-字数在右下角
-侧边栏在左侧，可以通过在普通模式中点击左下角的小圆圈呼出
-大纲也在侧边栏中
-
-## （9）插入图片
-
-将图片放入到图片文件夹中，然后复制图片将其直接粘贴进来即可
-
-![Snipaste_2023-12-27_04-15-35](D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-15-35.png)
-
-![Snipaste_2023-12-27_04-12-14](D:/OneDrive%20-%20stu.xjtu.edu.cn/%E5%9B%BE%E7%89%87/Snipaste_2023-12-27_04-12-14.png)
-
-## （10）改变字体颜色
-
-将字体改变为红色：`<font color=red>`文字 `</font>`
-
-==平常用高亮即可，不要用红色==
-
-## (11) diff代码块
-
-<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"><span class="deletion">- 这行被删除了</span></span><br><span class="line"><span class="addition">+ 这行被添加了</span></span><br><span class="line">  这行没有改变</span><br></pre></td></tr></table></figure>
-
-## (12) enter和shift enter的区别
-
-enter: 新起一段（空一行）
-shift enter: 新起一行
-</code></pre>
-]]></content>
-      <categories>
-        <category>工具使用</category>
-      </categories>
-      <tags>
-        <tag>Typora</tag>
-        <tag>Mardown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Summary of full stack netflix clone</title>
-    <url>/2024/03/07/Summary-of-full-stack-netflix-clone/</url>
-    <content><![CDATA[<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
-<li>Frontend: React</li>
-<li>Server-side Rendering: Next.js</li>
-<li>Styling: Tailwind CSS</li>
-<li>Data abstraction layer: Prisma</li>
-<li>Storage: MongoDB</li>
-<li>Authentication: NextAuth</li>
-<li>Deploy: Vercel</li>
-<li>Typescript</li>
-<li>the entire website fully</li>
-</ul>
-<p>The entire website fully responsive across all devices.</p>
-<h2 id="实现的功能"><a href="#实现的功能" class="headerlink" title="实现的功能"></a>实现的功能</h2><ul>
-<li>credential login: username + password</li>
-<li>profile: automatically generated once we register</li>
-<li>homepage: loaded with a random movie-billboard</li>
-<li>movies: load from database</li>
-<li>favourites: add movies as favourites</li>
-<li>botton:  shows more information about the movie</li>
-<li>play the movie</li>
-<li>Google and GitHub oauth login</li>
-</ul>
-<h2 id="精简笔记与全栈开发的一般流程"><a href="#精简笔记与全栈开发的一般流程" class="headerlink" title="精简笔记与全栈开发的一般流程"></a>精简笔记与全栈开发的一般流程</h2><h3 id="登录页面"><a href="#登录页面" class="headerlink" title="登录页面"></a>登录页面</h3><p>先在pages中创建auth.tsx，然后在components中创建Input.tsx，将其加入到auth.tsx中。实现next auth时需要创建pages/api/[…nextauth].ts文件。</p>
-<h3 id="通过授权登录保护登录界面以外的路径"><a href="#通过授权登录保护登录界面以外的路径" class="headerlink" title="通过授权登录保护登录界面以外的路径"></a>通过授权登录保护登录界面以外的路径</h3><p>保护路由：</p>
-<ul>
-<li>serverAuth.ts（lib）：利用 next-auth 的 getSession 实现API路由的用户登录检查，防止未登录用户访问。</li>
-<li>current.ts（pages/api）：API路由，使用 serverAuth.ts 验证用户登录，返回用户信息或错误。</li>
-</ul>
-<p>前端用户信息获取：</p>
-<ul>
-<li>fetcher.ts（lib）：通过 axios 封装的简易数据获取函数。</li>
-<li>useCurrentUser.ts（hooks）：自定义Hook，结合 swr 和 fetcher.ts 从 /api/current 获取当前登录用户信息。</li>
-</ul>
-<p>客户端路由保护与个人资料页面：</p>
-<ul>
-<li>index.tsx 和 profiles.tsx（pages）：通过 getServerSideProps 中的 getSession 实现路由保护，控制访问权限。</li>
-<li>页面重定向：auth.tsx 调整登录后重定向逻辑，确保正确导向 /profiles。</li>
-</ul>
-<p>实现细节：</p>
-<ul>
-<li>用户状态展示：在 profiles.tsx 中展示用户信息，并实现点击默认头像返回首页的功能。</li>
-<li>环境配置调整：通过修改 .env 和 package.json 解决开发中遇到的端口配置问题，保证登录流程正常。</li>
-</ul>
-<h3 id="导航组件"><a href="#导航组件" class="headerlink" title="导航组件"></a>导航组件</h3><p>在这个项目中，开发了一个导航组件（Navigation Component），涉及了几个主要的文件和它们之间的关系，以及各自的功能和作用：</p>
-<ol>
-<li><p>index.tsx（主页文件）：这是应用的入口页面，最初被清理以只保留基本结构。它通过 getServerSideProps 功能检查用户的会话，基于会话存在与否决定重定向到登录页面或显示主内容。后续，Navbar 组件被引入到此文件中，作为页面的一部分。</p>
-</li>
-<li><p>Navbar.tsx（导航栏组件）：位于 components 文件夹内，Navbar 是顶部的导航条组件，负责显示应用的导航链接。它包括了一个动态背景变化的功能，随着页面滚动，背景从透明变为不透明。</p>
-</li>
-<li><p>NavbarItem.tsx（导航项组件）：同样位于 components 文件夹内，用于表示 Navbar 中的单个导航链接。它通过 props 接收 label 来显示不同的导航项。</p>
-</li>
-<li><p>MobileMenu.tsx（移动菜单组件）：这个组件负责在小屏幕上显示一个可展开的移动菜单。它通过 visible prop 控制显示状态，包含多个 NavbarItem 组件来展示导航选项。</p>
-</li>
-<li><p>AccountMenu.tsx（账户菜单组件）：用于在 Navbar 组件中显示用户的账户菜单，它提供了注销功能并可以通过 visible prop 控制其显示。</p>
-</li>
-</ol>
-<p>项目中还实现了一些额外的交互特性，比如：</p>
-<ul>
-<li>使用 React 的 useState 和 useEffect Hooks 来管理组件的状态和生命周期，例如控制菜单的显示状态和根据页面滚动动态改变导航栏背景。</li>
-<li>通过 useCallback 来优化事件处理函数，避免不必要的重新渲染。</li>
-<li>导航组件和移动菜单的显示逻辑，包括在小屏幕上通过点击“浏览”来展开和隐藏导航项。</li>
-<li>在 Navbar 组件中，引入了 react-icons 库中的图标来增强视觉效果，并通过条件渲染实现了箭头图标的旋转动画，以指示菜单的展开和收起状态。</li>
-</ul>
-<p>整体而言，这个导航组件通过组合多个子组件和利用 React 的特性，实现了一个响应式、具有交互性的用户界面，能够适应不同的设备和屏幕尺寸。</p>
-<h3 id="广告牌组件"><a href="#广告牌组件" class="headerlink" title="广告牌组件"></a>广告牌组件</h3><p>首先将定义有电影信息的json文件手动添加到MongoDB中。<br>然后创建新的api：random，用于随机返回一部电影。<br>在<code>hooks/useBillboard.ts</code>中写代码以避免对首页推荐电影的重复加载。在<code>components</code>中新建<code>Billboard.tsx</code>，然后在<code>index.tsx</code>中引入<code>Billboard</code>。<br>接着在<code>Billboard.tsx</code>中填入具体的内容，目的是fetch the data for a random movie，并继续加入电影、电影名、电影介绍和More info按钮。</p>
-<h3 id="电影列表和电影卡片组件"><a href="#电影列表和电影卡片组件" class="headerlink" title="电影列表和电影卡片组件"></a>电影列表和电影卡片组件</h3><p>定义api: <code>pages/api/movies/index.ts</code>，加载所有电影。<br>接着在hooks文件夹中创建<code>useMovieList.ts</code>，用于返回<code>api/movies</code>中得到的数据。<br>接着在<code>components</code>中创建<code>MovieList.tsx</code>，并在<code>pages/index.tsx</code>中装入MovieList并传入必要的参数，并使用上面定义的hook: <code>useMovieList.ts</code>。<br>接着在<code>components</code>文件夹中创建<code>MovieCard.tsx</code>文件，用于实现电影卡片组件，并将<code>MovieCard</code>放入<code>MovieList.tsx</code>中。</p>
-<h3 id="收藏功能"><a href="#收藏功能" class="headerlink" title="收藏功能"></a>收藏功能</h3><p>定义api: <code>pages/api/favorite.ts</code>，用于实现用户在收藏和取消收藏电影时对数据库的操作。<br>再定义一个api: <code>pages/api/favorites.ts</code>，用于加载我们收藏的电影列表。<br>接着写一个hook: <code>useFavorites.ts</code>，用于调用第二个api从而加载我们收藏的电影列表。<br>再写一个组件<code>components/FavoriteButton.tsx</code>，作为收藏按钮。<br>将该按钮加入MovieCard中。然后在Trending Now列表以外再创建一个My Favorites列表，这是在<code>pages/index.tsx</code>中实现的。<br>最后让favorite按钮变得可交互。这样在Trending Now列表上的电影上的加号时，其就会被添加到My List，然后加号会变成勾。这样一部电影就被收藏了。取消收藏也是同理。</p>
-<h3 id="电影播放功能"><a href="#电影播放功能" class="headerlink" title="电影播放功能"></a>电影播放功能</h3><p>首先定义api: 创建<code>pages/api/movies/[movieId].ts</code>，用于通过外部传入的movieId找到电影。<br>再创建<code>hooks/useMovie.ts</code>，调用上述api，并负责给上述api传入参数movieId。<br>接着写播放按钮：<code>components/PlayButton.tsx</code>，并在<code>components/Billboard.tsx</code>中加入播放按钮。<br>现在实现了点击播放按钮，跳转到另一个页面的功能，接着在MovieCard组件中也实现这个功能。<br>然后具体写跳转到的<code>/watch</code>页面，创建<code>pages/watch/[movieId].tsx</code>，并在这个页面中实现加载视频名字、返回等功能。</p>
-<h3 id="电影详细信息功能"><a href="#电影详细信息功能" class="headerlink" title="电影详细信息功能"></a>电影详细信息功能</h3><p>实现的功能：点击More Info按钮，会显示电影的信息。<br>创建用于状态管理（打开或关闭More Info）的钩子：<code>hooks/useInfoModel.ts</code>。<br>创建显示电影详细信息的组件：<code>components/InfoModal.tsx</code><br>在pages/index.tsx中加入上述组件。<br>给InfoModal组件加上关闭、播放、收藏按钮，最后加上电影信息等字样。<br>利用onClick函数实现点击关闭按钮关闭页面的功能。<br>在<code>pages/index.tsx</code>中实现对组件<code>InfoModal.tsx</code>的触发，从而展现电影的详细信息。<br><code>components/Billboard.tsx</code>中实现点击More Info按钮触发组件<code>InfoModal.tsx</code>，从而展现电影的详细信息。<br>在电影卡片组件中同样实现点击按钮展现电影详细信息。<br>修复个人profile中名字始终加载为username的问题。</p>
-<h3 id="给全栈项目开发新功能的一般过程"><a href="#给全栈项目开发新功能的一般过程" class="headerlink" title="给全栈项目开发新功能的一般过程"></a>给全栈项目开发新功能的一般过程</h3><p>熟悉了上述精简版本的笔记后，我们可以对全栈项目（react + next.js）的开发做一些总结。</p>
-<p>对于实现登录页面和通过授权登录保护登录界面以外的路径，这两项属于偏后端的范畴，主要利用的是next.js的一些特性（特别是pages和api）。这两个任务没有什么一般性的套路，需要用到的文件夹也比较复杂，包括pages, hooks, lib等，跟着讲义一步步实现。</p>
-<p>对于实现导航组件，这个属于偏前端的范畴，主要需要在pages中定义一个菜单界面，再在components中定义若干个组件。在这里需要注意组件的复用。组件拼凑组合起来就能实现一个网页。同时还需要注意如何实现交互特性和其他的一些细节。</p>
-<p>对于广告牌组件、电影列表和电影卡片组件、收藏功能、电影播放功能、电影详细信息功能，这些都属于前后端交互的范畴，是有统一的开发套路的。<strong>一般来说是先定义api，再定义hook（调用api），再定义组件（调用hook获取api的数据），再将组件加入到页面（pages）中</strong>。这就是开发全栈项目的一般的新功能（非拓荒）的一般过程。</p>
-<h2 id="我的思考"><a href="#我的思考" class="headerlink" title="我的思考"></a>我的思考</h2><ol>
-<li><p>Tailwind CSS的好处：我的主要感受是不需要手写css文件，直接在classname中写内容就可以。注意使用Tailwind CSS前，需要进行必要的配置。Tailwind CSS的具体优点如下所示：</p>
-<ul>
-<li><p>快速原型开发<br>Tailwind 的实用工具类使得快速原型设计变得非常简单。你可以通过组合不同的类来快速构建界面，而不需要离开 HTML 文件去编写和调试 CSS 文件，这可以显著加快开发速度。</p>
-</li>
-<li><p>一致性和可重用性<br>通过使用 Tailwind 提供的实用工具类，可以在整个项目中保持样式的一致性。由于你在不同的地方复用相同的实用工具类，这自然而然地导致了样式的可重用性和一致性。</p>
-</li>
-<li><p>可定制和可配置<br>Tailwind CSS 高度可定制。你可以根据项目的设计指南调整配置文件（如颜色、字体大小、边距等），这使得创建符合品牌指南的设计变得简单。</p>
-</li>
-<li><p>减少 CSS 的复杂性<br>由于采用实用工具类的方式，你可以避免编写过多的自定义 CSS 和处理复杂的 CSS 继承关系，这降低了代码的复杂性。</p>
-</li>
-<li><p>响应式设计友好<br>Tailwind CSS 内置了响应式设计的支持，通过简单的前缀可以轻松地实现不同屏幕尺寸的样式适配，而不需要编写额外的媒体查询。</p>
-</li>
-<li><p>减少未使用的 CSS<br>通过与 PurgeCSS 的集成，Tailwind CSS 可以在构建过程中自动移除未使用的 CSS，这意味着最终的样式表非常精简，加载时间快。</p>
-</li>
-<li><p>总结<br>尽管 Tailwind CSS 提供了诸多好处，如加速开发、提高一致性和可维护性，但它也有一定的学习曲线，尤其是对于习惯了传统 CSS 开发方式的开发者来说。此外，一些开发者可能会对在 HTML 中大量使用实用工具类表示担忧，担心这会导致 HTML 文件的可读性降低。不过，对于许多项目和团队而言，Tailwind CSS 提供的好处远远超过了这些潜在的缺点。</p>
-</li>
-</ul>
-</li>
-<li><p>Google oauth比较难用。在本地将项目跑起来时，Google oauth功能正常，但当我尝试在vercel上部署本项目时，Google oauth就完全无法正常使用，甚至每次产生的报错信息都不相同。与此形成鲜明对比的是，GitHub oauth比较好用，配置和更改都较为简单，且将项目部署在vercel上以后再使用GitHub oauth也不会出问题。</p>
-</li>
-<li><p>Next.js和React各自的作用：</p>
-<p>React 和 Next.js 在一个项目中的共存实际上非常常见，并且它们各自扮演着互补的角色。理解它们的主要用途有助于更好地利用这两个库/框架来构建你的应用。</p>
-<p>React</p>
-<p>React 是一个用于构建用户界面的 JavaScript 库，由 Facebook 开发。它的主要特点是组件化开发和声明式编程，使得开发复杂、高性能的单页应用（SPA）变得简单。React 本身主要关注于视图层（UI），允许开发者以组件的形式构建复杂的用户界面。它并不提供诸如路由、服务器端渲染等功能，这些通常需要通过其他库或框架来实现。</p>
-<p>Next.js</p>
-<p>Next.js 是一个基于 Node.js 的框架，它为 React 应用提供了额外的结构和功能，如自动的代码分割、服务器端渲染（SSR）、静态站点生成（SSG）、基于文件的路由系统、API 路由等。Next.js 旨在解决 React 单页应用的一些限制，特别是在 SEO 和首屏加载性能方面。通过服务器端渲染，Next.js 可以提前渲染页面，使其内容能够被搜索引擎索引，同时也提升了页面加载的速度。</p>
-<p>它们是如何一起工作的</p>
-<ul>
-<li>React 在项目中的角色：负责定义应用的组件结构、状态管理和用户交互逻辑。开发者会使用 React 来创建应用的各个界面组件。</li>
-<li>Next.js 在项目中的角色：提供框架和额外功能，帮助这些 React 组件以更高效、优化的方式被呈现和服务。<strong>例如，Next.js 通过文件系统提供的路由功能，自动将位于 <code>pages/</code> 目录下的 React 组件转换为可访问的页面</strong>。</li>
-</ul>
-<p>总结</p>
-<p>在一个项目中，React 用来构建用户界面的组件，而 Next.js 则用来增强 React 应用，提供路由、预渲染（SSR 或 SSG）等功能，以及优化应用的性能和可访问性。Next.js 让开发者能够更专注于业务逻辑和组件本身，而不是底层的架构问题，从而简化了 React 应用的开发和部署过程。简言之，你可以将 React 视为构建应用的砖块，而 Next.js 则是将这些砖块组织起来，建造出结构化、高效、易于维护的应用的框架。<strong>我的理解：React只能做前端，而React+Next.js就可以做全栈了</strong>。</p>
-</li>
-<li><p>Prisma是一款现代化的ORM框架，它可以连接到多种数据库类型（如 PostgreSQL 、 MySQL 、 SQLite 和 SQL Server等），在本项目中我们用Prisma连接了MongoDB。在ORM的帮助下，我们不需要写SQL语句，只需要定义数据库中的数据名称和数据类型，就可以实现对数据库的各种操作。</p>
-</li>
-<li><p>本项目中的大多数代码都是Typescript（.ts）代码或者TypeScript JSX(.tsx)代码。前者是基于javascript开发的。TypeScript 是 JavaScript 的一个超集，这意味着它包含了 JavaScript 的所有功能，并在此基础上添加了更多的特性。后者是 TypeScript 的扩展，允许在 TypeScript 文件中使用 JSX 语法。JSX 是一种语法糖，允许开发者在 JavaScript 代码中写像HTML一样的标记语言，这在React 开发中非常常见。由于 TypeScript 默认不理解 JSX 语法，TSX（<code>.tsx</code> 文件扩展名）提供了一种方式来使用 TypeScript 和 JSX。因此，<code>.tsx</code> 文件通常用于包含 JSX 的 TypeScript 项目，尤其是在开发 React 组件时。<strong>简而言之，当代码中需要有类似HTML的代码时，即需要创建一个页面或者页面的一部分时，用tsx。无类似HTML的代码，则用ts</strong>。在本项目中，定义所有组件的components文件夹中的文件全用了tsx，因为要写HTML代码；同理，pages文件夹中除了api文件夹以外的所有文件用的也是tsx。剩下的文件夹中的文件普遍用的是ts，包括hooks文件夹，lib文件夹和pages/api文件夹。</p>
-</li>
-<li><p>本项目中几个主要文件夹的作用：</p>
-<p>属于 Next.js 的特定文件夹：</p>
-<ul>
-<li><strong>pages</strong>：这是 Next.js 特有的一个文件夹，用于基于文件系统的路由。在 Next.js 中，<code>pages</code> 目录下的每一个文件都会自动对应一个路由，这是 Next.js 框架的核心特性之一。pages中还有api文件夹，因此在本项目中可以像前后端分离的项目那样在后端定义api，然后在前端调用。<strong>只不过本项目中是在next.js实现的伪后端中定义api，然后在react实现的纯前端中调用api</strong>。</li>
-<li><strong>public</strong>：这个文件夹也是 Next.js 的标准部分，用于存放静态文件，如图片、字体等。在项目中，你可以通过相对路径直接引用 <code>public</code> 文件夹中的资源。</li>
-<li><strong>styles</strong>：虽然存放样式的做法在前端项目中非常常见，但在 Next.js 项目中，<code>styles</code> 文件夹通常用于组织 CSS 或 SCSS 文件。Next.js 支持 CSS Modules 和内置的 Sass 支持，这个文件夹通常用来利用这些特性。本项目中的styles文件夹中只有一个global.css文件，主要负责对tailwind css的配置和定义一些默认的css格式。</li>
-</ul>
-<p>通常属于开发者根据项目需求创建的文件夹（既适用于 React，也适用于 Next.js）：</p>
-<ul>
-<li><p>components：存放 React 组件的文件夹。这些组件可以在不同的页面中复用。这是 React 项目的常见结构，但在 Next.js 项目中同样适用。</p>
-</li>
-<li><p>hooks：存放自定义 React 钩子（Hooks）。自定义钩子是 React 16.8 引入的功能，用于在函数组件之间复用状态逻辑。</p>
-</li>
-<li><p>lib：通常用于存放一些工具库或者用于与 API 交互的函数等。这个文件夹的具体用途依项目需求而定，既适用于纯 React 项目，也适用于 Next.js 项目。</p>
-</li>
-</ul>
-<p>数据库相关的文件：</p>
-<p>prisma：这个文件夹通常用于存放与 Prisma 相关的配置和模型文件。Prisma 是一个流行的 Node.js 和 TypeScript ORM（对象关系映射），用于构建数据库访问。这不是 Next.js 或 React 特有的，而是根据你的项目是否需要与数据库交互来决定使用。</p>
-<p>总结：<br>Next.js 特有：pages 和 public 文件夹是 Next.js 特定的，而 styles 虽然不是 Next.js 特有的，但其在 Next.js 项目中的使用方式往往利用了 Next.js 的一些特性。</p>
-<p>React 和 Next.js 通用：components、hooks、lib 和 prisma 文件夹是根据开发者的项目需求创建的，它们既适用于 React 项目，也适用于 Next.js 项目。这些文件夹的使用反映了现代前端项目的一些最佳实践，如组件化开发、自定义钩子的使用等。</p>
-</li>
-<li><p>本项目中使用到了hook的以下功能：</p>
-<ul>
-<li><p>状态管理 (<code>useState</code>)<br>这是 Hooks 最基本的用途之一，允许在函数组件中添加状态。这对于实现按钮点击、输入表单处理、切换UI组件显示隐藏等功能至关重要。</p>
-</li>
-<li><p>数据获取（<code>useSWR</code>）<br><code>useSWR</code> 是一个由 Vercel 团队开发的 React Hook，它是 SWR (Stale-While-Revalidate) 数据获取库的一部分。SWR 是一种缓存策略，其名称来自 HTTP 缓存无效化策略，意味着“先返回缓存中的数据（陈旧的），然后发送请求（重新验证），最后用新数据替换旧数据”。<code>useSWR</code> 主要用于数据获取场景，特别是在需要频繁请求更新数据的应用中，它提供了一种简单而强大的方法来获取、缓存、更新远程数据。</p>
-</li>
-<li><p>副作用处理 (<code>useEffect</code>)<br>用于执行副作用操作，如数据获取（调用API）、订阅/取消订阅事件、直接操作DOM。这对于在组件加载、更新或卸载时执行外部操作非常有用。</p>
-</li>
-<li><p>性能优化 (<code>useCallback</code>)<br><code>useCallback</code> 可以避免在每次渲染时都进行不必要的计算或创建新的函数实例，从而提高性能。</p>
-<p>需要特别注意的是，hook是一种概念，因此不局限于定义在某个特定的文件夹（如 <code>hooks</code> 文件夹）中，而是可以在函数的任何地方使用。在本项目中，hooks文件夹中的hooks主要负责对api的调用，而components, pages等文件夹中的hooks主要负责状态管理和性能优化。</p>
-</li>
-</ul>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>web开发</category>
-      </categories>
-      <tags>
-        <tag>总结</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/01/20/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
 </search>
