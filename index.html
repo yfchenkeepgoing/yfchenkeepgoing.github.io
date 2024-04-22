@@ -191,6 +191,152 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/21/Day-20-Leetcode-530-501-236/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yifan Chen">
+      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YifanChen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/21/Day-20-Leetcode-530-501-236/" class="post-title-link" itemprop="url">Day 20 Leetcode 530 501 236</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-21 09:49:51" itemprop="dateCreated datePublished" datetime="2024-04-21T09:49:51+01:00">2024-04-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-22 22:02:28" itemprop="dateModified" datetime="2024-04-22T22:02:28+01:00">2024-04-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%89/" itemprop="url" rel="index"><span itemprop="name">算法（二叉树）</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0530.%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E7%BB%9D%E5%AF%B9%E5%B7%AE.html">530.二叉搜索树的最小绝对差</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0501.%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%BC%97%E6%95%B0.html">501.二叉搜索树中的众数</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0236.%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88.html">236. 二叉树的最近公共祖先</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="501-二叉搜索树中的众数"><a href="#501-二叉搜索树中的众数" class="headerlink" title="501.二叉搜索树中的众数"></a>501.二叉搜索树中的众数</h3><h3 id="236-二叉树的最近公共祖先"><a href="#236-二叉树的最近公共祖先" class="headerlink" title="236. 二叉树的最近公共祖先"></a>236. 二叉树的最近公共祖先</h3><h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="530-二叉搜索树的最小绝对差"><a href="#530-二叉搜索树的最小绝对差" class="headerlink" title="530.二叉搜索树的最小绝对差"></a>530.二叉搜索树的最小绝对差</h3><p>本题虽然是个easy题，但我想不出来怎么做。唯一的思路是双指针，至于怎么递归，按照怎样的顺序，我想不出来。</p>
+<h3 id="501-二叉搜索树中的众数-1"><a href="#501-二叉搜索树中的众数-1" class="headerlink" title="501.二叉搜索树中的众数"></a>501.二叉搜索树中的众数</h3><p>本题显然又要充分利用二叉搜索树的特性：中序遍历二叉搜索树，得到的数组是递增的，统计数组中出现频次最高的元素即可。本题我目前发现了两个需要注意的点：</p>
+<ol>
+<li>出现频次最高的元素可能不止一个，因此需要返回一个数组。</li>
+<li>本二叉搜索树的性质为：左子树中的所有节点<strong>小于等于</strong>根节点，右子树中的所有节点<strong>大于等于</strong>根节点。</li>
+</ol>
+<p>本题似乎也应该采用双指针的做法。若<code>pre-&gt;val</code>和<code>cur-&gt;val</code>相等，则<code>cnt</code>数组（用于统计元素值出现的次数）中<code>pre-&gt;val</code>的值加1。但这里有两个问题：</p>
+<ul>
+<li>节点的值可能为负数，因此不能将节点的值直接映射为数组的下标</li>
+<li>若出现次数最多的元素不止一个，该如何返回数组</li>
+</ul>
+<p>上述两个问题都不好解决，我直接看卡尔的讲解吧。</p>
+<h3 id="236-二叉树的最近公共祖先-1"><a href="#236-二叉树的最近公共祖先-1" class="headerlink" title="236. 二叉树的最近公共祖先"></a>236. 二叉树的最近公共祖先</h3><p>本题比较难，我拿到后没有什么想法，猜测可能要用到回溯。直接看卡尔的讲解。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="530-二叉搜索树的最小绝对差-1"><a href="#530-二叉搜索树的最小绝对差-1" class="headerlink" title="530.二叉搜索树的最小绝对差"></a>530.二叉搜索树的最小绝对差</h3><p>目标：求任意两节点间的最小绝对差。由于是二叉搜索树，用中序遍历会成为一个有序的序列，据此思路尝试解出此题。我独立写出了本题的第一种解法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">inorder</span><span class="params">(TreeNode* root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">inorder</span>(root-&gt;left);</span><br><span class="line">        vec.<span class="built_in">push_back</span>(root-&gt;val);</span><br><span class="line">        <span class="built_in">inorder</span>(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getMinimumDifference</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">inorder</span>(root);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> min = INT_MAX;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; vec.<span class="built_in">size</span>() - <span class="number">1</span>; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (min &gt; vec[i + <span class="number">1</span>] - vec[i]) min = vec[i + <span class="number">1</span>] - vec[i];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>和98.验证二叉搜索树相同，本题应该也可以用<code>maxvalue</code>法和双指针法。这两种方法本质上都是不用额外的数组，直接在中序遍历时计算两个相邻节点的差值，然后选取最小的差值。现在我来尝试这两种解法。这两种解法我还是想不出来，看卡尔的讲解。</p>
+<p>接下来讲解如何在中序遍历时利用两个指针直接得出最小绝对差，而不用把二叉树转变为数组。难点：中序遍历二叉树时前后指针如何移动（控制）。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> res = INT_MAX;</span><br><span class="line"></span><br><span class="line">TreeNode* pre = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回二叉树的某一特性或者二叉树节点的某个数值，才需要返回值。本题的情况不需要返回值</span></span><br><span class="line"><span class="comment">// 确切来说，一找到就需要立刻去返回的才需要返回值。需要遍历整棵二叉树且用全局变量来记录返回结果的，函数就不需要返回值</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 终止条件</span></span><br><span class="line">    <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 单层递归逻辑：中序遍历</span></span><br><span class="line">    <span class="built_in">traversal</span>(cur-&gt;left); <span class="comment">// 左</span></span><br><span class="line">    <span class="comment">// 中</span></span><br><span class="line">    <span class="keyword">if</span> (pre != <span class="literal">NULL</span>) res = <span class="built_in">min</span>(res, cur-&gt;val - pre-&gt;val);</span><br><span class="line">    pre = cur;</span><br><span class="line">    <span class="built_in">traversal</span>(cur-&gt;right); <span class="comment">// 右</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>移动pre和cur的核心在于：cur由中序遍历来移动，pre由赋值移动。cur是当前节点，pre是当前节点的上一个节点。</p>
+<p>根据上述核心代码，我写下了本题的完整代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> res = INT_MAX;</span><br><span class="line">    TreeNode* pre = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 左</span></span><br><span class="line">        <span class="built_in">traversal</span>(cur-&gt;left);</span><br><span class="line">        <span class="comment">// 中</span></span><br><span class="line">        <span class="keyword">if</span> (pre != <span class="literal">NULL</span> &amp;&amp; cur-&gt;val - pre-&gt;val &lt; res)</span><br><span class="line">            res = cur-&gt;val - pre-&gt;val;</span><br><span class="line">        <span class="comment">// 也可写作</span></span><br><span class="line">        <span class="comment">// if (pre != NULL) res = min(res, cur-&gt;val - pre-&gt;val);</span></span><br><span class="line">        pre = cur;</span><br><span class="line">        <span class="comment">// 右</span></span><br><span class="line">        <span class="built_in">traversal</span>(cur-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getMinimumDifference</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">traversal</span>(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>本题也可以用迭代法，但不推荐。</p>
+<h3 id="501-二叉搜索树中的众数-2"><a href="#501-二叉搜索树中的众数-2" class="headerlink" title="501.二叉搜索树中的众数"></a>501.二叉搜索树中的众数</h3><p>二叉搜索树中可能有重复的元素。众数可能不止一个，因此输出众数的集合。暴力做法：对一棵普通的二叉树，遍历二叉树，用map统计每个元素出现的频次，然后将map转换为vector，对vector进行排序，然后在数组中求众数。</p>
+<p>如何利用二叉搜索树的特性去求众数的集合？遍历顺序：中序遍历。中序遍历得到的数组中的所有元素是单调递增的。<strong>求众数的具体方法：先遍历一遍二叉树，记录下所有元素出现的最高频率。再遍历一遍二叉树，将出现频率为最高频率的元素放入结果集中。</strong>其实可以不遍历两遍二叉树，遍历一遍二叉树即可，需要用到一些代码技巧。</p>
+<p>双指针算法的思路：用count来统计当前元素出现的次数。当<code>pre-&gt;val == cur-&gt;val</code>时，当前元素出现的次数加1。当<code>pre-&gt;val != cur-&gt;val</code>，则count归一。初始时，pre指向NULL，count指向左叶子节点，count也为一。当<code>count == maxcount</code>时，将当前元素放入结果集中。</p>
+<p>这里有个问题：如果不事先遍历一遍二叉树，怎么知道<code>maxcount</code>一定是真正的最高频率？后面的具体代码实现中会处理这个问题。现在开始写具体的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">TreeNode* pre = <span class="literal">NULL</span>;</span><br><span class="line"><span class="type">int</span> count = <span class="number">0</span>; <span class="comment">// 当前元素出现的频率</span></span><br><span class="line"><span class="type">int</span> maxcount = <span class="number">0</span>; <span class="comment">// 整个二叉树中（已经遍历过的节点）的元素出现的最高频率</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; res; <span class="comment">// 结果集</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历整个二叉树，结果放入全局变量中，因此递归函数不需要返回值</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 终止条件</span></span><br><span class="line">    <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 单层的递归逻辑</span></span><br><span class="line">    <span class="comment">// 左</span></span><br><span class="line">    <span class="built_in">traversal</span>(cur-&gt;left);</span><br><span class="line">    <span class="comment">// 中：处理逻辑</span></span><br><span class="line">    <span class="comment">// 统计count</span></span><br><span class="line">    <span class="keyword">if</span> (pre == <span class="literal">NULL</span>) count = <span class="number">1</span>; <span class="comment">// 双指针的初始位置：pre为NULL，cur指向左叶子节点</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (pre-&gt;val == cur-&gt;val) count += <span class="number">1</span>; <span class="comment">// 当前元素出现的次数+1</span></span><br><span class="line">    <span class="keyword">else</span> count = <span class="number">1</span>; <span class="comment">// 双指针指向的节点的值不相等，则count又回到1</span></span><br><span class="line">    pre = cur; <span class="comment">// pre跟随cur移动</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 若当前节点的出现次数等于整个二叉树中元素出现的最大次数，则将其放入结果集中</span></span><br><span class="line">    <span class="keyword">if</span> (count == maxcount) res.<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 此时存在问题：maxcount不是真正的maxcount，因此需要代码去更新res数组</span></span><br><span class="line">    <span class="comment">// 实时更新res数组，就不需要遍历两遍二叉树了</span></span><br><span class="line">    <span class="keyword">if</span> (count &gt; maxcount) </span><br><span class="line">    &#123;</span><br><span class="line">        maxcount = count; <span class="comment">// 更新maxcount</span></span><br><span class="line">        <span class="comment">// maxcount都被更新了，原先的结果集中的结果全废了，清空res</span></span><br><span class="line">        res.<span class="built_in">clear</span>();</span><br><span class="line">        res.<span class="built_in">push_back</span>(cur-&gt;val); <span class="comment">// 将当前节点的数值放入结果集中</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 右</span></span><br><span class="line">    <span class="built_in">traversal</span>(cur-&gt;right);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我也写出了遍历两次二叉树的代码，如下所示。需要特别注意的是，<code>getmaxcount</code>后需要重置pre和count。遍历两次二叉树的代码显得很冗余，因为基本相同的逻辑写了两遍。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    TreeNode* pre = <span class="literal">NULL</span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> maxcount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一次遍历二叉树，得到maxcount</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">getmaxcount</span><span class="params">(TreeNode* cur)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">getmaxcount</span>(cur-&gt;left);</span><br><span class="line">        <span class="comment">// 中节点</span></span><br><span class="line">        <span class="keyword">if</span> (pre == <span class="literal">NULL</span>) count = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (pre-&gt;val == cur-&gt;val) count += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> count = <span class="number">1</span>;</span><br><span class="line">        pre = cur;</span><br><span class="line">        <span class="keyword">if</span> (count &gt; maxcount) maxcount = count;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">getmaxcount</span>(cur-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第二次遍历二叉树，得到结果集</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">traversal</span>(cur-&gt;left);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 中节点</span></span><br><span class="line">        <span class="keyword">if</span> (pre == <span class="literal">NULL</span>) count = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (pre-&gt;val == cur-&gt;val) count += <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> count = <span class="number">1</span>;</span><br><span class="line">        pre = cur;</span><br><span class="line">        <span class="keyword">if</span> (count == maxcount) res.<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">traversal</span>(cur-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">findMode</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">getmaxcount</span>(root);</span><br><span class="line">        pre = <span class="literal">NULL</span>; <span class="comment">// getmaxcount后重置pre</span></span><br><span class="line">        count = <span class="number">0</span>; <span class="comment">// getmaxcount后重置count</span></span><br><span class="line">        <span class="built_in">traversal</span>(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>本题也可以采用迭代法，基本上是迭代的模板加上递归法对中节点的处理逻辑。但本题推荐掌握递归法即可。</p>
+<h3 id="236-二叉树的最近公共祖先-2"><a href="#236-二叉树的最近公共祖先-2" class="headerlink" title="236. 二叉树的最近公共祖先"></a>236. 二叉树的最近公共祖先</h3><p>找两个节点p和q的最近公共祖先。条件：二叉树中所有节点的值都是不同的，二叉树中一定存在p和q。根节点是任何两个节点的公共祖先，所以求公共祖先没有意义，求最近公共祖先才有意义。简单的想法：找到节点p和节点q后，从下往上去遍历，直到找到公共的节点。但对二叉树，一般大家熟悉的是从根节点开始从上往下去遍历，实际上也无法从下往上去遍历，但处理顺序可以是从下往上的。<strong>回溯的过程就可以让我们去从下往上地处理结果</strong>。具体来说，可以判断某个节点的左子树是否出现过p，右子树是否出现过q，如果都出现了，就将该节点向上返回。看该节点的父节点，若父节点的左子树中没出现p，或者右子树中没出现q，则说明该节点是p和q的最近公共祖先。父节点继续将最近公共祖先节点的值向上返回，直到返回到根节点。</p>
+<p>从下往上传递p和q节点的最近公共祖先的逻辑写在回溯过程中。<strong>想在回溯过程中达到从下往上处理的效果，一定要用后序遍历</strong>。后序遍历是左右中，中：处理逻辑。<strong>中的具体处理逻辑</strong>：判断某个节点的左子树是否出现过p，右子树是否出现过q。即在终止条件中，如果遇到了p或者q，就往上返回。如果一个节点的左子树的返回值不为空，则左子树中出现了p或者q；如果一个节点的右子树的返回值不为空，则右子树中出现了p或者q。<strong>如果当前中节点的左右子树的返回值都不为空，则当前的中节点就是p和q最近的公共祖先</strong>。还有一种情况。即p就是q的公共祖先。但本情况的处理逻辑和上面是相同的。</p>
+<p>具体的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回最近的公共祖先</span></span><br><span class="line"><span class="function">TreeNode* <span class="title">traversal</span><span class="params">(TreeNode* root, TreeNode* p, TreeNode* q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 终止条件1</span></span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">// 终止条件2：遇到节点p或者q，则将它们向上返回</span></span><br><span class="line">    <span class="keyword">if</span> (root == p || root == q) <span class="keyword">return</span> root;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 单层递归的逻辑：后序遍历</span></span><br><span class="line">    <span class="comment">// 左：可以告诉我们左子树中是否出现过p或者q</span></span><br><span class="line">    TreeNode* left = <span class="built_in">traversal</span>(root-&gt;left, p, q);</span><br><span class="line">    <span class="comment">// 右：可以告诉我们右子树中是否出现过p或者q</span></span><br><span class="line">    TreeNode* right = <span class="built_in">traversal</span>(root-&gt;right, p, q);</span><br><span class="line">    <span class="comment">// 中</span></span><br><span class="line">    <span class="comment">// 左右子树中出现了p和q，则root是最近公共祖先，将root返回</span></span><br><span class="line">    <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line">    <span class="comment">// 左子树中没有p和q，右子树为最近公共祖先，则继续将right（即最近公共祖先）向上返回，可以参见下面的实例</span></span><br><span class="line">    <span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> right;</span><br><span class="line">    <span class="comment">// 左子树为最近公共祖先，右子树中没有p和q，则继续将left(即最近公共祖先)向上返回，和上面一行代码同理</span></span><br><span class="line">    <span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> left;</span><br><span class="line">    <span class="comment">// 左右子树都为空，则return NULL</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 7, q = 4</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The LCA of nodes 5 and 1 is 3.</span><br></pre></td></tr></table></figure>
+<p><img src="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png" alt="img"></p>
+<p>以上面的二叉树为例，2的左子树返回7，右子树返回4，则2是最近公共祖先。5的左子树返回空，右子树返回2，2是7和4的最近公共祖先，则将2继续向上返回。</p>
+<p>为什么上述代码将另一种情况也包含了？以上图为例，若p=7, q=2，则q就是最近的公共祖先。<strong>一旦遇到q就返回，就不继续向下遍历了</strong>。最终就将q返回到root节点，作为结果了。因此另一种情况不需要特别考虑。</p>
+<p>本题的难点：</p>
+<ul>
+<li>回溯的过程可以将结果逐层从下往上返回。</li>
+<li>从下往上返回结果需要用到后序遍历。先进行左右子树的判断逻辑，再进行中节点的逻辑。只有左右子树的返回值不为空，才将中节点作为最近公共祖先返回。</li>
+<li>可以举实例画图理解本题的回溯过程和后序遍历中节点的处理（返回）逻辑。</li>
+<li>情况2的处理逻辑包含于情况1中。</li>
+</ul>
+<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="530-二叉搜索树的最小绝对差-2"><a href="#530-二叉搜索树的最小绝对差-2" class="headerlink" title="530.二叉搜索树的最小绝对差"></a>530.二叉搜索树的最小绝对差</h3><ol>
+<li>遇到二叉搜索树，首先需要注意其在中序遍历后得到的数组是递增的这一特性。</li>
+<li>遇到在二叉搜索树上求什么最值啊，差值之类的，就把它想成在一个有序数组上求最值，求差值。</li>
+<li><strong>我之所以一开始没有写出本题的双指针解法，原因在于</strong>忘记了如何确定递归函数的返回值。对于本题，需要遍历整棵二叉树且用全局变量来记录返回结果，因此递归函数不需要返回值。</li>
+<li>本题的双指针法的思路和98.验证二叉搜索树相同，但两题的区别在于本题的递归函数没有返回值，而98题的递归函数返回值为bool类型。</li>
+<li>移动pre和cur的核心在于：cur由中序遍历来移动，pre由赋值移动。cur是当前节点，pre是当前节点的上一个节点。</li>
+</ol>
+<h3 id="501-二叉搜索树中的众数-3"><a href="#501-二叉搜索树中的众数-3" class="headerlink" title="501.二叉搜索树中的众数"></a>501.二叉搜索树中的众数</h3><ol>
+<li>本题虽然是easy难度，但其实是<strong>比较难</strong>的。</li>
+<li>若是一般的二叉树，而非二叉搜索树，则本题的思路为：首先遍历二叉树，用map统计每个元素出现的次数。然后对map按照value进行排序，将排序后的map的(key, value)中最大的一个（或几个）value对应的key放入结果集中。原理不复杂，但代码实现起来比较麻烦。</li>
+<li>本题是二叉搜索树，因此想要充分利用了其性质的话，肯定要采用<strong>中序遍历</strong>。本题的核心思路依然是<strong>双指针算法</strong>。需要一个<code>count</code>来存储当前节点出现的次数，一个<code>maxcount</code>来存储整棵二叉树中出现次数最多的节点出现的次数。如果采用两次遍历的做法，那么需要先遍历一遍二叉树得到<code>maxcount</code>，然后再遍历一遍二叉树，将<code>count == maxcount</code>的节点的值存入结果集中。但实际上，遍历一遍二叉树即可完成上述操作。</li>
+<li>遍历一遍二叉树的做法：初始时，<code>count = 1</code>；<code>pre-&gt;val == cur-&gt;val</code>时，<code>count += 1</code>；否则，<code>count = 1</code>。若<code>count == maxcount</code>，则将当前节点的值放入结果集中。此时出现问题：<code>maxcount</code>不一定是整棵二叉树出现次数最多的节点出现的次数。可以用一个简单的办法解决这个问题：若<code>count &gt; maxcount</code>，则更新<code>maxcount</code>，清空结果集，然后再往结果集中插入当前节点的值。通过这样的操作，就可以动态地去更新结果集，从而避免了对二叉树的两次遍历。</li>
+</ol>
+<h3 id="236-二叉树的最近公共祖先-3"><a href="#236-二叉树的最近公共祖先-3" class="headerlink" title="236. 二叉树的最近公共祖先"></a>236. 二叉树的最近公共祖先</h3><ol>
+<li><p>本题需要自下往上处理节点，自然而然想到用<strong>回溯</strong>的思想。</p>
+</li>
+<li><p><strong>后序遍历</strong>（左右中）就是天然的回溯过程，可以根据左右子树的返回值，来处理中节点的逻辑。因此本题采用后序遍历。</p>
+</li>
+<li><p>理解以下的示意图就理解了本题：<br><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210204151125844.png" alt="236.二叉树的最近公共祖先1"></p>
+</li>
+<li><p>本题的代码实际上非常简单而清晰，可以根据代码来理解上面的图片，本题的核心代码为中节点的处理逻辑：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 终止条件1</span></span><br><span class="line"><span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"><span class="comment">// 终止条件2：遇到节点p或者q，则将它们向上返回，对应于节点6和5将它们自身向节点7返回的过程</span></span><br><span class="line"><span class="keyword">if</span> (root == p || root == q) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 单层递归的逻辑：后序遍历</span></span><br><span class="line"><span class="comment">// 左：可以告诉我们左子树中是否出现过p或者q</span></span><br><span class="line">TreeNode* left = <span class="built_in">traversal</span>(root-&gt;left, p, q);</span><br><span class="line"><span class="comment">// 右：可以告诉我们右子树中是否出现过p或者q</span></span><br><span class="line">TreeNode* right = <span class="built_in">traversal</span>(root-&gt;right, p, q);</span><br><span class="line"><span class="comment">// 中</span></span><br><span class="line"><span class="comment">// 左右子树中出现了p和q，则root是最近公共祖先，将root返回，对应于节点7将其自身向节点10返回的过程</span></span><br><span class="line"><span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> root;</span><br><span class="line"><span class="comment">// 左子树中没有p和q，右子树为最近公共祖先，则继续将right（即最近公共祖先）向上返回</span></span><br><span class="line"><span class="comment">// 对应于节点10将节点7向节点8返回的过程</span></span><br><span class="line"><span class="keyword">if</span> (left == <span class="literal">NULL</span> &amp;&amp; right != <span class="literal">NULL</span>) <span class="keyword">return</span> right;</span><br><span class="line"><span class="comment">// 左子树为最近公共祖先，右子树中没有p和q，则继续将left(即最近公共祖先)向上返回，和上面一行代码同理</span></span><br><span class="line"><span class="keyword">if</span> (left != <span class="literal">NULL</span> &amp;&amp; right == <span class="literal">NULL</span>) <span class="keyword">return</span> left;</span><br><span class="line"><span class="comment">// 左右子树都为空，则return NULL</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+<p>用文字来描述，本题的关键代码实现了以下功能：</p>
+<ul>
+<li>遇到节点p或q，就将其向上返回</li>
+<li>某个节点的左右子树中包含p和q，则该节点就是p和q的最近公共祖先，将该节点向上返回</li>
+<li>某个节点的左右子节点中的一个的返回值不为空，则说明那个返回值不为空的左/右节点为p和q的最近公共祖先，将该节点进一步向上返回</li>
+<li>其他情况下均返回空即可</li>
+</ul>
+</li>
+<li><p>还有一种情况，即p是q的父节点，此时遍历到p的父节点时，p的父节点就会向上返回p，而不会继续遍历p和其下面的子树。因此本情况也包含在上述代码的逻辑中。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/19/Day-19-Leetcode-654-617-700-98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -222,7 +368,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-21 09:32:20" itemprop="dateModified" datetime="2024-04-21T09:32:20+01:00">2024-04-21</time>
+                <time title="修改时间：2024-04-22 03:36:45" itemprop="dateModified" datetime="2024-04-22T03:36:45+01:00">2024-04-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1815,154 +1961,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/06/Day-13-Leetcode-239-347-summary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yifan Chen">
-      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YifanChen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/02/06/Day-13-Leetcode-239-347-summary/" class="post-title-link" itemprop="url">Day 13 | Leetcode 239, 347, summary</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-06 21:22:26" itemprop="dateCreated datePublished" datetime="2024-02-06T21:22:26+00:00">2024-02-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-02-09 05:30:39" itemprop="dateModified" datetime="2024-02-09T05:30:39+00:00">2024-02-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%EF%BC%88%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%EF%BC%89/" itemprop="url" rel="index"><span itemprop="name">算法（栈与队列）</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0239.%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC.html">239. 滑动窗口最大值</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0347.%E5%89%8DK%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0.html">347.前 K 个高频元素</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97%E6%80%BB%E7%BB%93.html">栈与队列总结</a></p>
-<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="239-滑动窗口最大值"><a href="#239-滑动窗口最大值" class="headerlink" title="239. 滑动窗口最大值"></a>239. 滑动窗口最大值</h3><h3 id="347-前-K-个高频元素"><a href="#347-前-K-个高频元素" class="headerlink" title="347.前 K 个高频元素"></a>347.前 K 个高频元素</h3><h3 id="栈与队列总结"><a href="#栈与队列总结" class="headerlink" title="栈与队列总结"></a>栈与队列总结</h3><h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="239-滑动窗口最大值-1"><a href="#239-滑动窗口最大值-1" class="headerlink" title="239. 滑动窗口最大值"></a>239. 滑动窗口最大值</h3><p>本题应该有些类似于滑动窗口的经典题目：209.长度最小的子数组。本题的思路：用一个长度始终为3的队列，滑过数组。每次算出队列中的最大值，然后存入数组中。我打算另写一个函数来返回三个值中的最大值。但是应该是有办法在队列进出元素的时候顺便维护其中的最大值。</p>
-<p>我根据暴力做法的思路，写下了如下的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 得出队列中的最大值</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">queuemax</span><span class="params">(queue&lt;<span class="type">int</span>&gt; q)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> max = q.<span class="built_in">front</span>();</span><br><span class="line">        <span class="keyword">while</span> (q.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="type">int</span> tmp = q.<span class="built_in">front</span>();</span><br><span class="line">            <span class="keyword">if</span> (max &lt; tmp) max = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (q.<span class="built_in">size</span>() &lt; k) q.<span class="built_in">push</span>(nums[i]);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (q.<span class="built_in">size</span>() == k)</span><br><span class="line">            &#123;</span><br><span class="line">                res.<span class="built_in">push_back</span>(<span class="built_in">queuemax</span>(q));</span><br><span class="line">                q.<span class="built_in">push</span>(nums[i]);</span><br><span class="line">                q.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res.<span class="built_in">push_back</span>(<span class="built_in">queuemax</span>(q));</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>上述代码在输入数组不大时可以正常运行，但输入数组太大时会超时，测试样例通过了37 / 51。上述暴力做法的时间复杂度是O(n * k)。看代码随想录的视频讲解吧。</p>
-<h3 id="347-前-K-个高频元素-1"><a href="#347-前-K-个高频元素-1" class="headerlink" title="347.前 K 个高频元素"></a>347.前 K 个高频元素</h3><p>拿到这道题，我的第一想法是拿哈希去做。但发现哈希不能解决本题，因为对统计频率的数组排序后，数组的下标（即输入数组的元素）被打乱了。直接看卡尔的讲解。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="239-滑动窗口最大值-2"><a href="#239-滑动窗口最大值-2" class="headerlink" title="239. 滑动窗口最大值"></a>239. 滑动窗口最大值</h3><p>本题是第一道hard。难点：如何求窗口中的最大值？暴力做法时间复杂度O(n <em> k)。需要一个特殊的队列，实现pop, push和getMaxValue（返回当前队列中的最大值）这三个操作。还可以用一个优先级队列。<strong>cpp中的优先级队列就是大顶堆（单调递减）或者小顶堆（单调递增）</strong>。大顶堆本质就是一个排序后的二叉树，最大的元素在上面。始终维护大顶堆，让大顶堆不断插入元素和弹出元素，大顶堆最前面的元素就是滑动窗口的最大值。<em>*但是用大顶堆是不行的</em></em>，因为无法正确地弹出元素（大顶堆内部自动做了排序，打乱了原来元素的顺序）。</p>
-<p>因此用优先队列是不行的，需要我们自行实现一个<strong>单调队列</strong>来解决问题。需要维持队列中的元素是单调递增或单调递减的，同时需要保证pop操作的正确。<strong>单调队列中只需要维护有可能成为最大值的元素，而不需要维护k个元素</strong>。</p>
-<p>模拟单调队列：<br>假设输入数组为13-1-35321。首先在队列中加入元素1，再加入3，若队列的前面有小于3的元素，则将这些元素全部弹出。这样做可以让队列的出口处就是最大值。<strong>由于随着滑动窗口的移动，本身就会舍弃第1个1，因此没必要维护3之前比3小的元素</strong>。接着在队列中加入-1。此时队列的前面没有小于-1的元素，故-1可以保留在队列中。此时取队首元素3，就是最大值。接着加入-3，队列前面的元素都大于-3，故保留-3，此时队列的最大值还是3。接着加入5，由于5比队列前面的元素都大，因此需要pop掉除5以外的全部元素，此时取队列的最大值，即队首元素，是5。接着放入3，3&lt;5，放入3，此时队列的最大值还是5。接着加入2，2&lt;5&amp;&amp;2&lt;3，因此放入2，此时队列的最大值还是5。再向后移动，需要把最大值5pop掉，加入1，1&lt;2 &amp;&amp; 1&lt;3，因此队列中加入1，此时队列的最大值是队首元素3。</p>
-<p>单调队列在数组中移动的规则：除去常规的移动窗口的pop和push操作外，若push进来的元素比队列前面的元素都大，那前面的元素都要pop出去，直到队列前面的元素都大于push进来的元素为止。本方法的好处在于<code>getMaxValue</code>时取队首元素即可。</p>
-<p>根据原理，我画出了如下的示意图，可以帮助理解（下图中打x的元素是因为单调队列的特殊规则：<code>若push进来的元素比队列前面的元素都大，那前面的元素都要pop出去</code>而被提前被删去的元素）。<br><img src="https://github.com/yfchenkeepgoing/image/blob/main/Snipaste_2024-02-07_13-50-29.png?raw=true" alt="Snipaste_2024-02-07_13-50-29.png"></p>
-<p>根据上述原理，我尝试写出相应的代码，但是有一个问题我始终无法解决：根据规则：<code>若push进来的元素比队列前面的元素都大，那前面的元素都要pop出去</code>，有时原本的队首元素已经被更新为最大的元素了，意味着滑动窗口本身最前面的元素已经被弹出了，但有时，滑动窗口本身最前面的元素还没有被弹出，它仍作为队首元素，需要手动弹出。如何判断是否需要手动弹出队首元素。我来看看卡尔的代码实现，看他是如何解决这个问题的。</p>
-<p>卡尔写了单调队列的三个关键函数。单调队列是在双向队列的基础上实现的，双向队列的首尾都可以出入元素。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">deque&lt;<span class="type">int</span>&gt; que; <span class="comment">// cpp中队列默认用deque双向队列来实现，双向队列的首尾都可以出元素和入元素</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">(<span class="type">int</span> val)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 只有当需要pop的元素和队首元素（单调队列中目前的最大值）相同时，才弹出队首元素</span></span><br><span class="line">    <span class="comment">// 例如上图的倒数第二行到最后一行的操作（532-&gt;321）</span></span><br><span class="line">    <span class="comment">// 若需要pop的元素小于队首元素，那么在push时该元素已经被删除了</span></span><br><span class="line">    <span class="comment">// 例如上图中的-1-35-&gt;-353，本来需要手动删除-1，但由于-1&lt;5，因此在push(5)时-1已经被删除了</span></span><br><span class="line">    <span class="keyword">if</span> (!que.<span class="built_in">empty</span>() &amp;&amp; val == que.<span class="built_in">front</span>())</span><br><span class="line">        que.<span class="built_in">pop_front</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 当队列不为空且要插入的值val &gt; 队列中的最后一个元素时，持续从队尾弹出元素</span></span><br><span class="line">    <span class="comment">// 例如上图中的3-1-3-&gt;-1-35，要插入5，持续从队尾弹出比5小的元素，然后再插入5</span></span><br><span class="line">    <span class="keyword">while</span> (!que.<span class="built_in">empty</span>() &amp;&amp; val &gt; que.<span class="built_in">back</span>()) que.<span class="built_in">pop_back</span>();</span><br><span class="line">    que.<span class="built_in">push_back</span>(val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getMaxValue</span><span class="params">(deque&lt;<span class="type">int</span>&gt; que)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> que.<span class="built_in">front</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在上述关键代码的基础上，我写下了解决本题的完整代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">MyQueue</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; que;</span><br><span class="line">            <span class="comment">// 单调队列中只维护当前队列中的最大值，作为队首元素</span></span><br><span class="line">            <span class="comment">// 故窗口滑动时只需要在滑出最大值时手动删除最大值即可</span></span><br><span class="line">            <span class="comment">// 其他值都会在push时被删除</span></span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (!que.<span class="built_in">empty</span>() &amp;&amp; val == que.<span class="built_in">front</span>()) que.<span class="built_in">pop_front</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 保证单调队列从队首到队尾是单调递减的</span></span><br><span class="line">            <span class="comment">// 新插入的元素若大于当前队列中的最大值，则删除当前队列，将插入的元素放在队列的首部</span></span><br><span class="line">        <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (!que.<span class="built_in">empty</span>() &amp;&amp; val &gt; que.<span class="built_in">back</span>()) que.<span class="built_in">pop_back</span>();</span><br><span class="line">            que.<span class="built_in">push_back</span>(val);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 当前队列中的最大值为队首元素，故返回队首元素即可</span></span><br><span class="line">        <span class="function"><span class="type">int</span> <span class="title">getMaxValue</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> que.<span class="built_in">front</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        MyQueue que;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; res;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; k; i ++ )</span><br><span class="line">            que.<span class="built_in">push</span>(nums[i]);</span><br><span class="line"></span><br><span class="line">        res.<span class="built_in">push_back</span>(que.<span class="built_in">getMaxValue</span>());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = k; i &lt; nums.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            que.<span class="built_in">pop</span>(nums[i - k]);</span><br><span class="line">            que.<span class="built_in">push</span>(nums[i]);</span><br><span class="line">            res.<span class="built_in">push_back</span>(que.<span class="built_in">getMaxValue</span>());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="347-前-K-个高频元素-2"><a href="#347-前-K-个高频元素-2" class="headerlink" title="347.前 K 个高频元素"></a>347.前 K 个高频元素</h3><p>两个难点：</p>
-<ul>
-<li><p>如何求数组中每个元素的频率</p>
-</li>
-<li><p>如何对这个频率进行排序，并求前k个高频的元素</p>
-</li>
-</ul>
-<p>用map来进行排序，key用来存放元素，value用来存放元素出现的次数。接着以value为基准做从大到小的排序（不好做，因为map默认是按照key的顺序来进行排序的），最后输出value对应的key即可。时间复杂度<code>O(nlogn)</code>。</p>
-<p>求前k个高频的元素，只需维护k个有序的集合，没必要对所有元素都进行排序。经典的数据结构：大顶堆、小顶堆。堆擅长在很大的数据集中求前k个高/低频的元素。大顶堆的根节点是最大的元素，小顶堆的根节点是最小的元素。</p>
-<p>如何用堆解决这个问题？用堆去遍历map中的所有元素（以value为基准进行统计），堆中维持k个元素，遍历完map中的所有元素后，堆中的k个元素就是前k个高频元素。<strong>大/小顶堆？</strong>用大顶堆遍历map中的所有元素时，遇到新元素时，将其插入到大顶堆中，会弹出堆顶的元素（最大的元素），<strong>用大顶堆遍历完map后，堆中剩下的元素是前k个低频的元素</strong>。<strong>因此要用小顶堆</strong>。小顶堆每次在push进来元素时，弹出堆顶元素（最小的元素），堆中剩下的就是最大的元素。最后输出前k个最大的value对应的key。时间复杂度：遍历数组O(n)，每次堆中元素调整O(logk)（堆中有k个元素，堆是树状结构），总时间复杂度为O(nlogk)。在数组很大，k较小的情况下，本做法的性能明显优于对整个map进行排序的性能。优先级队列的底层实现是堆，<strong>因此用优先级队列即可</strong>。可自行实现大顶堆和小顶堆。</p>
-<p>参考代码随想录的代码，我写下了如下的代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">compare</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>: </span><br><span class="line">        <span class="comment">// 为定义小顶堆重载运算符，这里的函数名为operator()，而非operator</span></span><br><span class="line">        <span class="comment">// 对大顶堆，本来应该是右边的元素&gt;左边的元素，对小顶堆，则与此相反</span></span><br><span class="line">        <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; lhs, pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; rhs)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> lhs.second &gt; rhs.second; <span class="comment">// 比较的是元素出现的次数，而非元素的值</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">topKFrequent</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">        unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; map;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// nums[i]作为key, 出现此处作为value存入map中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); i ++ )</span><br><span class="line">            map[nums[i]] ++ ;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 定义小顶堆，其中的元素类型是pair&lt;int, int&gt;，底层实现是vector&lt;pair&lt;int, int&gt;&gt;</span></span><br><span class="line">        priority_queue&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;, vector&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;&gt;, compare&gt; q;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历map，不断将map中的元素插入小顶堆中，小顶堆不断弹出根节点处最小的元素</span></span><br><span class="line">        <span class="comment">// 最后剩下的k个元素是出现频次最高的k个元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> it = map.<span class="built_in">begin</span>(); it != map.<span class="built_in">end</span>(); it ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            q.<span class="built_in">push</span>(*it);</span><br><span class="line">            <span class="keyword">if</span> (q.<span class="built_in">size</span>() &gt; k) q.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">res</span><span class="params">(k)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根节点处是最小的元素，越往下元素越大，因此将小顶堆中的k个元素倒着插入res中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = k - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i -- )</span><br><span class="line">        &#123;</span><br><span class="line">            res[i] = q.<span class="built_in">top</span>().first; <span class="comment">// 插入res的是key, 即nums[i]</span></span><br><span class="line">            q.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="239-滑动窗口最大值-3"><a href="#239-滑动窗口最大值-3" class="headerlink" title="239. 滑动窗口最大值"></a>239. 滑动窗口最大值</h3><ol>
-<li>单调队列需要手动实现，cpp标准库中没有现成可用的单调队列。</li>
-<li>单调队列的好处在于能够将当前队列中的最大值放在队首，且不改变其他值的排列顺序（即其他值在单调队列中的排列顺序和它们在输入数组中的排列顺序相同）。</li>
-<li>单调队列的特殊规则：若push进来的元素比队列前面的元素都大，那前面的元素都要pop出去。</li>
-<li>定义一个类，在双向队列的基础上实现单调队列，而不要试图在主函数中对<code>queue&lt;int&gt;</code>做加工。</li>
-<li>本题的详细模拟流程见实现中的图片。</li>
-<li><p>单调队列中定义了三个函数：pop, push和getMaxValue。<br>对pop函数（负责模拟窗口的滑动，删除队首的最大值），需要注意：</p>
-<ul>
-<li>单调队列中只维护当前队列中的最大值，作为队首元素</li>
-<li>故窗口滑动时只需要在滑出最大值时手动删除最大值即可</li>
-<li>其他值都会在push时被删除</li>
-</ul>
-<p>对push函数（负责向单调队列中插入元素，同时调整队列中元素的顺序，将最大值置于队首），需要注意：</p>
-<ul>
-<li>保证单调队列从队首到队尾是单调递减的</li>
-<li>新插入的元素若大于当前队列中的最大值，则删除当前队列，将插入的元素放在队列的首部</li>
-<li>当前队列中的非最大值会在不断调用push函数的过程中被删除，最大值则需要pop函数来删除</li>
-</ul>
-</li>
-<li>时间复杂度: O(n) 空间复杂度: O(k)<br>输入数组中的每个元素在单调队列中最多也就被插入和弹出各一次，没有任何多余操作，所以整体的时间复杂度还是O(n)。空间复杂度因为我们定义一个辅助队列，所以是O(k)。</li>
-<li>本题之所以选择在双向队列的基础上加工出单调队列,是因为双向队列可以方便地在队首和队尾插入和删除元素。</li>
-<li><p>注意类的写法、双向队列的<code>push_back</code>, <code>push_front</code>, <code>pop_back</code>, <code>pop_front</code>以及单调队列的<code>push</code>, <code>pop</code>等方法，不要写错或者混淆。</p>
-<h3 id="347-前-K-个高频元素-3"><a href="#347-前-K-个高频元素-3" class="headerlink" title="347.前 K 个高频元素"></a>347.前 K 个高频元素</h3></li>
-<li><p>本题的大致思路：用map来存储元素的值和出现次数，用一个小顶堆遍历map，最终获取出现次数最高的k个元素。<br><strong>map-&gt;priority_queue-&gt;vector</strong></p>
-</li>
-<li>本题的思路：用map的key存储元素的值，value存储元素出现的次数。定义一个小顶堆。遍历map，不断将map中的元素插入到小顶堆中，不断弹出小顶堆根节点处的元素，最后小顶堆中剩下的k个元素就是出现次数最高的k个元素。将这k个元素倒着插入结果数组中即可。</li>
-<li>为什么使用小根堆：小跟堆根节点处的元素最小，每次弹出元素也是从根节点处弹出，因此用大小为k的小根堆遍历完map后，小根堆中的k个元素是出现次数最高的k个元素，较小的元素在遍历的过程中就已经被弹出了。</li>
-<li>注意小顶堆的定义方式：在优先级队列的基础上，传入的参数分别为小顶堆中存储的元素类型，小顶堆的底层实现，自定义的compare类（用于实现小顶堆根节点是最小元素的特性）。</li>
-<li>注意如何写compare类，关键在于重载运算符。</li>
-<li>注意vector数组是可以定义大小的，定义方式为<code>vector&lt;int&gt; res(k)</code>，vector元素定义了大小之后，就能像普通数组那样用索引给元素赋值：<code>res[i]</code>，插入元素的push_back函数并不是必须的。</li>
-<li>根据小根堆的特点，res数组需要倒着插入，即从下标<code>k - 1</code>处开始插入。</li>
-<li>定义类是，要记得在类中的函数前加上public，否则无法正常调用类中的函数。</li>
-<li>本算法的时间复杂度是O(nlogk)，好于对map全部排序的O(nlogn)，在n较大，k较小时性能提升尤为明显。</li>
-</ol>
-<h3 id="栈与队列总结-1"><a href="#栈与队列总结-1" class="headerlink" title="栈与队列总结"></a>栈与队列总结</h3><ol>
-<li>栈和队列的理论基础：栈先入后出，队列先入先出</li>
-<li>用两个栈实现队列，用一个队列实现栈</li>
-<li>栈的应用：栈的应用相对较为简单且单一。栈特别适合处理对相邻字符需要做特殊判断的一些问题。比如相邻的括号匹配（20. 有效的括号）、相邻字符的消除（删除字符串中的所有相邻重复项）和后缀表达式中相邻数字的计算（逆波兰表达式求值）。</li>
-<li>队列的应用：队列的应用更为复杂且多样，包括手动实现单调队列（239. 滑动窗口最大值）和手动实现大/小顶堆（优先级队列）347. 前k个高频元素）。对于队列的应用要多复习，这两题写起来都较为复杂。</li>
-<li>单调队列不是一成不变的，而是不同场景不同写法。不要以为239. 滑动窗口最大值中的单调队列实现就是固定的写法。</li>
-<li><p>栈里面的元素在内存中是连续分布的么？</p>
-<p>这个问题有两个陷阱：</p>
-<ul>
-<li>陷阱1：栈是容器适配器，底层容器使用不同的容器，导致栈内数据在内存中不一定是连续分布的。</li>
-<li>陷阱2：缺省情况下，默认底层容器是deque，那么deque在内存中的数据分布是什么样的呢？ 答案是：不连续的，下文也会提到deque。</li>
-</ul>
-</li>
-<li>拓展题：71. 简化路径</li>
-<li>优先级队列就是大/小顶堆，名字虽为队列（因为优先级队列对外接口只是从队头取元素，从队尾添加元素，再无其他取元素的方式，看起来就是一个队列），但本质是完全二叉树。大顶堆（堆头是最大元素），小顶堆（堆头是最小元素）。从小到大排就是小顶堆，从大到小排就是大顶堆。大小顶堆和大小根堆是相同的。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2034,7 +2032,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2047,7 +2045,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
