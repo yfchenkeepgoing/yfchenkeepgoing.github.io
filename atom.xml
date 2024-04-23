@@ -628,9 +628,9 @@
     
     <category term="数组哈希" scheme="http://example.com/tags/%E6%95%B0%E7%BB%84%E5%93%88%E5%B8%8C/"/>
     
-    <category term="set哈希" scheme="http://example.com/tags/set%E5%93%88%E5%B8%8C/"/>
-    
     <category term="map哈希" scheme="http://example.com/tags/map%E5%93%88%E5%B8%8C/"/>
+    
+    <category term="set哈希" scheme="http://example.com/tags/set%E5%93%88%E5%B8%8C/"/>
     
   </entry>
   
