@@ -191,6 +191,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/30/How-to-Understand-an-Open-Source-Project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yifan Chen">
+      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YifanChen's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/30/How-to-Understand-an-Open-Source-Project/" class="post-title-link" itemprop="url">How to Understand an Open Source Project</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-01-30 11:16:31 / 修改时间：12:08:37" itemprop="dateCreated datePublished" datetime="2024-01-30T11:16:31+00:00">2024-01-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">web开发</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="快速了解项目"><a href="#快速了解项目" class="headerlink" title="快速了解项目"></a>快速了解项目</h2><p><img src="https://github.com/yfchenkeepgoing/image/blob/main/Snipaste_2024-01-30_11-45-52.png?raw=true" alt="Snipaste_2024-01-30_11-45-52.png"></p>
+<p>从0带读Java小说项目。项目：<a target="_blank" rel="noopener" href="https://novel.xxyopen.com/">小说精品屋</a></p>
+<p>首先看代码的简介（README），然后看代码的更新频率（几年没更新的就不用看了）。</p>
+<p>接着看项目的介绍，看项目的技术栈和我们自己的技术栈是否匹配。</p>
+<p>接着看包结构（项目结构）。</p>
+<p>看技术选型。高级的技术：ShardingSphere-JDBC（数据库分库分表支持）、分布式缓存支持、搜索引擎服务、开源消息中间件、文件存储、对象存储。</p>
+<p>接着看<strong>核心：项目如何安装，如何启动</strong>。</p>
+<h2 id="了解项目依赖"><a href="#了解项目依赖" class="headerlink" title="了解项目依赖"></a>了解项目依赖</h2><p>通过github1s（在线查看项目的工具）看项目。</p>
+<p>==看项目从整体到局部，先看项目的架构及关键配置文件==</p>
+<p>比如assets放静态文件，sql放SQL语句。根目录下的pom.xml定义了父工程的配置。在父工程的配置中又定义了子模块，可以达到多包同时编译的效果。</p>
+<p>dockerfile：可以用其来生成一个docker镜像</p>
+<p>Java的项目主要分为两部分：resources放一些资源文件和配置，另一部分是java的核心代码。</p>
+<p>看resources/application.yml：跑起这个项目需要启动哪些服务。</p>
+<p>resources/mybatis：放一些SQL语句</p>
+<p>resources/static：放前端的文件，比如javascript, css等等。</p>
+<p>resources/templates：用的是thymeleaf，拓展标签可以动态地把一些后台数据渲染到页面。</p>
+<p>resources/application-dev.yml：是项目的开发环境的配置。</p>
+<p>resources/application-prod.yml：是项目生成环境的配置。</p>
+<p>resources/logback.yml：日志</p>
+<h2 id="了解项目结构"><a href="#了解项目结构" class="headerlink" title="了解项目结构"></a>了解项目结构</h2><p>现在java项目的目录结构比较清晰和规范。都是mvc结构：model view controller。</p>
+<p>controller：控制层，接收用户的请求，给予一些响应，业务逻辑一般不写在其中</p>
+<p>core：项目核心的类</p>
+<p>mapper：mybatis的映射文件，在这个文件中定义操作数据库的方法</p>
+<p>page：控制页面的返回。用户请求一个地址，请求发送到controller，会响应并返回某个页面给用户，和前端的模板有关联。</p>
+<p>service：编写业务的逻辑</p>
+<p>vo：返回给页面的数据</p>
+<p>springboot的启动类，会自动帮助我启动一个tomcat服务器</p>
+<h2 id="追踪请求（了解分层）"><a href="#追踪请求（了解分层）" class="headerlink" title="追踪请求（了解分层）"></a>追踪请求（了解分层）</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13q4y1U7JU/?spm_id_from=333.337.search-card.all.click&amp;vd_source=bf2f8cedefdf16acd0e7a14d8e4669fd">带你读懂一个开源项目，学习通用套路！程序员阅读项目源码技巧、Java 编程项目分享</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.code-nav.cn/">编程导航</a></p>
+<p><a target="_blank" rel="noopener" href="https://novel.xxyopen.com/">小说精品屋</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/29/Day-6-Leetcode-242-349-202-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1575,76 +1672,10 @@ shift enter: 新起一行
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/20/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Yifan Chen">
-      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YifanChen's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/01/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-01-20 00:56:39" itemprop="dateCreated datePublished" datetime="2024-01-20T00:56:39+00:00">2024-01-20</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1712,7 +1743,7 @@ shift enter: 新起一行
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
