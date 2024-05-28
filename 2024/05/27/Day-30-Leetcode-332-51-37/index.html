@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="链接332.重新安排行程51. N皇后37. 解数独总结 知识332.重新安排行程51. N皇后37. 解数独总结初次尝试332.重新安排行程51. N皇后37. 解数独总结实现今天这三道题都非常难，那么这么难的题，为啥一天做三道？  因为一刷也不求能把这么难的问题解决，所以一刷的时候，就了解一下题目的要求，了解一下解题思路，不求能直接写出代码，先大概熟悉一下这些题，二刷的时候，随着对回溯算法的深">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Day 30 Leetcode 332, 51, 37">
+<meta property="og:url" content="http://example.com/2024/05/27/Day-30-Leetcode-332-51-37/index.html">
+<meta property="og:site_name" content="YifanChen&#39;s Blog">
+<meta property="og:description" content="链接332.重新安排行程51. N皇后37. 解数独总结 知识332.重新安排行程51. N皇后37. 解数独总结初次尝试332.重新安排行程51. N皇后37. 解数独总结实现今天这三道题都非常难，那么这么难的题，为啥一天做三道？  因为一刷也不求能把这么难的问题解决，所以一刷的时候，就了解一下题目的要求，了解一下解题思路，不求能直接写出代码，先大概熟悉一下这些题，二刷的时候，随着对回溯算法的深">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://code-thinking-1253855093.file.myqcloud.com/pics/20210130182532303.jpg">
+<meta property="og:image" content="https://code-thinking-1253855093.file.myqcloud.com/pics/20210130182532303.jpg">
+<meta property="og:image" content="https://github.com/yfchenkeepgoing/image/blob/main/n_queen_revised_2.png?raw=true">
+<meta property="article:published_time" content="2024-05-27T19:30:48.000Z">
+<meta property="article:modified_time" content="2024-05-28T22:53:19.108Z">
+<meta property="article:author" content="Yifan Chen">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="总结">
+<meta property="article:tag" content="回溯算法">
+<meta property="article:tag" content="hard题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://code-thinking-1253855093.file.myqcloud.com/pics/20210130182532303.jpg">
+
+<link rel="canonical" href="http://example.com/2024/05/27/Day-30-Leetcode-332-51-37/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Day 30 Leetcode 332, 51, 37 | YifanChen's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="YifanChen's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YifanChen's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个专注技术的新手程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/yfchenkeepgoing/yfchenkeepgoing.github.io" class="github-corner" title="YifanChen GitHub" aria-label="YifanChen GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/27/Day-30-Leetcode-332-51-37/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Yifan Chen">
+      <meta itemprop="description" content="主要记录算法和web开发方面的心得体会">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YifanChen's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Day 30 Leetcode 332, 51, 37
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-27 20:30:48" itemprop="dateCreated datePublished" datetime="2024-05-27T20:30:48+01:00">2024-05-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-05-28 23:53:19" itemprop="dateModified" datetime="2024-05-28T23:53:19+01:00">2024-05-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%EF%BC%88%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%EF%BC%89/" itemprop="url" rel="index"><span itemprop="name">算法（回溯算法）</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="https://programmercarl.com/0332.%E9%87%8D%E6%96%B0%E5%AE%89%E6%8E%92%E8%A1%8C%E7%A8%8B.html">332.重新安排行程</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0051.N%E7%9A%87%E5%90%8E.html">51. N皇后</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/0037.%E8%A7%A3%E6%95%B0%E7%8B%AC.html">37. 解数独</a><br><a target="_blank" rel="noopener" href="https://programmercarl.com/%E5%9B%9E%E6%BA%AF%E6%80%BB%E7%BB%93.html">总结</a></p>
+<h2 id="知识"><a href="#知识" class="headerlink" title="知识"></a>知识</h2><h3 id="332-重新安排行程"><a href="#332-重新安排行程" class="headerlink" title="332.重新安排行程"></a>332.重新安排行程</h3><h3 id="51-N皇后"><a href="#51-N皇后" class="headerlink" title="51. N皇后"></a>51. N皇后</h3><h3 id="37-解数独"><a href="#37-解数独" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h2 id="初次尝试"><a href="#初次尝试" class="headerlink" title="初次尝试"></a>初次尝试</h2><h3 id="332-重新安排行程-1"><a href="#332-重新安排行程-1" class="headerlink" title="332.重新安排行程"></a>332.重新安排行程</h3><h3 id="51-N皇后-1"><a href="#51-N皇后-1" class="headerlink" title="51. N皇后"></a>51. N皇后</h3><h3 id="37-解数独-1"><a href="#37-解数独-1" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><strong>今天这三道题都非常难，那么这么难的题，为啥一天做三道？</strong> </p>
+<p>因为一刷也不求能把这么难的问题解决，所以一刷的时候，就了解一下题目的要求，了解一下解题思路，不求能直接写出代码，先大概熟悉一下这些题，二刷的时候，随着对回溯算法的深入理解，再去解决如下三题。 </p>
+<h3 id="332-重新安排行程-2"><a href="#332-重新安排行程-2" class="headerlink" title="332.重新安排行程"></a>332.重新安排行程</h3><h3 id="51-N皇后-2"><a href="#51-N皇后-2" class="headerlink" title="51. N皇后"></a>51. N皇后</h3><p>本题是回溯中较难的题目。题意：给一个n*n的棋盘，在其中放n个皇后，要求同一行、同一列、同意斜线上不能有两个皇后，将放置皇后的结果返回。难点：之前讲的组合问题、分割问题、子集问题和排列问题，都是一个一维的集合按照条件输出若个子集，本题则是一个二维的集合（数组）。</p>
+<p>首先想如何暴力枚举，以4*4的棋盘为例，需要4个for循环，每一行每个位置尝试放皇后，根据规则判断能否放皇后。回溯算法的本质和暴力枚举没有区别，但回溯算法用递归的方式控制嵌套for循环的层数。</p>
+<p>本题的树形结构如下所示，以3*3的棋盘为例：<br><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210130182532303.jpg" alt="51.N皇后" style="zoom: 50%;" /></p>
+<p><strong>第n层递归对应着尝试在第n行中放置皇后</strong>。3*3的N皇后问题是无解的，画其只是为了展现其树形结构。树的深度为棋盘的行数，树的宽度为棋盘的列数。接下来写本题的代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每个棋盘是一个二维数组，放置若干棋盘，因此需要三维数组</span></span><br><span class="line">vector&lt;vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&gt; res; <span class="comment">// 三维数组收集所有可能的摆放结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// chessboard为棋盘，n为棋盘的大小, row为行，第n层递归负责处理第n行，用row来记录当前处理到了第几行</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; chessboard, <span class="type">int</span> n, <span class="type">int</span> row)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 终止条件: 叶子节点收获结果</span></span><br><span class="line">    <span class="keyword">if</span> (row == n) </span><br><span class="line">    &#123;</span><br><span class="line">        res.<span class="built_in">push_back</span>(chessboard); <span class="comment">// 单层递归逻辑中会对合法性进行判断，保证放入res中的chessboard都是合法的</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 单层递归逻辑</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 合法性判断</span></span><br><span class="line">        <span class="comment">// 判断在第row行，第i个位置放皇后是否合法</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isValid</span>(row, i, chessboard, n))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 放皇后</span></span><br><span class="line">            chessboard[row][i] = <span class="string">&#x27;Q&#x27;</span>; </span><br><span class="line">            <span class="comment">// 递归</span></span><br><span class="line">            <span class="built_in">backtracking</span>(chessboard, n, row + <span class="number">1</span>); <span class="comment">// 下一层递归, row-&gt;row + 1</span></span><br><span class="line">            <span class="comment">// 回溯</span></span><br><span class="line">            chessboard[row][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总结：回溯法解决二维数组问题，第n层递归处理第n行，每层递归中遍历每一行中的每个元素。</p>
+<p>在理解了本题的主题思路后，独立写出代码依然有难度，因为本题返回的变量类型是<code>vector&lt;vector&lt;string&gt;</code>，chessboard的变量类型应该为<code>vector&lt;string&gt;</code>，对其进行初始化有一定难度。另外，<code>isValid</code>函数的实现我第一次写也有一定的困难，直接看文字版讲解。</p>
+<p>我独立写出的本题的代码如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 结果集</span></span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; res;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValid</span><span class="params">(vector&lt;string&gt;&amp; chessboard, <span class="type">int</span> n, <span class="type">int</span> row, <span class="type">int</span> col)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 同一列中不能有两个皇后</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; row; i ++ )</span><br><span class="line">            <span class="keyword">if</span> (chessboard[i][col] == <span class="string">&#x27;Q&#x27;</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 主对角线不能有两个皇后</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = row - <span class="number">1</span>, j = col - <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; j &gt;= <span class="number">0</span>; i -- , j -- )</span><br><span class="line">            <span class="keyword">if</span> (chessboard[i][j] == <span class="string">&#x27;Q&#x27;</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 副对角线不能有两个皇后</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = row - <span class="number">1</span>, j = col + <span class="number">1</span>; i &gt;= <span class="number">0</span> &amp;&amp; j &lt; n; i -- , j ++ )</span><br><span class="line">            <span class="keyword">if</span> (chessboard[i][j] == <span class="string">&#x27;Q&#x27;</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 传入棋盘，棋盘大小，行数（即递归层数）</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(vector&lt;string&gt;&amp; chessboard, <span class="type">int</span> n, <span class="type">int</span> row)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 终止条件</span></span><br><span class="line">        <span class="keyword">if</span> (row == n) </span><br><span class="line">        &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(chessboard);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 单层递归逻辑</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i ++ )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 合法性判断</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isValid</span>(chessboard, n, row, i))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 放皇后</span></span><br><span class="line">                chessboard[row][i] = <span class="string">&#x27;Q&#x27;</span>;</span><br><span class="line">                <span class="comment">// 递归</span></span><br><span class="line">                <span class="built_in">backtracking</span>(chessboard, n, row + <span class="number">1</span>);</span><br><span class="line">                <span class="comment">// 回溯</span></span><br><span class="line">                chessboard[row][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; <span class="built_in">solveNQueens</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        <span class="function">vector&lt;string&gt; <span class="title">chessboard</span><span class="params">(n, string(n, <span class="string">&#x27;.&#x27;</span>))</span></span>;</span><br><span class="line">        <span class="built_in">backtracking</span>(chessboard, n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>需要特别注意的是，在放皇后时，每次只在一行中的某个位置放一个皇后，且放完后会回溯，因此同一行中不会出现两个皇后，因此不需要在<code>isValid</code>函数中对同一行中出现两个皇后的情况进行判断。另外，放皇后的顺序是从行数小放到行数大，从列数小放到列数大。在不同行中，行数小的位置会被优先尝试放置皇后。在同一行的不同列中，列数小的位置会被优先尝试放置皇后。因此，<code>isValid</code>函数中对同一列判断，只需要判断从0-row列；对主对角线判断，只需要判断i从row-1到0，j从col-1到0；对副对角线判断，只需要判断i从row - 1到0，j从col + 1到n（由于优先放小的行，所以<code>i &lt; row, j &gt; col</code>的位置可能已经放置了皇后）。</p>
+<h3 id="37-解数独-2"><a href="#37-解数独-2" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><h3 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h3><h2 id="心得与备忘录"><a href="#心得与备忘录" class="headerlink" title="心得与备忘录"></a>心得与备忘录</h2><h3 id="332-重新安排行程-3"><a href="#332-重新安排行程-3" class="headerlink" title="332.重新安排行程"></a>332.重新安排行程</h3><h3 id="51-N皇后-3"><a href="#51-N皇后-3" class="headerlink" title="51. N皇后"></a>51. N皇后</h3><ol>
+<li><p>本题的新奇之处在于：之前用回溯法解决过组合、切割、子集、排列问题，处理的对象都是一维数组，N皇后问题处理的对象却是<strong>二维数组</strong>。</p>
+</li>
+<li><p>本题的原理实际上非常简单，理解本题的<strong>树形结构</strong>即可：</p>
+<p><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210130182532303.jpg" alt="51.N皇后" style="zoom:50%;" /></p>
+</li>
+<li><p>由上述树形结构可知，<strong>树的宽度是棋盘的列数，树的深度是棋盘的行数</strong>。据此，可以轻松地写出<code>backtracking</code>函数的终止条件和单层递归逻辑。</p>
+</li>
+<li><p>对棋盘合法性的判断其实是比较容易写错的。按照以下标准验证棋盘是否合法，两皇后：</p>
+<ul>
+<li><p>不能同行</p>
+</li>
+<li><p>不能同列</p>
+</li>
+<li><p>不能同斜线 （主对角线和副对角线）</p>
+</li>
+</ul>
+<p>在<code>isValid</code>函数中，不能同行的判断不需要写。因为在单层搜索的过程中，每一层递归，只会选for循环（也就是同一行）里的一个元素，且后序还会回溯释放掉这个元素。因此只需要写不能同列、不能同主对角线、不能同副对角线的判断。这三个判断的书写依据如<strong>下图</strong>所示。</p>
+<p><img src="https://github.com/yfchenkeepgoing/image/blob/main/n_queen_revised_2.png?raw=true" alt="n_queen_revised_2.png"></p>
+<p>当我们尝试在<code>(row, col)</code>处放置皇后时，只有绿色部分可能在之前被放置过皇后。原因是：递归到当前层，只有行数&lt;row的格点上可能被放置过皇后。根据三条黄线，可以方便地写出三个判断。</p>
+</li>
+<li><p>本题的时间复杂度O(n!)，空间复杂度O(n)。</p>
+<ul>
+<li>时间复杂度：由于回溯法的本质依然是暴搜，因此，在棋盘的第一行，有n种放置皇后的方式；第二行最多有n - 1种，依次类推，得到时间复杂度为O(n!)。</li>
+<li>空间复杂度即为树的深度，即为棋盘的行数，故空间复杂度为O(n)。</li>
+</ul>
+</li>
+</ol>
+<h3 id="37-解数独-3"><a href="#37-解数独-3" class="headerlink" title="37. 解数独"></a>37. 解数独</h3><h3 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+              <a href="/tags/Leetcode/" rel="tag"># Leetcode</a>
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E6%80%BB%E7%BB%93/" rel="tag"># 总结</a>
+              <a href="/tags/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/" rel="tag"># 回溯算法</a>
+              <a href="/tags/hard%E9%A2%98/" rel="tag"># hard题</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/26/Day-29-Leetcode-491-46-47/" rel="prev" title="Day 29 Leetcode 491, 46, 47">
+      <i class="fa fa-chevron-left"></i> Day 29 Leetcode 491, 46, 47
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#332-%E9%87%8D%E6%96%B0%E5%AE%89%E6%8E%92%E8%A1%8C%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">332.重新安排行程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#51-N%E7%9A%87%E5%90%8E"><span class="nav-number">2.2.</span> <span class="nav-text">51. N皇后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-%E8%A7%A3%E6%95%B0%E7%8B%AC"><span class="nav-number">2.3.</span> <span class="nav-text">37. 解数独</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E6%AC%A1%E5%B0%9D%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">初次尝试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#332-%E9%87%8D%E6%96%B0%E5%AE%89%E6%8E%92%E8%A1%8C%E7%A8%8B-1"><span class="nav-number">3.1.</span> <span class="nav-text">332.重新安排行程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#51-N%E7%9A%87%E5%90%8E-1"><span class="nav-number">3.2.</span> <span class="nav-text">51. N皇后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-%E8%A7%A3%E6%95%B0%E7%8B%AC-1"><span class="nav-number">3.3.</span> <span class="nav-text">37. 解数独</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">3.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#332-%E9%87%8D%E6%96%B0%E5%AE%89%E6%8E%92%E8%A1%8C%E7%A8%8B-2"><span class="nav-number">4.1.</span> <span class="nav-text">332.重新安排行程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#51-N%E7%9A%87%E5%90%8E-2"><span class="nav-number">4.2.</span> <span class="nav-text">51. N皇后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-%E8%A7%A3%E6%95%B0%E7%8B%AC-2"><span class="nav-number">4.3.</span> <span class="nav-text">37. 解数独</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">4.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E5%BE%97%E4%B8%8E%E5%A4%87%E5%BF%98%E5%BD%95"><span class="nav-number">5.</span> <span class="nav-text">心得与备忘录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#332-%E9%87%8D%E6%96%B0%E5%AE%89%E6%8E%92%E8%A1%8C%E7%A8%8B-3"><span class="nav-number">5.1.</span> <span class="nav-text">332.重新安排行程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#51-N%E7%9A%87%E5%90%8E-3"><span class="nav-number">5.2.</span> <span class="nav-text">51. N皇后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-%E8%A7%A3%E6%95%B0%E7%8B%AC-3"><span class="nav-number">5.3.</span> <span class="nav-text">37. 解数独</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-3"><span class="nav-number">5.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yifan Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Yifan Chen</p>
+  <div class="site-description" itemprop="description">主要记录算法和web开发方面的心得体会</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">80</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yifan Chen</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '1495b8dcfa58a185e440',
+      clientSecret: 'f073065ea2e5270367cd8792371419093833c1f3',
+      repo        : 'yfchenkeepgoing.github.io',
+      owner       : 'yfchenkeepgoing',
+      admin       : ['yfchenkeepgoing'],
+      id          : '87fbe881e05c8810e88eb3cb8729e411',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+    </div>
+</body>
+</html>
