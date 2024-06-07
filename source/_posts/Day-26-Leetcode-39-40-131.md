@@ -2,6 +2,16 @@
 title: Day 26 Leetcode 39, 40, 131
 date: 2024-05-03 05:14:31
 tags:
+- Algorithm
+- Leetcode
+- C++
+- 回溯算法
+- 组合问题
+- 分割问题
+- 去重
+- 剪枝操作
+categories: 
+- 算法（回溯算法）
 ---
 
 ## 链接

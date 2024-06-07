@@ -260,7 +260,7 @@ private:
 
 #### 双指针解法
 
-![绘图 (1).png](https://github.com/yfchenkeepgoing/image/blob/main/%E7%BB%98%E5%9B%BE%20(1).png?raw=true)
+![leetcode206.png](https://github.com/yfchenkeepgoing/image/blob/main/leetcode206.png?raw=true)
 
 具体解法：由于不需要让翻转以后的链表的头节点为空，因此当cur指向NULL时，遍历结束。因此循环为：`while(cur)`，cur == NULL为遍历的终止条件。
 
