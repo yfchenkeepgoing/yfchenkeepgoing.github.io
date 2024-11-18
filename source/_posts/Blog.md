@@ -74,6 +74,7 @@ hexo generate
 
 ```bash
 hexo serve
+hexo new "Day 30 Leetcode 332, 51, 37"
 ```
 
 然后通过链接：http://localhost:4000/即可访问到渲染出的博客页面。注意：在这种情况下，博客页面只对自己可见，因此上述命令只能用于调试。
